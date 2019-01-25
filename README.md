@@ -8,10 +8,14 @@ V2go web app's repo contains client and server apps (django angular), and infast
 **Required:** Python3.7 (doesn't need to be the default system python) and pip
 
 ```bash
+# Install Python3.7, if it's not yet installed
+$ sudo apt-get update
+$ sudo apt-get install python3.7
+
 # install pipenv
 $ pip install pipenv
 
-# create venv and activate it
+# Go into /django_server/, create a new virtual env and activate it
 $ pipenv --python 3.7  # or path/to/python if no python 
 $ pipenv shell
 
@@ -35,4 +39,40 @@ $ (vevn) pip install \
               Pillow==5.2.0 \
               pytest-asyncio==0.9.0 \
               pytest-django==3.4.2
+
+# Check that packages were installed
+$ (venv) pipenv graph
+```
+
+
+### Instal and setup Angular
+Install node and angular
+```bash
+#If npm and node.js aren't installed, do that first:
+$ sudo snap install node --channel=10/stable --classic
+
+# install Angular CLI
+$ npm install -g @angular/cli@6.1.4   #TODO: Need to UPGRADE to newer LTE 
+
+# check version
+$ ng v
+```
+
+Launch project
+```bash 
+# cd into aungular-ui and launch server
+$ ng serve --open
+```
+
+If you were taken to the welcome page (http://localhost:4200), Kill server (ctr+c) and install packages
+```bash
+# cd into /angular-ui/ and install packages
+$ npm install 
+
+# If this doesn't work, do a manual install (DANGEROUS!... This is a quick fix, make the other work instead)
+ $ npm install \
+       bootstrap \
+       jquery \
+       popper.js \
+       bootswatch --save
 ```
