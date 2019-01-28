@@ -13,7 +13,7 @@ You simply have to run docker-compose from the root directory.
 # To lunch all 4 services:
 $ docker-compose up -d --build
 
-# Go to XXX in your browser to use the app
+# Go to http://localhost:8080 or http://localhost:8000 in your browser to use the app
 ```
 
 To stop the services and kill the containers
