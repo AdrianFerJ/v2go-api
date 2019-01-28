@@ -1,10 +1,30 @@
 # v2go-web-ap
 V2go web app's repo contains client and server apps (django angular), and infastructure setup for both apps, postgres, redis, and nginx using docker 
 
+
 ## RUN PROJECT LOCALLY with DOCKER
+This project has been set up to run all it's components in Docker containers. The 5 main services are: Django (back-end server), Angular/ev-finder-client (front end application), Redis (fast read/write db, 'cached db'), PostgresQL (persistent db), and Nginx (proxy server, routs requests to django or angular accordingly). 
+
+You simply have to run docker-compose from the root directory. 
+**Required**
+1. Docker
+2. Docker-compose
+```bash
+# To lunch all 4 services:
+$ docker-compose up -d --build
+
+# Go to XXX in your browser to use the app
+```
+
+To stop the services and kill the containers
+```bash
+# End all services:
+$ docker-compose down
+```
 
 
-## PROJECT SET UP FOR DEVELOPMENT
+## PROJECT SET UP FOR DEVELOPMENT (developers only)
+In order to make changes to this project, you have to install key tools and packages, and set up a development environment. Follow these steps:
 
 ### 1. Setup Python and install django (+ other packages)
 **Required:** Python3.7 (doesn't need to be the default system python) and pip

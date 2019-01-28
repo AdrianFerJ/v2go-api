@@ -18,20 +18,20 @@ services:
     links:
       - redis
 
-  # taxi-client:
-  #   container_name: taxi-client
-  #   build:
-  #     context: ./taxi-ui
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - './taxi-ui:/usr/src/app'
-  #     - '/usr/src/app/node_modules'
-  #   ports:
-  #     - 4200:4200
-  #   depends_on:
-  #     - taxi-server
-  #   links:
-  #     - taxi-server
+  ev-finder-client:
+    container_name: ev-finder-client
+    build:
+      context: ./angular-ui
+      dockerfile: Dockerfile
+    volumes:
+      - './taxi-ui:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - 4200:4200
+    depends_on:
+      - django-server
+    links:
+      - django-server
 
   redis:
     container_name: redis
@@ -46,7 +46,7 @@ services:
     ports:
       - 8080:80
     depends_on:
-      # - taxi-client
+      - ev-finder-client
       - django-server
     volumes:
       - media:/usr/src/app/django-server/media
