@@ -1,10 +1,12 @@
 # v2go-web-ap
 V2go web app's repo contains client and server apps (django angular), and infastructure setup for both apps, postgres, redis, and nginx using docker 
 
+## RUN PROJECT LOCALLY with DOCKER
 
-## PROJECT SET UP
 
-### Python and django
+## PROJECT SET UP FOR DEVELOPMENT
+
+### 1. Setup Python and install django (+ other packages)
 **Required:** Python3.7 (doesn't need to be the default system python) and pip
 
 ```bash
@@ -30,22 +32,22 @@ $ (venv) pipenv run pip install pip==18.0
 $ (venv) pipenv install
 
 # IF not using pipenv or no Pipfile already available, use this to install packages
-$ (vevn) pip install \
-              channels==2.1.2 \
-              channels-redis==2.3.0 \
-              Django==2.1.5 \
-              djangorestframework==3.8.2 \
-              nose==1.3.7 \
-              Pillow==5.2.0 \
-              pytest-asyncio==0.9.0 \
-              pytest-django==3.4.2
+# $ (vevn) pip install \
+#               channels==2.1.2 \
+#               channels-redis==2.3.0 \
+#               Django==2.1.5 \
+#               djangorestframework==3.8.2 \
+#               nose==1.3.7 \
+#               Pillow==5.2.0 \
+#               pytest-asyncio==0.9.0 \
+#               pytest-django==3.4.2
 
 # Check that packages were installed
 $ (venv) pipenv graph
 ```
 
 
-### Instal and setup Angular
+### 2. Instal and setup Angular, node, and node-packages for Angular
 Install node and angular
 ```bash
 #If npm and node.js aren't installed, do that first:
@@ -70,9 +72,10 @@ If you were taken to the welcome page (http://localhost:4200), Kill server (ctr+
 $ npm install 
 
 # If this doesn't work, do a manual install (DANGEROUS!... This is a quick fix, make the other work instead)
- $ npm install \
-       bootstrap \
-       jquery \
-       popper.js \
-       bootswatch --save
+#  $ npm install \
+#        bootstrap \
+#        jquery \
+#        popper.js \
+#        bootswatch --save
 ```
+
