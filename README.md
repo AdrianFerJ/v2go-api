@@ -1,14 +1,28 @@
 # v2go-web-ap
 V2go web app's repo contains client and server apps (django angular), and infastructure setup for both apps, postgres, redis, and nginx using docker 
 
+## REQUIREMENTS
+1. Docker
+2. Docker-compose
+
+### Docker
+To install docker on your system, please go to [this link](https://docs.docker.com/install/)
+
+### Docker-compose
+To install docker-compose on your system, please go to [this link](https://docs.docker.com/compose/install/)
+
+Once you have installed docker and docker-compose, you will be able to run the project locally
+
+### Giving Sudo Priviledge to Docker (Optional)
+By default if you would like to run `docker` or `docker-compose`, you would have to use `sudo`.
+If you would like to not use `sudo` then follow this [tutorial](https://docs.docker.com/install/linux/linux-postinstall/) on how to provide sudo priviledge to docker
+
+If you choose to not provide sudo priviledge to docker then simply make sure to use `sudo` whenever you see a command that begins with `docker` or `docker-compose`
 
 ## RUN PROJECT LOCALLY with DOCKER
 This project has been set up to run all it's components in Docker containers. The 5 main services are: Django (back-end server), Angular/ev-finder-client (front end application), Redis (fast read/write db, 'cached db'), PostgresQL (persistent db), and Nginx (proxy server, routs requests to django or angular accordingly). 
 
 You simply have to run docker-compose from the root directory. 
-**Required**
-1. Docker
-2. Docker-compose
 ```bash
 # To lunch all 4 services:
 $ docker-compose up -d --build
