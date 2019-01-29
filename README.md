@@ -13,7 +13,14 @@ You simply have to run docker-compose from the root directory.
 # To lunch all 4 services:
 $ docker-compose up -d --build
 
-# Go to http://localhost:8080 or http://localhost:8000 in your browser to use the app
+# To check that services are running:
+$ docker-compose ps 
+
+# Run django migrations
+$ docker-compose run django-server python django-server/manage.py makemigrations
+$ docker-compose run django-server python django-server/manage.py migrate
+
+# Go to http://localhost:8080 in your browser to use the app
 ```
 
 To stop the services and kill the containers
@@ -22,6 +29,15 @@ To stop the services and kill the containers
 $ docker-compose down
 ```
 
+### Run tests inside Docker
+Before running tests, make sure docker services are running and all Django migrations were applied
+```bash
+# Python/Django tests
+#$ docker-compose run django-server python django-server/manage.py test <file-name>.tests
+
+# Angular/node tests
+#$ docker-compose run ev-finder-client ng test
+```
 
 ## PROJECT SET UP FOR DEVELOPMENT (developers only)
 In order to make changes to this project, you have to install key tools and packages, and set up a development environment. Follow these steps:
