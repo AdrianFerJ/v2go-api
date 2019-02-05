@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^br7^5*0$p0wlbwr'
+SECRET_KEY = os.getenv('v2go_SECRETE_KEY', '@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^br7^5*0$p0wlbwr')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,3 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# There is a secrete API key used in development and staging. 
+# Each developer should get it's own key (sr: https://developers.google.com/maps/documentation/javascript/get-api-key)
+GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')

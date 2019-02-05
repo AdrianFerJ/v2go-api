@@ -16,6 +16,7 @@ pytest = "==4.0.2"
 
 [dev-packages]
 pylint = "*"
+googlemaps = "*"
 
 [requires]
 python_version = "3.7"
