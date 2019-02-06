@@ -19,11 +19,25 @@ gmaps = googlemaps.Client(key= GOOGLE_API_KEY)
 
 # Transportation mode
 mymode =  "driving" #"transit" # "walking"
+jsonDumpDir = 'volt_finder/scrap_stuff/jsonDump.json'
+sampleCS = ["160 Rue Saint Viateur E, Montréal, QC H2T 1A8",
+           "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
+           "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
+           "2153 Mackay St, Montreal, QC H3G 2J2",
+           "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
+           "5265 Queen Mary Rd, Montreal, QC H3W 1Y3"
+]
 
 """ Helpers """
+def printParams():
+    print("--- Params ---")
+    print("Transport mode: ", mymode)
+    print("Json dump directory: ", jsonDumpDir)
+    print("Sample CS: ", sampleCS)
+
 def dumpJsonFile(jdata):
     """ Takes a json or array and ourputs into a Json File """
-    with open('volt_finder/scrap-tests/jsonDump.json', 'w') as json_file:
+    with open(jsonDumpDir, 'w') as json_file:
         json.dump(jdata, json_file)
     return "File saved"
 
@@ -34,13 +48,6 @@ def printTripSummary(direc):
     print("To: ", direc[0]["legs"][0]["end_address"])
     print("Distance: ", direc[0]["legs"][0]["distance"]["text"])
     print("Duration: ", direc[0]["legs"][0]["duration"]["text"])
-
-greenCS = ["160 Rue Saint Viateur E, Montréal, QC H2T 1A8",
-           "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
-        #    "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
-        #    "2153 Mackay St, Montreal, QC H3G 2J2",
-        #    "3515 Avenue Lacombe, Montréal, QC H3T 1M2"
-]
 
 """ Main func """
 def getDirections(departure, destination):
@@ -64,24 +71,21 @@ def getNearestCS(poi, charginStations=None):
     :param charginStations: array of CS locations 
     """
     if charginStations == None:
-        charginStations = greenCS
+        charginStations = sampleCS
 
-    return gmaps.distance_matrix(poi, charginStations)
+    result = gmaps.distance_matrix(poi, charginStations)
+    
+    if result['status']!='OK':
+        return "Error"
+    else:
+        for addr, dur in zip(result['destination_addresses'], result["rows"][0]['elements']):
+            print(addr, dur['duration']['value'])
+        return  result
 
     
 
+# SCRAP
+#for i in r["rows"][0]['elements']:
+# element duration value = r["rows"][0]['elements'][0]['duration']['value']
+# destination_addresses  = r['destination_addresses'][0]
 
-
-
-# Geocoding an address
-# geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
-# print
-# # Look up an address with reverse geocoding
-# reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
-
-# # Request directions via public transit
-# now = datetime.now()
-# directions_result = gmaps.directions("Jean Talon metro, Montreal, QC",
-#                                      "Sakti gym, Montreal, QC",
-#                                      mode="transit")
-#                                      departure_time=now)
