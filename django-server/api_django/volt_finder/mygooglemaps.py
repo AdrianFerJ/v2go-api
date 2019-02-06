@@ -36,7 +36,7 @@ def getDirections(departure, destination):
 
 def dumpJsonFile(jdata):
     """ Takes a json or array and ourputs into a Json File """
-    with open('volt_finder/jsonDump_output.json', 'w') as json_file:
+    with open('scrap-tests/volt_finder/jsonDump_output.json', 'w') as json_file:
         json.dump(jdata, json_file)
     return "File saved"
 
