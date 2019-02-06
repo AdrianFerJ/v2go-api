@@ -7,6 +7,7 @@ Instructions to run script manually:
 import googlemaps
 from datetime import datetime
 import json
+from dataclasses import dataclass
 
 # Settings used by Django
 #from django.conf import settings
@@ -49,6 +50,16 @@ def printTripSummary(direc):
     print("Distance: ", direc[0]["legs"][0]["distance"]["text"])
     print("Duration: ", direc[0]["legs"][0]["duration"]["text"])
 
+@dataclass
+class POI:
+    """Point of Interest data class, for Distance Matrix output"""
+    destination_addresses: str
+    duration_txt: str
+    duration_val: int
+    distance_txt: str
+    distance_val: int
+    status: str
+    
 """ Main func """
 def getDirections(departure, destination):
     """ 
@@ -73,14 +84,22 @@ def getNearestCS(poi, charginStations=None):
     if charginStations == None:
         charginStations = sampleCS
 
-    result = gmaps.distance_matrix(poi, charginStations)
+    resp = gmaps.distance_matrix(poi, charginStations)
     
-    if result['status']!='OK':
+    if resp['status']!='OK':
         return "Error"
     else:
-        for addr, dur in zip(result['destination_addresses'], result["rows"][0]['elements']):
-            print(addr, dur['duration']['value'])
-        return  result
+        result = []
+        for addr, elem in zip(resp['destination_addresses'], resp["rows"][0]['elements']):
+            result.append(POI(addr, 
+                            elem['duration']['text'], 
+                            elem['duration']['value'],
+                            elem['distance']['text'], 
+                            elem['distance']['value'],
+                            elem['status']
+            ))
+        # Can also slice list to return top x results (aka. result[0:x])
+        return  result  
 
     
 
