@@ -20,6 +20,29 @@ gmaps = googlemaps.Client(key= GOOGLE_API_KEY)
 # Transportation mode
 mymode =  "driving" #"transit" # "walking"
 
+""" Helpers """
+def dumpJsonFile(jdata):
+    """ Takes a json or array and ourputs into a Json File """
+    with open('volt_finder/scrap-tests/jsonDump.json', 'w') as json_file:
+        json.dump(jdata, json_file)
+    return "File saved"
+
+def printTripSummary(direc):
+    """ Takes direction service outpu as input, prints summary info"""
+    print("--- Trip Info ---")
+    print("From: ", direc[0]["legs"][0]["start_address"])
+    print("To: ", direc[0]["legs"][0]["end_address"])
+    print("Distance: ", direc[0]["legs"][0]["distance"]["text"])
+    print("Duration: ", direc[0]["legs"][0]["duration"]["text"])
+
+greenCS = ["160 Rue Saint Viateur E, Montréal, QC H2T 1A8",
+           "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
+        #    "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
+        #    "2153 Mackay St, Montreal, QC H3G 2J2",
+        #    "3515 Avenue Lacombe, Montréal, QC H3T 1M2"
+]
+
+""" Main func """
 def getDirections(departure, destination):
     """ 
     Returns the directions to get from departure (A) to departure (B)
@@ -34,19 +57,21 @@ def getDirections(departure, destination):
     )
     return directions_result
 
-def dumpJsonFile(jdata):
-    """ Takes a json or array and ourputs into a Json File """
-    with open('scrap-tests/volt_finder/jsonDump_output.json', 'w') as json_file:
-        json.dump(jdata, json_file)
-    return "File saved"
+def getNearestCS(poi, charginStations=None):
+    """ Gets the top X nearest CS from user provided location.
 
-def printTripSummary(direc):
-    """ Takes direction service outpu as input, prints summary info"""
-    print("--- Trip Info ---")
-    print("From: ", direc[0]["legs"][0]["start_address"])
-    print("To: ", direc[0]["legs"][0]["end_address"])
-    print("Distance: ", direc[0]["legs"][0]["distance"]["text"])
-    print("Duration: ", direc[0]["legs"][0]["duration"]["text"])
+    :param poi: the point of interestes, a single location provided by the user 
+    :param charginStations: array of CS locations 
+    """
+    if charginStations == None:
+        charginStations = greenCS
+
+    return gmaps.distance_matrix(poi, charginStations)
+
+    
+
+
+
 
 # Geocoding an address
 # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
