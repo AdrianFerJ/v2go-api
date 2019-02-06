@@ -107,4 +107,4 @@ venv.bak/
 .vscode/**
 
 # Scrap/tests data and scripts
-/scrap_stuff/**
+scrap_stuff/
