@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd Party Apps
     'rest_framework',
+    'channels',
     # MyApps
     'volt_finder',
 ]
@@ -76,6 +77,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api_django.wsgi.application'
 
+ASGI_APPLICATION = 'api_django.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -125,6 +127,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Redis DB and Channel layer config 
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [REDIS_URL],
+        },
+    },
+}
 
 # There is a secrete API key used in development and staging. 
 # Each developer should get it's own key (sr: https://developers.google.com/maps/documentation/javascript/get-api-key)
