@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.forms import AuthenticationForm 
-from rest_framework import generics, permissions, status, views 
+
+from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.response import Response
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ChargingStationSerializer
+from .models import ChargingStation
 
 
 class SignUpView(generics.CreateAPIView):
@@ -28,3 +30,12 @@ class LogOutView(views.APIView):
     def post(self, *args, **kwargs):
         logout(self.request)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ChargingStationView(viewsets.ReadOnlyModelViewSet):
+    """ Basic CharginStation view, returns a list of CS near user
+    #TODO: This view should return an array of CS near the user's POI
+    """
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = ChargingStation.objects.all()
+    serializer_class = ChargingStationSerializer

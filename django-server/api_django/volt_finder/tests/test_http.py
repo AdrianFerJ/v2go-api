@@ -4,7 +4,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
 
-from volt_finder.serializers import CStationSerializer, UserSerializer
+from volt_finder.serializers import ChargingStationSerializer, UserSerializer
 from volt_finder.models import ChargingStation
 
 PASSWORD = 'pAssw0rd!'
@@ -40,6 +40,7 @@ class AuthenticationTest(APITestCase):
         response = self.client.post(reverse('log_out'))
         self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
 
+
 class HttpCSFinderTest(APITestCase):
     """ Tests the ability to get the (single) nearest CS to user provided POI""" 
 
@@ -51,9 +52,12 @@ class HttpCSFinderTest(APITestCase):
 
     def test_get_list_of_cs_near_poi(self):
         cStations = [
-            ChargingStation.objects.create(location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Panthere 1'),
-            ChargingStation.objects.create(location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4', name='Panthere 2'),
-            ChargingStation.objects.create(location='2153 Mackay St, Montreal, QC H3G 2J2', name='Panthere 3'),
+            ChargingStation.objects.create(
+                location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Panthere 1', manager_id=1),
+            ChargingStation.objects.create(
+                location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4', name='Panthere 2', manager_id=1),
+            ChargingStation.objects.create(
+                location='2153 Mackay St, Montreal, QC H3G 2J2', name='Panthere 3', manager_id=1),
         ]      
 
         response = self.client.get(reverse('trip:cStations_list'))
@@ -67,16 +71,6 @@ class HttpCSFinderTest(APITestCase):
     #TODO: def test_find_single_nearest_cs_to_poi(self):
     #   user_poi_location = '969 Rachel St E, Montreal, QC H2J 2J2'
 
-    # def test_user_can_list_trips(self):
-    #     trips = [
-    #         Trip.objects.create(pick_up_address='A', drop_off_address='B'),
-    #         Trip.objects.create(pick_up_address='B', drop_off_address='C')
-    #     ]
-    #     response = self.client.get(reverse('trip:trip_list'))
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     exp_trip_nks = [trip.nk for trip in trips]
-    #     act_trip_nks = [trip.get('nk') for trip in response.data]
-    #     self.assertCountEqual(exp_trip_nks, act_trip_nks)
 
       # panthereLocations = [,
         #    "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
