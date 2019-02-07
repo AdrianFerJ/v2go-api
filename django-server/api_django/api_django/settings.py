@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd Party Apps
+    'rest_framework',
     # MyApps
     'volt_finder',
-
 ]
+# Custom user model
+AUTH_USER_MODEL = 'volt_finder.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
