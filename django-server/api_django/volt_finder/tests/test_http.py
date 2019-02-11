@@ -10,7 +10,7 @@ from volt_finder.models import ChargingStation
 PASSWORD = 'pAssw0rd!'
 
 """ HELPER FUNC """
-def create_user(username='user@example.com', password=PASSWORD): # new
+def create_user(username='user@example.com', password=PASSWORD):
     return get_user_model().objects.create_user(
         username=username, password=password)
 
@@ -77,12 +77,20 @@ class HttpCSFinderTest(APITestCase):
                 location='2153 Mackay St, Montreal, QC H3G 2J2', name='Panthere 3', manager_id=1),
         ]      
 
-        response = self.client.get(reverse('trip:cStations_list'))
+        response = self.client.get(reverse('cStation:cStations_list'))
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         # expected and actual nks
-        exp_trip_nks = [cs.nk for cs in cStations]
-        act_trip_nks = [cs.get('nk') for cs in response.data]
-        self.assertCountEqual(exp_trip_nks, act_trip_nks)
+        exp_cStation_nks = [cs.nk for cs in cStations]
+        act_cStation_nks = [cs.get('nk') for cs in response.data]
+        self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
+    
+    def test_user_can_retrieve_cs_detail_by_nk(self):
+        cStation = ChargingStation.objects.create(
+            location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Panthere 1', manager_id=1)
+        response = self.client.get(cStation.get_absolute_url())
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(cStation.nk, response.data.get('nk'))
+
 
 
     #TODO: def test_find_single_nearest_cs_to_poi(self):
@@ -96,3 +104,8 @@ class HttpCSFinderTest(APITestCase):
         #    "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
         #    "5265 Queen Mary Rd, Montreal, QC H3W 1Y3"
         # ]
+
+# def setUp():
+#      client = APIClient()
+#      client.login(username='test1', password='letmein!')
+#      return client

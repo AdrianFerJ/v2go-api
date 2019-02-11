@@ -32,10 +32,19 @@ class LogOutView(views.APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ChargingStationView(viewsets.ReadOnlyModelViewSet):
+class ChargingStationListView(viewsets.ReadOnlyModelViewSet):
     """ Basic CharginStation view, returns a list of CS near user
     #TODO: This view should return an array of CS near the user's POI
     """
     permission_classes = (permissions.IsAuthenticated,)
+    queryset = ChargingStation.objects.all()
+    serializer_class = ChargingStationSerializer
+
+
+class ChargingStationDetailView(viewsets.ReadOnlyModelViewSet):  
+    lookup_field = 'nk'
+    lookup_url_kwarg = 'cStation_nk'
+    permission_classes = (permissions.IsAuthenticated,)
+    # TODO:  FIX QUERY ... READ THIS https://docs.djangoproject.com/en/2.1/topics/db/queries/
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer

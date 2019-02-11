@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('v2go_SECRETE_KEY', '@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['testserver', 'localHost', '127.0.0.1']
 
 
 # Application definition
