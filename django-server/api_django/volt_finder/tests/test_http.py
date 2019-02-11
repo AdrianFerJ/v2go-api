@@ -22,10 +22,27 @@ class AuthenticationTest(APITestCase):
     def setUp(self):
         self.client = APIClient()
 
-    # Function collapsed for clarity.
-    def test_user_can_sign_up(self): ...
+    def test_user_can_sign_up(self):
+        # photo_file = create_photo_file() #TODO: enable user photo
+        response = self.client.post(reverse('sign_up'), data={
+            'username': 'user@example.com',
+            'first_name': 'Test',
+            'last_name': 'User',
+            'password1': PASSWORD,
+            'password2': PASSWORD,
+            'group': 'rider',
+            # 'photo': photo_file,
+        })
+        user = get_user_model().objects.last()
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+        self.assertEqual(response.data['id'], user.id)
+        self.assertEqual(response.data['username'], user.username)
+        self.assertEqual(response.data['first_name'], user.first_name)
+        self.assertEqual(response.data['last_name'], user.last_name)
+        #self.assertEqual(response.data['group'], user.group) #TODO: enable user gorup (driver or cs_owner)
+        #self.assertIsNotNone(user.photo) #TODO: enable user photo ID
 
-    def test_user_can_log_in(self): # new
+    def test_user_can_log_in(self):
         user = create_user()
         response = self.client.post(reverse('log_in'), data={
             'username': user.username,
@@ -34,7 +51,7 @@ class AuthenticationTest(APITestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['username'], user.username)
 
-    def test_user_can_log_out(self): # new
+    def test_user_can_log_out(self):
         user = create_user()
         self.client.login(username=user.username, password=PASSWORD)
         response = self.client.post(reverse('log_out'))
