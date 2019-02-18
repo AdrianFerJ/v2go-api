@@ -3,7 +3,6 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
-
 from volt_finder.serializers import ChargingStationSerializer, UserSerializer
 from volt_finder.models import ChargingStation
 
@@ -13,6 +12,19 @@ PASSWORD = 'pAssw0rd!'
 def create_user(username='user@example.com', password=PASSWORD):
     return get_user_model().objects.create_user(
         username=username, password=password)
+
+sample_addrs = [
+    "160 Rue Saint Viateur E, Montréal, QC H2T 1A8",
+    "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
+    "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
+    "2153 Mackay St, Montreal, QC H3G 2J2",
+    "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
+    "5265 Queen Mary Rd, Montreal, QC H3W 1Y3",
+    "191 Place du Marché-du-Nord, Montréal, QC H2S 1A2",
+    "545 Milton St, Montreal, QC H2X 1W5",
+    "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
+    "432 Rue Rachel E, Montréal, QC H2J 2G7"
+]
 
 
 """ TESTS """
@@ -66,17 +78,22 @@ class HttpCSFinderTest(APITestCase):
         self.client = APIClient()
         self.client.login(username=user.username, password=PASSWORD)
 
-
-    def test_get_list_of_cs_near_poi(self):
+    def test_user_can_retrieve_cs_detail_by_nk(self):
+        cStation = ChargingStation.objects.create(
+            location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Panthere 1', manager_id=1)
+        response = self.client.get(cStation.get_absolute_url())
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(cStation.nk, response.data.get('nk'))
+    
+    def test_get_list_of_cs_no_params(self):  
         cStations = [
             ChargingStation.objects.create(
-                location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Panthere 1', manager_id=1),
+                location='432 Rue Rachel E, Montréal, QC H2J 2G7, Canada', name='Panthere 1', manager_id=1),
             ChargingStation.objects.create(
-                location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4', name='Panthere 2', manager_id=1),
+                location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', name='Panthere 2', manager_id=1),
             ChargingStation.objects.create(
                 location='2153 Mackay St, Montreal, QC H3G 2J2', name='Panthere 3', manager_id=1),
         ]      
-
         response = self.client.get(reverse('cStation:cStations_list'))
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         # expected and actual nks
@@ -84,12 +101,44 @@ class HttpCSFinderTest(APITestCase):
         act_cStation_nks = [cs.get('nk') for cs in response.data]
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
     
-    def test_user_can_retrieve_cs_detail_by_nk(self):
-        cStation = ChargingStation.objects.create(
-            location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Panthere 1', manager_id=1)
-        response = self.client.get(cStation.get_absolute_url())
+    def test_get_top_5_cs_near_poi(self):
+        #TODO: Fix test. Should check for all CS entries in db, not the ones just created
+        #       - use len(ExpectedcStations) == len(APIoutPutcStations)
+        #       - and self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
+        #       - *ExpectedcStations == ChargingStation.objects.all()
+        poi_location = '1101 Rue Rachel E Montréal, QC H2J 2J7' 
+        top_cs = [
+            ChargingStation.objects.create(
+                location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Top 1', manager_id=1),
+            ChargingStation.objects.create(
+                location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4', name='Top 2', manager_id=1),
+            ChargingStation.objects.create(
+                location='1999 Avenue du Mont-Royal E, Montréal, QC H2H 1J4, Canada', name='Top 3', manager_id=1),
+            ChargingStation.objects.create(
+                location='145 Avenue du Mont-Royal E, Montréal, QC H2T 1N9, Canada', name='Top 4', manager_id=1),
+            ChargingStation.objects.create(
+                location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8, Canada', name='Top 5', manager_id=1),
+        ]
+        other_cs = [
+            ChargingStation.objects.create(
+                location='545 Rue Milton, Montréal, QC H2X 1W5, Canada', name='test_1', manager_id=1),
+            ChargingStation.objects.create(
+                location='2153 Rue Mackay, Montréal, QC H3G 2J2, Canada', name='test_2', manager_id=1),
+            ChargingStation.objects.create(
+                location='191 Place du Marché-du-Nord, Montréal, QC H2S 1A2, Canada', name='test_3', manager_id=1),
+            ChargingStation.objects.create(
+                location='3515 Avenue Lacombe, Montréal, QC H3T 1M2, Canada', name='test_4', manager_id=1),
+            ChargingStation.objects.create(
+                location='5265 Chemin Queen Mary, Montréal, QC H3W 1Y3, Canada', name='test_5', manager_id=1),
+        ]  
+
+        response = self.client.get(reverse('cStation:cStations_near_poi'))
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(cStation.nk, response.data.get('nk'))
+        # expected and actual nks
+        exp_cStation_nks = [cs.nk for cs in top_cs]
+        act_cStation_nks = [cs.get('nk') for cs in response.data]
+        
+        self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
 
 
 

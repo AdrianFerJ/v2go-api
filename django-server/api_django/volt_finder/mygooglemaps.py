@@ -20,13 +20,18 @@ gmaps = googlemaps.Client(key= GOOGLE_API_KEY)
 
 # Transportation mode
 mymode =  "driving" #"transit" # "walking"
-jsonDumpDir = 'volt_finder/scrap_stuff/jsonDump.json'
+jsonDumpDir = 'volt_finder/x_scrap_stuff/jsonDump.json'
 sampleCS = ["160 Rue Saint Viateur E, Montréal, QC H2T 1A8",
            "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
            "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
            "2153 Mackay St, Montreal, QC H3G 2J2",
            "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
-           "5265 Queen Mary Rd, Montreal, QC H3W 1Y3"
+           "5265 Queen Mary Rd, Montreal, QC H3W 1Y3",
+           "191 Place du Marché-du-Nord, Montréal, QC H2S 1A2",
+           "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
+           "545 Milton St, Montreal, QC H2X 1W5",
+           "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
+           "432 Rue Rachel E, Montréal, QC H2J 2G7"
 ]
 
 """ Helpers """
@@ -91,13 +96,14 @@ def getNearestCS(poi, charginStations=None):
     else:
         result = []
         for addr, elem in zip(resp['destination_addresses'], resp["rows"][0]['elements']):
-            result.append(POI(addr, 
-                            elem['duration']['text'], 
-                            elem['duration']['value'],
-                            elem['distance']['text'], 
-                            elem['distance']['value'],
-                            elem['status']
-            ))
+            temp_poi = POI(addr, 
+                elem['duration']['text'], 
+                elem['duration']['value'],
+                elem['distance']['text'], 
+                elem['distance']['value'],
+                elem['status']
+            )
+            result.append.temp_poi
         # Can also slice list to return top x results (aka. result[0:x])
         return  result  
 

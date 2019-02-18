@@ -1,3 +1,9 @@
+
+# Scrap/tests data and scripts
+x_scrap_stuff/
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -106,5 +112,4 @@ venv.bak/
 # Visual studio config
 .vscode/**
 
-# Scrap/tests data and scripts
-scrap_stuff/
+

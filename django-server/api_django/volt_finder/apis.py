@@ -48,3 +48,9 @@ class ChargingStationDetailView(viewsets.ReadOnlyModelViewSet):
     # TODO:  FIX QUERY ... READ THIS https://docs.djangoproject.com/en/2.1/topics/db/queries/
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer
+
+
+#   if len(results) > 5:
+#         top_marks = results[:5]
+#     else:
+#         top_marks = results
