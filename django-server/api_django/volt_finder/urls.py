@@ -1,6 +1,6 @@
-from django.urls import re_path
+from django.urls import re_path, path
 
-from .apis import ChargingStationListView, ChargingStationDetailView
+from .apis import ChargingStationListView, ChargingStationDetailView, ChargingStationTopNearListView
 
 app_name = 'volt_finder'
 
@@ -9,6 +9,12 @@ urlpatterns = [
         name='cStations_list'),
     re_path(r'^(?P<cStation_nk>\w{32})/detail/$', ChargingStationDetailView.as_view(
         {'get': 'retrieve'}), name='cStation_detail'), 
+    path('near_poi/<poi_location>/', ChargingStationTopNearListView.as_view(
+        {'get': 'list'}), name='cStations_near_poi'),
+        
+    # re_path version...    
+    # re_path(r'^/near-me/(?P<poi>{50})/$', ChargingStationTopNearListView.as_view({'get': 'list'}), 
+    #     name='cStations_near_poi'),
 ]
 
 

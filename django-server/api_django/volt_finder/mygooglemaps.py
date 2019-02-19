@@ -73,11 +73,8 @@ def getDirections(departure, destination):
     Output: Json formated Directions, but as an array.
     """
     now = datetime.now()
-    directions_result =  gmaps.directions(departure,
-                                        destination,
-                                        mode = mymode,
-                                        departure_time = now
-    )
+    directions_result =  gmaps.directions(
+        departure, destination, mode = mymode, departure_time = now)
     return directions_result
 
 def getNearestCS(poi, charginStations=None):

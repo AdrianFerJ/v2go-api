@@ -131,8 +131,11 @@ class HttpCSFinderTest(APITestCase):
             ChargingStation.objects.create(
                 location='5265 Chemin Queen Mary, Montréal, QC H3W 1Y3, Canada', name='test_5', manager_id=1),
         ]  
-
-        response = self.client.get(reverse('cStation:cStations_near_poi'))
+        # TODO: Fix reverse call to include poi_location in get.request
+        # response = self.client.get(reverse('cStation:cStations_near_poi'))
+        # response = self.client.get(reverse('cStation:cStations_near_poi', args=[poi_location]))
+        response = self.client.get(reverse('cStation:cStations_near_poi', kwargs={'poi_location': poi_location}))
+        
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         # expected and actual nks
         exp_cStation_nks = [cs.nk for cs in top_cs]
