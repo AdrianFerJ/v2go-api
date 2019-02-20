@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from .serializers import UserSerializer, ChargingStationSerializer
 from volt_finder.models import ChargingStation
 
+from volt_finder import mygooglemaps as gg
+
 
 class SignUpView(generics.CreateAPIView):
     queryset = get_user_model().objects.all()
@@ -50,11 +52,25 @@ class ChargingStationDetailView(viewsets.ReadOnlyModelViewSet):
 
 class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
     """ Get's user POI and returns a short list of CS that are nearest to it """
-    poi_location = 'poi_location'
+    #poi_location = 'poi_location'
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = ChargingStation.objects.all()
-    serializer_class = ChargingStationSerializer
-    return poi_location
+    # serializer_class = ChargingStationSerializer
+    
+    def top_cs_near_poi(self, request, poi_location):
+        queryset = ChargingStation.objects.all()
+        
+        #TODO: call distance matrix
+        cs_loc = [i.location for i in queryset]
+        top_cs = gg.getNearestCS(poi_location, cs_loc)
+        return Response(top_cs)
+
+
+        #TODO: select top results
+        #TODO: return serialized (TOP) CS
+        # serializer = ChargingStationSerializer(queryset, many=True)
+        # return Response(serializer.data)
+        
+
 
 
 #   if len(results) > 5:

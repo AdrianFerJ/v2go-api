@@ -56,18 +56,45 @@ def printTripSummary(direc):
     print("Duration: ", direc[0]["legs"][0]["duration"]["text"])
 
 @dataclass
-class POI:
-    """Point of Interest data class, for Distance Matrix output"""
+class CStation:
+    """CStationnt of Interest data class, for Distance Matrix output"""
+    nk: str
     destination_addresses: str
     duration_txt: str
     duration_val: int
     distance_txt: str
     distance_val: int
     status: str
+
+
+def format_output_cs(addr, elem):
+    formated_cs = {
+        'nk': 'err...whats that',
+        'destination_addresses': addr,
+        'duration_txt': elem['duration']['text'],
+        'duration_val': elem['duration']['value'],
+        'distance_txt': elem['distance']['text'],
+        'distance_val': elem['distance']['value'],
+        'status': elem['status']                   
+    }
+    # Use CStation data class object (requires serialization before the view Responds to client)
+    # formated_cs = CStation(
+    #     'err...',
+    #     addr, 
+    #     elem['duration']['text'], 
+    #     elem['duration']['value'],
+    #     elem['distance']['text'], 
+    #     elem['distance']['value'],
+    #     elem['status']
+    # )
+    return formated_cs
+    
+
     
 """ Main func """
+
 def getDirections(departure, destination):
-    """ 
+    """  
     Returns the directions to get from departure (A) to departure (B)
     Input: 2 locations (address or coordinates) as string 
     Output: Json formated Directions, but as an array.
@@ -93,14 +120,8 @@ def getNearestCS(poi, charginStations=None):
     else:
         result = []
         for addr, elem in zip(resp['destination_addresses'], resp["rows"][0]['elements']):
-            temp_poi = POI(addr, 
-                elem['duration']['text'], 
-                elem['duration']['value'],
-                elem['distance']['text'], 
-                elem['distance']['value'],
-                elem['status']
-            )
-            result.append.temp_poi
+            temp_CStation = format_output_cs(addr, elem)
+            result.append(temp_CStation)
         # Can also slice list to return top x results (aka. result[0:x])
         return  result  
 

@@ -110,38 +110,56 @@ class HttpCSFinderTest(APITestCase):
         top_cs = [
             ChargingStation.objects.create(
                 location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Top 1', manager_id=1),
-            ChargingStation.objects.create(
-                location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4', name='Top 2', manager_id=1),
-            ChargingStation.objects.create(
-                location='1999 Avenue du Mont-Royal E, Montréal, QC H2H 1J4, Canada', name='Top 3', manager_id=1),
-            ChargingStation.objects.create(
-                location='145 Avenue du Mont-Royal E, Montréal, QC H2T 1N9, Canada', name='Top 4', manager_id=1),
-            ChargingStation.objects.create(
-                location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8, Canada', name='Top 5', manager_id=1),
+            # ChargingStation.objects.create(
+            #     location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4', name='Top 2', manager_id=1),
+            # ChargingStation.objects.create(
+            #     location='1999 Avenue du Mont-Royal E, Montréal, QC H2H 1J4, Canada', name='Top 3', manager_id=1),
+            # ChargingStation.objects.create(
+            #     location='145 Avenue du Mont-Royal E, Montréal, QC H2T 1N9, Canada', name='Top 4', manager_id=1),
+            # ChargingStation.objects.create(
+            #     location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8, Canada', name='Top 5', manager_id=1),
         ]
-        other_cs = [
-            ChargingStation.objects.create(
-                location='545 Rue Milton, Montréal, QC H2X 1W5, Canada', name='test_1', manager_id=1),
-            ChargingStation.objects.create(
-                location='2153 Rue Mackay, Montréal, QC H3G 2J2, Canada', name='test_2', manager_id=1),
-            ChargingStation.objects.create(
-                location='191 Place du Marché-du-Nord, Montréal, QC H2S 1A2, Canada', name='test_3', manager_id=1),
-            ChargingStation.objects.create(
-                location='3515 Avenue Lacombe, Montréal, QC H3T 1M2, Canada', name='test_4', manager_id=1),
-            ChargingStation.objects.create(
-                location='5265 Chemin Queen Mary, Montréal, QC H3W 1Y3, Canada', name='test_5', manager_id=1),
-        ]  
+        #other_cs (farther from poi)
+        ChargingStation.objects.create(
+            location='545 Rue Milton, Montréal, QC H2X 1W5, Canada', name='test_1', manager_id=1)
+        # ChargingStation.objects.create(
+        #     location='2153 Rue Mackay, Montréal, QC H3G 2J2, Canada', name='test_2', manager_id=1)
+        # ChargingStation.objects.create(
+        #     location='191 Place du Marché-du-Nord, Montréal, QC H2S 1A2, Canada', name='test_3', manager_id=1)
+        # ChargingStation.objects.create(
+        #     location='3515 Avenue Lacombe, Montréal, QC H3T 1M2, Canada', name='test_4', manager_id=1)
+        # ChargingStation.objects.create(
+        #     location='5265 Chemin Queen Mary, Montréal, QC H3W 1Y3, Canada', name='test_5', manager_id=1)
+        
         # TODO: Fix reverse call to include poi_location in get.request
         # response = self.client.get(reverse('cStation:cStations_near_poi'))
         # response = self.client.get(reverse('cStation:cStations_near_poi', args=[poi_location]))
         response = self.client.get(reverse('cStation:cStations_near_poi', kwargs={'poi_location': poi_location}))
         
+        #REMOVE
+        print('********** RESPONSE DATA:', len(response.data))
+        print(response.data)
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        # expected and actual nks
+
+        # EXP...
         exp_cStation_nks = [cs.nk for cs in top_cs]
-        act_cStation_nks = [cs.get('nk') for cs in response.data]
+        print('**********')  
+        print('exp_cStation_nks = ', exp_cStation_nks)
+
+        # act_cStation_nks = [cs.get('nk') for cs in response.data]  
+        # act_cStation_nks = [cs.nk for cs in response.data]    
+        act_cStation_nks = [cs['nk'] for cs in response.data]
+        print('**********')  
+        print('act_cStation_nks = ', act_cStation_nks)
         
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
+
+
+
+
+######
+        # self.assertEqual(exp_cStation_nks[0], response.data)
+        
 
 
 
