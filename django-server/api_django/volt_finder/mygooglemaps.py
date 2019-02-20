@@ -104,17 +104,14 @@ def getDirections(departure, destination):
         departure, destination, mode = mymode, departure_time = now)
     return directions_result
 
-def getNearestCS(poi, charginStations=None):
+def getNearestCS(poi, charginStations):
     """ Gets the top X nearest CS from user provided location.
-
     :param poi: the point of interestes, a single location provided by the user 
     :param charginStations: array of CS locations 
     """
-    if charginStations == None:
-        charginStations = sampleCS
-
     resp = gmaps.distance_matrix(poi, charginStations)
     
+    #TODO: replace this if /else for try/except
     if resp['status']!='OK':
         return "Error"
     else:
@@ -122,13 +119,13 @@ def getNearestCS(poi, charginStations=None):
         for addr, elem in zip(resp['destination_addresses'], resp["rows"][0]['elements']):
             temp_CStation = format_output_cs(addr, elem)
             result.append(temp_CStation)
-        # Can also slice list to return top x results (aka. result[0:x])
-        return  result  
 
-    
+        # Sort CS, lower duration value first
+        result.sort(key=lambda x: x.duration_val, reverse=False)
 
-# SCRAP
-#for i in r["rows"][0]['elements']:
-# element duration value = r["rows"][0]['elements'][0]['duration']['value']
-# destination_addresses  = r['destination_addresses'][0]
+        # Retrun top 5 results
+        if len(result) > 5:
+            return result[:5]
+        else:
+            return  result  
 
