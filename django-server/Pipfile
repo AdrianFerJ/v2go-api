@@ -14,6 +14,7 @@ pytest-asyncio = "==0.9.0"
 pytest-django = "==3.4.2"
 pytest = "==4.0.2"
 twisted = "*"
+requests = "*"
 
 [dev-packages]
 pylint = "*"

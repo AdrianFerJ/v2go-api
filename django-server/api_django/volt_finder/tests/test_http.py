@@ -14,16 +14,16 @@ def create_user(username='user@example.com', password=PASSWORD):
         username=username, password=password)
 
 sample_addrs = [
-    "160 Rue Saint Viateur E, Montréal, QC H2T 1A8",
+    "160 Rue Saint Viateur E, Montreal, QC H2T 1A8",
     "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
-    "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
+    "1735 Rue Saint-Denis, Montreal, QC H2X 3K4",
     "2153 Mackay St, Montreal, QC H3G 2J2",
-    "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
+    "3515 Avenue Lacombe, Montreal, QC H3T 1M2",
     "5265 Queen Mary Rd, Montreal, QC H3W 1Y3",
-    "191 Place du Marché-du-Nord, Montréal, QC H2S 1A2",
+    "191 Place du Marché-du-Nord, Montreal, QC H2S 1A2",
     "545 Milton St, Montreal, QC H2X 1W5",
     "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
-    "432 Rue Rachel E, Montréal, QC H2J 2G7"
+    "432 Rue Rachel E, Montreal, QC H2J 2G7"
 ]
 
 
@@ -80,7 +80,7 @@ class HttpCSFinderTest(APITestCase):
 
     def test_user_can_retrieve_cs_detail_by_nk(self):
         cStation = ChargingStation.objects.create(
-            location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Panthere 1', manager_id=1)
+            location='160 Rue Saint Viateur E, Montreal, QC H2T 1A8', name='Panthere 1', manager_id=1)
         response = self.client.get(cStation.get_absolute_url())
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(cStation.nk, response.data.get('nk'))
@@ -88,48 +88,52 @@ class HttpCSFinderTest(APITestCase):
     def test_get_list_of_cs_no_params(self):  
         cStations = [
             ChargingStation.objects.create(
-                location='432 Rue Rachel E, Montréal, QC H2J 2G7, Canada', name='Panthere 1', manager_id=1),
+                location='432 Rue Rachel E, Montreal, QC H2J 2G7, Canada', name='Panthere 1', manager_id=1),
             ChargingStation.objects.create(
-                location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', name='Panthere 2', manager_id=1),
+                location='1735 Rue Saint-Denis, Montreal, QC H2X 3K4, Canada', name='Panthere 2', manager_id=1),
             ChargingStation.objects.create(
                 location='2153 Mackay St, Montreal, QC H3G 2J2', name='Panthere 3', manager_id=1),
         ]      
         response = self.client.get(reverse('cStation:cStations_list'))
+
+        print('********** RESPONSE DATA  P1: #', len(response.data), 'TYPE:', type(response.data), '**********')
+        print(response.data)
+
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        # expected and actual nks
+
         exp_cStation_nks = [cs.nk for cs in cStations]
         act_cStation_nks = [cs.get('nk') for cs in response.data]
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
     
     def test_get_top_5_cs_near_poi(self):
-        #TODO: Fix test. Should check for all CS entries in db, not the ones just created
+        #TODO: Fix / add
         #       - use len(ExpectedcStations) == len(APIoutPutcStations)
         #       - and self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
         #       - *ExpectedcStations == ChargingStation.objects.all()
-        poi_location = '1101 Rue Rachel E Montréal, QC H2J 2J7' 
-        top_cs = [
+        poi_location = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
+        test_top_cs = [
             ChargingStation.objects.create(
-                location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8', name='Top 1', manager_id=1),
-            # ChargingStation.objects.create(
-            #     location='1735 Rue Saint-Denis, Montréal, QC H2X 3K4', name='Top 2', manager_id=1),
-            # ChargingStation.objects.create(
-            #     location='1999 Avenue du Mont-Royal E, Montréal, QC H2H 1J4, Canada', name='Top 3', manager_id=1),
-            # ChargingStation.objects.create(
-            #     location='145 Avenue du Mont-Royal E, Montréal, QC H2T 1N9, Canada', name='Top 4', manager_id=1),
-            # ChargingStation.objects.create(
-            #     location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8, Canada', name='Top 5', manager_id=1),
+                location='160 Rue Saint Viateur E, Montreal, QC H2T 1A8', name='Top 1', manager_id=1),
+            ChargingStation.objects.create(
+                location='1735 Rue Saint-Denis, Montreal, QC H2X 3K4', name='Top 2', manager_id=1),
+            ChargingStation.objects.create(
+                location='1999 Avenue du Mont-Royal E, Montreal, QC H2H 1J4, Canada', name='Top 3', manager_id=1),
+            ChargingStation.objects.create(
+                location='145 Avenue du Mont-Royal E, Montreal, QC H2T 1N9, Canada', name='Top 4', manager_id=1),
+            ChargingStation.objects.create(
+                location='160 Rue Saint Viateur E, Montreal, QC H2T 1A8, Canada', name='Top 5', manager_id=1),
         ]
         #other_cs (farther from poi)
         ChargingStation.objects.create(
-            location='545 Rue Milton, Montréal, QC H2X 1W5, Canada', name='test_1', manager_id=1)
-        # ChargingStation.objects.create(
-        #     location='2153 Rue Mackay, Montréal, QC H3G 2J2, Canada', name='test_2', manager_id=1)
-        # ChargingStation.objects.create(
-        #     location='191 Place du Marché-du-Nord, Montréal, QC H2S 1A2, Canada', name='test_3', manager_id=1)
-        # ChargingStation.objects.create(
-        #     location='3515 Avenue Lacombe, Montréal, QC H3T 1M2, Canada', name='test_4', manager_id=1)
-        # ChargingStation.objects.create(
-        #     location='5265 Chemin Queen Mary, Montréal, QC H3W 1Y3, Canada', name='test_5', manager_id=1)
+            location='545 Rue Milton, Montreal, QC H2X 1W5, Canada', name='test_1', manager_id=1)
+        ChargingStation.objects.create(
+            location='2153 Rue Mackay, Montreal, QC H3G 2J2, Canada', name='test_2', manager_id=1)
+        ChargingStation.objects.create(
+            location='191 Place du Marché-du-Nord, Montreal, QC H2S 1A2, Canada', name='test_3', manager_id=1)
+        ChargingStation.objects.create(
+            location='3515 Avenue Lacombe, Montreal, QC H3T 1M2, Canada', name='test_4', manager_id=1)
+        ChargingStation.objects.create(
+            location='5265 Chemin Queen Mary, Montreal, QC H3W 1Y3, Canada', name='test_5', manager_id=1)
         
         # TODO: Fix reverse call to include poi_location in get.request
         # response = self.client.get(reverse('cStation:cStations_near_poi'))
@@ -137,28 +141,49 @@ class HttpCSFinderTest(APITestCase):
         response = self.client.get(reverse('cStation:cStations_near_poi', kwargs={'poi_location': poi_location}))
         
         #REMOVE
-        print('********** RESPONSE DATA:', len(response.data))
+        print('#')
+        print('********** RESPONSE DATA  P2: #', len(response.data), 'TYPE:', type(response.data), '**********')
         print(response.data)
+
+        """ 
+            RE-serialize data 
+        """
+        # import io
+        # from rest_framework.parsers import JSONParser
+        from volt_finder.serializers import GeoCStationSerializer
+        # stream = io.BytesIO(response.data)
+        # data = JSONParser().parse(stream)
+        # serializer = GeoCStationSerializer(data=data,  many=True)
+
+        serializer = GeoCStationSerializer(data=response.data,  many=True)       
+        #TODO: replace if/else with TRY EXCEPT
+        if serializer.is_valid():
+            serializer.is_valid()
+            serialized_data = serializer.validated_data
+            print('#')
+            print('~~~~~~~~ SERIALIZED DATA  !!!!: #', len(serialized_data), 'TYPE:', type(serialized_data), '**********')
+        else:
+            print('#')
+            print('??????????? ERROR... XD  !!!!:')
+            print(serializer.errors)
+
         self.assertEqual(status.HTTP_200_OK, response.status_code)
 
         # EXP...
-        exp_cStation_nks = [cs.nk for cs in top_cs]
+        exp_cStation_nks = [cs.nk for cs in test_top_cs]
         print('**********')  
         print('exp_cStation_nks = ', exp_cStation_nks)
 
         # act_cStation_nks = [cs.get('nk') for cs in response.data]  
-        # act_cStation_nks = [cs.nk for cs in response.data]    
-        act_cStation_nks = [cs['nk'] for cs in response.data]
+        # act_cStation_nks = [cs.nk for cs in response.data]            
+        # act_cStation_nks = [cs['nk'] for cs in response.data]
+        act_cStation_nks = [cs['nk'] for cs in serialized_data]
+
         print('**********')  
         print('act_cStation_nks = ', act_cStation_nks)
         
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
-
-
-
-
-######
-        # self.assertEqual(exp_cStation_nks[0], response.data)
+        self.assertEqual(exp_cStation_nks[0], response.data)
         
 
 
@@ -169,9 +194,9 @@ class HttpCSFinderTest(APITestCase):
 
       # panthereLocations = [,
         #    "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
-        #    "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
+        #    "1735 Rue Saint-Denis, Montreal, QC H2X 3K4",
         #    "2153 Mackay St, Montreal, QC H3G 2J2",
-        #    "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
+        #    "3515 Avenue Lacombe, Montreal, QC H3T 1M2",
         #    "5265 Queen Mary Rd, Montreal, QC H3W 1Y3"
         # ]
 

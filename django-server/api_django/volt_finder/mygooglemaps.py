@@ -68,25 +68,25 @@ class CStation:
 
 
 def format_output_cs(addr, elem):
-    formated_cs = {
-        'nk': 'err...whats that',
-        'destination_addresses': addr,
-        'duration_txt': elem['duration']['text'],
-        'duration_val': elem['duration']['value'],
-        'distance_txt': elem['distance']['text'],
-        'distance_val': elem['distance']['value'],
-        'status': elem['status']                   
-    }
+    # formated_cs = {
+    #     'nk': 'err...whats that',
+    #     'destination_addresses': addr,
+    #     'duration_txt': elem['duration']['text'],
+    #     'duration_val': elem['duration']['value'],
+    #     'distance_txt': elem['distance']['text'],
+    #     'distance_val': elem['distance']['value'],
+    #     'status': elem['status']                   
+    # }
     # Use CStation data class object (requires serialization before the view Responds to client)
-    # formated_cs = CStation(
-    #     'err...',
-    #     addr, 
-    #     elem['duration']['text'], 
-    #     elem['duration']['value'],
-    #     elem['distance']['text'], 
-    #     elem['distance']['value'],
-    #     elem['status']
-    # )
+    formated_cs = CStation(
+        'no_nk',
+        addr, 
+        elem['duration']['text'], 
+        elem['duration']['value'],
+        elem['distance']['text'], 
+        elem['distance']['value'],
+        elem['status']
+    )
     return formated_cs
     
 
@@ -121,11 +121,13 @@ def getNearestCS(poi, charginStations):
             result.append(temp_CStation)
 
         # Sort CS, lower duration value first
+        # sortx = sorted(top_cs, key=lambda x: x.duration_val, reverse=True)
         result.sort(key=lambda x: x.duration_val, reverse=False)
+        # result.sort(key=lambda x: x['duration_val'], reverse=False)
 
         # Retrun top 5 results
         if len(result) > 5:
             return result[:5]
         else:
-            return  result  
+            return result  
 

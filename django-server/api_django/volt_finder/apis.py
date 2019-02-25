@@ -3,11 +3,13 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
 
-from .serializers import UserSerializer, ChargingStationSerializer
-from volt_finder.models import ChargingStation
+import json
 
-from volt_finder import mygooglemaps as gg
+from .serializers import UserSerializer, ChargingStationSerializer, GeoCStationSerializer
+from .models import ChargingStation
+from . import mygooglemaps as gg
 
 
 class SignUpView(generics.CreateAPIView):
@@ -51,29 +53,56 @@ class ChargingStationDetailView(viewsets.ReadOnlyModelViewSet):
 
 
 class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
-    """ Get's user POI and returns a short list of CS that are nearest to it """
-    #poi_location = 'poi_location'
+    """ Get's user POI and returns a short list of CS that are nearest to it
+    :param poi_location: the point of interestan address
+    :type destinations: a single location, as a string
+    """
     permission_classes = (permissions.IsAuthenticated,)
-    # serializer_class = ChargingStationSerializer
+    #TODO: replace queryset by a get_queryset() method and apply some filtering to either the query or the output
+    queryset = ChargingStation.objects.all()
     
     def top_cs_near_poi(self, request, poi_location):
-        queryset = ChargingStation.objects.all()
-        
-        #TODO: call distance matrix
-        cs_loc = [i.location for i in queryset]
+        # Get All charging stations and pass their locations to getNearest       
+
+        all_cs = self.queryset
+
+        cs_loc = [i.location for i in all_cs]
         top_cs = gg.getNearestCS(poi_location, cs_loc)
-        return Response(top_cs)
 
+        # Match CS info from queryset to top_cs, based on address
+        for cs in top_cs:
+            xnk = next((x for x in all_cs if x.location == cs.destination_addresses), None)
+            if xnk != None:
+                print(cs.nk)
+                cs.nk = str(xnk)
+                print(cs.nk)
+            else:
+                pass
+            #TODO: USE try and except
+            #TODO: add other relevant CS fields (update CS data class in gg module)
+           
+            
+            
+        # nk_ls = [
+        # #     'f212936b4d095378c5822d5a0a242f51',
+        # #     '0b81510af4de792afd32c74924876288',
+        # #     '0ce34306674cf48ca478e744e47be9a6',
+        # #     'ac9376c8b63ca40c0ca32685067f9ace',
+        #     '93307f5f01bf52bed2d5725119b4ff0e',
+        #     'AAAAAAAAAAAAAAAAAAAA725119b4ff0e',
+        #     'AAAAAAAAAAAAAAAAAAAAA25119b4ff0e',
+        #     'AAAAAAAAAAAAAAAAAAAAAA5119b4ff0e',
+        #     'AAAAAAAAAAAAAAAAAAAAAAA119b4ff0e',
+        # ]
 
-        #TODO: select top results
-        #TODO: return serialized (TOP) CS
-        # serializer = ChargingStationSerializer(queryset, many=True)
-        # return Response(serializer.data)
+        # for i in range(len(top_cs)):
+        #     top_cs[i].nk = nk_ls[i]        
+
+                
+        #- Serialization
+        serializer = GeoCStationSerializer(top_cs, many=True)
+
+        return Response(serializer.data)
+
         
 
-
-
-#   if len(results) > 5:
-#         top_marks = results[:5]
-#     else:
-#         top_marks = results
