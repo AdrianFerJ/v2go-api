@@ -79,25 +79,6 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
             #TODO: USE try and except
             #TODO: add other relevant CS fields (update CS data class in gg module)
            
-            
-            
-        # nk_ls = [
-        # #     'f212936b4d095378c5822d5a0a242f51',
-        # #     '0b81510af4de792afd32c74924876288',
-        # #     '0ce34306674cf48ca478e744e47be9a6',
-        # #     'ac9376c8b63ca40c0ca32685067f9ace',
-        #     '93307f5f01bf52bed2d5725119b4ff0e',
-        #     'AAAAAAAAAAAAAAAAAAAA725119b4ff0e',
-        #     'AAAAAAAAAAAAAAAAAAAAA25119b4ff0e',
-        #     'AAAAAAAAAAAAAAAAAAAAAA5119b4ff0e',
-        #     'AAAAAAAAAAAAAAAAAAAAAAA119b4ff0e',
-        # ]
-
-        # for i in range(len(top_cs)):
-        #     top_cs[i].nk = nk_ls[i]        
-
-                
-        #- Serialization
         serializer = GeoCStationSerializer(top_cs, many=True)
 
         return Response(serializer.data)
