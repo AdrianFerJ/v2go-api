@@ -15,6 +15,7 @@ pytest-django = "==3.4.2"
 pytest = "==4.0.2"
 twisted = "*"
 requests = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 pylint = "*"
