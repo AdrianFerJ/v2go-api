@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
-from volt_finder.serializers import ChargingStationSerializer, UserSerializer
+from volt_finder.serializers import ChargingStationSerializer, UserSerializer, GeoCStationSerializer
 from volt_finder.models import ChargingStation
 
 PASSWORD = 'pAssw0rd!'
@@ -13,22 +13,8 @@ def create_user(username='user@example.com', password=PASSWORD):
     return get_user_model().objects.create_user(
         username=username, password=password)
 
-sample_addrs = [
-    "160 Rue Saint Viateur E, Montreal, QC H2T 1A8",
-    "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
-    "1735 Rue Saint-Denis, Montreal, QC H2X 3K4",
-    "2153 Mackay St, Montreal, QC H3G 2J2",
-    "3515 Avenue Lacombe, Montreal, QC H3T 1M2",
-    "5265 Queen Mary Rd, Montreal, QC H3W 1Y3",
-    "191 Place du Marché-du-Nord, Montreal, QC H2S 1A2",
-    "545 Milton St, Montreal, QC H2X 1W5",
-    "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
-    "432 Rue Rachel E, Montreal, QC H2J 2G7"
-]
-
 
 """ TESTS """
-
 class AuthenticationTest(APITestCase):
 
     def setUp(self):
@@ -78,6 +64,11 @@ class HttpCSFinderTest(APITestCase):
         self.client = APIClient()
         self.client.login(username=user.username, password=PASSWORD)
 
+    #TODO Include def setUpTestData(cls): Class method to set up test data
+    #TODO: move all CS created into this method
+    # Check this: https://docs.djangoproject.com/en/2.1/topics/testing/tools/#django.test.TestCase
+
+
     def test_user_can_retrieve_cs_detail_by_nk(self):
         cStation = ChargingStation.objects.create(
             location='160 Rue Saint Viateur E, Montreal, QC H2T 1A8', name='Panthere 1', manager_id=1)
@@ -92,24 +83,17 @@ class HttpCSFinderTest(APITestCase):
             ChargingStation.objects.create(
                 location='1735 Rue Saint-Denis, Montreal, QC H2X 3K4, Canada', name='Panthere 2', manager_id=1),
             ChargingStation.objects.create(
-                location='2153 Mackay St, Montreal, QC H3G 2J2', name='Panthere 3', manager_id=1),
+                location='2153 Mackay St, Montreal, QC H3G 2J2, Canada', name='Panthere 3', manager_id=1),
         ]      
         response = self.client.get(reverse('cStation:cStations_list'))
 
-        print('********** RESPONSE DATA  P1: #', len(response.data), 'TYPE:', type(response.data), '**********')
-        print(response.data)
-
-        self.assertEqual(status.HTTP_200_OK, response.status_code)
-
         exp_cStation_nks = [cs.nk for cs in cStations]
         act_cStation_nks = [cs.get('nk') for cs in response.data]
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
     
     def test_get_top_5_cs_near_poi(self):
-        #TODO: Fix / add
-        #       - use len(ExpectedcStations) == len(APIoutPutcStations)
-        #       - and self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
-        #       - *ExpectedcStations == ChargingStation.objects.all()
         poi_location = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
         test_top_cs = [
             ChargingStation.objects.create(
@@ -123,84 +107,33 @@ class HttpCSFinderTest(APITestCase):
             ChargingStation.objects.create(
                 location='160 Rue Saint Viateur E, Montréal, QC H2T 1A8, Canada', name='Top 1', manager_id=1),
         ]
-        #other_cs (farther from poi)
+        # CS farther from poi than test_top_cs
+        other_cs = [ 
         ChargingStation.objects.create(
-            location='545 Rue Milton, Montreal, QC H2X 1W5, Canada', name='test_1', manager_id=1)
+            location='545 Rue Milton, Montreal, QC H2X 1W5, Canada', name='test_1', manager_id=1),
         ChargingStation.objects.create(
-            location='2153 Rue Mackay, Montreal, QC H3G 2J2, Canada', name='test_2', manager_id=1)
+            location='2153 Rue Mackay, Montreal, QC H3G 2J2, Canada', name='test_2', manager_id=1),
         ChargingStation.objects.create(
-            location='191 Place du Marché-du-Nord, Montreal, QC H2S 1A2, Canada', name='test_3', manager_id=1)
+            location='191 Place du Marché-du-Nord, Montreal, QC H2S 1A2, Canada', name='test_3', manager_id=1),
         ChargingStation.objects.create(
-            location='3515 Avenue Lacombe, Montreal, QC H3T 1M2, Canada', name='test_4', manager_id=1)
+            location='3515 Avenue Lacombe, Montreal, QC H3T 1M2, Canada', name='test_4', manager_id=1),
         ChargingStation.objects.create(
             location='5265 Chemin Queen Mary, Montreal, QC H3W 1Y3, Canada', name='test_5', manager_id=1)
-        
-        # TODO: Fix reverse call to include poi_location in get.request
-        # response = self.client.get(reverse('cStation:cStations_near_poi'))
-        # response = self.client.get(reverse('cStation:cStations_near_poi', args=[poi_location]))
+        ]
+
         response = self.client.get(reverse('cStation:cStations_near_poi', kwargs={'poi_location': poi_location}))
-        
-        #REMOVE
-        print('#')
-        print('********** RESPONSE DATA  P2: #', len(response.data), 'TYPE:', type(response.data), '**********')
-        print(response.data)
-
-        """ 
-            RE-serialize data 
-        """
-        # import io
-        # from rest_framework.parsers import JSONParser
-        from volt_finder.serializers import GeoCStationSerializer
-        # stream = io.BytesIO(response.data)
-        # data = JSONParser().parse(stream)
-        # serializer = GeoCStationSerializer(data=data,  many=True)
-
-        serializer = GeoCStationSerializer(data=response.data,  many=True)       
-        #TODO: replace if/else with TRY EXCEPT
-        if serializer.is_valid():
-            serializer.is_valid()
-            serialized_data = serializer.validated_data
-            print('#')
-            print('~~~~~~~~ SERIALIZED DATA  !!!!: #', len(serialized_data), 'TYPE:', type(serialized_data), '**********')
-        else:
-            print('#')
-            print('??????????? ERROR... XD  !!!!:')
-            print(serializer.errors)
+        serializer = GeoCStationSerializer(data=response.data,  many=True)  
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
 
-        # EXP...
+        self.assertTrue(serializer.is_valid())
+        serialized_data = serializer.validated_data
+        
         exp_cStation_nks = [cs.nk for cs in test_top_cs]
-        print('**********')  
-        print('exp_cStation_nks = ', exp_cStation_nks)
-
-        # act_cStation_nks = [cs.get('nk') for cs in response.data]  
-        # act_cStation_nks = [cs.nk for cs in response.data]            
-        # act_cStation_nks = [cs['nk'] for cs in response.data]
+        other_cStation_nks = [cs.nk for cs in other_cs]
         act_cStation_nks = [cs['nk'] for cs in serialized_data]
-
-        print('**********')  
-        print('act_cStation_nks = ', act_cStation_nks)
-        
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
-        # self.assertEqual(exp_cStation_nks[0], response.data)
+        self.assertAlmostEqual(act_cStation_nks, exp_cStation_nks)
+        self.assertNotIn(other_cStation_nks[0], exp_cStation_nks)
+        self.assertEqual(serialized_data[0]['duration_val'], 321)
         
-
-
-
-    #TODO: def test_find_single_nearest_cs_to_poi(self):
-    #   user_poi_location = '969 Rachel St E, Montreal, QC H2J 2J2'
-
-
-      # panthereLocations = [,
-        #    "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
-        #    "1735 Rue Saint-Denis, Montreal, QC H2X 3K4",
-        #    "2153 Mackay St, Montreal, QC H3G 2J2",
-        #    "3515 Avenue Lacombe, Montreal, QC H3T 1M2",
-        #    "5265 Queen Mary Rd, Montreal, QC H3W 1Y3"
-        # ]
-
-# def setUp():
-#      client = APIClient()
-#      client.login(username='test1', password='letmein!')
-#      return client

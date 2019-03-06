@@ -73,9 +73,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
         for cs in top_cs:
             xnk = next((x for x in all_cs if x.location == cs.destination_addresses), None)
             if xnk != None:
-                print(cs.nk)
                 cs.nk = str(xnk)
-                print(cs.nk)
             else:
                 pass
             #TODO: USE try and except
