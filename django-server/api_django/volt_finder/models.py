@@ -1,11 +1,9 @@
 import datetime
 import hashlib 
 
-# from django.db import models
-from django.contrib.gis.db import models
+from django.db import models
 from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
-from django.contrib.gis.geos import GEOSGeometry
 
 
 class User(AbstractUser):
@@ -26,19 +24,13 @@ class ChargingStation(models.Model):
 
     nk = models.CharField(max_length=32, unique=True, db_index=True)
     name = models.CharField(max_length=255, default='')
-    status = models.CharField(max_length=20, choices=STATUSES, default=UNAVAILABLE)
-    manager_id =models.IntegerField() #TODO: this should be a foreign key to link with cs_owner model
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-    # Location is an Address (str)... for now
+    # Location is an Address (str), for now
     location = models.CharField(max_length=255) # TODO: figure how to adequatetly store location (string 
                                                 # .. address, LatLng-cordinate, or Lat and Long separate)
-    geo_location = models.PointField(null=True, blank=True)    
-    address = models.CharField(max_length=100, default='')                                         
-    lon = models.FloatField(default=0.0)
-    lat = models.FloatField(default=0.0)
-    
+    status = models.CharField(max_length=20, choices=STATUSES, default=UNAVAILABLE)
+    manager_id =models.IntegerField() #TODO: this should be a foreign key to link with cs_owner model
 
     def __str__(self):
         return self.nk
