@@ -66,12 +66,12 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
 
         all_cs = self.queryset
 
-        cs_loc = [i.location for i in all_cs]
-        top_cs = gg.getNearestCS(poi_location, cs_loc)
+        cs_addresses = [i.address for i in all_cs]
+        top_cs = gg.getNearestCS(poi_location, cs_addresses)
 
         # Match CS info from queryset to top_cs, based on address
         for cs in top_cs:
-            xnk = next((x for x in all_cs if x.location == cs.destination_addresses), None)
+            xnk = next((x for x in all_cs if x.address == cs.destination_addresses), None)
             if xnk != None:
                 cs.nk = str(xnk)
             else:
