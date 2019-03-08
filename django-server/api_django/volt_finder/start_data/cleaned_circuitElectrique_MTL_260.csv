@@ -1,0 +1,260 @@
+name,id,charger_level,cost,gg_address,city,province,postal_code,gg_lat,gg_lng
+DGI - Complexe Desjardins,CEA-10097,Level2,"1,00 $ (CAD) de l'heure","1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",Montréal,QC,H2X 3Y2,45.5070394,-73.5651293
+301 | BSR | RPP | 6511 St-André,CEA-10306,Level2,"1,00 $ (CAD) de l'heure","6511 Rue Saint-André, Montréal, QC H2S 2K7, Canada",Montréal,QC,H2S 2K7,45.536734,-73.6030444
+105 | BSR | AC | 1530 Fleury,CEA-11014,Level2,"1,00 $ (CAD) de l'heure","1530 Rue Fleury E, Montréal, QC H2C 2Y6, Canada",Montréal,QC,H2C 2Y6,45.5629748,-73.6561512
+109 | BSR | AC | 205 Chabanel,CEA-10378,Level2,"1,00 $ (CAD) de l'heure","205 Rue Chabanel O, Montréal, QC H2N 1G3, Canada",Montréal,QC,H2N 1G3,45.540977000000005,-73.6536969
+625 | BSR | VM | 1956 Frontenac,CEA-10183,Level2,"1,00 $ (CAD) de l'heure","1956 Rue Frontenac, Montréal, QC H2K 2Z1, Canada",Montréal,QC,H2K 2Z1,45.5325695,-73.5521119
+331 | BSR | RPP | 6679 Rue Garnier,CEA-11480,Level2,"1,00 $ (CAD) de l'heure","6679 Rue Garnier, Montréal, QC H2G 3A2, Canada",Montréal,QC,H2G 3A2,45.542891999999995,-73.60115
+DGI - Complexe Desjardins,CEA-10070,Level2,"1,00 $ (CAD) de l'heure","1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",Montréal,QC,H2X 3Y2,45.5070394,-73.5651293
+580 | BHR | PMR | 4365 Cartier : Aréna Mont-Royal,CEA-083,Level2,"2,50 $ (CAD) par session","4365 Rue Cartier, Montréal, QC H2H 2N9, Canada",Montréal,QC,H2H 2N9,45.533234,-73.571813
+116 | BSR | AC | 10625 Francis,CEA-11188,Level2,"1,00 $ (CAD) de l'heure","10625 Rue Francis, Montréal, QC H2C 3A5, Canada",Montréal,QC,H2C 3A5,45.5653481,-73.6603467
+285 | BHR | VSMPE | 8000 de Normanville : Centre sportif Jean-Rougeau,CEA-055,Level2,"2,50 $ (CAD) par session","8000 Rue de Normanville, Montréal, QC H2R 2V6, Canada",Montréal,QC,H2R 2V6,45.5483499,-73.62149840000001
+SHDM - Complexe Chaussegros-De-Léry,CEA-358,Level2,"2,50 $ (CAD) par session","330 Rue du Champ de Mars, Montréal, QC H2Y 3Z8, Canada",Montréal,QC,H2Y 3Z3,45.5100013,-73.55362209999998
+519 | BSR | PMR | 5465 St-Denis,CEA-10524,Level2,"1,00 $ (CAD) de l'heure","5465 Rue Saint-Denis, Montréal, QC H2J 4B7, Canada",Montréal,QC,H2J 4B7,45.5295737,-73.59439429999999
+203 | BSR | VSMPE | 7501 rue St-Denis,CEA-10367,Level2,"1,00 $ (CAD) de l'heure","7501 Rue Saint-Denis, Montréal, QC H2R 2E7, Canada",Montréal,QC,H2R 2E7,45.540237899999994,-73.6202848
+515 | BSR | PMR | 4801 Papineau,CEA-10530,Level2,"1,00 $ (CAD) de l'heure","4801 Rue Papineau, Montréal, QC H2H 1V7, Canada",Montréal,QC,H2H 1V7,45.5348126,-73.5780873
+221 | BSR | VSMPE | 2200 Jean-Talon E,CEA-10731,Level2,"1,00 $ (CAD) de l'heure","2200 Rue Jean-Talon Est, Montréal, QC H2E 2R1, Canada",Montréal,QC,H2E 2R1,45.550911,-73.6038593
+513 | BSR | PMR | 5030 St-Denis,CEA-10538,Level2,"1,00 $ (CAD) de l'heure","5030 Rue Saint-Denis, Montréal, QC H2J 2L8, Canada",Montréal,QC,H2J 2L9,45.5263482,-73.58895890000001
+282 | BHR | VSMPE | 9235 Papineau : Stade de Soccer de Montréal,CEA-033,Level2,"2,50 $ (CAD) par session","9235 Rue Papineau, Montréal, QC H2M 2G5, Canada",Montréal,QC,H2M 2G5,45.562889500000004,-73.63885450000001
+111 | BSR | AC | 55 Cremazie O,CEA-10859,Level2,"1,00 $ (CAD) de l'heure","55 Boulevard Crémazie O, Montréal, QC H2N 1L3, Canada",Montréal,QC,H2N 1L3,45.5411395,-73.64264200000001
+605 | BSR | VM | 265 St-Antoine,CEA-10025,Level2,"1,00 $ (CAD) de l'heure","301 Rue Saint-Antoine O, Montréal, QC H2Z 1H5, Canada",Montréal,QC,H2Z 1H5,45.5036148,-73.56053840000001
+282 | BHR | VSMPE | 9235 Papineau : Stade de Soccer de Montréal,CEA-094,Level2,"2,50 $ (CAD) par session","9235 Rue Papineau, Montréal, QC H2M 2G5, Canada",Montréal,QC,H2M 2G5,45.562889500000004,-73.63885450000001
+215 | BSR | VSMPE | 7140 Bordeaux,CEA-10699,Level2,"1,00 $ (CAD) de l'heure","7140 Rue de Bordeaux, Montréal, QC H2E 2M3, Canada",Montréal,QC,H2E 2M3,45.5494502,-73.6052291
+307 | BSR | RPP | 1031 St-Zotique,CEA-10344,Level2,"1,00 $ (CAD) de l'heure","1031 Rue Saint-Zotique E, Montréal, QC H2S 1N1, Canada",Montréal,QC,H2S 1N1,45.5390674,-73.60546109999999
+SHDM - Complexe Chaussegros-De-Léry,CEA-350,Level2,"2,50 $ (CAD) par session","330 Rue du Champ de Mars, Montréal, QC H2Y 3Z8, Canada",Montréal,QC,H2Y 3Z3,45.5100013,-73.55362209999998
+219 | BSR | VSMPE | 1210 Villeray,CEA-10688,Level2,"1,00 $ (CAD) de l'heure","1210 Rue Villeray, Montréal, QC H2R 1J7, Canada",Montréal,QC,H2R 1J7,45.546833500000005,-73.61840140000001
+310 | BSR | RPP | 7085 St-Laurent,CEA-10649,Level2,"1,00 $ (CAD) de l'heure","7085 Boul St-Laurent, Montréal, QC H2S 3E3, Canada",Montréal,QC,H2S 3E3,45.534040999999995,-73.6165121
+METRO - Fleury,CEB-10021,Level2,"1,00 $ (CAD) de l'heure","1745 Rue Fleury E, Montréal, QC H2C 1T3, Canada",Montréal,QC,H2C 1T3,45.566800799999996,-73.65473850000001
+DGI - Complexe Desjardins,CEA-10548,Level2,"1,00 $ (CAD) de l'heure","1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",Montréal,QC,H2X 3Y2,45.5070394,-73.5651293
+280 | BHR | VSMPE | 7501 François Perrault : Maison du citoyen,CEA-10674,Level2,"2,50 $ (CAD) par session","7501 Rue François-Perrault, Montréal, QC H2A 1M1, Canada",Montréal,QC,H2A 1M1,45.5617131,-73.60121240000001
+513 | BSR | PMR | 5030 St-Denis,CEA-10520,Level2,"1,00 $ (CAD) de l'heure","5030 Rue Saint-Denis, Montréal, QC H2J 2L8, Canada",Montréal,QC,H2J 2L9,45.5263482,-73.58895890000001
+318 | BSR | RPP | 2919 Bellechasse,CEA-10947,Level2,"1,00 $ (CAD) de l'heure","2919 Rue de Bellechasse, Montréal, QC H1Y 1K1, Canada",Montréal,QC,H2G 1N8,45.5516476,-73.5851119
+233 | BSR | VSMPE | 7707 Shelley,CEA-11353,Level2,"1,00 $ (CAD) de l'heure","7707 Avenue Shelley, Montréal, QC H2A 1H6, Canada",Montréal,QC,H2A 1H6,45.562410899999996,-73.6048151
+618 | BSR | VM | 254 Boisbriand,CEA-10177,Level2,"1,00 $ (CAD) de l'heure","270 Rue de Boisbriand, Montréal, QC H2X, Canada",Montréal,QC,H2X 3C5,45.5129085,-73.5622645
+319 | BSR | RPP | 6501 St-Laurent,CEA-10810,Level2,"1,00 $ (CAD) de l'heure","6501 Boul St-Laurent, Montréal, QC H2S 3C4, Canada",Montréal,QC,H2S 3C4,45.530368200000005,-73.6085368
+228 | BSR | VSMPE | 405 Guizot,CEA-11245,Level2,"1,00 $ (CAD) de l'heure","405 Rue Guizot E, Montréal, QC H2P 1M8, Canada",Montréal,QC,H2P 1M8,45.543828999999995,-73.63228659999999
+220 | BSR | VSMPE | 7151 St-Dominique,CEA-10566,Level2,"1,00 $ (CAD) de l'heure","7151 Rue Saint-Dominique, Montréal, QC H2R 1X3, Canada",Montréal,QC,H2R 1X3,45.535179,-73.6173677
+102 | BSR | AC | 1100 Fleury,CEA-10755,Level2,"1,00 $ (CAD) de l'heure","1100 Rue Fleury E, Montréal, QC H2C 1P9, Canada",Montréal,QC,H2C 1P9,45.558618,-73.658333
+111 | BSR | AC | 55 Cremazie O,CEA-10845,Level2,"1,00 $ (CAD) de l'heure","55 Boulevard Crémazie O, Montréal, QC H2N 1L3, Canada",Montréal,QC,H2N 1L3,45.5411395,-73.64264200000001
+516 | BSR | PMR | 3620 St-Denis,CEA-10880,Level2,"1,00 $ (CAD) de l'heure","3620 Rue Saint-Denis, Montréal, QC H2X 3L7, Canada",Montréal,QC,H2X 3L6,45.517817,-73.56995490000001
+313 | BSR | RPP | 6036 St-Hubert,CEA-10578,Level2,"1,00 $ (CAD) de l'heure","6036 Rue St-Hubert, Montréal, QC H2S 2L7, Canada",Montréal,QC,H2S 2L7,45.534389000000004,-73.59970799999999
+522 | BSR | PMR | 4490 Fabre,CEA-10585,Level2,"1,00 $ (CAD) de l'heure","4490 Rue Fabre, Montréal, QC H2J 3V3, Canada",Montréal,QC,H2J 3V3,45.5312697,-73.5756427
+106 | BSR | AC | 780 Fleury,CEA-10596,Level2,"1,00 $ (CAD) de l'heure","1780 Rue Fleury E, Montréal, QC H2C 3E4, Canada",Montréal,QC,H2C 1T4,45.567422799999996,-73.6535553
+604 | BSR | VM | 163 St-Antoine,CEA-10198,Level2,"1,00 $ (CAD) de l'heure","115 Rue Saint-Antoine O, Montréal, QC H2Z 1X8, Canada",Montréal,QC,H2Z 1X8,45.5054528,-73.55869090000002
+602 | BSR | VM | 1245 St-Urbain,CEA-288,Level2,"1,00 $ (CAD) de l'heure","Boulevard René-Lévesque O & Rue Saint-Urbain, Montréal, QC H2Z, Canada",Montréal,QC,H2Z 1A4,45.507678399999996,-73.562505
+581 | BHR | PMR | 5633 Saint-Dominique : Aréna St-Louis,CEA-102,Level2,"2,50 $ (CAD) par session","5633 Rue Saint-Dominique, Montréal, QC H2T 1V7, Canada",Montréal,QC,H2T 1V7,45.5273112,-73.5994845
+604 | BSR | VM | 163 St-Antoine,CEA-10782,Level2,"1,00 $ (CAD) de l'heure","155 Rue Saint-Antoine O, Montréal, QC H2Z 1H2, Canada",Montréal,QC,H2Z 2A7,45.505202000000004,-73.5589031
+508 | BSR | PMR | 5271 St-Hubert,CEA-10527,Level2,"1,00 $ (CAD) de l'heure","5271 Rue St-Hubert, Montréal, QC H2J 2Y4, Canada",Montréal,QC,H2J 2Y4,45.5302115,-73.59012690000002
+DGI - Complexe Desjardins,CEA-10091,Level2,"1,00 $ (CAD) de l'heure","1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",Montréal,QC,H2X 3Y2,45.5070394,-73.5651293
+Centre de services communautaires du Monastère,CEC-00153,FastDC,"10,00 $ (CAD) de l'heure","4451 Rue Berri, Montréal, QC H2J 1W5, Canada",Montréal,QC,H2J 2W9,45.5249085,-73.5807816
+325 | BSR | RPP | 5841 des Écores,CEA-10868,Level2,"1,00 $ (CAD) de l'heure","5841 Rue des Écores, Montréal, QC H2G 2J2, Canada",Montréal,QC,H2G 1X6,45.5447644,-73.5863595
+627 | BSR | VM | 1475 Alexandre DeSève,CEA-10864,Level2,"1,00 $ (CAD) de l'heure","1475 Rue Alexandre-DeSève, Montréal, QC H2L 4P2, Canada",Montréal,QC,H2L 4P2,45.5218232,-73.554902
+318 | BSR | RPP | 2919 Bellechasse,CEA-10748,Level2,"1,00 $ (CAD) de l'heure","2919 Rue de Bellechasse, Montréal, QC H1Y 1K1, Canada",Montréal,QC,H2G 1N8,45.5516476,-73.5851119
+521 | BSR | PMR | 375 St-Viateur,CEA-10517,Level2,"1,00 $ (CAD) de l'heure","263 Rue Saint Viateur O, Montréal, QC H2V 1Y1, Canada",Montréal,QC,H2V 4B5,45.5226902,-73.60196440000001
+206 | BSR | VSMPE | 8106 Casgrain,CEA-10353,Level2,"1,00 $ (CAD) de l'heure","8106 Avenue Casgrain, Montréal, QC H2P 2K5, Canada",Montréal,QC,H2P 2K5,45.540012100000006,-73.63104150000001
+620 | BSR | VM | 1551 St-Denis,CEA-10148,Level2,"1,00 $ (CAD) de l'heure","1551 Rue Saint-Denis, Montréal, QC H2X 3K3, Canada",Montréal,QC,H2L 3K3,45.5146299,-73.562003
+ITHQ,CEB-10188,Level2,"1,00 $ (CAD) de l'heure","3535 Rue Saint-Denis, Montréal, QC H2X 3P1, Canada",Montréal,QC,H2X 3P1,45.5177092,-73.5687593
+324 | BSR | RPP | 5808 St-Hubert,CEA-10543,Level2,"1,00 $ (CAD) de l'heure","Rue St-Hubert, Montréal, QC, Canada",Montréal,QC,H2S 2L7,45.5442437,-73.62094909999999
+529 | BSR | PMR | 2025 Masson,CEA-11027,Level2,"1,00 $ (CAD) de l'heure","2025 Rue Masson, Montréal, QC H2H 2P7, Canada",Montréal,QC,H2H 2P7,45.5393624,-73.58210240000001
+210 | BSR | VSMPE | 15 Liège E,CEA-10701,Level2,"1,00 $ (CAD) de l'heure","15 Rue de Liège E, Montréal, QC H2P 1H8, Canada",Montréal,QC,H2P 1H8,45.5410242,-73.6375275
+506 | BSR | PMR | 5004 St-Laurent : Parc Lahaie,CEA-10329,Level2,"1,00 $ (CAD) de l'heure","5004 Boul St-Laurent, Montréal, QC H2T 1R7, Canada",Montréal,QC,H2T 1R7,45.522451200000006,-73.59183730000001
+523 | BSR | PMR | 4752 Berri,CEA-11291,Level2,"1,00 $ (CAD) de l'heure","4752 Rue Berri, Montréal, QC H2J 2R5, Canada",Montréal,QC,H2J 2R6,45.526371999999995,-73.58540500000001
+112 | BSR | AC | 460 Chabanel O,CEA-10841,Level2,"1,00 $ (CAD) de l'heure","460 Rue Chabanel O, Montréal, QC H2N 2K6, Canada",Montréal,QC,H2N 1G8,45.537746000000006,-73.6544455
+618 | BSR | VM | 254 Boisbriand,CEA-10178,Level2,"1,00 $ (CAD) de l'heure","270 Rue de Boisbriand, Montréal, QC H2X, Canada",Montréal,QC,H2X 3C5,45.5129085,-73.5622645
+118 | BSR | AC | 9335 St-Hubert,CEA-11005,Level2,"1,00 $ (CAD) de l'heure","9335 Rue St-Hubert, Montréal, QC H2M 1Y7, Canada",Montréal,QC,H2M 1Y7,45.5531259,-73.6463446
+119 | BSR | AC |  10905 rue Basile Routhier : Parc Basile Routhier,CEA-10273,Level2,"1,00 $ (CAD) de l'heure","10905 Rue Basile Routhier, Montréal, QC H2C 1N7, Canada",Montréal,QC,H2C 3H5,45.557458600000004,-73.6725483
+502 | BSR | PMR | 4502 Boyer,CEA-10389,Level2,"1,00 $ (CAD) de l'heure","4502 Rue Boyer, Montréal, QC H2J 3E2, Canada",Montréal,QC,H2J 3E2,45.5274177,-73.5800945
+508 | BSR | PMR | 5271 St-Hubert,CEA-10575,Level2,"1,00 $ (CAD) de l'heure","5271 Rue St-Hubert, Montréal, QC H2J 2Y4, Canada",Montréal,QC,H2J 2Y4,45.5302115,-73.59012690000002
+226 | BSR | VSMPE | 151 Castelnau,CEA-10727,Level2,"1,00 $ (CAD) de l'heure","151 Rue de Castelnau O, Montréal, QC H2R 2Y6, Canada",Montréal,QC,H2R 1P3,45.5339635,-73.62186
+634 | BSR | VM | 350 rue St-Hubert,CEA-11191,Level2,"1,00 $ (CAD) de l'heure","350 Rue St-Hubert, Montréal, QC H2Y 4B3, Canada",Montréal,QC,H2L 0A4,45.512123700000004,-73.5504839
+119 | BSR | AC |  10905 rue Basile Routhier : Parc Basile Routhier,CEA-10258,Level2,"1,00 $ (CAD) de l'heure","10905 Rue Basile Routhier, Montréal, QC H2C 1N7, Canada",Montréal,QC,H2C 3H5,45.557458600000004,-73.6725483
+625 | BSR | VM | 1956 Frontenac,CEA-10162,Level2,"1,00 $ (CAD) de l'heure","1956 Rue Frontenac, Montréal, QC H2K 2Z1, Canada",Montréal,QC,H2K 2Z1,45.5325695,-73.5521119
+218 | BSR | VSMPE | 8498 Châteaubriand,CEA-10638,Level2,"1,00 $ (CAD) de l'heure","8498 Avenue De Chateaubriand, Montréal, QC H2P 2A3, Canada",Montréal,QC,H2P 2A3,45.547575099999996,-73.63310440000001
+580 | BHR | PMR | 4365 Cartier : Aréna Mont-Royal,CEA-101,Level2,"2,50 $ (CAD) par session","4365 Rue Cartier, Montréal, QC H2H 2N9, Canada",Montréal,QC,H2H 2N9,45.533234,-73.571813
+223 | BSR | VSMPE | 8630 Berri,CEA-10761,Level2,"1,00 $ (CAD) de l'heure","8630 Rue Berri, Montréal, QC H2P 2Z4, Canada",Montréal,QC,H2P 2G4,45.5455533,-73.6374537
+303 | BSR | RPP | 2160 Beaubien,CEA-10360,Level2,"1,00 $ (CAD) de l'heure","2160 Rue Beaubien E, Montréal, QC H2G 1M6, Canada",Montréal,QC,H2G 1M6,45.545912,-73.5940186
+507 | BSR | PMR | 3528 Calixa-Lavallée : Parc Lafontaine,CEA-10290,Level2,"1,00 $ (CAD) de l'heure","3528 Avenue Calixa-Lavallée, Montréal, QC H2L 2T6, Canada",Montréal,QC,H2L 2T6,45.5247991,-73.56526159999999
+319 | BSR | RPP | 6501 St-Laurent,CEA-10545,Level2,"1,00 $ (CAD) de l'heure","6501 Boul St-Laurent, Montréal, QC H2S 3C4, Canada",Montréal,QC,H2S 3C4,45.530368200000005,-73.6085368
+510 | BSR | PMR | 3440 St-Laurent,CEA-10581,Level2,"1,00 $ (CAD) de l'heure","3440 Boul St-Laurent, Montréal, QC H2X 2T9, Canada",Montréal,QC,H2H 1W1,45.512429,-73.5699604
+112 | BSR | AC | 460 Chabanel O,CEA-10855,Level2,"1,00 $ (CAD) de l'heure","460 Rue Chabanel O, Montréal, QC H2N 2K6, Canada",Montréal,QC,H2N 1G8,45.537746000000006,-73.6544455
+581 | BHR | PMR | 5633 Saint-Dominique : Aréna St-Louis,CEA-111,Level2,"2,50 $ (CAD) par session","5633 Rue Saint-Dominique, Montréal, QC H2T 1V7, Canada",Montréal,QC,H2T 1V7,45.5273112,-73.5994845
+220 | BSR | VSMPE | 7151 St-Dominique,CEA-10599,Level2,"1,00 $ (CAD) de l'heure","7151 Rue Saint-Dominique, Montréal, QC H2R 1X3, Canada",Montréal,QC,H2R 1X3,45.535179,-73.6173677
+214 | BSR | VSMPE | 6961 des Écores,CEA-10693,Level2,"1,00 $ (CAD) de l'heure","6961 Rue des Écores, Montréal, QC H2E 2V7, Canada",Montréal,QC,H2E 2V7,45.551163200000005,-73.5999005
+208 | BSR | VSMPE | 10 Villeray,CEA-10365,Level2,"1,00 $ (CAD) de l'heure","10 Rue Villeray, Montréal, QC H2R 1E8, Canada",Montréal,QC,H2R 1E8,45.537246,-73.624707
+219 | BSR | VSMPE | 1210 Villeray,CEA-10703,Level2,"1,00 $ (CAD) de l'heure","1210 Rue Villeray, Montréal, QC H2R 1J7, Canada",Montréal,QC,H2R 1J7,45.546833500000005,-73.61840140000001
+512 | BSR | PMR | 1 Mont-Royal Est,CEA-10561,Level2,"1,00 $ (CAD) de l'heure","1 Avenue du Mont-Royal E, Montréal, QC H2T 1N4, Canada",Montréal,QC,H2T 1N4,45.520303000000006,-73.58645200000001
+636 | BSR | VM | 2005 Ste-Catherine E,CEA-11298,Level2,"1,00 $ (CAD) de l'heure","2005 Rue Sainte-Catherine E, Montréal, QC H2K 2H6, Canada",Montréal,QC,H2K 2H6,45.5244401,-73.5510127
+514 | BSR | PMR | 5333 Papineau,CEA-10522,Level2,"1,00 $ (CAD) de l'heure","5333 Rue Papineau, Montréal, QC H2H 1W1, Canada",Montréal,QC,H2H 1W1,45.5369802,-73.5830187
+326 | BSR | RPP | 1550 Bélanger,CEA-11218,Level2,"1,00 $ (CAD) de l'heure","1550 Rue Bélanger, Montréal, QC H2G 1A9, Canada",Montréal,QC,H2G 1A8,45.5453854,-73.60403769999999
+SHDM - Complexe Chaussegros-De-Léry,CEA-386,Level2,"2,50 $ (CAD) par session","330 Rue du Champ de Mars, Montréal, QC H2Y 3Z8, Canada",Montréal,QC,H2Y 3Z3,45.5100013,-73.55362209999998
+626 | BSR | VM | 2027 L'Espérance,CEA-10174,Level2,"1,00 $ (CAD) de l'heure","2030 Rue Lespérance, Montréal, QC H2K 2N9, Canada",Montréal,QC,H2K 2N9,45.537695,-73.550104
+501 | BSR | PMR | 4492 rue Parth,CEA-10372,Level2,"1,00 $ (CAD) de l'heure","4492 Rue Parthenais, Montréal, QC H2H 2G5, Canada",Montréal,QC,H2H 2G5,45.536284,-73.57097990000001
+328 | BSR | RPP | 440 Beaubien,CEA-11467,Level2,"1,00 $ (CAD) de l'heure","440 Rue Beaubien E, Montréal, QC H2S 1S3, Canada",Montréal,QC,H2S 2P7,45.534534,-73.604271
+282 | BHR | VSMPE | 9235 Papineau : Stade de Soccer de Montréal,CEA-159,Level2,"2,50 $ (CAD) par session","9235 Rue Papineau, Montréal, QC H2M 2G5, Canada",Montréal,QC,H2M 2G5,45.562889500000004,-73.63885450000001
+315 | BSR | RPP | 2460 Dandurand,CEA-10876,Level2,"1,00 $ (CAD) de l'heure","2460 Rue Dandurand, Montréal, QC H2G 2A3, Canada",Montréal,QC,H2G 2A1,45.54387020000001,-73.5809345
+203 | BSR | VSMPE | 7501 rue St-Denis,CEA-10366,Level2,"1,00 $ (CAD) de l'heure","7501 Rue Saint-Denis, Montréal, QC H2R 2E7, Canada",Montréal,QC,H2R 2E7,45.540237899999994,-73.6202848
+302 | BSR | RPP | 253 Mozart,CEA-10384,Level2,"1,00 $ (CAD) de l'heure","253 Avenue Mozart E, Montréal, QC H2S 1B5, Canada",Montréal,QC,H2S 1B5,45.535822499999995,-73.6137959
+634 | BSR | VM | 350 rue St-Hubert,CEA-11208,Level2,"1,00 $ (CAD) de l'heure","350 Rue St-Hubert, Montréal, QC H2Y 4B3, Canada",Montréal,QC,H2L 0A4,45.512123700000004,-73.5504839
+310 | BSR | RPP | 7085 St-Laurent,CEA-10658,Level2,"1,00 $ (CAD) de l'heure","7085 Boul St-Laurent, Montréal, QC H2S 3E3, Canada",Montréal,QC,H2S 3E3,45.534040999999995,-73.6165121
+520 | BSR | PMR | 4604 Parc,CEA-10521,Level2,"1,00 $ (CAD) de l'heure","4604 Av du Parc, Montréal, QC H2V 4E5, Canada",Montréal,QC,H2V 4E5,45.5172996,-73.59136459999999
+631 | BSR | VM | 1717 René-Levesque Est,CEA-11018,Level2,"1,00 $ (CAD) de l'heure","1717 Boulevard René-Lévesque E, Montréal, QC H2L 2R8, Canada",Montréal,QC,H2L 2R8,45.521378000000006,-73.55037779999999
+528 | BSR | PMR | 640 Prince-Arthur O,CEA-11201,Level2,"1,00 $ (CAD) de l'heure","640 Rue Prince Arthur O, Montréal, QC H2X 1T9, Canada",Montréal,QC,H2X 1T9,45.5078384,-73.57824649999999
+Palais des Congrès de Montréal,CEA-389,Level2,"2,50 $ (CAD) par session","159 Rue Saint-Antoine O, Montréal, QC H2Z 1H2, Canada",Montréal,QC,H2Z 1H2,45.505055299999995,-73.5590771
+518 | BSR | PMR | 5185 Parc,CEA-10584,Level2,"1,00 $ (CAD) de l'heure","5185 Av du Parc, Montréal, QC H2V 4G4, Canada",Montréal,QC,H2V 2G3,45.520592,-73.5972887
+102 | BSR | AC | 1100 Fleury,CEA-10750,Level2,"1,00 $ (CAD) de l'heure","1100 Rue Fleury E, Montréal, QC H2C 1P9, Canada",Montréal,QC,H2C 1P9,45.558618,-73.658333
+311 | BSR | RPP | 19 St-Zotique O,CEA-10862,Level2,"1,00 $ (CAD) de l'heure","19 Rue Saint Zotique O, Montréal, QC H2S 1N9, Canada",Montréal,QC,H2S 1N9,45.53166829999999,-73.6127208
+DGI - Complexe Desjardins,CEA-10594,Level2,"1,00 $ (CAD) de l'heure","1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",Montréal,QC,H2X 3Y2,45.5070394,-73.5651293
+225 | BSR | VSMPE | 7352 Drolet,CEA-10749,Level2,"1,00 $ (CAD) de l'heure","7352 Rue Drolet, Montréal, QC H2R 2C4, Canada",Montréal,QC,H2R 2C4,45.538464000000005,-73.618425
+506 | BSR | PMR | 5004 St-Laurent : Parc Lahaie,CEA-10336,Level2,"1,00 $ (CAD) de l'heure","5004 Boul St-Laurent, Montréal, QC H2T 1R7, Canada",Montréal,QC,H2T 1R7,45.522451200000006,-73.59183730000001
+505 | BSR | PMR | 4231 St Laurent,CEA-10328,Level2,"1,00 $ (CAD) de l'heure","4321 Boul St-Laurent, Montréal, QC H2W 1Z3, Canada",Montréal,QC,H2W 1Z4,45.5190351,-73.5838925
+209 | BSR | VSMPE | 8074 St-Hubert,CEA-10856,Level2,"1,00 $ (CAD) de l'heure","8074 Rue St-Hubert, Montréal, QC H2R 2P3, Canada",Montréal,QC,H2R 2P3,45.546157799999996,-73.62601670000001
+323 | BSR | RPP | 1348 Jean-Talon,CEA-10904,Level2,"1,00 $ (CAD) de l'heure","1348 Rue Jean-Talon Est, Montréal, QC H2E 1S1, Canada",Montréal,QC,H2E 1S1,45.545179700000006,-73.6093862
+517 | BSR | PMR | 3660 Mentana,CEA-10558,Level2,"1,00 $ (CAD) de l'heure","3660 Rue de Mentana, Montréal, QC H2L 3R1, Canada",Montréal,QC,H2L 1J1,45.5212972,-73.5677105
+616 | BSR | VM | 250 Président-Kennedy,CEA-10150,Level2,"1,00 $ (CAD) de l'heure","330 Avenue du Président-Kennedy, Montréal, QC H2X, Canada",Montréal,QC,H2X 4C7,45.5079813,-73.56907829999999
+519 | BSR | PMR | 5465 St-Denis,CEA-10542,Level2,"1,00 $ (CAD) de l'heure","5465 Rue Saint-Denis, Montréal, QC H2J 4B7, Canada",Montréal,QC,H2J 4B7,45.5295737,-73.59439429999999
+331 | BSR | RPP | 6679 Rue Garnier,CEA-11464,Level2,"1,00 $ (CAD) de l'heure","6679 Rue Garnier, Montréal, QC H2G 3A2, Canada",Montréal,QC,H2G 3A2,45.542891999999995,-73.60115
+636 | BSR | VM | 2005 Ste-Catherine E,CEA-11022,Level2,"1,00 $ (CAD) de l'heure","2005 Rue Sainte-Catherine E, Montréal, QC H2K 2H6, Canada",Montréal,QC,H2K 2H6,45.5244401,-73.5510127
+605 | BSR | VM | 265 St-Antoine,CEA-10078,Level2,"1,00 $ (CAD) de l'heure","301 Rue Saint-Antoine O, Montréal, QC H2Z 1H5, Canada",Montréal,QC,H2Z 1H5,45.5036148,-73.56053840000001
+507 | BSR | PMR | 3528 Calixa-Lavallée : Parc Lafontaine,CEA-10374,Level2,"1,00 $ (CAD) de l'heure","3528 Avenue Calixa-Lavallée, Montréal, QC H2L 2T6, Canada",Montréal,QC,H2L 2T6,45.5247991,-73.56526159999999
+228 | BSR | VSMPE | 405 Guizot,CEA-11231,Level2,"1,00 $ (CAD) de l'heure","405 Rue Guizot E, Montréal, QC H2P 1M8, Canada",Montréal,QC,H2P 1M8,45.543828999999995,-73.63228659999999
+217 | BSR | VSMPE | 7877 Foucher,CEA-10943,Level2,"1,00 $ (CAD) de l'heure","7877 Rue Foucher, Montréal, QC H2R 2K8, Canada",Montréal,QC,H2R 2K8,45.5441509,-73.6246306
+217 | BSR | VSMPE | 7877 Foucher,CEA-10653,Level2,"1,00 $ (CAD) de l'heure","7877 Rue Foucher, Montréal, QC H2R 2K8, Canada",Montréal,QC,H2R 2K8,45.5441509,-73.6246306
+623 | BSR | VM | 1436 Amherst,CEA-10163,Level2,"1,00 $ (CAD) de l'heure","1411 Rue Amherst, Montréal, QC H2L 3L2, Canada",Montréal,QC,H2L 2G2,45.517711799999994,-73.5572265
+230 | BSR | VSMPE | 7350 Garnier,CEA-11134,Level2,"1,00 $ (CAD) de l'heure","7350 Rue Garnier, Montréal, QC H2E 2A3, Canada",Montréal,QC,H2E 3A3,45.547096,-73.61125799999999
+312 | BSR | RPP | 1315 Bellechasse,CEA-10546,Level2,"1,00 $ (CAD) de l'heure","1315 Rue de Bellechasse, Montréal, QC H2G 1N8, Canada",Montréal,QC,H2G 1N8,45.538821999999996,-73.59637729999999
+602 | BSR | VM | 1245 St-Urbain,CEA-269,Level2,"1,00 $ (CAD) de l'heure","Boulevard René-Lévesque O & Rue Saint-Urbain, Montréal, QC H2Z, Canada",Montréal,QC,H2Z 1A4,45.507678399999996,-73.562505
+227 | BSR | VSMPE | 7187 St-Hubert,CEA-11304,Level2,"1,00 $ (CAD) de l'heure","7187 Rue St-Hubert, Montréal, QC H2R 2N2, Canada",Montréal,QC,H2R 2N2,45.541049799999996,-73.6137047
+529 | BSR | PMR | 2025 Masson,CEA-10972,Level2,"1,00 $ (CAD) de l'heure","2025 Rue Masson, Montréal, QC H2H 2P7, Canada",Montréal,QC,H2H 2P7,45.5393624,-73.58210240000001
+512 | BSR | PMR | 1 Mont-Royal Est,CEA-10604,Level2,"1,00 $ (CAD) de l'heure","1 Avenue du Mont-Royal E, Montréal, QC H2T 1N4, Canada",Montréal,QC,H2T 1N4,45.520303000000006,-73.58645200000001
+606 | BSR | VM | 369 St-Antoine,CEA-10176,Level2,"1,00 $ (CAD) de l'heure","405 Rue Saint-Antoine O, Montréal, QC H2Z 2A3, Canada",Montréal,QC,H2Z 2A3,45.5025893,-73.5611507
+307 | BSR | RPP | 1031 St-Zotique,CEA-10294,Level2,"1,00 $ (CAD) de l'heure","1031 Rue Saint-Zotique E, Montréal, QC H2S 1N1, Canada",Montréal,QC,H2S 1N1,45.5390674,-73.60546109999999
+116 | BSR | AC | 10625 Francis,CEA-11303,Level2,"1,00 $ (CAD) de l'heure","10625 Rue Francis, Montréal, QC H2C 3A5, Canada",Montréal,QC,H2C 3A5,45.5653481,-73.6603467
+218 | BSR | VSMPE | 8498 Châteaubriand,CEA-10770,Level2,"1,00 $ (CAD) de l'heure","8498 Avenue De Chateaubriand, Montréal, QC H2P 2A3, Canada",Montréal,QC,H2P 2A3,45.547575099999996,-73.63310440000001
+328 | BSR | RPP | 440 Beaubien,CEA-11473,Level2,"1,00 $ (CAD) de l'heure","440 Rue Beaubien E, Montréal, QC H2S 1S3, Canada",Montréal,QC,H2S 2P7,45.534534,-73.604271
+518 | BSR | PMR | 5185 Parc,CEA-10579,Level2,"1,00 $ (CAD) de l'heure","5185 Av du Parc, Montréal, QC H2V 4G4, Canada",Montréal,QC,H2V 2G3,45.520592,-73.5972887
+630 | BSR | VM | 1125 Ontario Est,CEA-11200,Level2,"1,00 $ (CAD) de l'heure","1125 Rue Ontario E, Montréal, QC H2L 1R1, Canada",Montréal,QC,H2L 1R1,45.5206722,-73.5633898
+621 | BSR | VM | 1475 St-Hubert,CEA-10317,Level2,"1,00 $ (CAD) de l'heure","1475 Rue St-Hubert, Montréal, QC H2L 3Y9, Canada",Montréal,QC,H2L 3Y9,45.5159121,-73.559561
+207 | BSR | VSMPE | 2225 Jean-Talon E,CEA-10362,Level2,"1,00 $ (CAD) de l'heure","2225 Rue Jean-Talon Est, Montréal, QC H2E 1V5, Canada",Montréal,QC,H2E 1V5,45.5510441,-73.6045237
+521 | BSR | PMR | 375 St-Viateur,CEA-10529,Level2,"1,00 $ (CAD) de l'heure","263 Rue Saint Viateur O, Montréal, QC H2V 1Y1, Canada",Montréal,QC,H2V 4B5,45.5226902,-73.60196440000001
+118 | BSR | AC | 9335 St-Hubert,CEA-11297,Level2,"1,00 $ (CAD) de l'heure","9335 Rue St-Hubert, Montréal, QC H2M 1Y7, Canada",Montréal,QC,H2M 1Y7,45.5531259,-73.6463446
+Collège Ahuntsic,CEA-356,Level2,"1,00 $ (CAD) de l'heure","9155 Rue St-Hubert, Montréal, QC H2M 1Y9, Canada",Montréal,QC,H2M 1Y8,45.552283200000005,-73.6421462
+606 | BSR | VM | 369 St-Antoine,CEA-10218,Level2,"1,00 $ (CAD) de l'heure","405 Rue Saint-Antoine O, Montréal, QC H2Z 2A3, Canada",Montréal,QC,H2Z 2A3,45.5025893,-73.5611507
+205 | BSR | VSMPE | 7145 rue St-Denis,CEA-10726,Level2,"1,00 $ (CAD) de l'heure","7145 Rue Saint-Denis, Montréal, QC H2R 2E3, Canada",Montréal,QC,H2R 2E3,45.5385152,-73.6145051
+627 | BSR | VM | 1475 Alexandre DeSève,CEA-10878,Level2,"1,00 $ (CAD) de l'heure","1475 Rue Alexandre-DeSève, Montréal, QC H2L 4P2, Canada",Montréal,QC,H2L 4P2,45.5218232,-73.554902
+631 | BSR | VM | 1717 René-Levesque Est,CEA-11026,Level2,"1,00 $ (CAD) de l'heure","1717 Boulevard René-Lévesque E, Montréal, QC H2L 2R8, Canada",Montréal,QC,H2L 2R8,45.521378000000006,-73.55037779999999
+517 | BSR | PMR | 3660 Mentana,CEA-10655,Level2,"1,00 $ (CAD) de l'heure","3660 Rue de Mentana, Montréal, QC H2L 3R1, Canada",Montréal,QC,H2L 1J1,45.5212972,-73.5677105
+233 | BSR | VSMPE | 7707 Shelley,CEA-11340,Level2,"1,00 $ (CAD) de l'heure","7707 Avenue Shelley, Montréal, QC H2A 1H6, Canada",Montréal,QC,H2A 1H6,45.562410899999996,-73.6048151
+227 | BSR | VSMPE | 7187 St-Hubert,CEA-11290,Level2,"1,00 $ (CAD) de l'heure","7187 Rue St-Hubert, Montréal, QC H2R 2N2, Canada",Montréal,QC,H2R 2N2,45.541049799999996,-73.6137047
+616 | BSR | VM | 250 Président-Kennedy,CEA-10164,Level2,"1,00 $ (CAD) de l'heure","Avenue du Président-Kennedy, Montréal, QC, Canada",Montréal,QC,H2X 4C7,45.506439,-73.5705712
+313 | BSR | RPP | 6036 St-Hubert,CEA-10609,Level2,"1,00 $ (CAD) de l'heure","6036 Rue St-Hubert, Montréal, QC H2S 2L7, Canada",Montréal,QC,H2S 2L7,45.534389000000004,-73.59970799999999
+323 | BSR | RPP | 1348 Jean-Talon,CEA-10824,Level2,"1,00 $ (CAD) de l'heure","1348 Rue Jean-Talon Est, Montréal, QC H2E 1S1, Canada",Montréal,QC,H2E 1S1,45.545179700000006,-73.6093862
+604 | BSR | VM | 163 St-Antoine,CEA-10190,Level2,"1,00 $ (CAD) de l'heure","115 Rue Saint-Antoine O, Montréal, QC H2Z 1X8, Canada",Montréal,QC,H2Z 1X8,45.5054528,-73.55869090000002
+311 | BSR | RPP | 19 St-Zotique O,CEA-10525,Level2,"1,00 $ (CAD) de l'heure","19 Rue Saint Zotique O, Montréal, QC H2S 1N9, Canada",Montréal,QC,H2S 1N9,45.53166829999999,-73.6127208
+214 | BSR | VSMPE | 6961 des Écores,CEA-10700,Level2,"1,00 $ (CAD) de l'heure","6961 Rue des Écores, Montréal, QC H2E 2V7, Canada",Montréal,QC,H2E 2V7,45.551163200000005,-73.5999005
+109 | BSR | AC | 205 Chabanel,CEA-10577,Level2,"1,00 $ (CAD) de l'heure","205 Rue Chabanel O, Montréal, QC H2N 1G3, Canada",Montréal,QC,H2N 1G3,45.540977000000005,-73.6536969
+Palais des Congrès de Montréal,CEA-261,Level2,"2,50 $ (CAD) par session","159 Rue Saint-Antoine O, Montréal, QC H2Z 1H2, Canada",Montréal,QC,H2Z 1H2,45.505055299999995,-73.5590771
+511 | BSR | PMR | 2755 Hogan,CEA-10526,Level2,"1,00 $ (CAD) de l'heure","2755 Rue Hogan, Montréal, QC H2K 2T5, Canada",Montréal,QC,H2K 2T5,45.5384011,-73.5593526
+525 | BSR | PMR | 4169 St-Hubert,CEA-11016,Level2,"1,00 $ (CAD) de l'heure","4169 Rue St-Hubert, Montréal, QC H2L 4A7, Canada",Montréal,QC,H2L 4A7,45.5234909,-73.5761893
+205 | BSR | VSMPE | 7145 rue St-Denis,CEA-10387,Level2,"1,00 $ (CAD) de l'heure","7145 Rue Saint-Denis, Montréal, QC H2R 2E3, Canada",Montréal,QC,H2R 2E3,45.5385152,-73.6145051
+332 | BSR | RPP | 1201 Bélanger,CEA-11020,Level2,"1,00 $ (CAD) de l'heure","1201 Rue Bélanger, Montréal, QC H2S 1H7, Canada",Montréal,QC,H2S 1H7,45.5418565,-73.6077662
+DGI - Complexe Desjardins,CEA-10587,Level2,"1,00 $ (CAD) de l'heure","1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",Montréal,QC,H2X 3Y2,45.5070394,-73.5651293
+324 | BSR | RPP | 5808 St-Hubert,CEA-10937,Level2,"1,00 $ (CAD) de l'heure","5808 Rue St-Hubert, Montréal, QC H2S 2L7, Canada",Montréal,QC,H2S 2L7,45.53308,-73.596824
+621 | BSR | VM | 1475 St-Hubert,CEA-10311,Level2,"1,00 $ (CAD) de l'heure","1475 Rue St-Hubert, Montréal, QC H2L 3Y9, Canada",Montréal,QC,H2L 3Y9,45.5159121,-73.559561
+DGI - Complexe Desjardins,CEA-10094,Level2,"1,00 $ (CAD) de l'heure","1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",Montréal,QC,H2X 3Y2,45.5070394,-73.5651293
+315 | BSR | RPP | 2460 Dandurand,CEA-10871,Level2,"1,00 $ (CAD) de l'heure","2460 Rue Dandurand, Montréal, QC H2G 2A3, Canada",Montréal,QC,H2G 2A1,45.54387020000001,-73.5809345
+526 | BSR | PMR | 5561 St-Dominique,CEA-11320,Level2,"1,00 $ (CAD) de l'heure","5561 Rue Saint-Dominique, Montréal, QC H2T 1A5, Canada",Montréal,QC,H2T 1A5,45.526773600000006,-73.598535
+603 | BSR | VM | 115 St-Antoine,CEA-10221,Level2,"1,00 $ (CAD) de l'heure","155 Rue Saint-Antoine O, Montréal, QC H2Z 1H2, Canada",Montréal,QC,H2Z 2A7,45.505202000000004,-73.5589031
+324 | BSR | RPP | 5808 St-Hubert,CEA-10147,Level2,"1,00 $ (CAD) de l'heure","5808 Rue St-Hubert, Montréal, QC H2S 2L7, Canada",Montréal,QC,H2S 2L7,45.53308,-73.596824
+603 | BSR | VM | 115 St-Antoine,CEA-10130,Level2,"1,00 $ (CAD) de l'heure","115 Rue Saint-Antoine O, Montréal, QC H2Z 1X8, Canada",Montréal,QC,H2Z 1X8,45.5054528,-73.55869090000002
+302 | BSR | RPP | 253 Mozart,CEA-10377,Level2,"1,00 $ (CAD) de l'heure","253 Avenue Mozart E, Montréal, QC H2S 1B5, Canada",Montréal,QC,H2S 1B5,45.535822499999995,-73.6137959
+215 | BSR | VSMPE | 7140 Bordeaux,CEA-10613,Level2,"1,00 $ (CAD) de l'heure","7140 Rue de Bordeaux, Montréal, QC H2E 2M3, Canada",Montréal,QC,H2E 2M3,45.5494502,-73.6052291
+282 | BHR | VSMPE | 9235 Papineau : Stade de Soccer de Montréal,CEA-144,Level2,"2,50 $ (CAD) par session","9235 Rue Papineau, Montréal, QC H2M 2G5, Canada",Montréal,QC,H2M 2G5,45.562889500000004,-73.63885450000001
+207 | BSR | VSMPE | 2225 Jean-Talon E,CEA-10364,Level2,"1,00 $ (CAD) de l'heure","2225 Rue Jean-Talon Est, Montréal, QC H2E 1V5, Canada",Montréal,QC,H2E 1V5,45.5510441,-73.6045237
+282 | BHR | VSMPE | 9235 Papineau : Stade de Soccer de Montréal,CEA-057,Level2,"2,50 $ (CAD) par session","9235 Rue Papineau, Montréal, QC H2M 2G5, Canada",Montréal,QC,H2M 2G5,45.562889500000004,-73.63885450000001
+325 | BSR | RPP | 5841 des Écores,CEA-10875,Level2,"1,00 $ (CAD) de l'heure","5841 Rue des Écores, Montréal, QC H2G 2J2, Canada",Montréal,QC,H2G 1X6,45.5447644,-73.5863595
+ITHQ,CEB-10194,Level2,"1,00 $ (CAD) de l'heure","3535 Rue Saint-Denis, Montréal, QC H2X 3P1, Canada",Montréal,QC,H2X 3P1,45.5177092,-73.5687593
+604 | BSR | VM | 163 St-Antoine,CEA-10191,Level2,"1,00 $ (CAD) de l'heure","155 Rue Saint-Antoine O, Montréal, QC H2Z 1H2, Canada",Montréal,QC,H2Z 2A7,45.505202000000004,-73.5589031
+119 | BSR | AC |  10905 rue Basile Routhier : Parc Basile Routhier,CEA-10291,Level2,"1,00 $ (CAD) de l'heure","10905 Rue Basile Routhier, Montréal, QC H2C 1N7, Canada",Montréal,QC,H2C 3H5,45.557458600000004,-73.6725483
+226 | BSR | VSMPE | 151 Castelnau,CEA-10758,Level2,"1,00 $ (CAD) de l'heure","151 Rue de Castelnau O, Montréal, QC H2R 2Y6, Canada",Montréal,QC,H2R 1P3,45.5339635,-73.62186
+503 | BSR | PMR | 3760 St-Hubert,CEA-10300,Level2,"1,00 $ (CAD) de l'heure","3760 Rue St-Hubert, Montréal, QC H2L 4A3, Canada",Montréal,QC,H2L 4A3,45.5205726,-73.5708147
+209 | BSR | VSMPE | 8074 St-Hubert,CEA-10857,Level2,"1,00 $ (CAD) de l'heure","8074 Rue St-Hubert, Montréal, QC H2R 2P3, Canada",Montréal,QC,H2R 2P3,45.546157799999996,-73.62601670000001
+516 | BSR | PMR | 3620 St-Denis,CEA-10912,Level2,"1,00 $ (CAD) de l'heure","3620 Rue Saint-Denis, Montréal, QC H2X 3L7, Canada",Montréal,QC,H2X 3L6,45.517817,-73.56995490000001
+309 | BSR | RPP | 7145 Alexandra,CEA-10825,Level2,"1,00 $ (CAD) de l'heure","7145 Rue Alexandra, Montréal, QC H2S 3J6, Canada",Montréal,QC,H2S 3J6,45.532303000000006,-73.61973
+210 | BSR | VSMPE | 15 Liège E,CEA-10702,Level2,"1,00 $ (CAD) de l'heure","15 Rue de Liège E, Montréal, QC H2P 1H8, Canada",Montréal,QC,H2P 1H8,45.5410242,-73.6375275
+525 | BSR | PMR | 4169 St-Hubert,CEA-11031,Level2,"1,00 $ (CAD) de l'heure","4169 Rue St-Hubert, Montréal, QC H2L 4A7, Canada",Montréal,QC,H2L 4A7,45.5234909,-73.5761893
+510 | BSR | PMR | 3440 St-Laurent,CEA-10519,Level2,"1,00 $ (CAD) de l'heure","3440 Boul St-Laurent, Montréal, QC H2X 2T9, Canada",Montréal,QC,H2H 1W1,45.512429,-73.5699604
+221 | BSR | VSMPE | 2200 Jean-Talon E,CEA-10571,Level2,"1,00 $ (CAD) de l'heure","2200 Rue Jean-Talon Est, Montréal, QC H2E 2R1, Canada",Montréal,QC,H2E 2R1,45.550911,-73.6038593
+208 | BSR | VSMPE | 10 Villeray,CEA-10453,Level2,"1,00 $ (CAD) de l'heure","10 Rue Villeray, Montréal, QC H2R 1E8, Canada",Montréal,QC,H2R 1E8,45.537246,-73.624707
+301 | BSR | RPP | 6511 St-André,CEA-10334,Level2,"1,00 $ (CAD) de l'heure","6511 Rue Saint-André, Montréal, QC H2S 2K7, Canada",Montréal,QC,H2S 2K7,45.536734,-73.6030444
+606 | BSR | VM | 369 St-Antoine,CEA-10196,Level2,"1,00 $ (CAD) de l'heure","405 Rue Saint-Antoine O, Montréal, QC H2Z 2A3, Canada",Montréal,QC,H2Z 2A3,45.5025893,-73.5611507
+511 | BSR | PMR | 2755 Hogan,CEA-10598,Level2,"1,00 $ (CAD) de l'heure","2755 Rue Hogan, Montréal, QC H2K 2T5, Canada",Montréal,QC,H2K 2T5,45.5384011,-73.5593526
+Collège Ahuntsic,CEA-357,Level2,"1,00 $ (CAD) de l'heure","9155 Rue St-Hubert, Montréal, QC H2M 1Y9, Canada",Montréal,QC,H2M 1Y8,45.552283200000005,-73.6421462
+204 | BSR | VSMPE | 299 Jean-Talon E,CEA-10357,Level2,"1,00 $ (CAD) de l'heure","299 Rue Jean-Talon Est, Montréal, QC H2R 1S9, Canada",Montréal,QC,H2R 1S9,45.537100099999996,-73.61589509999999
+312 | BSR | RPP | 1315 Bellechasse,CEA-10580,Level2,"1,00 $ (CAD) de l'heure","1315 Rue de Bellechasse, Montréal, QC H2G 1N8, Canada",Montréal,QC,H2G 1N8,45.538821999999996,-73.59637729999999
+103 | BSR | AC | 9475 Lajeunesse,CEA-10657,Level2,"1,00 $ (CAD) de l'heure","9475 Rue Lajeunesse, Montréal, QC H2M 1S5, Canada",Montréal,QC,H2M 1S5,45.550334899999996,-73.650802
+282 | BHR | VSMPE | 9235 Papineau : Stade de Soccer de Montréal,CEA-11253,Level2,"2,50 $ (CAD) par session","9235 Rue Papineau, Montréal, QC H2M 2G5, Canada",Montréal,QC,H2M 2G5,45.562889500000004,-73.63885450000001
+523 | BSR | PMR | 4752 Berri,CEA-11243,Level2,"1,00 $ (CAD) de l'heure","4752 Rue Berri, Montréal, QC H2J 2R5, Canada",Montréal,QC,H2J 2R6,45.526371999999995,-73.58540500000001
+METRO - Fleury,CEB-10022,Level2,"1,00 $ (CAD) de l'heure","1745 Rue Fleury E, Montréal, QC H2C 1T3, Canada",Montréal,QC,H2C 1T3,45.566800799999996,-73.65473850000001
+622 | BSR | VM | 1275 Berri,CEA-10134,Level2,"1,00 $ (CAD) de l'heure","1265 Rue Berri, Montréal, QC H2L 4S6, Canada",Montréal,QC,H2L 4X4,45.5146026,-73.55884959999999
+603 | BSR | VM | 115 St-Antoine,CEA-10051,Level2,"1,00 $ (CAD) de l'heure","155 Rue Saint-Antoine O, Montréal, QC H2Z 1H2, Canada",Montréal,QC,H2Z 2A7,45.505202000000004,-73.5589031
+225 | BSR | VSMPE | 7352 Drolet,CEA-10725,Level2,"1,00 $ (CAD) de l'heure","7352 Rue Drolet, Montréal, QC H2R 2C4, Canada",Montréal,QC,H2R 2C4,45.538464000000005,-73.618425
+280 | BHR | VSMPE | 7501 François Perrault : Maison du citoyen,CEA-206,Level2,"2,50 $ (CAD) par session","7501 Rue François-Perrault, Montréal, QC H2A 1M1, Canada",Montréal,QC,H2A 1M1,45.5617131,-73.60121240000001
+230 | BSR | VSMPE | 7350 Garnier,CEA-11442,Level2,"1,00 $ (CAD) de l'heure","7350 Rue Garnier, Montréal, QC H2E 2A3, Canada",Montréal,QC,H2E 3A3,45.547096,-73.61125799999999
+326 | BSR | RPP | 1550 Bélanger,CEA-11210,Level2,"1,00 $ (CAD) de l'heure","1550 Rue Bélanger, Montréal, QC H2G 1A9, Canada",Montréal,QC,H2G 1A8,45.5453854,-73.60403769999999
+502 | BSR | PMR | 4502 Boyer,CEA-10373,Level2,"1,00 $ (CAD) de l'heure","4502 Rue Boyer, Montréal, QC H2J 3E2, Canada",Montréal,QC,H2J 3E2,45.5274177,-73.5800945
+106 | BSR | AC | 780 Fleury,CEA-10532,Level2,"1,00 $ (CAD) de l'heure","1780 Rue Fleury E, Montréal, QC H2C 3E4, Canada",Montréal,QC,H2C 1T4,45.567422799999996,-73.6535553
+119 | BSR | AC |  10905 rue Basile Routhier : Parc Basile Routhier,CEA-10264,Level2,"1,00 $ (CAD) de l'heure","10905 Rue Basile Routhier, Montréal, QC H2C 1N7, Canada",Montréal,QC,H2C 3H5,45.557458600000004,-73.6725483
+503 | BSR | PMR | 3760 St-Hubert,CEA-10345,Level2,"1,00 $ (CAD) de l'heure","3760 Rue St-Hubert, Montréal, QC H2L 4A3, Canada",Montréal,QC,H2L 4A3,45.5205726,-73.5708147
+204 | BSR | VSMPE | 299 Jean-Talon E,CEA-10965,Level2,"1,00 $ (CAD) de l'heure","299 Rue Jean-Talon Est, Montréal, QC H2R 1S9, Canada",Montréal,QC,H2R 1S9,45.537100099999996,-73.61589509999999
+522 | BSR | PMR | 4490 Fabre,CEA-10560,Level2,"1,00 $ (CAD) de l'heure","4490 Rue Fabre, Montréal, QC H2J 3V3, Canada",Montréal,QC,H2J 3V3,45.5312697,-73.5756427
+206 | BSR | VSMPE | 8106 Casgrain,CEA-10385,Level2,"1,00 $ (CAD) de l'heure","8106 Avenue Casgrain, Montréal, QC H2P 2K5, Canada",Montréal,QC,H2P 2K5,45.540012100000006,-73.63104150000001
+514 | BSR | PMR | 5333 Papineau,CEA-10962,Level2,"1,00 $ (CAD) de l'heure","5333 Rue Papineau, Montréal, QC H2H 1W1, Canada",Montréal,QC,H2H 1W1,45.5369802,-73.5830187
+605 | BSR | VM | 265 St-Antoine,CEA-10194,Level2,"1,00 $ (CAD) de l'heure","301 Rue Saint-Antoine O, Montréal, QC H2Z 1H5, Canada",Montréal,QC,H2Z 1H5,45.5036148,-73.56053840000001
+303 | BSR | RPP | 2160 Beaubien,CEA-10361,Level2,"1,00 $ (CAD) de l'heure","2160 Rue Beaubien E, Montréal, QC H2G 1M6, Canada",Montréal,QC,H2G 1M6,45.545912,-73.5940186
+622 | BSR | VM | 1275 Berri,CEA-10171,Level2,"1,00 $ (CAD) de l'heure","1265 Rue Berri, Montréal, QC H2L 4S6, Canada",Montréal,QC,H2L 4S6,45.5146026,-73.55884959999999
+527 | BSR | PMR | 3820 Laval,CEA-11229,Level2,"1,00 $ (CAD) de l'heure","3820 Avenue Laval, Montréal, QC H2W 2J1, Canada",Montréal,QC,H2W 2J1,45.5178932,-73.5747021
+603 | BSR | VM | 115 St-Antoine,CEA-10217,Level2,"1,00 $ (CAD) de l'heure","115 Rue Saint-Antoine O, Montréal, QC H2Z 1X8, Canada",Montréal,QC,H2Z 1X8,45.5054528,-73.55869090000002
+620 | BSR | VM | 1551 St-Denis,CEA-10144,Level2,"1,00 $ (CAD) de l'heure","1551 Rue Saint-Denis, Montréal, QC H2X 3K3, Canada",Montréal,QC,H2L 3K3,45.5146299,-73.562003
+630 | BSR | VM | 1125 Ontario Est,CEA-11206,Level2,"1,00 $ (CAD) de l'heure","1125 Rue Ontario E, Montréal, QC H2L 1R1, Canada",Montréal,QC,H2L 1R1,45.5206722,-73.5633898
+324 | BSR | RPP | 5808 St-Hubert,CEA-10143,Level2,"1,00 $ (CAD) de l'heure","5808 Rue St-Hubert, Montréal, QC H2S 2L7, Canada",Montréal,QC,H2S 2L7,45.53308,-73.596824
+605 | BSR | VM | 265 St-Antoine,CEA-10192,Level2,"1,00 $ (CAD) de l'heure","301 Rue Saint-Antoine O, Montréal, QC H2Z 1H5, Canada",Montréal,QC,H2Z 1H5,45.5036148,-73.56053840000001
+515 | BSR | PMR | 4801 Papineau,CEA-10528,Level2,"1,00 $ (CAD) de l'heure","4801 Rue Papineau, Montréal, QC H2H 1V7, Canada",Montréal,QC,H2H 1V7,45.5348126,-73.5780873
+623 | BSR | VM | 1436 Amherst,CEA-10927,Level2,"1,00 $ (CAD) de l'heure","1411 Rue Amherst, Montréal, QC H2L 3L2, Canada",Montréal,QC,H2L 2G2,45.517711799999994,-73.5572265
+527 | BSR | PMR | 3820 Laval,CEA-11216,Level2,"1,00 $ (CAD) de l'heure","3820 Avenue Laval, Montréal, QC H2W 2J1, Canada",Montréal,QC,H2W 2J1,45.5178932,-73.5747021
+105 | BSR | AC | 1530 Fleury,CEA-10797,Level2,"1,00 $ (CAD) de l'heure","1530 Rue Fleury E, Montréal, QC H2C 2Y6, Canada",Montréal,QC,H2C 2Y6,45.5629748,-73.6561512
+505 | BSR | PMR | 4231 St Laurent,CEA-10282,Level2,"1,00 $ (CAD) de l'heure","4321 Boul St-Laurent, Montréal, QC H2W 1Z3, Canada",Montréal,QC,H2W 1Z4,45.5190351,-73.5838925
+520 | BSR | PMR | 4604 Parc,CEA-10518,Level2,"1,00 $ (CAD) de l'heure","4604 Av du Parc, Montréal, QC H2V 4E5, Canada",Montréal,QC,H2V 4E5,45.5172996,-73.59136459999999
+223 | BSR | VSMPE | 8630 Berri,CEA-10742,Level2,"1,00 $ (CAD) de l'heure","8630 Rue Berri, Montréal, QC H2P 2Z4, Canada",Montréal,QC,H2P 2G4,45.5455533,-73.6374537
+332 | BSR | RPP | 1201 Bélanger,CEA-11305,Level2,"1,00 $ (CAD) de l'heure","1201 Rue Bélanger, Montréal, QC H2S 1H7, Canada",Montréal,QC,H2S 1H7,45.5418565,-73.6077662
+606 | BSR | VM | 369 St-Antoine,CEA-10193,Level2,"1,00 $ (CAD) de l'heure","405 Rue Saint-Antoine O, Montréal, QC H2Z 2A3, Canada",Montréal,QC,H2Z 2A3,45.5025893,-73.5611507
+180 | BHR | AC | 10560 Rue St-Hubert : Aréna Ahuntsic,CEA-086,Level2,"2,50 $ (CAD) par session","10560 Rue St-Hubert, Montréal, QC H2C 2H7, Canada",Montréal,QC,H2C 2H7,45.5572098,-73.6642379
+526 | BSR | PMR | 5561 St-Dominique,CEA-11357,Level2,"1,00 $ (CAD) de l'heure","5561 Rue Saint-Dominique, Montréal, QC H2T 1A5, Canada",Montréal,QC,H2T 1A5,45.526773600000006,-73.598535
+103 | BSR | AC | 9475 Lajeunesse,CEA-10603,Level2,"1,00 $ (CAD) de l'heure","9475 Rue Lajeunesse, Montréal, QC H2M 1S5, Canada",Montréal,QC,H2M 1S5,45.550334899999996,-73.650802
+309 | BSR | RPP | 7145 Alexandra,CEA-10870,Level2,"1,00 $ (CAD) de l'heure","7145 Rue Alexandra, Montréal, QC H2S 3J6, Canada",Montréal,QC,H2S 3J6,45.532303000000006,-73.61973
+626 | BSR | VM | 2027 L'Espérance,CEA-10184,Level2,"1,00 $ (CAD) de l'heure","2030 Rue Lespérance, Montréal, QC H2K 2N9, Canada",Montréal,QC,H2K 2N9,45.537695,-73.550104
+501 | BSR | PMR | 4492 rue Parth,CEA-10738,Level2,"1,00 $ (CAD) de l'heure","4492 Rue Parthenais, Montréal, QC H2H 2G5, Canada",Montréal,QC,H2H 2G5,45.536284,-73.57097990000001
+Édifice Jacques-Parizeau,AAA-127,Level2,"1,00 $ (CAD) de l'heure","1000 Place Jean-Paul-Riopelle, Montréal, QC H2Z 2B3, Canada",Montréal,QC,H2Z 2B3,45.502909100000004,-73.5619531
+SQI - Palais de justice de Montréal (Rue Bellechasse),AAB-12081,Level2,"1,00 $ (CAD) de l'heure","410 Rue de Bellechasse, Montréal, QC H2S 1X3, Canada",Montréal,QC,H2S 1X3,45.532739299999996,-73.600739
+Édifice Jacques-Parizeau,AAA-123,Level2,"1,00 $ (CAD) de l'heure","1000 Place Jean-Paul-Riopelle, Montréal, QC H2Z 2B3, Canada",Montréal,QC,H2Z 2B3,45.502909100000004,-73.5619531
+IA - Crémazie,AAB-11963,Level2,"1,00 $ (CAD) de l'heure","1611 Boul Crémazie E, Montréal, QC H2M 2R9, Canada",Montréal,QC,H2M 2R9,45.5545329,-73.6239679
+Centre de commerce mondial de Montréal,AAA-135,Level2,"1,00 $ (CAD) de l'heure","747 Rue du Square-Victoria, Montréal, QC H2Y 3Y9, Canada",Montréal,QC,H2Y 3Y9,45.5020089,-73.5605637
+Édifice Jacques-Parizeau,AAA-172,Level2,"1,00 $ (CAD) de l'heure","1000 Place Jean-Paul-Riopelle, Montréal, QC H2Z 2B3, Canada",Montréal,QC,H2Z 2B3,45.502909100000004,-73.5619531
+COMPLEXE FTQ - Fonds de solidarité - 545 Crémazie ,AAB-11327,Level2,"1,00 $ (CAD) de l'heure","545 Boul Crémazie E, Montréal, QC H2M 1R6, Canada",Montréal,QC,H2M 1R6,45.546348200000004,-73.63856120000001
+Édifice Jacques-Parizeau,AAA-159,Level2,"1,00 $ (CAD) de l'heure","1000 Place Jean-Paul-Riopelle, Montréal, QC H2Z 2B3, Canada",Montréal,QC,H2Z 2B3,45.502909100000004,-73.5619531
+Vieux-Port de Montréal,AAA-10479,Level2,"0,00 $ (CAD) de l'heure","2 Rue de la Commune O, Montréal, QC H2Y 4B2, Canada",Montréal,QC,H2Y 4B2,45.5052122,-73.5502408
+Centre de commerce mondial de Montréal,AAA-137,Level2,"1,00 $ (CAD) de l'heure","747 Rue du Square-Victoria, Montréal, QC H2Y 3Y9, Canada",Montréal,QC,H2Y 3Y9,45.5020089,-73.5605637
+Complexe Place Crémazie,AAB-11682,Level2,"1,00 $ (CAD) de l'heure","50 Boulevard Crémazie O, Montréal, QC H2P, Canada",Montréal,QC,H2P 2T2,45.540878,-73.64107829999999
+COMPLEXE FTQ - Fonds de solidarité - 545 Crémazie ,AAB-11334,Level2,"1,00 $ (CAD) de l'heure","545 Boul Crémazie E, Montréal, QC H2M 1R6, Canada",Montréal,QC,H2M 1R6,45.546348200000004,-73.63856120000001
+IA - Crémazie,AAB-11985,Level2,"1,00 $ (CAD) de l'heure","1611 Boul Crémazie E, Montréal, QC H2M 2R9, Canada",Montréal,QC,H2M 2R9,45.5545329,-73.6239679
+Vieux-Port de Montréal,AAA-10355,Level2,"0,00 $ (CAD) de l'heure","2 Rue de la Commune O, Montréal, QC H2Y 4B2, Canada",Montréal,QC,H2Y 4B2,45.5052122,-73.5502408
+COMPLEXE FTQ - Fonds de solidarité - 545 Crémazie ,AAB-11342,Level2,"1,00 $ (CAD) de l'heure","545 Boul Crémazie E, Montréal, QC H2M 1R6, Canada",Montréal,QC,H2M 1R6,45.546348200000004,-73.63856120000001
+IA - Crémazie,AAB-11987,Level2,"1,00 $ (CAD) de l'heure","1611 Boul Crémazie E, Montréal, QC H2M 2R9, Canada",Montréal,QC,H2M 2R9,45.5545329,-73.6239679
+Vieux-Port de Montréal,AAA-10364,Level2,"0,00 $ (CAD) de l'heure","2 Rue de la Commune O, Montréal, QC H2Y 4B2, Canada",Montréal,QC,H2Y 4B2,45.5052122,-73.5502408
+Centre de commerce mondial de Montréal,AAA-140,Level2,"1,00 $ (CAD) de l'heure","747 Rue du Square-Victoria, Montréal, QC H2Y 3Y9, Canada",Montréal,QC,H2Y 3Y9,45.5020089,-73.5605637
+Vieux-Port de Montréal,AAA-10476,Level2,"0,00 $ (CAD) de l'heure","2 Rue de la Commune O, Montréal, QC H2Y 4B2, Canada",Montréal,QC,H2Y 4B2,45.5052122,-73.5502408
+COMPLEXE FTQ - Fonds de solidarité - 545 Crémazie ,AAB-11344,Level2,"1,00 $ (CAD) de l'heure","545 Boul Crémazie E, Montréal, QC H2M 1R6, Canada",Montréal,QC,H2M 1R6,45.546348200000004,-73.63856120000001
+Centre de commerce mondial de Montréal,AAA-117,Level2,"1,00 $ (CAD) de l'heure","747 Rue du Square-Victoria, Montréal, QC H2Y 3Y9, Canada",Montréal,QC,H2Y 3Y9,45.5020089,-73.5605637
+COMPLEXE FTQ - Fonds de solidarité - 545 Crémazie ,AAB-11274,Level2,"1,00 $ (CAD) de l'heure","545 Boul Crémazie E, Montréal, QC H2M 1R6, Canada",Montréal,QC,H2M 1R6,45.546348200000004,-73.63856120000001
+COMPLEXE FTQ - Fonds de solidarité - 545 Crémazie ,AAB-11339,Level2,"1,00 $ (CAD) de l'heure","545 Boul Crémazie E, Montréal, QC H2M 1R6, Canada",Montréal,QC,H2M 1R6,45.546348200000004,-73.63856120000001
+COMPLEXE FTQ - Fonds de solidarité - 545 Crémazie ,AAB-11326,Level2,"1,00 $ (CAD) de l'heure","545 Boul Crémazie E, Montréal, QC H2M 1R6, Canada",Montréal,QC,H2M 1R6,45.546348200000004,-73.63856120000001
+SQI - Palais de justice de Montréal (Rue Bellechasse),AAB-12080,Level2,"1,00 $ (CAD) de l'heure","410 Rue de Bellechasse, Montréal, QC H2S 1X3, Canada",Montréal,QC,H2S 1X3,45.532739299999996,-73.600739
