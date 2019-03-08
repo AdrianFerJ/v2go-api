@@ -53,8 +53,7 @@ class ChargingStation(models.Model):
     lat          = models.FloatField(null=True, blank=True) 
     lng          = models.FloatField(null=True, blank=True) 
     
-    #TODO create geo_Location from lat lng using method
-    geo_location = models.PointField()    #null=True, blank=True
+    geo_location = models.PointField(null=True)
 
     created      = models.DateTimeField(auto_now_add=True)
     updated      = models.DateTimeField(auto_now=True)
@@ -78,6 +77,11 @@ class ChargingStation(models.Model):
                     'utf-8'))
             self.nk = secure_hash.hexdigest()
         if not self.geo_location:
-            self.create_geo_location()
+            #TODO test create_geo_location at instantiation AND when modifying it after
+            try:
+                self.create_geo_location()
+            except:
+                #TODO: add test (if lat-lng not valid, etc) and add Log if geolocation not created
+                pass
         super().save(**kwargs)
     
