@@ -1,0 +1,218 @@
+[
+    {
+        "model": "volt_finder.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$yZViw4iBNsfA$sPgihLwRTGJNWORYTduQODRpw33lYopygxBepUk1BIw=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "test2",
+            "first_name": "first2",
+            "last_name": "last2",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2019-03-07T15:56:06.378Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 927,
+        "fields": {
+            "nk": "f2b3c21eb71e20961be51229ffa670cc",
+            "name": "DGI - Complexe Desjardins",
+            "external_id": "CEA-10097",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2X 3Y2",
+            "lat": 45.5070394,
+            "lng": 45.5070394,
+            "geo_location": "SRID=4326;POINT (45.5070394 45.5070394)",
+            "created": "2019-03-11T16:17:45.073Z",
+            "updated": "2019-03-11T16:17:45.120Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 928,
+        "fields": {
+            "nk": "8fb5100c56cf0ccce5286f1d37d4aa3f",
+            "name": "301 | BSR | RPP | 6511 St-André",
+            "external_id": "CEA-10306",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "6511 Rue Saint-André, Montréal, QC H2S 2K7, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2S 2K7",
+            "lat": 45.536734,
+            "lng": 45.536734,
+            "geo_location": "SRID=4326;POINT (45.536734 45.536734)",
+            "created": "2019-03-11T16:17:45.124Z",
+            "updated": "2019-03-11T16:17:45.126Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 929,
+        "fields": {
+            "nk": "d7a22b66f6d63c2e6d3818f22e052db9",
+            "name": "105 | BSR | AC | 1530 Fleury",
+            "external_id": "CEA-11014",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "1530 Rue Fleury E, Montréal, QC H2C 2Y6, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2C 2Y6",
+            "lat": 45.5629748,
+            "lng": 45.5629748,
+            "geo_location": "SRID=4326;POINT (45.5629748 45.5629748)",
+            "created": "2019-03-11T16:17:45.129Z",
+            "updated": "2019-03-11T16:17:45.131Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 930,
+        "fields": {
+            "nk": "6be253e193e23872d7dee317f1618182",
+            "name": "109 | BSR | AC | 205 Chabanel",
+            "external_id": "CEA-10378",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "205 Rue Chabanel O, Montréal, QC H2N 1G3, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2N 1G3",
+            "lat": 45.540977,
+            "lng": 45.540977,
+            "geo_location": "SRID=4326;POINT (45.540977 45.540977)",
+            "created": "2019-03-11T16:17:45.135Z",
+            "updated": "2019-03-11T16:17:45.137Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 931,
+        "fields": {
+            "nk": "8f903c7b26c13fbf6ee7eaae5a3c08dc",
+            "name": "625 | BSR | VM | 1956 Frontenac",
+            "external_id": "CEA-10183",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "1956 Rue Frontenac, Montréal, QC H2K 2Z1, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2K 2Z1",
+            "lat": 45.5325695,
+            "lng": 45.5325695,
+            "geo_location": "SRID=4326;POINT (45.5325695 45.5325695)",
+            "created": "2019-03-11T16:17:45.141Z",
+            "updated": "2019-03-11T16:17:45.143Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 932,
+        "fields": {
+            "nk": "bdb879f4d0937630157b580dd3487583",
+            "name": "331 | BSR | RPP | 6679 Rue Garnier",
+            "external_id": "CEA-11480",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "6679 Rue Garnier, Montréal, QC H2G 3A2, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2G 3A2",
+            "lat": 45.542892,
+            "lng": 45.542892,
+            "geo_location": "SRID=4326;POINT (45.542892 45.542892)",
+            "created": "2019-03-11T16:17:45.148Z",
+            "updated": "2019-03-11T16:17:45.150Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 933,
+        "fields": {
+            "nk": "343ee8ad14596cf822334ed850c40a54",
+            "name": "DGI - Complexe Desjardins",
+            "external_id": "CEA-10070",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2X 3Y2",
+            "lat": 45.5070394,
+            "lng": 45.5070394,
+            "geo_location": "SRID=4326;POINT (45.5070394 45.5070394)",
+            "created": "2019-03-11T16:17:45.154Z",
+            "updated": "2019-03-11T16:17:45.156Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 934,
+        "fields": {
+            "nk": "a5747b4ae12a9ef745e2b4178b301638",
+            "name": "580 | BHR | PMR | 4365 Cartier : Aréna Mont-Royal",
+            "external_id": "CEA-083",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "2,50 $ (CAD) par session",
+            "address": "4365 Rue Cartier, Montréal, QC H2H 2N9, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2H 2N9",
+            "lat": 45.533234,
+            "lng": 45.533234,
+            "geo_location": "SRID=4326;POINT (45.533234 45.533234)",
+            "created": "2019-03-11T16:17:45.159Z",
+            "updated": "2019-03-11T16:17:45.161Z"
+        }
+    },
+    {
+        "model": "volt_finder.chargingstation",
+        "pk": 935,
+        "fields": {
+            "nk": "cf6cdb6442676907d98970b8b7b97bc4",
+            "name": "116 | BSR | AC | 10625 Francis",
+            "external_id": "CEA-11188",
+            "charge_level": "LEVEL_2",
+            "tarif_text": "1,00 $ (CAD) de l'heure",
+            "address": "10625 Rue Francis, Montréal, QC H2C 3A5, Canada",
+            "location": "",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2C 3A5",
+            "lat": 45.5653481,
+            "lng": 45.5653481,
+            "geo_location": "SRID=4326;POINT (45.5653481 45.5653481)",
+            "created": "2019-03-11T16:17:45.164Z",
+            "updated": "2019-03-11T16:17:45.166Z"
+        }
+    }
+]

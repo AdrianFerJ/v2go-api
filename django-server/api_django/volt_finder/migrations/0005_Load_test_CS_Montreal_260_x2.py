@@ -8,8 +8,8 @@ import csv
 
 
 # CSV file contains 260 CS locations (in Montreal)
-DATA_FILENAME = 'start_data/cleaned_circuitElectrique_MTL_260.csv'
-#../volt_finder/start_data/
+# DATA_FILENAME = 'start_data/cleaned_circuitElectrique_MTL_260.csv'
+DATA_FILENAME = 'start_data/cleaned_circuitElectrique_MTL_10.csv'
 
 def translateChargeLevel(chrg_lev):
     #TODO: cleaned data should have properly formatted charge levels
@@ -39,21 +39,23 @@ def load_data(apps, schema_editor):
         try:        
             # Match fields (based on wrangle.ipynb in start_data)
             ChargingStation.objects.create( 
-                name         = r[0],
-                external_id  = r[1],
-                charge_level = translateChargeLevel(r[2]),   #df1.charger_level,
-                tarif_text   = r[3],
-                address      = r[4], 
-                city         = r[5],
-                province     = r[6],
+                name         = row[0],
+                external_id  = row[1],
+                charge_level = translateChargeLevel(row[2]),   #df1.charger_level,
+                tarif_text   = row[3],
+                address      = row[4], 
+                city         = row[5],
+                province     = row[6],
                 country      = 'Canada',
-                postal_code  = r[7],
-                lat          = float(r[8]),
-                lng          = float(r[8]),
+                postal_code  = row[7],
+                lat          = float(row[8]),
+                lng          = float(row[8])
             ).save()
+            print("### ROW Added:", row[0], row[1])
             #TODO cs.save() ???
         except:
             print("Invalid row, couldn't be saved", row[0], row[1])
+
 
 
 class Migration(migrations.Migration):
