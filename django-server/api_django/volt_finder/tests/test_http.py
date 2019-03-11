@@ -134,5 +134,4 @@ class HttpCSFinderTest(APITestCase):
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
         self.assertAlmostEqual(act_cStation_nks, exp_cStation_nks)
         self.assertNotIn(other_cStation_nks[0], exp_cStation_nks)
-        self.assertEqual(serialized_data[0]['duration_val'], 321)
-        
+        self.assertGreater(serialized_data[1]['duration_val'], serialized_data[0]['duration_val'])
