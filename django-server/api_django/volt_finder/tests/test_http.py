@@ -62,12 +62,11 @@ class HttpCSFinderTest(APITestCase):
     def setUp(self):
         user = create_user()
         self.client = APIClient()
-        self.client.login(username=user.username, password=PASSWORD)
+        self.client.login(username=user.username, password=PASSWORD)        
 
     #TODO Include def setUpTestData(cls): Class method to set up test data
     #TODO: move all CS created into this method
     # Check this: https://docs.djangoproject.com/en/2.1/topics/testing/tools/#django.test.TestCase
-
 
     def test_user_can_retrieve_cs_detail_by_nk(self):
         cStation = ChargingStation.objects.create(
@@ -109,16 +108,16 @@ class HttpCSFinderTest(APITestCase):
         ]
         # CS farther from poi than test_top_cs
         other_cs = [ 
-        ChargingStation.objects.create(
-            address='545 Rue Milton, Montreal, QC H2X 1W5, Canada', name='test_1' ),
-        ChargingStation.objects.create(
-            address='2153 Rue Mackay, Montreal, QC H3G 2J2, Canada', name='test_2' ),
-        ChargingStation.objects.create(
-            address='191 Place du Marché-du-Nord, Montreal, QC H2S 1A2, Canada', name='test_3' ),
-        ChargingStation.objects.create(
-            address='3515 Avenue Lacombe, Montreal, QC H3T 1M2, Canada', name='test_4' ),
-        ChargingStation.objects.create(
-            address='5265 Chemin Queen Mary, Montreal, QC H3W 1Y3, Canada', name='test_5' )
+            ChargingStation.objects.create(
+                address='545 Rue Milton, Montreal, QC H2X 1W5, Canada', name='test_1' ),
+            ChargingStation.objects.create(
+                address='2153 Rue Mackay, Montreal, QC H3G 2J2, Canada', name='test_2' ),
+            ChargingStation.objects.create(
+                address='191 Place du Marché-du-Nord, Montreal, QC H2S 1A2, Canada', name='test_3' ),
+            ChargingStation.objects.create(
+                address='3515 Avenue Lacombe, Montreal, QC H3T 1M2, Canada', name='test_4' ),
+            ChargingStation.objects.create(
+                address='5265 Chemin Queen Mary, Montreal, QC H3W 1Y3, Canada', name='test_5' )
         ]
 
         response = self.client.get(reverse('cStation:cStations_near_poi', kwargs={'poi_location': poi_location}))
@@ -129,7 +128,7 @@ class HttpCSFinderTest(APITestCase):
         self.assertTrue(serializer.is_valid())
         serialized_data = serializer.validated_data
         
-        exp_cStation_nks = [cs.nk for cs in test_top_cs]
+        exp_cStation_nks = [cs.nk for cs in self.test_top_cs]
         other_cStation_nks = [cs.nk for cs in other_cs]
         act_cStation_nks = [cs['nk'] for cs in serialized_data]
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
