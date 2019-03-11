@@ -1,4 +1,5 @@
 from django.db import models
+
 from schedule.models import Calendar
 
 # Create your models here.
