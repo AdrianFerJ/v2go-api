@@ -5,8 +5,8 @@ from django.contrib.auth.models import AbstractUser, Group
 # Create your models here.
 
 # Finder
-# class User(AbstractUser): 
-#     pass
+class User(AbstractUser): 
+    pass
 
 #     #User = models.OneToOneField(User, related_name="main_user", primary_key=True)
 #     # groups = models.OneToOneField(Group, related_name="main_groups", primary_key=True)

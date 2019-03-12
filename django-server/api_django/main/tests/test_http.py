@@ -29,7 +29,7 @@ class AuthenticationTest(APITestCase):
             'last_name': 'User',
             'password1': PASSWORD,
             'password2': PASSWORD,
-            'group': 'rider',
+            'group': 'driver',
             # 'photo': photo_file,
         })
         user = get_user_model().objects.last()
