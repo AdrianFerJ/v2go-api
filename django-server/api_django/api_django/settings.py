@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     'channels',
     'django.contrib.gis',   # GeoDjango
     # MyApps
+    'main',
     'volt_finder',
 ]
 # Custom user model
-AUTH_USER_MODEL = 'volt_finder.User'
+# AUTH_USER_MODEL = 'volt_finder.User'
+AUTH_USER_MODEL = 'main.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
