@@ -7,8 +7,8 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.geos import GEOSGeometry, fromstr
 
-class User(AbstractUser):
-    pass
+# class User(AbstractUser):
+#     pass
 
 class ChargingStation(models.Model):
     """ Charging station data model """
