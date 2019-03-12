@@ -1,11 +1,11 @@
 
 #TODO: merge from reservations
 
-class EVOwnerSerializer(serializers.ModelSerializer):
+# class EVOwnerSerializer(serializers.ModelSerializer):
 
-class EVCarSerializer(serializers.ModelSerializer):
+# class EVCarSerializer(serializers.ModelSerializer):
 
-class CSOwnerSerializer(serializers.ModelSerializer):
+# class CSOwnerSerializer(serializers.ModelSerializer):
 
 
-class CSSerializer(serializers.ModelSerializer):
+# class CSSerializer(serializers.ModelSerializer):
