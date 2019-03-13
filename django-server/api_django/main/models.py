@@ -67,7 +67,7 @@ class ChargingStation(models.Model):
         return self.nk
 
     def get_absolute_url(self):
-        return reverse('cStation:cStation_detail', kwargs={'cStation_nk': self.nk})
+        return reverse('main:host_cs_list', kwargs={'cs_nk': self.nk})
     
     def create_geo_location(self):
         self.geo_location = fromstr(f'POINT({self.lng} {self.lat})', srid=4326)

@@ -11,5 +11,6 @@ from rest_framework.response import Response
 from rest_framework import status
 
 class ChargingStationListView(generics.ListAPIView):
+    #TODO enable create by changing inheritance from ListAPIView to ListCreateAPIView
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer
