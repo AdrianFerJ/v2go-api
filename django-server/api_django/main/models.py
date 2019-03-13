@@ -35,27 +35,33 @@ class ChargingStation(models.Model):
         (OUTOFSERVICE, OUTOFSERVICE),
     )
 
-    nk           = models.CharField(max_length=32, unique=True, db_index=True)
-    name         = models.CharField(max_length=255, blank=True)
-    external_id  = models.CharField(max_length=100, blank=True)
-    #TODO: this should be a foreign key to link with cs_owner model
-    # cs_host   = models.IntegerField()
-
     CHARGE_LEVEL = (
         (LEVEL_1, LEVEL_1),
         (LEVEL_2, LEVEL_2),
         (FASTDC, FASTDC),
     )
+
+    nk           = models.CharField(max_length=32, unique=True, db_index=True)
+    name         = models.CharField(max_length=255, blank=True)
+    external_id  = models.CharField(max_length=100, blank=True)
+
+    #TODO: this should be a foreign key to link with cs_owner model
+    # cs_host   = models.IntegerField()
+
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
     tarif_text   = models.CharField(max_length=100, blank=True)
 
-    address      = models.CharField(max_length=150) 
-    location     = models.CharField(max_length=150, default='') 
+    #TODO need a way (method?) to validate address format with google at instanciation
+    #TODO host should not be able to edit after saving (read_only)
+    address      = models.CharField(max_length=150, blank=False)     
+    
     city         = models.CharField(max_length=50, blank=True)
     province     = models.CharField(max_length=50, blank=True)
     country      = models.CharField(max_length=50, blank=True)
     postal_code  = models.CharField(max_length=10, blank=True)
-    #TODO: lat,lng should be mandatory (blank=False) before pushing to production
+
+    #TODO: lat,lng, address should be mandatory (blank=False) before pushing to production
+    #      and host should not be able to edit after saving (read_only)
     lat          = models.FloatField(null=True, blank=True) 
     lng          = models.FloatField(null=True, blank=True) 
     geo_location = models.PointField(null=True)
