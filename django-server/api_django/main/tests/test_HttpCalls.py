@@ -85,22 +85,22 @@ class HostChargingStationTest(APITestCase):
             lng      = 45.5070394
         )
     
-    def test_host_can_retrive_cs_list(self):
+    def test_host_can_retrive_her_cs_list(self):
         """ Get CS list
             #TODO: should display only CS created by group=U_OWNER)
         """
         response = self.client.get(reverse('main:host_cs_list'))
         exp_cs_nks = [self.cs_t1.nk, self.cs_t2.nk]
         act_cs_nks = [cs.get('nk') for cs in response.data]
-
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertCountEqual(exp_cs_nks, act_cs_nks)
 
     def test_host_can_retrieve_cs_detail_by_nk(self):
         response = self.client.get(self.cs_t1.get_absolute_url())
-        
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
 
-    # def test_host_can_create_cs(self):
-	# 	"""CS creation"""
+    #TODO Add 2 tests for host can't retrive cs owned by another host (cs_list AND cs_detail)
+    #TODO host can create cs
+    #TODO host can update cs
+    #TODO host can delete cs
