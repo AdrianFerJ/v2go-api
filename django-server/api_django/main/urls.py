@@ -1,14 +1,21 @@
 from django.urls import re_path, path
-
-from main import views #ChargingStationListView, ChargingStationDetailView, ChargingStationTopNearListView
+from rest_framework.urlpatterns import format_suffix_patterns
+from main.views import ChargingStationList, ChargingStationDetail
 
 app_name = 'main'
 
 urlpatterns = [
-    # path('host/', ChargingStationListView.as_view({'get': 'list'}), 
-    #     name='host_cs_list'),
-    path('host/', views.ChargingStationListView.as_view(), name='host_cs_list'),
+    path('host/', ChargingStationList.as_view(), name='host_cs_list'),
+    # re_path(r'^host/(?P<cs_nk>\w{32})$', ChargingStationDetail.as_view(
+    #     name='host_cs_detail')),
+    # path('host/<str:cs_nk>', ChargingStationDetail.as_view(),
+    # path('host/', ChargingStationDetail, {'cs_nk': 'cs_nk'},
+    #     name='host_cs_detail')
+    path('host/<cs_nk>/', ChargingStationDetail.as_view(
+        {'get': 'retrieve'}), name='host_cs_detail'),
+        
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)
 
 #TODO review this, from reservation
 # path('ev_owners', EVOwnerSerializerView.as_view({'get': 'list'}), name='ev_owners_list'),
