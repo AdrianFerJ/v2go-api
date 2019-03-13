@@ -1,5 +1,4 @@
 from django.urls import re_path, path
-
 from main import views #ChargingStationListView, ChargingStationDetailView, ChargingStationTopNearListView
 
 app_name = 'main'

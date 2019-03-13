@@ -85,7 +85,16 @@ class HostChargingStationTest(APITestCase):
             lng      = 45.5070394
         )
     
-    def test_host_can_retrive_cs_list(self):
+    def host_can_retrieve_cs_detail_test(self):
+        # cStation = ChargingStation.objects.create(
+        #     address='160 Rue Saint Viateur E, Montreal, QC H2T 1A8', name='Panthere 1')
+        print("# self.cs_t1.get_absolute_url()", self.cs_t1.get_absolute_url())
+        response = self.client.get(self.cs_t1.get_absolute_url())
+        print("# response.data.get('nk')", response.data.get('nk'))
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
+    
+    def host_can_retrive_cs_list_test(self):
         """ Get CS list
             #TODO: should display only CS created by group=U_OWNER)
         """
@@ -96,19 +105,8 @@ class HostChargingStationTest(APITestCase):
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertCountEqual(exp_cs_nks, act_cs_nks)
-
-		# self.assertIsNotNone(self.cs.nk)
-		# self.assertIsNotNone(self.cs.created)
-		# self.assertIsNotNone(self.cs.updated)
-		# self.assertIsNotNone(self.cs.calendar)
-		# self.assertEquals(self.cs.owner, self.cs_owner)
     
-    # def test_user_can_retrieve_cs_detail_by_nk(self):
-    #     cStation = ChargingStation.objects.create(
-    #         address='160 Rue Saint Viateur E, Montreal, QC H2T 1A8', name='Panthere 1')
-    #     response = self.client.get(cStation.get_absolute_url())
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     self.assertEqual(cStation.nk, response.data.get('nk'))
+
 
     # def test_host_can_create_cs(self):
 	# 	"""CS creation"""
