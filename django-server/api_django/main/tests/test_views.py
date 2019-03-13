@@ -64,6 +64,10 @@ class AuthenticationTest(APITestCase):
 class HostChargingStationTest(APITestCase):
     """ Test all Model-backed API views for CS (only available for cs Owner
         #TODO setUp() should create user with group=U_OWNER)
+        #TODO host can create cs 
+        #TODO Add 2 tests for host can't retrive cs owned by another host (cs_list AND cs_detail)
+        #TODO host can update cs
+        #TODO host can delete cs
     """
     def setUp(self):
         user = create_user() #group=U_OWNER)
@@ -118,7 +122,4 @@ class HostChargingStationTest(APITestCase):
 
 
 
-    #TODO Add 2 tests for host can't retrive cs owned by another host (cs_list AND cs_detail)
-    #TODO host can create cs
-    #TODO host can update cs
-    #TODO host can delete cs
+    
