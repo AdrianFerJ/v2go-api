@@ -76,13 +76,13 @@ class HostChargingStationTest(APITestCase):
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
-            lng      = 45.5070394
+            lng      = -73.5651293
         )
         cls.cs_t2 = ChargingStation.objects.create( 
             name     = 'Panthere 2',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
-            lng      = 45.5070394
+            lng      = -73.5651293
         )
     
     def test_host_can_retrive_her_cs_list(self):
@@ -99,6 +99,24 @@ class HostChargingStationTest(APITestCase):
         response = self.client.get(self.cs_t1.get_absolute_url())
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
+
+    # def test_host_can_create_cs(self):
+    #     #TODO reverse call is not working
+    #     response = self.client.get(reverse('main:host_cs_list'), data={
+    #         'name'    : 'Panthere_Host_Created',
+    #         'address' : '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+    #         'lat'     : 45.5070394,
+    #         'lng'     : -70.5070394
+    #     })
+    #     # new_cs = ChargingStation.objects.filter(name='Panthere_Host_Created')
+    #     new_cs = ChargingStation.objects.last(id)
+    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
+    #     self.assertEqual(new_cs.name, 'Panthere_Host_Created')
+
+
+        
+
+
 
     #TODO Add 2 tests for host can't retrive cs owned by another host (cs_list AND cs_detail)
     #TODO host can create cs

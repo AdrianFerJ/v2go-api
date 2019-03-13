@@ -13,7 +13,9 @@ from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
 
-
+""" 
+    Views
+"""
 class ChargingStationList(generics.ListCreateAPIView):
     #TODO enable create by changing inheritance from ListAPIView to ListCreateAPIView
     #TODO add permission_classes = (permissions.IsAuthenticated,) AND TEST
