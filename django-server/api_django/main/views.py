@@ -19,18 +19,20 @@ class ChargingStationList(generics.ListAPIView):
     serializer_class = ChargingStationSerializer
 
 
-class ChargingStationDetail(viewsets.ReadOnlyModelViewSet):  
-    """ Get's a32char nk and returns CS's detail info that matches the nk """
-    lookup_field = 'nk'
-    lookup_url_kwarg = 'cs_nk'
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = ChargingStation.objects.all()
-    serializer_class = ChargingStationSerializer
-
-
-# class ChargingStationDetail(generics.RetrieveUpdateDestroyAPIView):
+# class ChargingStationDetail(viewsets.ReadOnlyModelViewSet):  
+#     """ Get's a32char nk and returns CS's detail info that matches the nk """
+    # lookup_field = 'nk'
+    # lookup_url_kwarg = 'cs_nk'
+#     permission_classes = (permissions.IsAuthenticated,)
 #     queryset = ChargingStation.objects.all()
 #     serializer_class = ChargingStationSerializer
+
+
+class ChargingStationDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'nk'
+    lookup_url_kwarg = 'cs_nk'
+    queryset = ChargingStation.objects.all()
+    serializer_class = ChargingStationSerializer
 
 
 # class ChargingStationDetail(mixins.RetrieveModelMixin,

@@ -6,13 +6,17 @@ app_name = 'main'
 
 urlpatterns = [
     path('host/', ChargingStationList.as_view(), name='host_cs_list'),
+    
+    # path('host/<cs_nk>/', ChargingStationDetail.as_view(
+    #     {'get': 'retrieve'}), name='host_cs_detail'),
+    
     # re_path(r'^host/(?P<cs_nk>\w{32})$', ChargingStationDetail.as_view(
     #     name='host_cs_detail')),
     # path('host/<str:cs_nk>', ChargingStationDetail.as_view(),
     # path('host/', ChargingStationDetail, {'cs_nk': 'cs_nk'},
     #     name='host_cs_detail')
-    path('host/<cs_nk>/', ChargingStationDetail.as_view(
-        {'get': 'retrieve'}), name='host_cs_detail'),
+    # path('host/<int:pk>/', ChargingStationDetail.as_view()),
+    path('host/<cs_nk>/', ChargingStationDetail.as_view()),
         
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
