@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from volt_finder.apis import SignUpView, LogInView, LogOutView, ChargingStation
+# from volt_finder.apis import SignUpView, LogInView, LogOutView
+from main.views import SignUpView, LogInView, LogOutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),

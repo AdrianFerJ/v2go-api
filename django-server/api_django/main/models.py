@@ -34,7 +34,6 @@ class ChargingStation(models.Model):
         (UNAVAILABLE, UNAVAILABLE),
         (OUTOFSERVICE, OUTOFSERVICE),
     )
-
     CHARGE_LEVEL = (
         (LEVEL_1, LEVEL_1),
         (LEVEL_2, LEVEL_2),
