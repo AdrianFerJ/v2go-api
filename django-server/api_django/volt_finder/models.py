@@ -7,11 +7,8 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.geos import GEOSGeometry, fromstr
 
-# class User(AbstractUser):
-#     pass
-
 class ChargingStation(models.Model):
-    """ Charging station data model """
+    """ CS model is shared by all different apps / components of this system"""
     #TODO move const declaratios  (status, charge_level) to a dif file
     AVAILABLE       = 'AVAILABLE'
     RESERVED        = 'RESERVED'
@@ -77,7 +74,6 @@ class ChargingStation(models.Model):
                     'utf-8'))
             self.nk = secure_hash.hexdigest()
         if not self.geo_location:
-            #TODO test create_geo_location at instantiation AND when modifying it after
             try:
                 self.create_geo_location()
             except:
