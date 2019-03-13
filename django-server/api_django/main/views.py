@@ -14,7 +14,7 @@ from rest_framework import mixins
 from rest_framework import generics
 
 
-class ChargingStationList(generics.ListAPIView):
+class ChargingStationList(generics.ListCreateAPIView):
     #TODO enable create by changing inheritance from ListAPIView to ListCreateAPIView
     #TODO add permission_classes = (permissions.IsAuthenticated,) AND TEST
     #TODO host can only see her own CS, but no CSs owned by another host
