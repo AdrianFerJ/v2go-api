@@ -6,7 +6,7 @@ class ChargingStationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChargingStation
         fields = '__all__'
-        read_only_fields = ('id', 'nk', 'address')
+        read_only_fields = ('id', 'nk', 'geo_location')
 
 #TODO: merge from reservations
 
