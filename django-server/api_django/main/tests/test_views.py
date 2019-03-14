@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
-from volt_finder.serializers import ChargingStationSerializer, UserSerializer, GeoCStationSerializer
-from volt_finder.models import ChargingStation
+from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
+from main.models import ChargingStation
 
 
 """ HELPER FUNC """
@@ -61,47 +61,65 @@ class AuthenticationTest(APITestCase):
         self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
 
 
-class ChargingStationHostTest(APITestCase):
-    """ Test all Model-backed API views for CS (only available for cs Owner """
+class HostChargingStationTest(APITestCase):
+    """ Test all Model-backed API views for CS (only available for cs Owner
+        #TODO setUp() should create user with group=U_OWNER)
+        #TODO host can create cs 
+        #TODO Add 2 tests for host can't retrive cs owned by another host (cs_list AND cs_detail)
+        #TODO host can update cs
+        #TODO host can delete cs
+    """
     def setUp(self):
-        user = create_user(group=U_OWNER)
+        user = create_user() #group=U_OWNER)
         self.client = APIClient()
         self.client.login(username=user.username, password=PASSWORD)   
     
     @classmethod
     def setUpTestData(cls):
-        # Set up data for the whole TestCase
-        cls.cs_t1 = ChargingStation.objects.create(
-            address='432 Rue Rachel E, Montreal, QC H2J 2G7, Canada', name='Panthere 1')
-        cls.cs_t2 = ChargingStation.objects.create(
-            address='1735 Rue Saint-Denis, Montreal, QC H2X 3K4, Canada', name='Panthere 2')
+        cls.cs_t1 = ChargingStation.objects.create( 
+            name     = 'Panthere 1',
+            address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+            lat      = 45.5070394,
+            lng      = -73.5651293
+        )
+        cls.cs_t2 = ChargingStation.objects.create( 
+            name     = 'Panthere 2',
+            address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+            lat      = 45.5070394,
+            lng      = -73.5651293
+        )
     
-    def test_host_can_retrive_cs_list(self):
-        """CS creation"""
+    def test_host_can_retrive_her_cs_list(self):
+        """ Get CS list
+            #TODO: should display only CS created by group=U_OWNER)
+        """
         response = self.client.get(reverse('main:host_cs_list'))
-        # response = self.client.get(reverse('host_cs_list'))
-        print('# Response Data', response)
-
         exp_cs_nks = [self.cs_t1.nk, self.cs_t2.nk]
-        print('# exp_cs_nks', exp_cs_nks)
         act_cs_nks = [cs.get('nk') for cs in response.data]
-        print('# act_cs_nks', act_cs_nks)
-
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertCountEqual(exp_cs_nks, act_cs_nks)
 
-		# self.assertIsNotNone(self.cs.nk)
-		# self.assertIsNotNone(self.cs.created)
-		# self.assertIsNotNone(self.cs.updated)
-		# self.assertIsNotNone(self.cs.calendar)
-		# self.assertEquals(self.cs.owner, self.cs_owner)
-    
-    # def test_user_can_retrieve_cs_detail_by_nk(self):
-    #     cStation = ChargingStation.objects.create(
-    #         address='160 Rue Saint Viateur E, Montreal, QC H2T 1A8', name='Panthere 1')
-    #     response = self.client.get(cStation.get_absolute_url())
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     self.assertEqual(cStation.nk, response.data.get('nk'))
+    def test_host_can_retrieve_cs_detail_by_nk(self):
+        response = self.client.get(self.cs_t1.get_absolute_url())
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
 
     # def test_host_can_create_cs(self):
-	# 	"""CS creation"""
+    #     #TODO reverse call is not working
+    #     response = self.client.get(reverse('main:host_cs_list'), data={
+    #         'name'    : 'Panthere_Host_Created',
+    #         'address' : '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+    #         'lat'     : 45.5070394,
+    #         'lng'     : -70.5070394
+    #     })
+    #     # new_cs = ChargingStation.objects.filter(name='Panthere_Host_Created')
+    #     new_cs = ChargingStation.objects.last(id)
+    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
+    #     self.assertEqual(new_cs.name, 'Panthere_Host_Created')
+
+
+        
+
+
+
+    

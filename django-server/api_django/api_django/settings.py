@@ -28,9 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['testserver', 'localHost', '127.0.0.1']
 
+# Custom user model
+# AUTH_USER_MODEL = 'volt_finder.User'
+AUTH_USER_MODEL = 'main.User'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,15 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # MyApps
+    'main',
+    'volt_finder',
     # 3rd Party Apps
     'rest_framework',
     'channels',
     'django.contrib.gis',   # GeoDjango
-    # MyApps
-    'volt_finder',
+    
 ]
-# Custom user model
-AUTH_USER_MODEL = 'volt_finder.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
