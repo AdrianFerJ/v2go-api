@@ -70,3 +70,9 @@ class EVOwnerList(generics.ListCreateAPIView):
     queryset = EVOwner.objects.all()
     serializer_class = EVOwnerSerializer
  
+
+class EVOwnerDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'nk'
+    lookup_url_kwarg = 'ev_owner_nk'
+    queryset = EVOwner.objects.all()
+    serializer_class = EVOwnerSerializer
