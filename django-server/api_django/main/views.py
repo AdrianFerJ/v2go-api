@@ -81,3 +81,10 @@ class EVOwnerDetail(generics.RetrieveUpdateDestroyAPIView):
 class EVList(generics.ListCreateAPIView):
     queryset = EV.objects.all()
     serializer_class = EVSerializer
+
+
+class EVDetail(generics.ListCreateAPIView):
+    lookup_field = 'nk'
+    lookup_url_kwarg = 'ev_nk'
+    queryset = EV.objects.all()
+    serializer_class = EVSerializer
