@@ -1,7 +1,7 @@
 from django.urls import re_path, path
 from rest_framework.urlpatterns import format_suffix_patterns
 from main.views import ChargingStationList, ChargingStationDetail, CSHostList, CSHostDetail, \
-					   EVOwnerList
+					   EVOwnerList, EVList
 
 app_name = 'main'
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path('ev_owners/', EVOwnerList.as_view(), name='ev_owner_list'),
     path('ev_owners/<ev_owner_nk>', EVOwnerList.as_view(),
     	name='ev_owner_detail'),
+    path('ev/', EVList.as_view(), name='ev_list'),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 
