@@ -161,7 +161,7 @@ class ChargingStation(models.Model):
         super().save(**kwargs)
 
 
-class EVehicle(models.Model):
+class EV(models.Model):
     nk              = models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
     created         = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)
@@ -175,7 +175,7 @@ class EVehicle(models.Model):
     def save(self, *args, **kwargs):
         if not self.nk:
             self.nk = create_hash(self)
-        name = str(self.owner) + ' ' + str(self)
+        name = str(self.ev_owner) + ' ' + str(self)
         slug = slugify(name)
         cal = Calendar(name=name, slug=slug)
         cal.save()
