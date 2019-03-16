@@ -54,7 +54,12 @@ class ChargingStationDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CSHostList(generics.ListCreateAPIView):
-    #TODO add permission_classes = (permissions.IsAuthenticated,) AND TEST
-    #TODO host can only see her own CS, but no CSs owned by another host
+    queryset = CSHost.objects.all()
+    serializer_class = CSHostSerializer
+
+
+class CSHostDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'nk'
+    lookup_url_kwarg = 'cs_host_nk'
     queryset = CSHost.objects.all()
     serializer_class = CSHostSerializer
