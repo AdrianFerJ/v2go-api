@@ -1,14 +1,16 @@
 from django.urls import re_path, path
 from rest_framework.urlpatterns import format_suffix_patterns
-from main.views import ChargingStationList, ChargingStationDetail
+from main.views import ChargingStationList, ChargingStationDetail, CSHostList
 
 app_name = 'main'
 
 urlpatterns = [
-    path('host/', ChargingStationList.as_view(), name='host_cs_list'),
-    path('host/<cs_nk>/', ChargingStationDetail.as_view(),
+    path('cs/', ChargingStationList.as_view(), name='cs_list'),
+    path('cs/<cs_nk>/', ChargingStationDetail.as_view(),
         name='host_cs_detail'),
-        
+    path('cs_hosts/', CSHostList.as_view(), name='cs_host_list'),
+    path('cs_hosts/<cs_nk>/', ChargingStationDetail.as_view(),
+    name='host_cs_detail'),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 

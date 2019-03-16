@@ -5,16 +5,72 @@ from django.contrib.gis.geos import GEOSGeometry, fromstr
 from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
 
+from schedule.models import Event, EventRelation, Calendar
+
 import datetime
-import hashlib 
+import hashlib
 
 
-# Create your models here.
+def create_hash(model_object):
+    now = datetime.datetime.now()
+    secure_hash = hashlib.md5()
+    secure_hash.update(
+        f'{now}:{model_object}'.encode(
+            'utf-8'))
 
-# Finder
+    return secure_hash.hexdigest()
+
+
+CHARGER_CHOICES = [
+                   ('a', 'Charger Type A'), 
+                   ('b', 'Charger Type B'), 
+                   ('c', 'Charger Type C')
+                  ]
+STATUS_CHOICES  = [
+                   ('AVAILABLE', 'Available'), 
+                   ('RESERBED', 'Reserved'), 
+                   ('UNAVAILABLE', 'Unavailable'), 
+                   ('OUT OF SERVICE', 'Out of Service')
+                  ]
+
+
 class User(AbstractUser): 
     pass
     # groups = (RIDER , OWNER  , VOLT_MANAGER (?) )
+
+
+class CSHost(models.Model):
+    nk          = models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
+    created     = models.DateTimeField(auto_now_add=True)
+    updated     = models.DateTimeField(auto_now=True)
+    name        = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.nk:
+            self.nk = create_hash(self)
+
+        super().save(*args, **kwargs)
+
+
+class EVOwner(models.Model):
+    nk          = models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
+    created     = models.DateTimeField(auto_now_add=True)
+    updated     = models.DateTimeField(auto_now=True)
+    name        = models.CharField(max_length=255, default='')
+    latitude    = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
+    longitude   = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
+
+    def save(self, *args, **kwargs):
+        if not self.nk:
+            self.nk = create_hash(self)
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class ChargingStation(models.Model):
@@ -44,8 +100,7 @@ class ChargingStation(models.Model):
     name         = models.CharField(max_length=255, blank=True)
     external_id  = models.CharField(max_length=100, blank=True)
 
-    #TODO: this should be a foreign key to link with cs_owner model
-    # cs_host   = models.IntegerField()
+    cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE, default=None)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
     tarif_text   = models.CharField(max_length=100, blank=True)
@@ -93,6 +148,31 @@ class ChargingStation(models.Model):
                 #TODO: add test (if lat-lng not valid, etc) and add Log if geolocation not created
                 pass
         super().save(**kwargs)
+
+
+class EVehicle(models.Model):
+    nk              = models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
+    created         = models.DateTimeField(auto_now_add=True)
+    updated         = models.DateTimeField(auto_now=True)
+    model           = models.CharField(max_length=40)
+    manufacturer    = models.CharField(max_length=40)
+    year            = models.IntegerField()
+    charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
+    ev_owner        = models.ForeignKey(EVOwner, on_delete=models.CASCADE)
+    calendar        = models.OneToOneField(Calendar, blank=True, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if not self.nk:
+            self.nk = create_hash(self)
+        name = str(self.owner) + ' ' + str(self)
+        slug = slugify(name)
+        cal = Calendar(name=name, slug=slug)
+        cal.save()
+        self.calendar = cal
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.model
 
 # Finder
 # class ChargingStation(models.Model):
