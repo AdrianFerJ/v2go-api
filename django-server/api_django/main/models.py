@@ -8,6 +8,8 @@ from django.contrib.auth.models import AbstractUser
 from schedule.models import Event, EventRelation, Calendar
 from slugify import slugify
 
+from .constants import CHARGER_CHOICES, STATUS_CHOICES
+
 import datetime
 import hashlib
 
@@ -20,19 +22,6 @@ def create_hash(model_object):
             'utf-8'))
 
     return secure_hash.hexdigest()
-
-
-CHARGER_CHOICES = [
-                   ('a', 'Charger Type A'), 
-                   ('b', 'Charger Type B'), 
-                   ('c', 'Charger Type C')
-                  ]
-STATUS_CHOICES  = [
-                   ('AVAILABLE', 'Available'), 
-                   ('RESERBED', 'Reserved'), 
-                   ('UNAVAILABLE', 'Unavailable'), 
-                   ('OUT OF SERVICE', 'Out of Service')
-                  ]
 
 
 class User(AbstractUser): 
