@@ -150,13 +150,14 @@ class ChargingStation(models.Model):
                 #TODO: add test (if lat-lng not valid, etc) and add Log if geolocation not created
                 pass
 
-        name = str(self.cs_host) + ' ' + self.name
-        print(name)
-        slug = slugify(name)
-        print(slug)
-        cal = Calendar(name=name, slug=slug)
-        cal.save()
-        self.calendar = cal
+        if not self.calendar:
+            name = str(self.cs_host) + ' ' + self.name
+            print(name)
+            slug = slugify(name)
+            print(slug)
+            cal = Calendar(name=name, slug=slug)
+            cal.save()
+            self.calendar = cal
 
         super().save(**kwargs)
 
@@ -175,11 +176,13 @@ class EV(models.Model):
     def save(self, *args, **kwargs):
         if not self.nk:
             self.nk = create_hash(self)
-        name = str(self.ev_owner) + ' ' + str(self)
-        slug = slugify(name)
-        cal = Calendar(name=name, slug=slug)
-        cal.save()
-        self.calendar = cal
+        
+        if not self.calendar:
+            name = str(self.ev_owner) + ' ' + str(self)
+            slug = slugify(name)
+            cal = Calendar(name=name, slug=slug)
+            cal.save()
+            self.calendar = cal
         super().save(*args, **kwargs)
 
     def __str__(self):
