@@ -1,6 +1,10 @@
 from django.db import models
 from main.models import ChargingStation, EV
 from main.constants import STATUS_CHOICES
+from main.helpers import create_hash
+from schedule.models import Calendar, Event
+import datetime
+
 
 class CSEvent(models.Model):
 	cs_event_nk		= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
@@ -9,7 +13,7 @@ class CSEvent(models.Model):
 	startDateTime	= models.DateTimeField()
 	endDateTime		= models.DateTimeField()
 	cs	 			= models.ForeignKey(ChargingStation, on_delete=models.CASCADE)
-	status			= models.CharField(max_length=20, choices=STATUS_CHOICES, default='a')
+	status			= models.CharField(max_length=20, choices=STATUS_CHOICES, default='AVAILABLE')
 	ev_event_id		= models.IntegerField(default=-1)
 
 	def save(self, *args, **kwargs):	
@@ -22,7 +26,6 @@ class CSEvent(models.Model):
 		if self.ev_event_id == -1: # not reserved yet
 
 			cs_cal = Calendar.objects.get(id=self.cs.calendar.id)
-			super(CSEvent, self).save()
 
 			data = {
 				'title': 'Charging Slot for ' + self.cs.name,
@@ -35,9 +38,10 @@ class CSEvent(models.Model):
 			event.save()
 			cs_cal.events.add(event)
 
-		elif self.ev_event_id != -1 and self.status == 'a': # about to be reserved
-			self.status = 'r'
-			super(CSEvent, self).save()
+		elif self.ev_event_id != -1 and self.status == 'AVAILABLE': # about to be reserved
+			self.status = 'RESERVED'
+
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
@@ -55,7 +59,6 @@ class EVEvent(models.Model):
 			self.nk = create_hash(self)
 		
 		if self.cs_event.status != 'r':
-			super(EVEvent, self).save()
 			data = {
 				'title': 'Charging Time for ' + str(self.ev) + str(self.cs_event.cs.name),
 				'start': self.cs_event.startDateTime,
@@ -70,6 +73,8 @@ class EVEvent(models.Model):
 			self.ev.calendar.events.add(event)
 		else:
 			raise ValidationError(_('EV event already reserved'))
+
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return str(self.ev) + ' and ' + str(self.cs_event.cs.name) + ' at ' + str(self.cs_event.startDateTime) + '/' + str(self.cs_event.endDateTime)

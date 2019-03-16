@@ -9,19 +9,10 @@ from schedule.models import Event, EventRelation, Calendar
 from slugify import slugify
 
 from .constants import CHARGER_CHOICES, STATUS_CHOICES
+from .helpers import create_hash
 
 import datetime
 import hashlib
-
-
-def create_hash(model_object):
-    now = datetime.datetime.now()
-    secure_hash = hashlib.md5()
-    secure_hash.update(
-        f'{now}:{model_object}'.encode(
-            'utf-8'))
-
-    return secure_hash.hexdigest()
 
 
 class User(AbstractUser): 
@@ -86,12 +77,12 @@ class ChargingStation(models.Model):
         (FASTDC, FASTDC),
     )
 
-    nk           = models.CharField(max_length=32, unique=True, db_index=True)
-    name         = models.CharField(max_length=255, blank=True)
+    nk           = models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
+    name         = models.CharField(max_length=255, blank=False)
     external_id  = models.CharField(max_length=100, blank=True)
 
     cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE, default=None)
-    calendar     = models.OneToOneField(Calendar, blank=True, on_delete=models.CASCADE, default=None)
+    calendar     = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
     tarif_text   = models.CharField(max_length=100, blank=True)
@@ -140,6 +131,7 @@ class ChargingStation(models.Model):
                 pass
 
         if not self.calendar:
+            print('in calendar')
             name = str(self.cs_host) + ' ' + self.name
             print(name)
             slug = slugify(name)
@@ -160,7 +152,7 @@ class EV(models.Model):
     year            = models.IntegerField()
     charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
     ev_owner        = models.ForeignKey(EVOwner, on_delete=models.CASCADE)
-    calendar        = models.OneToOneField(Calendar, blank=True, on_delete=models.CASCADE)
+    calendar        = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         if not self.nk:
