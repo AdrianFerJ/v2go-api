@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.forms import AuthenticationForm 
 
-from main.models import ChargingStation, CSHost
-from main.serializers import ChargingStationSerializer, UserSerializer, CSHostSerializer#, GeoCStationSerializer
+from main.models import ChargingStation, CSHost, EVOwner
+from main.serializers import ChargingStationSerializer, UserSerializer, \
+                             CSHostSerializer, EVOwnerSerializer#, GeoCStationSerializer
 
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.views import APIView
@@ -63,3 +64,9 @@ class CSHostDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'cs_host_nk'
     queryset = CSHost.objects.all()
     serializer_class = CSHostSerializer
+
+
+class EVOwnerList(generics.ListCreateAPIView):
+    queryset = EVOwner.objects.all()
+    serializer_class = EVOwnerSerializer
+ 
