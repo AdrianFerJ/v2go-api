@@ -17,6 +17,7 @@ twisted = "*"
 requests = "*"
 "psycopg2-binary" = "*"
 googlemaps = "*"
+django-scheduler = "*"
 
 [dev-packages]
 pylint = "*"
