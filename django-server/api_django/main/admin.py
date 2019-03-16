@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EV, Driver, ChargingStation, CSHost
+from .models import User, EV, Driver, ChargingStation, CSHost
 
 
 class UserAdmin(admin.ModelAdmin):
