@@ -54,37 +54,3 @@ class EVSerializer(serializers.ModelSerializer):
     class Meta:
         model = EV
         fields = ('nk', 'model', 'manufacturer', 'year', 'charger_type', 'ev_owner', 'calendar')
-
-
-
-
-
-# class CSSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = CS
-#         fields = ('nk', 'name', 'owner', 'latitude', 'longitude', 'calendar', 'charger_type')
-
-
-# class CSEventSerializer(serializers.ModelSerializer):
-#     cs = serializers.CharField(source='cs.nk', read_only=True)
-
-#     class Meta:
-#         model = CSEvent
-#         fields = '__all__'
-
-
-# class EVEventSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = EVEvent
-#         fields = ('nk', 'cs_event', 'ev')
-
-#TODO: merge from reservations
-
-# class EVOwnerSerializer(serializers.ModelSerializer):
-
-# class EVCarSerializer(serializers.ModelSerializer):
-
-# class CSOwnerSerializer(serializers.ModelSerializer):
-
-
-# class CSSerializer(serializers.ModelSerializer):
