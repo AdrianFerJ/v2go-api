@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'channels',
     'django.contrib.gis',   # GeoDjango
-    
+    'schedule',             # Django Scheduler
 ]
 
 

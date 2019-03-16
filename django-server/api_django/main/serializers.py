@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import ChargingStation
+from .models import ChargingStation, CSHost
 
 """ 
     Serializers
@@ -36,6 +36,46 @@ class ChargingStationSerializer(serializers.ModelSerializer):
         model = ChargingStation
         fields = '__all__'
         read_only_fields = ('id', 'nk', 'geo_location')
+
+
+class CSHostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CSHost
+        fields = ('nk', 'name')
+
+# class EVOwnerSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = EVOwner
+#         fields = ('nk', 'name', 'latitude', 'longitude')
+
+
+# class EVCarSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = EVCar
+#         fields = ('nk', 'model', 'manufacturer', 'year', 'charger_type', 'owner', 'calendar')
+
+
+
+
+
+# class CSSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CS
+#         fields = ('nk', 'name', 'owner', 'latitude', 'longitude', 'calendar', 'charger_type')
+
+
+# class CSEventSerializer(serializers.ModelSerializer):
+#     cs = serializers.CharField(source='cs.nk', read_only=True)
+
+#     class Meta:
+#         model = CSEvent
+#         fields = '__all__'
+
+
+# class EVEventSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = EVEvent
+#         fields = ('nk', 'cs_event', 'ev')
 
 #TODO: merge from reservations
 
