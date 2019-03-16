@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import ChargingStation, CSHost
+from .models import ChargingStation, CSHost, EVOwner
 
 """ 
     Serializers
@@ -43,10 +43,11 @@ class CSHostSerializer(serializers.ModelSerializer):
         model = CSHost
         fields = ('nk', 'name')
 
-# class EVOwnerSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = EVOwner
-#         fields = ('nk', 'name', 'latitude', 'longitude')
+
+class EVOwnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EVOwner
+        fields = ('nk', 'name', 'latitude', 'longitude')
 
 
 # class EVCarSerializer(serializers.ModelSerializer):
