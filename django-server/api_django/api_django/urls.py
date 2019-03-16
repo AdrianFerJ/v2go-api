@@ -25,5 +25,6 @@ urlpatterns = [
     path('api/log_in/', LogInView.as_view(), name='log_in'), 
     path('api/log_out/', LogOutView.as_view(), name='log_out'),
     path('api/volt_finder/', include('volt_finder.urls', 'cStation',)),
+    path('api/volt_reservation/', include('volt_reservation.urls')),
     path('api/', include('main.urls')), #TODO Do we need to add 'cStation' inside include() ?
 ]
