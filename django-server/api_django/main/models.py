@@ -6,6 +6,7 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
 
 from schedule.models import Event, EventRelation, Calendar
+from slugify import slugify
 
 import datetime
 import hashlib
@@ -101,6 +102,7 @@ class ChargingStation(models.Model):
     external_id  = models.CharField(max_length=100, blank=True)
 
     cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE, default=None)
+    calendar     = models.OneToOneField(Calendar, blank=True, on_delete=models.CASCADE, default=None)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
     tarif_text   = models.CharField(max_length=100, blank=True)
@@ -147,6 +149,15 @@ class ChargingStation(models.Model):
             except:
                 #TODO: add test (if lat-lng not valid, etc) and add Log if geolocation not created
                 pass
+
+        name = str(self.cs_host) + ' ' + self.name
+        print(name)
+        slug = slugify(name)
+        print(slug)
+        cal = Calendar(name=name, slug=slug)
+        cal.save()
+        self.calendar = cal
+
         super().save(**kwargs)
 
 
