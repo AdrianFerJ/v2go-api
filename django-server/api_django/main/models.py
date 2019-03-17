@@ -6,7 +6,6 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
 
 from schedule.models import Event, EventRelation, Calendar
-from slugify import slugify
 
 from .constants import CHARGER_CHOICES, STATUS_CHOICES
 from .helpers import create_hash
@@ -131,14 +130,7 @@ class ChargingStation(models.Model):
                 pass
 
         if not self.calendar:
-            print('in calendar')
-            name = str(self.cs_host) + ' ' + self.name
-            print(name)
-            slug = slugify(name)
-            print(slug)
-            cal = Calendar(name=name, slug=slug)
-            cal.save()
-            self.calendar = cal
+            self.calendar = Calendar.objects.create(name=self.name, slug=self.nk)
 
         super().save(**kwargs)
 
@@ -159,11 +151,8 @@ class EV(models.Model):
             self.nk = create_hash(self)
         
         if not self.calendar:
-            name = str(self.ev_owner) + ' ' + str(self)
-            slug = slugify(name)
-            cal = Calendar(name=name, slug=slug)
-            cal.save()
-            self.calendar = cal
+            self.calendar = Calendar.objects.create(name=self.model, slug=self.nk)
+
         super().save(*args, **kwargs)
 
     def __str__(self):
