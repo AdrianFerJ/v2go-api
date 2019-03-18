@@ -5,17 +5,26 @@
 
 ### Python, venv, and libraries
 
-**Required:** Python3.7 (doesn't need to be the default system python) and pip
+**Required:** Python3.7.1 (doesn't need to be the default system python) and pip
+To install this version of Python we will use a python package known as pyenv
+
+Follow the **Prerequisites** on [this](https://github.com/pyenv/pyenv-installer) tutorials link to install it on your machine
 ```bash
-# Install Python3.7, if it's not yet installed
-$ sudo apt-get update
-$ sudo apt-get install python3.7
+# Install Python3.7.1 with pyenv if the version is not installed
+$ pyenv install 3.7.1
+
+# Head to the django-server directory
+~/ROOTDIR/v2go-web-app$ cd django-server
+
+# Set the python version for the django-server directory to 3.7.1
+$ pyenv local 3.7.1
+
+# Verify that you have Python version 3.7.1
+$ python --version
 
 # install pipenv
 $ pip install pipenv
 
-# Go into /django_server/, create a new virtual env and activate it
-$ pipenv --python 3.7  # or path/to/python if no python 
 $ pipenv shell
 
 # Make sure pip is not v18.1, while venv is active.(Known issue with v18.1, fix src: https://github.com/pypa/pipenv/issues/2924)
