@@ -7,7 +7,7 @@ from django.utils import timezone
 import datetime
 
 
-class CSEventSerializerView(viewsets.ReadOnlyModelViewSet):  
+class CSEventView(viewsets.ReadOnlyModelViewSet):  
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'cs_event_nk'
@@ -28,7 +28,7 @@ class CSEventSerializerView(viewsets.ReadOnlyModelViewSet):
 		return Response(serializer.data)
 
 
-class EVEventSerializerView(viewsets.ReadOnlyModelViewSet):
+class EVEventView(viewsets.ReadOnlyModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'ev_event_nk'
