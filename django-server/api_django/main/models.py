@@ -5,16 +5,52 @@ from django.contrib.gis.geos import GEOSGeometry, fromstr
 from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
 
+from schedule.models import Event, EventRelation, Calendar
+
+from .constants import CHARGER_CHOICES, STATUS_CHOICES
+from .helpers import create_hash
+
 import datetime
-import hashlib 
+import hashlib
 
 
-# Create your models here.
-
-# Finder
 class User(AbstractUser): 
     pass
     # groups = (RIDER , OWNER  , VOLT_MANAGER (?) )
+
+
+class CSHost(models.Model):
+    nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+    created     = models.DateTimeField(auto_now_add=True)
+    updated     = models.DateTimeField(auto_now=True)
+    name        = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.nk:
+            self.nk = create_hash(self)
+
+        super().save(*args, **kwargs)
+
+
+class Driver(models.Model):
+    nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+    created     = models.DateTimeField(auto_now_add=True)
+    updated     = models.DateTimeField(auto_now=True)
+    name        = models.CharField(max_length=255, default='')
+    latitude    = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
+    longitude   = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
+
+    def save(self, *args, **kwargs):
+        if not self.nk:
+            self.nk = create_hash(self)
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class ChargingStation(models.Model):
@@ -40,12 +76,12 @@ class ChargingStation(models.Model):
         (FASTDC, FASTDC),
     )
 
-    nk           = models.CharField(max_length=32, unique=True, db_index=True)
+    nk           = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
     name         = models.CharField(max_length=255, blank=True)
     external_id  = models.CharField(max_length=100, blank=True)
 
-    #TODO: this should be a foreign key to link with cs_owner model
-    # cs_host   = models.IntegerField()
+    cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE, default=None)
+    calendar     = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
     tarif_text   = models.CharField(max_length=100, blank=True)
@@ -92,16 +128,35 @@ class ChargingStation(models.Model):
             except:
                 #TODO: add test (if lat-lng not valid, etc) and add Log if geolocation not created
                 pass
+
+        if not self.calendar:
+            self.calendar = Calendar.objects.create(name=self.name, slug=self.nk)
+
         super().save(**kwargs)
 
-# Finder
-# class ChargingStation(models.Model):
-#     #TODO: include calendar from reservation
-#     # calendar 		= models.OneToOneField(Calendar, blank=True, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
 
-# # Reservations
-# class EVCar(models.Model):
-#     #rename to EVehicle
 
-#     #TODO renamte owner to ev_owner
-# 
+class EV(models.Model):
+    nk              = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+    created         = models.DateTimeField(auto_now_add=True)
+    updated         = models.DateTimeField(auto_now=True)
+    model           = models.CharField(max_length=40)
+    manufacturer    = models.CharField(max_length=40)
+    year            = models.IntegerField()
+    charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
+    ev_owner        = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    calendar        = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if not self.nk:
+            self.nk = create_hash(self)
+        
+        if not self.calendar:
+            self.calendar = Calendar.objects.create(name=self.model, slug=self.nk)
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.model

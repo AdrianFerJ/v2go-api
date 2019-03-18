@@ -1,7 +1,7 @@
 from django.contrib import admin
+from .models import EV, Driver, ChargingStation, CSHost
 
-# FROM reservation
-# admin.site.register(EVOwner)
-# admin.site.register(EVCar)
-# admin.site.register(CS)
-# admin.site.register(CSOwner)
+admin.site.register(EV)
+admin.site.register(Driver)
+admin.site.register(ChargingStation)
+admin.site.register(CSHost)
