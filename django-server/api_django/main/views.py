@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.forms import AuthenticationForm 
 
-from main.models import ChargingStation, CSHost, EVOwner, EV
+from main.models import ChargingStation, CSHost, Driver, EV
 from main.serializers import ChargingStationSerializer, UserSerializer, \
-                             CSHostSerializer, EVOwnerSerializer, EVSerializer#, GeoCStationSerializer
+                             CSHostSerializer, DriverSerializer, EVSerializer#, GeoCStationSerializer
 
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.views import APIView
@@ -66,16 +66,16 @@ class CSHostDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CSHostSerializer
 
 
-class EVOwnerList(generics.ListCreateAPIView):
-    queryset = EVOwner.objects.all()
-    serializer_class = EVOwnerSerializer
+class DriverList(generics.ListCreateAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
  
 
-class EVOwnerDetail(generics.RetrieveUpdateDestroyAPIView):
+class DriverDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'nk'
     lookup_url_kwarg = 'ev_owner_nk'
-    queryset = EVOwner.objects.all()
-    serializer_class = EVOwnerSerializer
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
 
 
 class EVList(generics.ListCreateAPIView):
