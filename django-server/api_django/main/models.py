@@ -134,6 +134,9 @@ class ChargingStation(models.Model):
 
         super().save(**kwargs)
 
+    def __str__(self):
+        return self.name
+
 
 class EV(models.Model):
     nk              = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
@@ -157,15 +160,3 @@ class EV(models.Model):
 
     def __str__(self):
         return self.model
-
-# Finder
-# class ChargingStation(models.Model):
-#     #TODO: include calendar from reservation
-#     # calendar 		= models.OneToOneField(Calendar, blank=True, on_delete=models.CASCADE)
-
-# # Reservations
-# class EVCar(models.Model):
-#     #rename to EVehicle
-
-#     #TODO renamte owner to ev_owner
-# 
