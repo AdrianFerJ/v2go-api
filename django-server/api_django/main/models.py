@@ -77,7 +77,7 @@ class ChargingStation(models.Model):
     )
 
     nk           = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
-    name         = models.CharField(max_length=255, blank=False)
+    name         = models.CharField(max_length=255, blank=True)
     external_id  = models.CharField(max_length=100, blank=True)
 
     cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE, default=None)
