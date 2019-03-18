@@ -76,7 +76,7 @@ class ChargingStation(models.Model):
         (FASTDC, FASTDC),
     )
 
-    nk           = models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
+    nk           = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
     name         = models.CharField(max_length=255, blank=False)
     external_id  = models.CharField(max_length=100, blank=True)
 
