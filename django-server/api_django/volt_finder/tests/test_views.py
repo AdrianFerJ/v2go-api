@@ -7,6 +7,7 @@ from volt_finder.serializers import GeoCStationSerializer
 from main.models import ChargingStation
 
 PASSWORD = 'pAssw0rd!'
+poi_location = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
 
 """ HELPER FUNC """
 def create_user(username='user@example.com', password=PASSWORD):
@@ -15,20 +16,40 @@ def create_user(username='user@example.com', password=PASSWORD):
 
 
 """ TESTS """
+class AuthenticationTest(APITestCase):
+    #TODO test user.group==host can't use any finder endpoints
+    def setUp(self):
+        self.client = APIClient()
+    
+    @classmethod
+    def setUpTestData(cls):
+        cls.cs_t1 = ChargingStation.objects.create( 
+            name     = 'Panthere 1',
+            address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+            lat      = 45.5070394,
+            lng      = -73.5651293
+        )
+
+    def test_annon_user_can_not_access_finder_cs_near_poi_endpoint(self):
+        """ Attempt to access endpoints that require login as annon user (no-login) """
+        response = self.client.get(
+            reverse('volt_finder:cs_near_poi', kwargs={'poi_location': poi_location}))
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+
 class VoltFinderViewTest(APITestCase):
     """ Tests the ability to get the (single) nearest CS to user provided POI""" 
+    #TODO Include def setUpTestData(cls): Class method to set up test data
+    #TODO: move all CS created into this method
+    # Check this: https://docs.djangoproject.com/en/2.1/topics/testing/tools/#django.test.TestCase
 
     def setUp(self):
         user = create_user()
         self.client = APIClient()
         self.client.login(username=user.username, password=PASSWORD)        
 
-    #TODO Include def setUpTestData(cls): Class method to set up test data
-    #TODO: move all CS created into this method
-    # Check this: https://docs.djangoproject.com/en/2.1/topics/testing/tools/#django.test.TestCase
     
     def test_get_top_5_cs_near_poi(self):
-        poi_location = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
         test_top_cs = [
             ChargingStation.objects.create(
                 address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', name='Top 2'),
