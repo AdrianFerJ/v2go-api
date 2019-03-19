@@ -40,6 +40,7 @@ class LogOutView(views.APIView):
 class ChargingStationList(generics.ListCreateAPIView):
     #TODO add permission_classes = (permissions.IsAuthenticated,) AND TEST
     #TODO host can only see her own CS, but no CSs owned by another host
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer
 
@@ -47,6 +48,7 @@ class ChargingStationList(generics.ListCreateAPIView):
 class ChargingStationDetail(generics.RetrieveUpdateDestroyAPIView):
     #TODO add permission_classes = (permissions.IsAuthenticated,) AND TEST
     #TODO host can only see her own CS, but no CSs owned by another host
+    permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'nk'
     lookup_url_kwarg = 'cs_nk'
     queryset = ChargingStation.objects.all()
