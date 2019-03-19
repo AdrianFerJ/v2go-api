@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import User, EV, Driver, ChargingStation, CSHost
 
-
 class UserAdmin(admin.ModelAdmin):
     # display entries as table, with the following fields
     list_display = ('username', 'is_staff')
