@@ -19,38 +19,38 @@ class User(AbstractUser):
     # groups = (RIDER , OWNER  , VOLT_MANAGER (?) )
 
 
-class CSHost(models.Model):
-    nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
-    created     = models.DateTimeField(auto_now_add=True)
-    updated     = models.DateTimeField(auto_now=True)
-    name        = models.CharField(max_length=40)
+# class CSHost(models.Model):
+#     nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+#     created     = models.DateTimeField(auto_now_add=True)
+#     updated     = models.DateTimeField(auto_now=True)
+#     name        = models.CharField(max_length=40)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-    def save(self, *args, **kwargs):
-        if not self.nk:
-            self.nk = create_hash(self)
+#     def save(self, *args, **kwargs):
+#         if not self.nk:
+#             self.nk = create_hash(self)
 
-        super().save(*args, **kwargs)
+#         super().save(*args, **kwargs)
 
 
-class Driver(models.Model):
-    nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
-    created     = models.DateTimeField(auto_now_add=True)
-    updated     = models.DateTimeField(auto_now=True)
-    name        = models.CharField(max_length=255, default='')
-    latitude    = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
-    longitude   = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
+# class Driver(models.Model):
+#     nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+#     created     = models.DateTimeField(auto_now_add=True)
+#     updated     = models.DateTimeField(auto_now=True)
+#     name        = models.CharField(max_length=255, default='')
+#     latitude    = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
+#     longitude   = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
 
-    def save(self, *args, **kwargs):
-        if not self.nk:
-            self.nk = create_hash(self)
+#     def save(self, *args, **kwargs):
+#         if not self.nk:
+#             self.nk = create_hash(self)
 
-        super().save(*args, **kwargs)
+#         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class ChargingStation(models.Model):
@@ -80,7 +80,7 @@ class ChargingStation(models.Model):
     name         = models.CharField(max_length=255, blank=True)
     external_id  = models.CharField(max_length=100, blank=True)
 
-    cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE, default=None)
+    # cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE,    default=None)
     calendar     = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
@@ -105,10 +105,10 @@ class ChargingStation(models.Model):
     updated      = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.nk
+        return '%s %s' % (self.nk, self.address)
 
     def get_absolute_url(self):
-        return reverse('main:host_cs_detail', kwargs={'cs_nk': self.nk})
+        return reverse('main:cs_detail', kwargs={'cs_nk': self.nk})
     
     def create_geo_location(self):
         self.geo_location = fromstr(f'POINT({self.lng} {self.lat})', srid=4326)
@@ -146,7 +146,7 @@ class EV(models.Model):
     manufacturer    = models.CharField(max_length=40)
     year            = models.IntegerField()
     charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
-    ev_owner        = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    # ev_owner        = models.ForeignKey(Driver, on_delete=models.CASCADE)
     calendar        = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):

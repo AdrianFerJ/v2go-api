@@ -13,7 +13,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
     :type destinations: a single location, as a string
     """
     permission_classes = (permissions.IsAuthenticated,)
-    #TODO: replace queryset by a get_queryset() method and apply some filtering to either the query or the output
+    #TODO: apply some filtering to query (or ger_queryset()) to limit number of CS passed to google
     queryset = ChargingStation.objects.all()
     
     def top_cs_near_poi(self, request, poi_location):
@@ -25,6 +25,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
         top_cs = gg.getNearestCS(poi_location, cs_addresses)
 
         # Match CS info from queryset to top_cs, based on address
+        # TODO conver this for loop into a helper function and move it to that file
         for cs in top_cs:
             xnk = next((x for x in all_cs if x.address == cs.destination_addresses), None)
             if xnk != None:
