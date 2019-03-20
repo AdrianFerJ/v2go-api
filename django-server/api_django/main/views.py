@@ -40,7 +40,7 @@ class LogOutView(views.APIView):
 class ChargingStationList(generics.ListCreateAPIView):
     #TODO rename to ChargingStationCSCreateList
     #TODO host can only see her own CS, but no CSs owned by another host
-    permission_classes = (permissions.DjangoModelPermissions, )# permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer
 
