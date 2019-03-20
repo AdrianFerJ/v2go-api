@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, EV, Driver, ChargingStation, CSHost
+from .models import User, EV, ChargingStation#, Driver, CSHost
 
 class UserAdmin(admin.ModelAdmin):
     # display entries as table, with the following fields
@@ -13,5 +13,5 @@ class ChargingStationAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(ChargingStation, ChargingStationAdmin)
 admin.site.register(EV)
-admin.site.register(Driver)
-admin.site.register(CSHost)
+# admin.site.register(Driver)
+# admin.site.register(CSHost)

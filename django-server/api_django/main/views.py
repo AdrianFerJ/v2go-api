@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.forms import AuthenticationForm 
 
-from main.models import ChargingStation, CSHost, Driver, EV
+from main.models import ChargingStation, EV#, CSHost, Driver
 from main.serializers import ChargingStationSerializer, UserSerializer #, GeoCStationSerializer
 
 from rest_framework import generics, permissions, status, views, viewsets
@@ -38,8 +38,9 @@ class LogOutView(views.APIView):
 
 
 class ChargingStationList(generics.ListCreateAPIView):
+    #TODO rename to ChargingStationCSCreateList
     #TODO host can only see her own CS, but no CSs owned by another host
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.DjangoModelPermissions, )# permissions.IsAuthenticated,)
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer
 

@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import ChargingStation, CSHost, Driver, EV
+from .models import ChargingStation, EV#, CSHost, Driver,  
 
 """ 
     Serializers
