@@ -69,7 +69,7 @@ class AuthenticationTest(APITestCase):
     
     def test_annon_user_can_not_retrive_cs_list(self):
         """ Attempt to access endpoints that require login as annon user (no-login) """
-        response = self.client.get(reverse('main:host_cs_list'))
+        response = self.client.get(reverse('main:cs_list'))
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
 
 
@@ -106,7 +106,7 @@ class HostChargingStationTest(APITestCase):
         """ Get CS list
             #TODO: should display only CS created by group=U_OWNER)
         """
-        response = self.client.get(reverse('main:host_cs_list'))
+        response = self.client.get(reverse('main:cs_list'))
         exp_cs_nks = [self.cs_t1.nk, self.cs_t2.nk]
         act_cs_nks = [cs.get('nk') for cs in response.data]
         self.assertEqual(status.HTTP_200_OK, response.status_code)
