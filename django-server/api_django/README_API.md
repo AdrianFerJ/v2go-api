@@ -5,7 +5,8 @@
 
 ### Python, venv, and libraries
 
-Follow the **Prerequisites** on [this](https://github.com/pyenv/pyenv-installer) tutorials link to install it on your machine
+Install **pyenv** following [these](https://github.com/pyenv/pyenv-installer) instructions
+
 ```bash
 # install pipenv
 $ pip install pipenv
