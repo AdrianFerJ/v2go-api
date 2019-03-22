@@ -76,7 +76,8 @@ class ChargingStation(models.Model):
         (FASTDC, FASTDC),
     )
 
-    nk           = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+    # nk           = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+    nk           = models.CharField(max_length=32, unique=True, db_index=True)
     name         = models.CharField(max_length=255, blank=True)
     external_id  = models.CharField(max_length=100, blank=True)
 
@@ -117,10 +118,8 @@ class ChargingStation(models.Model):
         if not self.nk:
             now = datetime.datetime.now()
             secure_hash = hashlib.md5()
-            secure_hash.update(
-                #TODO  add :{self.owner} OR owner_nk OR owner foreign key
-                f'{now}:{self.address}'.encode(
-                    'utf-8'))
+            #TODO  add :{self.owner} OR owner_nk OR owner foreign key
+            secure_hash.update(f'{now}:{self.address}'.encode('utf-8'))
             self.nk = secure_hash.hexdigest()
         if not self.geo_location:
             try:
@@ -134,8 +133,8 @@ class ChargingStation(models.Model):
 
         super().save(**kwargs)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 
 class EV(models.Model):
