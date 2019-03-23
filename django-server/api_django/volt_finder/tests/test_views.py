@@ -5,10 +5,16 @@ from rest_framework.test import APIClient, APITestCase
 
 from volt_finder.serializers import GeoCStationSerializer
 from main.models import ChargingStation
+from volt_reservation.models import EVEvent, CSEvent
+
+from django.utils import timezone 
+import datetime as dt  
+
+
 
 PASSWORD = 'pAssw0rd!'
 poi_location = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
-
+today = timezone.now().date()
 """ HELPER FUNC """
 def create_user(username='user@example.com', password=PASSWORD):
     return get_user_model().objects.create_user(
@@ -32,8 +38,8 @@ class AuthenticationTest(APITestCase):
 
     def test_annon_user_can_not_access_finder_cs_near_poi_endpoint(self):
         """ Attempt to access endpoints that require login as annon user (no-login) """
-        response = self.client.get(
-            reverse('volt_finder:cs_near_poi', kwargs={'poi_location': poi_location}))
+        response = self.client.get(reverse(
+                        'volt_finder:cs_near_poi_status_any', kwargs={'poi_location': poi_location}))#, 'date_x':today}))
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
 
 
@@ -91,11 +97,35 @@ class VoltFinderViewTest(APITestCase):
                 lat      = 45.5629748,
                 lng      = -73.6561512),    
             ]
-                
+        
+        print('***** Created CS')
+        print(cls.test_top_cs[0], cls.test_top_cs[1])
+        cs_t1, cs_t2 = cls.test_top_cs[0], cls.test_top_cs[1]
+        cs_o1, cs_o2 = cls.test_other_cs[0], cls.test_other_cs[1]
+
+        t_start = timezone.now()
+        t_end   = t_start + dt.timedelta(minutes=30) 
+        
+        event_1 = CSEvent.objects.create( 
+                    startDateTime = t_start,
+                    endDateTime   = t_end,
+                    cs            = cs_t1
+                )
+        event_2 = CSEvent.objects.create( 
+                    startDateTime = t_start,
+                    endDateTime   = t_end,
+                    cs            = cs_o1
+                )
+
+        print('*********************************')
+        print('### cs_t1, cs_t2: ', cs_t1, cs_t2)
+        print('### cs_o1, cs_o2: ', cs_o1, cs_o2)
+        print('### events: ', event_1, event_2)
+
     
-    def test_get_top_5_cs_near_poi(self):
+    def test_get_top_5_cs_near_poi_status_any(self):
         response = self.client.get(reverse(
-                    'volt_finder:cs_near_poi', kwargs={'poi_location': poi_location}))
+                    'volt_finder:cs_near_poi_status_any', kwargs={'poi_location': poi_location}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         serializer = GeoCStationSerializer(data=response.data,  many=True)  
@@ -103,11 +133,30 @@ class VoltFinderViewTest(APITestCase):
         self.assertTrue(serializer.is_valid())
         serialized_data = serializer.validated_data
         
-        exp_cStation_nks = [cs.nk for cs in self.test_top_cs]
+        exp_cStation_nks   = [cs.nk for cs in self.test_top_cs]
         other_cStation_nks = [cs.nk for cs in self.test_other_cs]
-        act_cStation_nks = [cs['nk'] for cs in serialized_data]
+        act_cStation_nks   = [cs['nk'] for cs in serialized_data]
 
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
         self.assertAlmostEqual(act_cStation_nks, exp_cStation_nks)
         self.assertNotIn(other_cStation_nks[0], exp_cStation_nks)
         self.assertGreater(serialized_data[1]['duration_val'], serialized_data[0]['duration_val'])
+
+    def test_get_top_cs_near_poi_status_available_today(self):
+        response = self.client.get(reverse(
+                    'volt_finder:cs_near_poi_status_avail_today',
+                    kwargs={'poi_location': poi_location, 'date_x':today}))
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        serializer = GeoCStationSerializer(data=response.data,  many=True)  
+
+        self.assertTrue(serializer.is_valid())
+        serialized_data = serializer.validated_data
+        exp_cs_nks = [self.test_top_cs[0].nk, self.test_other_cs[0].nk]
+        act_cs_nks = [cs['nk'] for cs in serialized_data]
+
+        print('*********************************')
+        print('### exp_cs_nks: ', exp_cs_nks)
+        print('### act_cs_nks: ', act_cs_nks)
+
+        self.assertAlmostEqual(act_cs_nks, exp_cs_nks)
