@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class ChargingStationAdmin(admin.ModelAdmin):
-    list_display = ('nk', 'address')
+    list_display = ('name', 'nk', 'address')
 
 
 admin.site.register(User, UserAdmin)
