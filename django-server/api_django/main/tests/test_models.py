@@ -14,7 +14,6 @@ class ChargingStationModelTest(APITestCase):
 	
 	def test_charging_station_delete(self):
 		"""Test deleting Charging Stations"""
-		print(self.cs.calendar)
 		cal = self.cs.calendar
 		self.cs.delete()
 		self.assertEqual(Calendar.objects.filter(id=cal.id).exists(), False)
