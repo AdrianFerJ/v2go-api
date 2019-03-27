@@ -5,7 +5,7 @@ from rest_framework.test import APIClient, APITestCase
 
 from volt_finder.serializers import GeoCStationSerializer
 from main.models import ChargingStation
-from volt_reservation.models import EVEvent, CSEvent
+from volt_reservation.models import EventEV, EventCS
 
 from django.utils import timezone 
 import datetime as dt  
@@ -106,12 +106,12 @@ class VoltFinderViewTest(APITestCase):
         t_start = timezone.now()
         t_end   = t_start + dt.timedelta(minutes=30) 
         
-        event_1 = CSEvent.objects.create( 
+        event_1 = EventCS.objects.create( 
                     startDateTime = t_start,
                     endDateTime   = t_end,
                     cs            = cs_t1
                 )
-        event_2 = CSEvent.objects.create( 
+        event_2 = EventCS.objects.create( 
                     startDateTime = t_start,
                     endDateTime   = t_end,
                     cs            = cs_o1

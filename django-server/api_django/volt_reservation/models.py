@@ -1,12 +1,14 @@
 from django.db import models
+from rest_framework.serializers import ValidationError
 from main.models import ChargingStation, EV
 from main.constants import STATUS_CHOICES
 from main.helpers import create_hash
 from schedule.models import Calendar, Event
+from django.utils.translation import gettext as _
 import datetime
 
 
-class CSEvent(models.Model):
+class EventCS(models.Model):
 	cs_event_nk		= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
 	created 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
@@ -19,10 +21,14 @@ class CSEvent(models.Model):
 	def save(self, *args, **kwargs):	
 		#TODO: fix bug (Issue #34) . the save method prevents the creation of another event with the 
 		# 				same times, even if this is a different CS) SEE issue 
-		# if self.cs_event_nk is None and CSEvent.objects.filter(startDateTime=self.startDateTime, endDateTime=self.endDateTime).exists():
+		# if self.cs_event_nk is None and EventCS.objects.filter(startDateTime=self.startDateTime, endDateTime=self.endDateTime).exists():
 		# 	raise ValidationError(_('CS Event at {0}-{1} already exists'.format(self.startDateTime, self.endDateTime)))
 
-		if not self.cs_event_nk:
+		if self.cs_event_nk is None and EventCS.objects.filter(startDateTime=self.startDateTime, 
+								  							   endDateTime=self.endDateTime).exists():
+			raise ValidationError(_('CS Event at {0}-{1} already exists'.format(self.startDateTime, self.endDateTime)))
+
+		if self.cs_event_nk is not None:
 			self.cs_event_nk = create_hash(self)
 
 		if self.ev_event_id == -1: # not reserved yet
@@ -49,11 +55,11 @@ class CSEvent(models.Model):
 		return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
 
 
-class EVEvent(models.Model):
+class EventEV(models.Model):
 	nk 			= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
 	created 	= models.DateTimeField(auto_now_add=True)
 	updated 	= models.DateTimeField(auto_now=True)
-	cs_event 	= models.ForeignKey(CSEvent, on_delete=models.CASCADE)
+	cs_event 	= models.ForeignKey(EventCS, on_delete=models.CASCADE)
 	ev 			= models.ForeignKey(EV, on_delete=models.CASCADE)
 
 	def save(self, *args, **kwargs):

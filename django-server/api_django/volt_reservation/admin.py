@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import CSEvent, EVEvent
+from .models import EventCS, EventEV
 
 
-admin.site.register(EVEvent)
-admin.site.register(CSEvent)
+admin.site.register(EventEV)
+admin.site.register(EventCS)

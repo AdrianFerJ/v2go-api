@@ -1,16 +1,16 @@
-from .models import CSEvent, EVEvent
+from .models import EventCS, EventEV
 from rest_framework import generics, serializers
 
 
-class CSEventSerializer(serializers.ModelSerializer):
+class EventCSSerializer(serializers.ModelSerializer):
 	cs = serializers.CharField(source='cs.nk', read_only=True)
 
 	class Meta:
-		model = CSEvent
+		model = EventCS
 		fields = '__all__'
 
 
-class EVEventSerializer(serializers.ModelSerializer):
+class EventEVSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = EVEvent
-		fields = ('nk', 'cs_event', 'ev')
+		model = EventEV
+		fields = ('nk', 'event_cs', 'ev')

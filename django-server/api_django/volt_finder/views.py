@@ -10,7 +10,7 @@ from volt_finder import mygooglemaps as gg
 
 from django.utils import timezone 
 import datetime as dt  
-from volt_reservation.models import CSEvent
+from volt_reservation.models import EventCS
 
 
 class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
@@ -39,7 +39,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
     def get_top_cs_near_poi_available_date(self, request, poi_location, date_x):    
         today = timezone.now().date()        
 
-        events_cs = CSEvent.objects.filter(
+        events_cs = EventCS.objects.filter(
                     status='AVAILABLE',
                     startDateTime__range=(today, today + dt.timedelta(days=1)))
 
