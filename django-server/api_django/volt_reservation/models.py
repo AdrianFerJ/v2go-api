@@ -18,15 +18,11 @@ class EventCS(models.Model):
 	status			= models.CharField(max_length=20, choices=STATUS_CHOICES, default='AVAILABLE')
 	ev_event_id		= models.IntegerField(default=-1)
 
-	def save(self, *args, **kwargs):	
-		#TODO: fix bug (Issue #34) . the save method prevents the creation of another event with the 
-		# 				same times, even if this is a different CS) SEE issue 
-		# if self.cs_event_nk is None and EventCS.objects.filter(startDateTime=self.startDateTime, endDateTime=self.endDateTime).exists():
-		# 	raise ValidationError(_('CS Event at {0}-{1} already exists'.format(self.startDateTime, self.endDateTime)))
-
-		if self.cs_event_nk is None and EventCS.objects.filter(startDateTime=self.startDateTime, 
-								  							   endDateTime=self.endDateTime).exists():
-			raise ValidationError(_('CS Event at {0}-{1} already exists'.format(self.startDateTime, self.endDateTime)))
+	def save(self, *args, **kwargs):
+		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime, 
+								  		  endDateTime=self.endDateTime)
+		if self.cs_event_nk is None and event_cs.exists():
+			raise ValidationError(_(f'CS Event at {self.startDateTime}-{self.endDateTime} already exists'))
 
 		if self.cs_event_nk is not None:
 			self.cs_event_nk = create_hash(self)
