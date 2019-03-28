@@ -12,9 +12,10 @@ class ChargingStationModelTest(APITestCase):
 		self.cs = ChargingStation.objects.create(
             address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', name='test_cs')
 	
-	def test_charging_station_delete(self):
+	def test_calendar_linked_to_cs_is_deleted_with_cs(self):
 		"""Test deleting Charging Stations"""
 		cal = self.cs.calendar
+		self.assertEqual(Calendar.objects.filter(id=cal.id).exists(), True)
 		self.cs.delete()
 		self.assertEqual(Calendar.objects.filter(id=cal.id).exists(), False)
 
