@@ -133,6 +133,10 @@ class ChargingStation(models.Model):
 
         super().save(**kwargs)
 
+    def delete(self, *args, **kwargs):
+        self.calendar.delete()
+        return super().delete(*args, **kwargs)
+
     # def __str__(self):
     #     return self.name
 
