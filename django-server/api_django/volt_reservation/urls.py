@@ -1,11 +1,11 @@
 from django.urls import path
 
-from .views import CSEventView, EVEventView
+from .views import EventCSView, EventEVView
 
 app_name = 'volt_reservation'
 
 urlpatterns = [
-	path('cs_events', CSEventView.as_view({'get': 'list'}), name='cs_events_list'),
-	path('cs_events/available/<datestr>', CSEventView.as_view({'get': 'get_available_charging_station'}), name='available'),
-	path('ev_events', EVEventView.as_view({'get': 'list'}), name='ev_events_list'),
+	path('events_cs', EventCSView.as_view({'get': 'list'}), name='events_cs_list'),
+	path('events_cs/available/<datestr>', EventCSView.as_view({'get': 'get_available_charging_station'}), name='available'),
+	path('events_ev', EventEVView.as_view({'get': 'list'}), name='events_ev_list'),
 ]
