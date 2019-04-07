@@ -24,7 +24,7 @@ def create_user(username=USERNAME, password=PASSWORD):
         username=username, password=password)
 
 def filter_by_cs_event_nk(cs_event, query):
-    return list(filter(lambda event_cs: event_cs['cs_event_nk'] == cs_event.cs_event_nk, query))
+    return list(filter(lambda event_cs: event_cs['nk'] == cs_event.nk, query))
 
 class TestEventCS(APITestCase):
     def setUp(self):

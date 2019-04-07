@@ -20,7 +20,8 @@ class EventCS(models.Model):
 
 	def save(self, *args, **kwargs):
 		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime, 
-								  		  endDateTime=self.endDateTime)
+								  		  endDateTime=self.endDateTime,
+								  		  cs=self.cs)
 
 		if self.nk is None and event_cs.exists():
 			raise ValidationError(_(f'CS Event at {self.startDateTime}-{self.endDateTime} already exists'))
