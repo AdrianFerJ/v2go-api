@@ -133,14 +133,49 @@ class TestEventEV(APITestCase):
             status          = 'RESERVED'
         )
 
+        self.cs_event_3 = EventCS.objects.create(
+            startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            cs              = self.cs_t1,
+            status          = 'AVAILABLE'
+        )
+
+        self.cs_event_4 = EventCS.objects.create(
+            startDateTime   = dt.strptime('2019-09-29 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            endDateTime     = dt.strptime('2019-09-29 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            cs              = self.cs_t1,
+            status          = 'AVAILABLE'
+        )
+
         self.ev_driver = create_user(username='test@v2go.io')
         Group.objects.get_or_create(name=U_DRIVER)
 
         self.ev = EV.objects.create(
             model='Roadster',
             manufacturer='Tesla',
-            year=2019, charger_type='A',
+            year=2019,
+            charger_type='A',
             ev_owner=self.ev_driver
+        )
+
+        self.ev_1 = EV.objects.create(
+            model='Leaf',
+            manufacturer='Nissan',
+            year=2019,
+            charger_type='A',
+            ev_owner=self.ev_driver
+        )
+
+        self.completed_event_1 = EventEV.objects.create(
+            status      = 'COMPLETED',
+            ev          = self.ev,
+            event_cs    = self.cs_event_3
+        )
+
+        self.completed_event_2 = EventEV.objects.create(
+            status      = 'COMPLETED',
+            ev          = self.ev_1,
+            event_cs    = self.cs_event_4
         )
 
         self.client = APIClient()
@@ -163,6 +198,17 @@ class TestEventEV(APITestCase):
         })
 
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
+
+    def test_driver_can_view_completed_events(self):
+        response = self.client.get(reverse('volt_reservation:completed'))
+
+        print(response.data)
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
+        self.assertEqual(response.data[1]['event_cs'], self.cs_event_4.nk)
+        self.assertEqual(response.data[0]['ev'], self.ev.nk)
+        self.assertEqual(response.data[1]['ev'], self.ev_1.nk)
     # def test_host_can_retrieve_cs_detail_by_nk(self):
     #     response = self.client.get(self.cs_t1.get_absolute_url())
     #     self.assertEqual(status.HTTP_200_OK, response.status_code)

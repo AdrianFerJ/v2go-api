@@ -15,5 +15,3 @@ STATUS_CHOICES  = (
                    (UNAVAILABLE, 'Unavailable'),
                    (OUT_OF_SERVICE, 'Out of Service')
                   )
-
-

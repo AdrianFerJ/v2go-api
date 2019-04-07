@@ -15,6 +15,7 @@ from datetime import datetime as dt
 import json
 =======
 from rest_framework.response import Response
+from main.models import User
 import datetime
 
 >>>>>>> Reserve available charging station with response
@@ -65,3 +66,20 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		except:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
+
+	def get_completed_event_evs(self, request):
+		user = request.user
+		evs = EV.objects.filter(ev_owner=user)
+
+		completed = None
+
+		for ev in evs:
+			if completed is None:
+				completed = ReservationService.get_completed_event_ev(ev)
+			else:
+				completed = completed | ReservationService.get_completed_event_ev(ev)
+
+		serializer = EventEVSerializer(completed, many=True)
+
+		return Response(serializer.data)
+
