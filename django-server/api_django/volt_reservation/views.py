@@ -10,6 +10,7 @@ from django.utils import timezone
 from datetime import datetime as dt
 import json
 
+
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
 	lookup_field = 'nk'

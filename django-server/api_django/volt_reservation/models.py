@@ -20,7 +20,7 @@ class EventCS(models.Model):
 	ev_event_id		= models.IntegerField(default=-1)
 
 	def save(self, *args, **kwargs):
-		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime, 
+		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime,
 								  		  endDateTime=self.endDateTime,
 								  		  cs=self.cs)
 
