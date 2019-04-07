@@ -1,13 +1,23 @@
 from .models import EventCS, EventEV
+<<<<<<< HEAD
 from main.models import ElectricVehicle as EV
+=======
+from main.models import EV
+>>>>>>> Reserve available charging station with response
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from .services import ReservationService
 from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
+<<<<<<< HEAD
 from datetime import datetime as dt
 import json
+=======
+from rest_framework.response import Response
+import datetime
+
+>>>>>>> Reserve available charging station with response
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
 	""" Get's a32char nk and returns CS's detail info that matches the nk """

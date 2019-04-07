@@ -21,8 +21,12 @@ class EventCS(models.Model):
 
 	def save(self, *args, **kwargs):
 		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime, 
+<<<<<<< HEAD
 								  		  endDateTime=self.endDateTime,
 								  		  cs=self.cs)
+=======
+								  		  endDateTime=self.endDateTime)
+>>>>>>> Reserve available charging station with response
 
 		if self.nk is None and event_cs.exists():
 			raise ValidationError(_(f'CS Event at {self.startDateTime}-{self.endDateTime} already exists'))
