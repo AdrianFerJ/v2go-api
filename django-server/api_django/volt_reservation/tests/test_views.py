@@ -106,12 +106,78 @@ class TestEventEV(APITestCase):
             cs_host  = cls.cs_host,
         )
 
+# <<<<<<< HEAD
         cls.cs_event_1 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = 'AVAILABLE'
         )
+# =======
+
+# class TestEventEV(APITestCase):
+#     def setUp(self):
+#         self.cs_host = create_user()
+#         Group.objects.get_or_create(name=U_OWNER)
+#         # self.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
+        
+#         self.cs_t1 = ChargingStation.objects.create( 
+#             name     = 'Panthere 1',
+#             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+#             lat      = 45.5070394,
+#             lng      = -73.5651293,
+#             cs_host  = self.cs_host,
+#         )
+
+#         self.cs_event_1 = EventCS.objects.create(
+#             startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
+#             endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
+#             cs              = self.cs_t1,
+#             status          = 'AVAILABLE'
+#         )
+
+#         self.cs_event_2 = EventCS.objects.create(
+#             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
+#             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
+#             cs              = self.cs_t1,
+#             status          = 'RESERVED'
+#         )
+
+#         self.ev_driver = create_user(username='test@v2go.io')
+#         Group.objects.get_or_create(name=U_DRIVER)
+
+#         self.ev = EV.objects.create(
+#             model='Roadster',
+#             manufacturer='Tesla',
+#             year=2019, charger_type='A',
+#             ev_owner=self.ev_driver
+#         )
+
+#         self.client = APIClient()
+#         self.client.login(username=self.ev_driver.username, password=PASSWORD) 
+
+#     def test_driver_can_reserve_available_charging_station(self):
+#         response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+#             'event_cs_nk': self.cs_event_1.nk,
+#             'ev_nk': self.ev.nk
+#         })
+
+#         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+#         self.assertEqual(response.data['event_cs'], self.cs_event_1.nk)
+#         self.assertEqual(response.data['ev'], self.ev.nk)
+
+#     def test_driver_cannot_reserve_reserved_charging_station(self):
+#         response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+#             'event_cs_nk': self.cs_event_2.nk,
+#             'ev_nk': self.ev.nk
+#         })
+
+#         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
+#     # def test_host_can_retrieve_cs_detail_by_nk(self):
+#     #     response = self.client.get(self.cs_t1.get_absolute_url())
+#     #     self.assertEqual(status.HTTP_200_OK, response.status_code)
+#     #     self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
+# >>>>>>> Reserve available charging station with response
 
         cls.cs_event_2 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
