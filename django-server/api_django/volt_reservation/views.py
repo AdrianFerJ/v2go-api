@@ -1,4 +1,6 @@
 from .models import EventCS, EventEV
+from main.models import EV
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from .services import ReservationService
@@ -6,7 +8,6 @@ from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
 from datetime import datetime as dt
 import json
-
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
@@ -36,3 +37,17 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 
 	queryset = EventEV.objects.all()
 	serializer_class = EventEVSerializer
+
+	def post_reserve_available_charging_stations(self, request):
+		data = request.data
+		event_cs = EventCS.objects.get(nk=data['event_cs_nk'])
+		ev = EV.objects.get(nk=data['ev_nk'])
+
+		try:
+			event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
+
+			serializer = EventEVSerializer(event_ev, many=False)
+
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		except:
+			return Response(None, status=status.HTTP_400_BAD_REQUEST)

@@ -115,7 +115,7 @@ class EV(models.Model):
     manufacturer    = models.CharField(max_length=40)
     year            = models.IntegerField()
     charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
-    # ev_owner        = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    ev_owner        = models.ForeignKey(User, on_delete=models.CASCADE)
     calendar        = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
