@@ -286,15 +286,20 @@ class TestEventEV(APITestCase):
 =======
 
     def test_driver_can_view_completed_events(self):
-        response = self.client.get(reverse('volt_reservation:completed'))
-
-        print(response.data)
+        response = self.client.get(reverse('volt_reservation:completed_list'))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
         self.assertEqual(response.data[1]['event_cs'], self.cs_event_4.nk)
         self.assertEqual(response.data[0]['ev'], self.ev.nk)
         self.assertEqual(response.data[1]['ev'], self.ev_1.nk)
+
+    def test_driver_can_view_completed_event(self):
+        response = self.client.get(reverse('volt_reservation:completed_event', kwargs={'nk': self.completed_event_1.nk}))
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
+        self.assertEqual(response.data['ev'], self.ev.nk)
     # def test_host_can_retrieve_cs_detail_by_nk(self):
     #     response = self.client.get(self.cs_t1.get_absolute_url())
     #     self.assertEqual(status.HTTP_200_OK, response.status_code)
