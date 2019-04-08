@@ -4,14 +4,9 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
-<<<<<<< HEAD
 from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
 from main.models import ElectricVehicle as EV
-=======
-from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
-from main.models import ChargingStation, EV
->>>>>>> Reserve available charging station with response
 
 from main import constants
 
@@ -79,15 +74,6 @@ class TestEventCS(APITestCase):
             status          = constants.RESERVED
         )
 
-<<<<<<< HEAD
-=======
-    def test_host_can_retrive_her_cs_list(self):
-        """ Get CS list
-            #TODO: should display only CS created by group=U_OWNER)
-        """
-        response = self.client.get(reverse('volt_reservation:available', kwargs={'datestr': '2019-09-25 12:00:00'}))
-
->>>>>>> Modified tests for test_models to take into account for cs_host
     def test_host_can_filter_available_between_certain_time(self):
         response = self.client.get(reverse('volt_reservation:available'), data={
             'start_datetime': '2019-09-25 12:00:00',
@@ -102,8 +88,6 @@ class TestEventCS(APITestCase):
         self.assertTrue(filter_by_cs_event_nk(self.cs_event_3, result))
         self.assertFalse(filter_by_cs_event_nk(self.cs_event_4, result))
 
-<<<<<<< HEAD
-=======
 
 class TestEventEV(APITestCase):
     def setUp(self):
@@ -200,82 +184,20 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
     def test_driver_can_view_completed_events(self):
-        response = self.client.get(reverse('volt_reservation:completed'))
-
-        print(response.data)
+        response = self.client.get(reverse('volt_reservation:completed_list'))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
         self.assertEqual(response.data[1]['event_cs'], self.cs_event_4.nk)
         self.assertEqual(response.data[0]['ev'], self.ev.nk)
         self.assertEqual(response.data[1]['ev'], self.ev_1.nk)
-    # def test_host_can_retrieve_cs_detail_by_nk(self):
-    #     response = self.client.get(self.cs_t1.get_absolute_url())
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
->>>>>>> Reserve available charging station with response
 
-class TestEventEV(APITestCase):
-    def setUp(self):
-        self.cs_host = create_user()
-        Group.objects.get_or_create(name=U_OWNER)
-        # self.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
-        
-        self.cs_t1 = ChargingStation.objects.create( 
-            name     = 'Panthere 1',
-            address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
-            lat      = 45.5070394,
-            lng      = -73.5651293,
-            cs_host  = self.cs_host,
-        )
+    def test_driver_can_view_completed_event(self):
+        response = self.client.get(reverse('volt_reservation:completed_event', kwargs={'nk': self.completed_event_1.nk}))
 
-        self.cs_event_1 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
-            status          = constants.AVAILABLE
-        )
-
-        self.cs_event_2 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
-            status          = constants.RESERVED
-        )
-
-        self.ev_driver = create_user(username='test@v2go.io')
-        Group.objects.get_or_create(name=U_DRIVER)
-
-        self.ev = EV.objects.create(
-            model='Roadster',
-            manufacturer='Tesla',
-            year=2019, charger_type='A',
-            ev_owner=self.ev_driver
-        )
-
-        self.client = APIClient()
-        self.client.login(username=self.ev_driver.username, password=PASSWORD) 
-
-    def test_driver_can_reserve_available_charging_station(self):
-        response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
-            'event_cs_nk': self.cs_event_1.nk,
-            'ev_nk': self.ev.nk
-        })
-
-        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
-        self.assertEqual(response.data['event_cs'], self.cs_event_1.nk)
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
-
-    def test_driver_cannot_reserve_reserved_charging_station(self):
-        response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
-            'event_cs_nk': self.cs_event_2.nk,
-            'ev_nk': self.ev.nk
-        })
-
-        self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
-
-
-
 
 
 # class AuthenticationTest(APITestCase):

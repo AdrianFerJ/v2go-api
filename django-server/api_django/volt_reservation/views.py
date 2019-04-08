@@ -1,24 +1,14 @@
 from .models import EventCS, EventEV
-<<<<<<< HEAD
 from main.models import ElectricVehicle as EV
-=======
-from main.models import EV
->>>>>>> Reserve available charging station with response
+from main.models import User
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from .services import ReservationService
 from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
-<<<<<<< HEAD
 from datetime import datetime as dt
 import json
-=======
-from rest_framework.response import Response
-from main.models import User
-import datetime
-
->>>>>>> Reserve available charging station with response
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
@@ -83,3 +73,14 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 
 		return Response(serializer.data)
 
+	def get_completed_event_ev(self, request, nk):
+		user = request.user
+		evs = EV.objects.filter(ev_owner=user)
+		event_ev = EventEV.objects.get(nk=nk)
+
+		for ev in evs:
+			if ev == event_ev.ev:
+				serializer = EventEVSerializer(event_ev, many=False)
+				return Response(serializer.data)
+
+		return Response(None, status=status.HTTP_400_BAD_REQUEST)
