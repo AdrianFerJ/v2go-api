@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
-from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
+from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
 from volt_reservation.models import EventCS
 from datetime import datetime as dt
@@ -74,8 +74,8 @@ class TestEventCS(APITestCase):
         print(response.data)
 
     def test_host_can_filter_available_between_certain_time(self):
-        startDateTime   = dt.strptime('2019-09-25 11:00:00', '%Y-%m-%d %H:%M:%S')
-        endDateTime     = dt.strptime('2019-09-28 15:30:00', '%Y-%m-%d %H:%M:%S')
+        startDateTime = dt.strptime('2019-09-25 11:00:00', '%Y-%m-%d %H:%M:%S')
+        endDateTime = dt.strptime('2019-09-28 15:30:00', '%Y-%m-%d %H:%M:%S')
         result = ReservationService.get_available_event_cs(startDateTime, endDateTime)
 
         self.assertEqual(len(result), 2)
@@ -83,13 +83,6 @@ class TestEventCS(APITestCase):
         self.assertTrue(self.cs_event_2 in result)
         self.assertTrue(self.cs_event_3 in result)
         self.assertTrue(self.cs_event_4 not in result)
-
-    # def test_host_can_retrieve_cs_detail_by_nk(self):
-    #     response = self.client.get(self.cs_t1.get_absolute_url())
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
-
-
 
 
 
