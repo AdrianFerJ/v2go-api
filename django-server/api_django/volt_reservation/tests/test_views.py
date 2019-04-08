@@ -48,7 +48,8 @@ class TestEventCS(APITestCase):
         	startDateTime	= dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
 			endDateTime		= dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
 			cs 				= cls.cs_t1,
-			status 			= constants.RESERVED
+			status 			= constants.RESERVED,
+            ev_event_id     = 1,
         )
 
         cls.cs_event_2 = EventCS.objects.create(
@@ -69,7 +70,8 @@ class TestEventCS(APITestCase):
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
-            status          = constants.RESERVED
+            ev_event_id     = 1,
+            status          = constants.RESERVED,
         )
 
     def setUp(self):
@@ -183,10 +185,10 @@ class TestEventEV(APITestCase):
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
+            ev_event_id     = 1,
             status          = 'RESERVED'
         )
 
-<<<<<<< HEAD
         cls.cs_event_3 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
@@ -202,23 +204,6 @@ class TestEventEV(APITestCase):
         )
 
         cls.ev_driver = create_user(username='test@v2go.io')
-=======
-        self.cs_event_3 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
-            status          = 'AVAILABLE'
-        )
-
-        self.cs_event_4 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-29 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-29 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
-            status          = 'AVAILABLE'
-        )
-
-        self.ev_driver = create_user(username='test@v2go.io')
->>>>>>> Able to retrieve list of completed reservations
         Group.objects.get_or_create(name=U_DRIVER)
 
         cls.ev = EV.objects.create(
@@ -226,7 +211,6 @@ class TestEventEV(APITestCase):
             manufacturer='Tesla',
             year=2019,
             charger_type='A',
-<<<<<<< HEAD
             ev_owner=cls.ev_driver
         )
 
@@ -237,31 +221,6 @@ class TestEventEV(APITestCase):
         )
 
     def setUp(self):
-=======
-            ev_owner=self.ev_driver
-        )
-
-        self.ev_1 = EV.objects.create(
-            model='Leaf',
-            manufacturer='Nissan',
-            year=2019,
-            charger_type='A',
-            ev_owner=self.ev_driver
-        )
-
-        self.completed_event_1 = EventEV.objects.create(
-            status      = 'COMPLETED',
-            ev          = self.ev,
-            event_cs    = self.cs_event_3
-        )
-
-        self.completed_event_2 = EventEV.objects.create(
-            status      = 'COMPLETED',
-            ev          = self.ev_1,
-            event_cs    = self.cs_event_4
-        )
-
->>>>>>> Able to retrieve list of completed reservations
         self.client = APIClient()
         self.client.login(username=self.ev_driver.username, password=PASSWORD) 
 
@@ -272,6 +231,7 @@ class TestEventEV(APITestCase):
         })
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+        self.assertEqual('RESERVED', EventCS.objects.get(nk=self.cs_event_1.nk).status)
         self.assertEqual(response.data['event_cs'], self.cs_event_1.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
 
@@ -282,34 +242,6 @@ class TestEventEV(APITestCase):
         })
 
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
-<<<<<<< HEAD
-=======
-
-    def test_driver_can_view_completed_events(self):
-        response = self.client.get(reverse('volt_reservation:completed_list'))
-
-        self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
-        self.assertEqual(response.data[1]['event_cs'], self.cs_event_4.nk)
-        self.assertEqual(response.data[0]['ev'], self.ev.nk)
-        self.assertEqual(response.data[1]['ev'], self.ev_1.nk)
-
-    def test_driver_can_view_completed_event(self):
-        response = self.client.get(reverse('volt_reservation:completed_event', kwargs={'nk': self.completed_event_1.nk}))
-
-        self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
-        self.assertEqual(response.data['ev'], self.ev.nk)
-    # def test_host_can_retrieve_cs_detail_by_nk(self):
-    #     response = self.client.get(self.cs_t1.get_absolute_url())
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
-
-
-
-
-
->>>>>>> Able to retrieve list of completed reservations
 
     def test_driver_can_view_completed_events_list(self):
         response = self.client.get(reverse('volt_reservation:completed_list',
@@ -326,6 +258,26 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
+
+    def test_driver_can_cancel_reservation(self):
+        reserved = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+            'event_cs_nk': self.cs_event_1.nk,
+            'ev_nk': self.ev.nk
+        })
+
+        reserved_cs_event_1 = EventCS.objects.get(nk=self.cs_event_1.nk)
+
+        self.assertEqual(reserved.data['event_cs'], reserved_cs_event_1.nk)
+        self.assertEqual(reserved.data['ev'], self.ev.nk)
+        self.assertTrue(reserved_cs_event_1.ev_event_id != -1)
+
+        response = self.client.put(reverse('volt_reservation:cancel_reservation', kwargs={'nk': reserved.data['nk']}))
+
+        reserved_cs_event_1 = EventCS.objects.get(nk=self.cs_event_1.nk)
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(reserved_cs_event_1.status, 'AVAILABLE')
+        self.assertTrue(reserved_cs_event_1.ev_event_id == -1)
 
 
 # class AuthenticationTest(APITestCase):

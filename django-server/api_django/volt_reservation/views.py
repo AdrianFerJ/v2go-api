@@ -81,3 +81,12 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 
 		else:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
+
+	def cancel_event_ev(self, request, nk):
+		user = request.user
+		event_ev = EventEV.objects.get(nk=nk)
+		event_ev.status = 'CANCELED'
+		event_ev.save()
+
+		serializer = EventEVSerializer(event_ev, many=False)
+		return Response(serializer.data)

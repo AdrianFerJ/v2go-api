@@ -20,4 +20,6 @@ urlpatterns = [
 	path('events_ev/completed/<event_ev_nk>/detail',
 		EventEVView.as_view({'get': 'get_completed_event_detail'}),
 		name='completed_event_detail'),
+
+	path('events_ev/cancel/<nk>', EventEVView.as_view({'put': 'cancel_event_ev'}), name='cancel_reservation')
 ]

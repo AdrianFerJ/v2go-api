@@ -30,7 +30,12 @@ class EventCS(models.Model):
 		if self.nk is None:
 			self.nk = create_hash(self)
 
-		if self.ev_event_id == -1: # not reserved yet
+		if self.ev_event_id != -1 and self.status == 'AVAILABLE': # about to be reserved
+			self.status = 'RESERVED'
+		elif self.ev_event_id == -1 and self.status == 'RESERVED': # event getting canceled
+			self.status = 'AVAILABLE'
+
+		if self.ev_event_id == -1 and self.status == 'AVAILABLE': # not reserved yet
 
 			cs_cal = Calendar.objects.get(id=self.cs.calendar.id)
 
@@ -44,9 +49,6 @@ class EventCS(models.Model):
 			event = Event(**data)
 			event.save()
 			cs_cal.events.add(event)
-
-		elif self.ev_event_id != -1 and self.status == constants.AVAILABLE: # about to be reserved
-			self.status = constants.RESERVED
 
 		super().save(*args, **kwargs)
 
@@ -63,7 +65,13 @@ class EventEV(models.Model):
 	ev 			= models.ForeignKey(EV, on_delete=models.CASCADE)
 
 	def save(self, *args, **kwargs):
-		if self.event_cs.status != constants.RESERVED:
+
+		if self.status == constants.CANCELED:
+			event = Event.objects.get(id=self.event_cs.ev_event_id)
+
+			self.event_cs.ev_event_id = -1
+			self.event_cs.save()
+		elif self.event_cs.status != constants.RESERVED:
 			if not self.nk:
 				self.nk = create_hash(self)
 
