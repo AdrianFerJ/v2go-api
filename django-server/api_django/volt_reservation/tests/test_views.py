@@ -31,48 +31,50 @@ def filter_by_cs_event_nk(cs_event, query):
     return list(filter(lambda event_cs: event_cs['nk'] == cs_event.nk, query))
 
 class TestEventCS(APITestCase):
-    def setUp(self):
-        self.cs_host = create_user()
+    @classmethod
+    def setUpTestData(cls):
+        cls.cs_host = create_user()
         Group.objects.get_or_create(name=U_OWNER)
-        # self.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
-        self.client = APIClient()
-        self.client.login(username=self.cs_host.username, password=PASSWORD)   
 
-        self.cs_t1 = ChargingStation.objects.create( 
+        cls.cs_t1 = ChargingStation.objects.create( 
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
             lng      = -73.5651293,
-            cs_host  = self.cs_host,
+            cs_host  = cls.cs_host,
         )
 
-        self.cs_event_1 = EventCS.objects.create(
+        cls.cs_event_1 = EventCS.objects.create(
         	startDateTime	= dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
 			endDateTime		= dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
-			cs 				= self.cs_t1,
+			cs 				= cls.cs_t1,
 			status 			= constants.RESERVED
         )
 
-        self.cs_event_2 = EventCS.objects.create(
+        cls.cs_event_2 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-25 15:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-25 15:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
+            cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
  
-        self.cs_event_3 = EventCS.objects.create(
+        cls.cs_event_3 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
+            cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
-        self.cs_event_4 = EventCS.objects.create(
+        cls.cs_event_4 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
+            cs              = cls.cs_t1,
             status          = constants.RESERVED
         )
+
+    def setUp(self):
+        self.client = APIClient()
+        self.client.login(username=self.cs_host.username, password=PASSWORD)
 
     def test_host_can_filter_available_between_certain_time(self):
         response = self.client.get(reverse('volt_reservation:available'), data={
@@ -90,78 +92,80 @@ class TestEventCS(APITestCase):
 
 
 class TestEventEV(APITestCase):
-    def setUp(self):
-        self.cs_host = create_user()
+    @classmethod
+    def setUpTestData(cls):
+        cls.cs_host = create_user()
         Group.objects.get_or_create(name=U_OWNER)
-        # self.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
+        # cls.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
         
-        self.cs_t1 = ChargingStation.objects.create( 
+        cls.cs_t1 = ChargingStation.objects.create( 
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
             lng      = -73.5651293,
-            cs_host  = self.cs_host,
+            cs_host  = cls.cs_host,
         )
 
-        self.cs_event_1 = EventCS.objects.create(
+        cls.cs_event_1 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
+            cs              = cls.cs_t1,
             status          = 'AVAILABLE'
         )
 
-        self.cs_event_2 = EventCS.objects.create(
+        cls.cs_event_2 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
+            cs              = cls.cs_t1,
             status          = 'RESERVED'
         )
 
-        self.cs_event_3 = EventCS.objects.create(
+        cls.cs_event_3 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
+            cs              = cls.cs_t1,
             status          = 'AVAILABLE'
         )
 
-        self.cs_event_4 = EventCS.objects.create(
+        cls.cs_event_4 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-29 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-29 12:30:00', '%Y-%m-%d %H:%M:%S'),
-            cs              = self.cs_t1,
+            cs              = cls.cs_t1,
             status          = 'AVAILABLE'
         )
 
-        self.ev_driver = create_user(username='test@v2go.io')
+        cls.ev_driver = create_user(username='test@v2go.io')
         Group.objects.get_or_create(name=U_DRIVER)
 
-        self.ev = EV.objects.create(
+        cls.ev = EV.objects.create(
             model='Roadster',
             manufacturer='Tesla',
             year=2019,
             charger_type='A',
-            ev_owner=self.ev_driver
+            ev_owner=cls.ev_driver
         )
 
-        self.ev_1 = EV.objects.create(
+        cls.ev_1 = EV.objects.create(
             model='Leaf',
             manufacturer='Nissan',
             year=2019,
             charger_type='A',
-            ev_owner=self.ev_driver
+            ev_owner=cls.ev_driver
         )
 
-        self.completed_event_1 = EventEV.objects.create(
+        cls.completed_event_1 = EventEV.objects.create(
             status      = 'COMPLETED',
-            ev          = self.ev,
-            event_cs    = self.cs_event_3
+            ev          = cls.ev,
+            event_cs    = cls.cs_event_3
         )
 
-        self.completed_event_2 = EventEV.objects.create(
+        cls.completed_event_2 = EventEV.objects.create(
             status      = 'COMPLETED',
-            ev          = self.ev_1,
-            event_cs    = self.cs_event_4
+            ev          = cls.ev_1,
+            event_cs    = cls.cs_event_4
         )
 
+    def setUp(self):
         self.client = APIClient()
         self.client.login(username=self.ev_driver.username, password=PASSWORD) 
 
