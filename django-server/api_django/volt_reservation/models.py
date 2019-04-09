@@ -24,7 +24,7 @@ class EventCS(models.Model):
 		if self.cs_event_nk is None and event_cs.exists():
 			raise ValidationError(_(f'CS Event at {self.startDateTime}-{self.endDateTime} already exists'))
 
-		if self.cs_event_nk is not None:
+		if self.cs_event_nk is None:
 			self.cs_event_nk = create_hash(self)
 
 		if self.ev_event_id == -1: # not reserved yet

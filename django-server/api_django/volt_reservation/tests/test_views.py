@@ -9,6 +9,7 @@ from main.models import ChargingStation
 from volt_reservation.models import EventCS
 from datetime import datetime as dt
 from volt_reservation.services import ReservationService
+import json
 
 
 """ HELPER FUNC """
@@ -21,6 +22,8 @@ def create_user(username=USERNAME, password=PASSWORD):
     return get_user_model().objects.create_user(
         username=username, password=password)
 
+def filter_by_cs_event_nk(cs_event, query):
+    return list(filter(lambda event_cs: event_cs['cs_event_nk'] == cs_event.cs_event_nk, query))
 
 class TestEventCS(APITestCase):
     def setUp(self):
@@ -66,27 +69,19 @@ class TestEventCS(APITestCase):
             status          = 'RESERVED'
         )
 
-    def test_host_can_retrive_her_cs_list(self):
-        """ Get CS list
-            #TODO: should display only CS created by group=U_OWNER)
-        """
-        response = self.client.get(reverse('volt_reservation:available', kwargs={'datestr': '2019-09-25 12:00:00'}))
-        print(response.data)
-
     def test_host_can_filter_available_between_certain_time(self):
-        startDateTime = dt.strptime('2019-09-25 11:00:00', '%Y-%m-%d %H:%M:%S')
-        endDateTime = dt.strptime('2019-09-28 15:30:00', '%Y-%m-%d %H:%M:%S')
-        result = ReservationService.get_available_event_cs(startDateTime, endDateTime)
+        response = self.client.get(reverse('volt_reservation:available'), data={
+            'start_datetime': '2019-09-25 12:00:00',
+            'end_datetime': '2019-09-28 15:30:00'
+        })
+
+        result = response.data
 
         self.assertEqual(len(result), 2)
-        self.assertTrue(self.cs_event_1 not in result)
-        self.assertTrue(self.cs_event_2 in result)
-        self.assertTrue(self.cs_event_3 in result)
-        self.assertTrue(self.cs_event_4 not in result)
-
-
-
-
+        self.assertFalse(filter_by_cs_event_nk(self.cs_event_1, result))
+        self.assertTrue(filter_by_cs_event_nk(self.cs_event_2, result))
+        self.assertTrue(filter_by_cs_event_nk(self.cs_event_3, result))
+        self.assertFalse(filter_by_cs_event_nk(self.cs_event_4, result))
 
 
 

@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from .services import ReservationService
 from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
-import datetime
+from datetime import datetime as dt
+import json
 
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
@@ -16,12 +17,11 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 	queryset = EventCS.objects.all()
 	serializer_class = EventCSSerializer
 
-	def get_available_charging_station(self, request, datestr):
-		#TODO: Implement a specified start and end time
-		# 2017-12-20 03:26:53
+	def get_available_charging_station(self, request):
+		start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
+		end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
 
-		date = datetime.datetime.strptime(datestr, '%Y-%m-%d %H:%M:%S').date()
-		queryset = EventCS.objects.filter(status='a', startDateTime__range=(date, date + datetime.timedelta(days=1)))
+		queryset = ReservationService.get_available_event_cs(start_datetime, end_datetime)
 
 		serializer = EventCSSerializer(queryset, many=True)
 
