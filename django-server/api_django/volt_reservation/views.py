@@ -57,30 +57,26 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		except:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
-	def get_completed_event_evs(self, request):
+	def get_completed_event_evs(self, request, ev_nk):
 		user = request.user
-		evs = EV.objects.filter(ev_owner=user)
+		ev = EV.objects.get(nk=ev_nk)
 
-		completed = None
+		if ev.ev_owner != user:
+			return Response(None, status=status.HTTP_403_FORBIDDEN)
 
-		for ev in evs:
-			if completed is None:
-				completed = ReservationService.get_completed_event_ev(ev)
-			else:
-				completed = completed | ReservationService.get_completed_event_ev(ev)
+		completed = ReservationService.get_completed_event_ev(ev)
 
 		serializer = EventEVSerializer(completed, many=True)
 
 		return Response(serializer.data)
 
-	def get_completed_event_ev(self, request, nk):
+	def get_completed_event_detail(self, request, event_ev_nk):
 		user = request.user
-		evs = EV.objects.filter(ev_owner=user)
-		event_ev = EventEV.objects.get(nk=nk)
+		event_ev = EventEV.objects.get(nk=event_ev_nk)
 
-		for ev in evs:
-			if ev == event_ev.ev:
-				serializer = EventEVSerializer(event_ev, many=False)
-				return Response(serializer.data)
+		if event_ev.ev.ev_owner == user:
+			serializer = EventEVSerializer(event_ev, many=False)
+			return Response(serializer.data)
 
-		return Response(None, status=status.HTTP_400_BAD_REQUEST)
+		else:
+			return Response(None, status=status.HTTP_400_BAD_REQUEST)

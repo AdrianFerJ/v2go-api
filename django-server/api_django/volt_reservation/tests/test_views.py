@@ -145,24 +145,10 @@ class TestEventEV(APITestCase):
             ev_owner=cls.ev_driver
         )
 
-        cls.ev_1 = EV.objects.create(
-            model='Leaf',
-            manufacturer='Nissan',
-            year=2019,
-            charger_type='A',
-            ev_owner=cls.ev_driver
-        )
-
         cls.completed_event_1 = EventEV.objects.create(
             status      = 'COMPLETED',
             ev          = cls.ev,
             event_cs    = cls.cs_event_3
-        )
-
-        cls.completed_event_2 = EventEV.objects.create(
-            status      = 'COMPLETED',
-            ev          = cls.ev_1,
-            event_cs    = cls.cs_event_4
         )
 
     def setUp(self):
@@ -187,17 +173,17 @@ class TestEventEV(APITestCase):
 
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
-    def test_driver_can_view_completed_events(self):
-        response = self.client.get(reverse('volt_reservation:completed_list'))
+    def test_driver_can_view_completed_events_list(self):
+        response = self.client.get(reverse('volt_reservation:completed_list',
+                                   kwargs={'ev_nk': self.ev.nk}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
-        self.assertEqual(response.data[1]['event_cs'], self.cs_event_4.nk)
         self.assertEqual(response.data[0]['ev'], self.ev.nk)
-        self.assertEqual(response.data[1]['ev'], self.ev_1.nk)
 
-    def test_driver_can_view_completed_event(self):
-        response = self.client.get(reverse('volt_reservation:completed_event', kwargs={'nk': self.completed_event_1.nk}))
+    def test_driver_can_view_completed_event_detail(self):
+        response = self.client.get(reverse('volt_reservation:completed_event_detail',
+                                   kwargs={'event_ev_nk': self.completed_event_1.nk}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
