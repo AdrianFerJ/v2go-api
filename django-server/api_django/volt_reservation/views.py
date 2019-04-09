@@ -52,7 +52,7 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		try:
 			event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
 
-			serializer = EventEVSerializer(event_ev, many=False)
+			serializer = self.serializer_class(event_ev, many=False)
 
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		except:
@@ -67,7 +67,7 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 
 		completed = ReservationService.get_completed_event_ev(ev)
 
-		serializer = EventEVSerializer(completed, many=True)
+		serializer = self.serializer_class(completed, many=True)
 
 		return Response(serializer.data)
 
@@ -76,7 +76,7 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		event_ev = EventEV.objects.get(nk=event_ev_nk)
 
 		if event_ev.ev.ev_owner == user:
-			serializer = EventEVSerializer(event_ev, many=False)
+			serializer = self.serializer_class(event_ev, many=False)
 			return Response(serializer.data)
 
 		else:
@@ -88,5 +88,5 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		event_ev.status = 'CANCELED'
 		event_ev.save()
 
-		serializer = EventEVSerializer(event_ev, many=False)
+		serializer = self.serializer_class(event_ev, many=False)
 		return Response(serializer.data)
