@@ -5,7 +5,8 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
 from main.serializers import ChargingStationSerializer
-from main.models import ChargingStation, EV
+from main.models import ChargingStation
+from main.models import ElectricVehicle as EV
 
 from volt_reservation.models import EventCS, EventEV
 from datetime import datetime as dt

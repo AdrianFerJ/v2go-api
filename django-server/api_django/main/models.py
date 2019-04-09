@@ -107,7 +107,7 @@ class ChargingStation(models.Model):
     #     return self.name
 
 
-class EV(models.Model):
+class ElectricVehicle(models.Model):
     nk              = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
     created         = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)

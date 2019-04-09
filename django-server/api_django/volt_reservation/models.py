@@ -1,6 +1,7 @@
 from django.db import models
 from rest_framework.serializers import ValidationError
-from main.models import ChargingStation, EV
+from main.models import ChargingStation
+from main.models import ElectricVehicle as EV
 from main.constants import STATUS_CHOICES
 from main.helpers import create_hash
 from schedule.models import Calendar, Event

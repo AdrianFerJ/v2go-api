@@ -1,5 +1,5 @@
 from .models import EventCS, EventEV
-from main.models import EV
+from main.models import ElectricVehicle as EV
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -42,6 +42,10 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		data = request.data
 		event_cs = EventCS.objects.get(nk=data['event_cs_nk'])
 		ev = EV.objects.get(nk=data['ev_nk'])
+
+		# TODO: This should be handled by the permission
+		# if request.user != ev.ev_owner:
+			# return Response(None, status=status.HTTP_403_FORBIDDEN)
 
 		try:
 			event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
