@@ -20,7 +20,7 @@ class EventCS(models.Model):
 	ev_event_id		= models.IntegerField(default=-1)
 
 	def save(self, *args, **kwargs):
-		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime, 
+		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime,
 								  		  endDateTime=self.endDateTime,
 								  		  cs=self.cs)
 
@@ -30,7 +30,12 @@ class EventCS(models.Model):
 		if self.nk is None:
 			self.nk = create_hash(self)
 
-		if self.ev_event_id == -1: # not reserved yet
+		if self.ev_event_id != -1 and self.status == 'AVAILABLE': # about to be reserved
+			self.status = 'RESERVED'
+		elif self.ev_event_id == -1 and self.status == 'RESERVED': # event getting canceled
+			self.status = 'AVAILABLE'
+
+		if self.ev_event_id == -1 and self.status == 'AVAILABLE': # not reserved yet
 
 			cs_cal = Calendar.objects.get(id=self.cs.calendar.id)
 
@@ -45,9 +50,6 @@ class EventCS(models.Model):
 			event.save()
 			cs_cal.events.add(event)
 
-		elif self.ev_event_id != -1 and self.status == constants.AVAILABLE: # about to be reserved
-			self.status = constants.RESERVED
-
 		super().save(*args, **kwargs)
 
 	def __str__(self):
@@ -58,11 +60,18 @@ class EventEV(models.Model):
 	nk 			= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
 	created 	= models.DateTimeField(auto_now_add=True)
 	updated 	= models.DateTimeField(auto_now=True)
+	status		= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.RESERVED)
 	event_cs 	= models.ForeignKey(EventCS, on_delete=models.CASCADE)
 	ev 			= models.ForeignKey(EV, on_delete=models.CASCADE)
 
 	def save(self, *args, **kwargs):
-		if self.event_cs.status != constants.RESERVED:
+
+		if self.status == constants.CANCELED:
+			event = Event.objects.get(id=self.event_cs.ev_event_id)
+
+			self.event_cs.ev_event_id = -1
+			self.event_cs.save()
+		elif self.event_cs.status != constants.RESERVED:
 			if not self.nk:
 				self.nk = create_hash(self)
 
