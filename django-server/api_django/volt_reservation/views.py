@@ -8,7 +8,9 @@ from .services import ReservationService
 from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
 from datetime import datetime as dt
+from main import constants
 import json
+
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
@@ -51,7 +53,7 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		try:
 			event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
 
-			serializer = EventEVSerializer(event_ev, many=False)
+			serializer = self.serializer_class(event_ev, many=False)
 
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		except:
@@ -66,7 +68,7 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 
 		completed = ReservationService.get_completed_event_ev(ev)
 
-		serializer = EventEVSerializer(completed, many=True)
+		serializer = self.serializer_class(completed, many=True)
 
 		return Response(serializer.data)
 
@@ -75,8 +77,17 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		event_ev = EventEV.objects.get(nk=event_ev_nk)
 
 		if event_ev.ev.ev_owner == user:
-			serializer = EventEVSerializer(event_ev, many=False)
+			serializer = self.serializer_class(event_ev, many=False)
 			return Response(serializer.data)
 
 		else:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
+
+	def cancel_event_ev(self, request, nk):
+		user = request.user
+		event_ev = EventEV.objects.get(nk=nk)
+		event_ev.status = constants.CANCELED
+		event_ev.save()
+
+		serializer = self.serializer_class(event_ev, many=False)
+		return Response(serializer.data)

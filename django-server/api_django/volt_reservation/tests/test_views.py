@@ -48,7 +48,8 @@ class TestEventCS(APITestCase):
         	startDateTime	= dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
 			endDateTime		= dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
 			cs 				= cls.cs_t1,
-			status 			= constants.RESERVED
+			status 			= constants.RESERVED,
+            ev_event_id     = 1,
         )
 
         cls.cs_event_2 = EventCS.objects.create(
@@ -69,7 +70,8 @@ class TestEventCS(APITestCase):
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
-            status          = constants.RESERVED
+            ev_event_id     = 1,
+            status          = constants.RESERVED,
         )
 
     def setUp(self):
@@ -117,6 +119,7 @@ class TestEventEV(APITestCase):
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
+            ev_event_id     = 1,
             status          = constants.RESERVED
         )
 
@@ -162,6 +165,7 @@ class TestEventEV(APITestCase):
         })
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+        self.assertEqual('RESERVED', EventCS.objects.get(nk=self.cs_event_1.nk).status)
         self.assertEqual(response.data['event_cs'], self.cs_event_1.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
 
@@ -188,6 +192,22 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
+
+    def test_driver_can_cancel_reservation(self):
+        reserved = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+            'event_cs_nk': self.cs_event_1.nk,
+            'ev_nk': self.ev.nk
+        })
+
+        self.assertEqual(reserved.data['event_cs'], self.cs_event_1.nk)
+        self.assertEqual(reserved.data['ev'], self.ev.nk)
+        self.assertTrue(self.cs_event_1.nk != -1)
+
+        response = self.client.put(reverse('volt_reservation:cancel_reservation', kwargs={'nk': reserved.data['nk']}))
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(self.cs_event_1.status, 'AVAILABLE')
+        self.assertTrue(self.cs_event_1.ev_event_id == -1)
 
 
 # class AuthenticationTest(APITestCase):
