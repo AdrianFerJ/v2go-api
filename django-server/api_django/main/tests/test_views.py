@@ -62,8 +62,13 @@ class AuthenticationTest(APITestCase):
     
     def test_annon_user_can_not_retrive_cs_detail(self):
         """ Attempt to access endpoints that require login as annon user (no-login) """
+        host = create_user()
         cs = ChargingStation.objects.create(
-            address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', name='test_cs')
+            address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', 
+            name='test_cs',
+            cs_host  = host,
+        )
+        
         response = self.client.get(cs.get_absolute_url())
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
     
@@ -89,17 +94,20 @@ class HostChargingStationTest(APITestCase):
     
     @classmethod
     def setUpTestData(cls):
+        host = create_user(username='host')
         cls.cs_t1 = ChargingStation.objects.create( 
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
-            lng      = -73.5651293
+            lng      = -73.5651293,
+            cs_host  = host
         )
         cls.cs_t2 = ChargingStation.objects.create( 
             name     = 'Panthere 2',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
-            lng      = -73.5651293
+            lng      = -73.5651293,
+            cs_host  = host
         )
     
     def test_host_can_retrive_her_cs_list(self):

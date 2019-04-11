@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.forms import AuthenticationForm 
 
-from main.models import ChargingStation, EV#CSHost, Driver,
+from main.models import ChargingStation
+from main.models import ElectricVehicle as EV
 from main.serializers import ChargingStationSerializer, UserSerializer, EVSerializer
                              #CSHostSerializer, EVOwnerSerializer, EVSerializer#, GeoCStationSerializer
 from rest_framework import generics, permissions, status, views, viewsets

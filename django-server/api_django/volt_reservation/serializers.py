@@ -11,6 +11,9 @@ class EventCSSerializer(serializers.ModelSerializer):
 
 
 class EventEVSerializer(serializers.ModelSerializer):
+	event_cs = serializers.CharField(source='event_cs.nk', read_only=True)
+	ev = serializers.CharField(source='ev.nk', read_only=True)
+
 	class Meta:
 		model = EventEV
 		fields = ('nk', 'event_cs', 'ev')
