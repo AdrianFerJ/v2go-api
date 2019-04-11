@@ -29,11 +29,13 @@ class AuthenticationTest(APITestCase):
     
     @classmethod
     def setUpTestData(cls):
+        host = create_user()
         cls.cs_t1 = ChargingStation.objects.create( 
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
-            lng      = -73.5651293
+            lng      = -73.5651293,
+            cs_host  = host
         )
 
     def test_annon_user_can_not_access_finder_cs_near_poi_endpoint(self):
@@ -53,49 +55,58 @@ class VoltFinderViewTest(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
+        host = create_user(username='host')
         cls.test_top_cs = [
             ChargingStation.objects.create( 
                 name     = 'CS_t_top_1',
                 address  = '4365 Rue Cartier, Montréal, QC H2H 2N9, Canada', 
                 lat      = 45.533234,
-                lng      = -73.571813),   
+                lng      = -73.571813,
+                cs_host  = host),   
             ChargingStation.objects.create( 
                 name     = 'CS_t_top_2',
                 address  = '1956 Rue Frontenac, Montréal, QC H2K 2Z1, Canada', 
                 lat      = 45.5325695,
-                lng      = -73.5521119), 
+                lng      = -73.5521119,
+                cs_host  = host), 
             ChargingStation.objects.create( 
                 name     = 'CS_t_top_3',
                 address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
                 lat      = 45.5070394,
-                lng      = -73.5651293), 
+                lng      = -73.5651293,
+                cs_host  = host), 
             ChargingStation.objects.create( 
                 name     = 'CS_t_top_4',
                 address  = '6679 Rue Garnier, Montréal, QC H2G 3A2, Canada', 
                 lat      = 45.542892,
-                lng      = -73.60115),    
+                lng      = -73.60115,
+                cs_host  = host),    
             ChargingStation.objects.create( 
                 name     = 'CS_t_top_5',
                 address  = '6511 Rue Saint-André, Montréal, QC H2S 2K7, Canada', 
                 lat      = 45.536734,
-                lng      = -73.6030444),         
+                lng      = -73.6030444,
+                cs_host  = host),         
         ]
         cls.test_other_cs = [ 
             ChargingStation.objects.create( 
                 name     = 'CS_t_oth_1',
                 address  = '205 Rue Chabanel O, Montréal, QC H2N 1G3, Canada', 
                 lat      = 45.540977,
-                lng      = -73.6536969),
+                lng      = -73.6536969,
+                cs_host  = host),
             ChargingStation.objects.create( 
                 name     = 'CS_t_oth_2',
                 address  = '10625 Rue Francis, Montréal, QC H2C 3A5, Canada', 
                 lat      = 45.5653481,
-                lng      = -73.6603467),       
+                lng      = -73.6603467,
+                cs_host  = host),       
             ChargingStation.objects.create( 
                 name     = 'CS_t_oth_3',
                 address  = '1530 Rue Fleury E, Montréal, QC H2C 2Y6, Canada', 
                 lat      = 45.5629748,
-                lng      = -73.6561512),    
+                lng      = -73.6561512,
+                cs_host  = host),    
             ]
         
         print('***** Created CS')

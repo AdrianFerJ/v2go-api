@@ -107,7 +107,7 @@ class ChargingStation(models.Model):
     #     return self.name
 
 
-class EV(models.Model):
+class ElectricVehicle(models.Model):
     nk              = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
     created         = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)
@@ -115,7 +115,7 @@ class EV(models.Model):
     manufacturer    = models.CharField(max_length=40)
     year            = models.IntegerField()
     charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
-    # ev_owner        = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    ev_owner        = models.ForeignKey(User, on_delete=models.CASCADE)
     calendar        = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):

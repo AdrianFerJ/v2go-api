@@ -1,6 +1,8 @@
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
-from .models import User, EV, ChargingStation#, Driver, CSHost
+from .models import User, ChargingStation
+from .models import ElectricVehicle as EV
+
 
 class V2GoUserAdmin(UserAdmin):
     # display entries as table, with the following fields
