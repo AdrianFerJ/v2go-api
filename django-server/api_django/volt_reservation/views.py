@@ -8,6 +8,7 @@ from .services import ReservationService
 from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
 from datetime import datetime as dt
+from main import constants
 import json
 
 
@@ -85,7 +86,7 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 	def cancel_event_ev(self, request, nk):
 		user = request.user
 		event_ev = EventEV.objects.get(nk=nk)
-		event_ev.status = 'CANCELED'
+		event_ev.status = constants.CANCELED
 		event_ev.save()
 
 		serializer = self.serializer_class(event_ev, many=False)
