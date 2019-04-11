@@ -110,28 +110,28 @@ class TestEventEV(APITestCase):
             startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
-            status          = 'AVAILABLE'
+            status          = constants.AVAILABLE
         )
 
         cls.cs_event_2 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
-            status          = 'RESERVED'
+            status          = constants.RESERVED
         )
 
         cls.cs_event_3 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
-            status          = 'AVAILABLE'
+            status          = constants.AVAILABLE
         )
 
         cls.cs_event_4 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-29 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-29 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
-            status          = 'AVAILABLE'
+            status          = constants.AVAILABLE
         )
 
         cls.ev_driver = create_user(username='test@v2go.io')
@@ -146,7 +146,7 @@ class TestEventEV(APITestCase):
         )
 
         cls.completed_event_1 = EventEV.objects.create(
-            status      = 'COMPLETED',
+            status      = constants.COMPLETED,
             ev          = cls.ev,
             event_cs    = cls.cs_event_3
         )
