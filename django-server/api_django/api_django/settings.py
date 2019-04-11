@@ -28,9 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['testserver', 'localHost', '127.0.0.1']
 
+# Custom user model
+# AUTH_USER_MODEL = 'volt_finder.User'
+AUTH_USER_MODEL = 'main.User'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,15 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # MyApps
+    'main',
+    'volt_finder',
+    'volt_reservation',
     # 3rd Party Apps
     'rest_framework',
     'channels',
     'django.contrib.gis',   # GeoDjango
-    # MyApps
-    'volt_finder',
+    'schedule',             # Django Scheduler
 ]
-# Custom user model
-AUTH_USER_MODEL = 'volt_finder.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,13 +129,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'#'UTC'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+#USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

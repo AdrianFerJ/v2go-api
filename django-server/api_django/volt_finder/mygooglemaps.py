@@ -120,10 +120,8 @@ def getNearestCS(poi, charginStations):
             temp_CStation = format_output_cs(addr, elem)
             result.append(temp_CStation)
 
-        # Sort CS, lower duration value first
-        # sortx = sorted(top_cs, key=lambda x: x.duration_val, reverse=True)
+        # Sort CS by duration (lower first)
         result.sort(key=lambda x: x.duration_val, reverse=False)
-        # result.sort(key=lambda x: x['duration_val'], reverse=False)
 
         # Retrun top 5 results
         if len(result) > 5:
