@@ -3,9 +3,17 @@ CHARGER_CHOICES = [
                    ('b', 'Charger Type B'), 
                    ('c', 'Charger Type C')
                   ]
-STATUS_CHOICES  = [
-                   ('AVAILABLE', 'Available'), 
-                   ('RESERVED', 'Reserved'), 
-                   ('UNAVAILABLE', 'Unavailable'), 
-                   ('OUT OF SERVICE', 'Out of Service')
-                  ]
+
+AVAILABLE = 'AVAILABLE'
+RESERVED = 'RESERVED'
+UNAVAILABLE = 'UNAVAILABLE'
+OUT_OF_SERVICE = 'OUT_OF_SERVICE'
+
+STATUS_CHOICES  = (
+                   (AVAILABLE, 'Available'),
+                   (RESERVED, 'Reserved'),
+                   (UNAVAILABLE, 'Unavailable'),
+                   (OUT_OF_SERVICE, 'Out of Service')
+                  )
+
+

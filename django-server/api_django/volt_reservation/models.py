@@ -2,7 +2,7 @@ from django.db import models
 from rest_framework.serializers import ValidationError
 from main.models import ChargingStation
 from main.models import ElectricVehicle as EV
-from main.constants import STATUS_CHOICES
+from main import constants
 from main.helpers import create_hash
 from schedule.models import Calendar, Event
 from django.utils.translation import gettext as _
@@ -16,7 +16,7 @@ class EventCS(models.Model):
 	startDateTime	= models.DateTimeField()
 	endDateTime		= models.DateTimeField()
 	cs	 			= models.ForeignKey(ChargingStation, on_delete=models.CASCADE)
-	status			= models.CharField(max_length=20, choices=STATUS_CHOICES, default='AVAILABLE')
+	status			= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.AVAILABLE)
 	ev_event_id		= models.IntegerField(default=-1)
 
 	def save(self, *args, **kwargs):
@@ -45,8 +45,8 @@ class EventCS(models.Model):
 			event.save()
 			cs_cal.events.add(event)
 
-		elif self.ev_event_id != -1 and self.status == 'AVAILABLE': # about to be reserved
-			self.status = 'RESERVED'
+		elif self.ev_event_id != -1 and self.status == constants.AVAILABLE: # about to be reserved
+			self.status = constants.RESERVED
 
 		super().save(*args, **kwargs)
 
@@ -62,7 +62,7 @@ class EventEV(models.Model):
 	ev 			= models.ForeignKey(EV, on_delete=models.CASCADE)
 
 	def save(self, *args, **kwargs):
-		if self.event_cs.status != 'RESERVED':
+		if self.event_cs.status != constants.RESERVED:
 			if not self.nk:
 				self.nk = create_hash(self)
 

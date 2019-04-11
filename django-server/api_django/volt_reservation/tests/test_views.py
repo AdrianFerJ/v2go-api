@@ -8,8 +8,11 @@ from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
 from main.models import ElectricVehicle as EV
 
+from main import constants
+
 from volt_reservation.models import EventCS, EventEV
 from datetime import datetime as dt
+from main import constants
 from volt_reservation.services import ReservationService
 import json
 
@@ -47,28 +50,28 @@ class TestEventCS(APITestCase):
         	startDateTime	= dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
 			endDateTime		= dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
 			cs 				= self.cs_t1,
-			status 			= 'RESERVED'
+			status 			= constants.RESERVED
         )
 
         self.cs_event_2 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-25 15:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-25 15:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = self.cs_t1,
-            status          = 'AVAILABLE'
+            status          = constants.AVAILABLE
         )
  
         self.cs_event_3 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = self.cs_t1,
-            status          = 'AVAILABLE'
+            status          = constants.AVAILABLE
         )
 
         self.cs_event_4 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = self.cs_t1,
-            status          = 'RESERVED'
+            status          = constants.RESERVED
         )
 
     def test_host_can_filter_available_between_certain_time(self):
@@ -104,14 +107,14 @@ class TestEventEV(APITestCase):
             startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = self.cs_t1,
-            status          = 'AVAILABLE'
+            status          = constants.AVAILABLE
         )
 
         self.cs_event_2 = EventCS.objects.create(
             startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
             endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = self.cs_t1,
-            status          = 'RESERVED'
+            status          = constants.RESERVED
         )
 
         self.ev_driver = create_user(username='test@v2go.io')
