@@ -50,7 +50,7 @@ class ChargingStationDetail(generics.RetrieveUpdateDestroyAPIView):
     #TODO host can only see her own CS, but no CSs owned by another host
     permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'nk'
-    lookup_url_kwarg = 'cs_nk'
+    lookup_url_kwarg = 'nk'
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer
 
