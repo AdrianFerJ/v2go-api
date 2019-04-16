@@ -1,15 +1,20 @@
-from django.urls import path
+from django.urls import path, include
 
 from .views import EventCSView, EventEVView
+from rest_framework.routers import DefaultRouter
 
 app_name = 'volt_reservation'
 
-urlpatterns = [
-	path('station-availabilities', EventCSView.as_view({'get': 'list'}), name='events_cs_list'),
+router = DefaultRouter()
+router.register(r'station-availabilities', EventCSView, 'station-availabilities')
 
-	path('station-availabilities/vacant',
-		EventCSView.as_view({'get': 'get_available_charging_station'}),
-		name='available'),
+urlpatterns = [
+	path('', include(router.urls)),
+	# path('station-availabilities', EventCSView.as_view({'get': 'list'}), name='events_cs_list'),
+
+	# path('station-availabilities/vacant',
+	# 	EventCSView.as_view({'get': 'get_available_charging_station'}),
+	# 	name='available'),
 
 	path('reservations', EventEVView.as_view({'get': 'list'}), name='events_ev_list'),
 
