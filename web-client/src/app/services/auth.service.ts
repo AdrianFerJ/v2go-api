@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http'; 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs'; 
 
 export class User {
   // Data model to store user info (a JSON-serialized string returned by API) in the UI
@@ -12,7 +14,7 @@ export class User {
   ) {}
 
   // Convenience method to handle the conversion from JSON to data object 
-  static create(data: any): User { 
+  static create(data: any): User { // new
     return new User(
       data.id,
       data.username,
@@ -23,10 +25,28 @@ export class User {
     );
   }
 }
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() { }
+  // AuthService returns an Observable that will produce User data. Subscribing
+  // .. to this Observable will then send the HTTP request to the API
+  constructor(private http: HttpClient) {} 
+  signUp( 
+    username: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+    group: string,
+  ): Observable<User> {
+    const url = 'http://localhost:8000/api/sign_up/';
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('first_name', firstName);
+    formData.append('last_name', lastName);
+    formData.append('password1', password);
+    formData.append('password2', password);
+    formData.append('group', group);
+    return this.http.request<User>('POST', url, {body: formData});
+  }
 }
