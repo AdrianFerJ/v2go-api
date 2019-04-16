@@ -4,6 +4,7 @@ from main.models import User
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from .services import ReservationService
 from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
@@ -62,9 +63,10 @@ class EventEVView(viewsets.ModelViewSet):
 		except:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
-	def get_completed_event_evs(self, request, vehicle_nk):
+	@action(detail=False)
+	def completed_reservations(self, request):
 		user = request.user
-		ev = EV.objects.get(nk=vehicle_nk)
+		ev = EV.objects.get(nk=request.GET.get('vehicle_nk'))
 
 		if ev.ev_owner != user:
 			return Response(None, status=status.HTTP_403_FORBIDDEN)
@@ -75,9 +77,10 @@ class EventEVView(viewsets.ModelViewSet):
 
 		return Response(serializer.data)
 
-	def get_completed_event_detail(self, request, completed_nk):
+	@action(detail=True)
+	def completed_reservation(self, request, ev_event_nk=None):
 		user = request.user
-		event_ev = EventEV.objects.get(nk=completed_nk)
+		event_ev = self.get_object()
 
 		if event_ev.ev.ev_owner == user:
 			serializer = self.serializer_class(event_ev, many=False)
