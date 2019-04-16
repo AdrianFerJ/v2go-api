@@ -21,7 +21,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 	queryset = EventCS.objects.all()
 	serializer_class = EventCSSerializer
 
-	def list(self, request):
+	def list(self, request, *args, **kwargs):
 		if request.data == None:
 			return super().list(request)
 		else:
@@ -44,7 +44,7 @@ class EventEVView(viewsets.ModelViewSet):
 	queryset = EventEV.objects.all()
 	serializer_class = EventEVSerializer
 
-	def create(self, request):
+	def create(self, request, *args, **kwargs):
 		data = request.data
 		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
 		ev = EV.objects.get(nk=data.get('ev_nk'))
@@ -86,9 +86,8 @@ class EventEVView(viewsets.ModelViewSet):
 		else:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
-	def cancel_event_ev(self, request, canceled_nk):
-		user = request.user
-		event_ev = EventEV.objects.get(nk=canceled_nk)
+	def update(self, request, *args, **kwargs):
+		event_ev = self.get_object()
 		event_ev.status = constants.CANCELED
 		event_ev.save()
 

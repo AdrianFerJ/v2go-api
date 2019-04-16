@@ -203,8 +203,8 @@ class TestEventEV(APITestCase):
         self.assertEqual(reserved.data['ev'], self.ev.nk)
         self.assertTrue(self.cs_event_1.nk != -1)
 
-        response = self.client.put(reverse('volt_reservation:cancel_reservation',
-                                          kwargs={'canceled_nk': reserved.data['nk']}))
+        response = self.client.put(reverse('volt_reservation:reservations-detail',
+                                          kwargs={'ev_event_nk': reserved.data['nk']}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(self.cs_event_1.status, 'AVAILABLE')
