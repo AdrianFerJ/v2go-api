@@ -7,15 +7,16 @@ app_name = 'volt_reservation'
 
 router = DefaultRouter()
 router.register(r'station-availabilities', EventCSView, 'station-availabilities')
+router.register(r'reservations', EventEVView, 'reservations')
 
 urlpatterns = [
 	path('', include(router.urls)),
 
-	path('reservations', EventEVView.as_view({'get': 'list'}), name='events_ev_list'),
+	# path('reservations', EventEVView.as_view({'get': 'list'}), name='events_ev_list'),
 
-	path('reservations/reserve',
-		EventEVView.as_view({'post': 'post_reserve_available_charging_stations'}),
-		name='reserve_cs'),
+	# path('reservations/reserve',
+	# 	EventEVView.as_view({'post': 'post_reserve_available_charging_stations'}),
+	# 	name='reserve_cs'),
 
 	path('reservations/completed/<vehicle_nk>',
 		EventEVView.as_view({'get': 'get_completed_event_evs'}),

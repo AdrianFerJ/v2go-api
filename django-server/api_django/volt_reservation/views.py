@@ -35,7 +35,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 			return Response(serializer.data)
 
 
-class EventEVView(viewsets.ReadOnlyModelViewSet):
+class EventEVView(viewsets.ModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'ev_event_nk'
@@ -44,10 +44,10 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 	queryset = EventEV.objects.all()
 	serializer_class = EventEVSerializer
 
-	def post_reserve_available_charging_stations(self, request):
+	def create(self, request):
 		data = request.data
-		event_cs = EventCS.objects.get(nk=data['event_cs_nk'])
-		ev = EV.objects.get(nk=data['ev_nk'])
+		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
+		ev = EV.objects.get(nk=data.get('ev_nk'))
 
 		# TODO: This should be handled by the permission
 		# if request.user != ev.ev_owner:

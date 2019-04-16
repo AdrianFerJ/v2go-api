@@ -159,7 +159,7 @@ class TestEventEV(APITestCase):
         self.client.login(username=self.ev_driver.username, password=PASSWORD) 
 
     def test_driver_can_reserve_available_charging_station(self):
-        response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+        response = self.client.post(reverse('volt_reservation:reservations-list'), data={
             'event_cs_nk': self.cs_event_1.nk,
             'ev_nk': self.ev.nk
         })
@@ -170,7 +170,7 @@ class TestEventEV(APITestCase):
         self.assertEqual(response.data['ev'], self.ev.nk)
 
     def test_driver_cannot_reserve_reserved_charging_station(self):
-        response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+        response = self.client.post(reverse('volt_reservation:reservations-list'), data={
             'event_cs_nk': self.cs_event_2.nk,
             'ev_nk': self.ev.nk
         })
@@ -194,7 +194,7 @@ class TestEventEV(APITestCase):
         self.assertEqual(response.data['ev'], self.ev.nk)
 
     def test_driver_can_cancel_reservation(self):
-        reserved = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+        reserved = self.client.post(reverse('volt_reservation:reservations-list'), data={
             'event_cs_nk': self.cs_event_1.nk,
             'ev_nk': self.ev.nk
         })
