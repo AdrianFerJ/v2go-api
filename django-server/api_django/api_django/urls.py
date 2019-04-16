@@ -18,8 +18,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1.0/', include('main.urls', namespace='main_v1.0')),
-    path('api/v1.0/volt_finder/', include('volt_finder.urls', namespace='volt_finder_v1.0')),
-    path('api/v1.0/volt_reservation/', include('volt_reservation.urls', namespace='volt_reservation_v1.0')),
-    # path('api/', include('main.urls')), #TODO Do we need to add 'cStation' inside include() ?
+    path('api/v1.0-pre-alpha/', include('main.urls', namespace='main_v1.0-pre-alpha')),
+    path('api/v1.0-pre-alpha/volt_finder/', include('volt_finder.urls', namespace='volt_finder_v1.0-pre-alpha')),
+    path('api/v1.0-pre-alpha/volt_reservation/', include('volt_reservation.urls', namespace='volt_reservation_v1.0-pre-alpha')),
 ]
