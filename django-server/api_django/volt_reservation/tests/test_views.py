@@ -79,7 +79,7 @@ class TestEventCS(APITestCase):
         self.client.login(username=self.cs_host.username, password=PASSWORD)
 
     def test_host_can_filter_available_between_certain_time(self):
-        response = self.client.get(reverse('volt_reservation:available'), data={
+        response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
             'start_datetime': '2019-09-25 12:00:00',
             'end_datetime': '2019-09-28 15:30:00'
         })

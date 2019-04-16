@@ -10,11 +10,6 @@ router.register(r'station-availabilities', EventCSView, 'station-availabilities'
 
 urlpatterns = [
 	path('', include(router.urls)),
-	# path('station-availabilities', EventCSView.as_view({'get': 'list'}), name='events_cs_list'),
-
-	# path('station-availabilities/vacant',
-	# 	EventCSView.as_view({'get': 'get_available_charging_station'}),
-	# 	name='available'),
 
 	path('reservations', EventEVView.as_view({'get': 'list'}), name='events_ev_list'),
 
