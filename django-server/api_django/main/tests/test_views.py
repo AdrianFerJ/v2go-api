@@ -27,7 +27,7 @@ class AuthenticationTest(APITestCase):
 
     def test_user_can_sign_up(self):
         # photo_file = create_photo_file() #TODO: enable user photo
-        response = self.client.post(reverse('sign_up'), data={
+        response = self.client.post(reverse('main:sign_up'), data={
             'username': USERNAME,
             'first_name': 'Test_name',
             'last_name': 'Test_last',
@@ -47,7 +47,7 @@ class AuthenticationTest(APITestCase):
 
     def test_user_can_log_in(self):
         user = create_user()
-        response = self.client.post(reverse('log_in'), data={
+        response = self.client.post(reverse('main:log_in'), data={
             'username': user.username,
             'password': PASSWORD,
         })
@@ -57,7 +57,7 @@ class AuthenticationTest(APITestCase):
     def test_user_can_log_out(self):
         user = create_user()
         self.client.login(username=user.username, password=PASSWORD)
-        response = self.client.post(reverse('log_out'))
+        response = self.client.post(reverse('main:log_out'))
         self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
     
     def test_annon_user_can_not_retrive_cs_detail(self):
