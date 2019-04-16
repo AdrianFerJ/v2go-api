@@ -1,15 +1,18 @@
 from django.urls import re_path, path
 from rest_framework.urlpatterns import format_suffix_patterns
-from main.views import ChargingStationList, ChargingStationDetail, EVList, EVDetail 
-					   # CSHostList, CSHostDetail, EVOwnerDetail, EVOwnerList, 
-					   
+from main.views import ChargingStationList, ChargingStationDetail, EVList, EVDetail, \
+                       SignUpView, LogInView, LogOutView
+
 
 app_name = 'main'
 
 urlpatterns = [
-    path('cs/', ChargingStationList.as_view(), name='cs_list'),
-    path('cs/<cs_nk>/', ChargingStationDetail.as_view(),
+    path('cs', ChargingStationList.as_view(), name='cs_list'),
+    path('cs/<cs_nk>', ChargingStationDetail.as_view(),
         name='cs_detail'),
+    path('sign-up', SignUpView.as_view(), name='sign_up'),
+    path('login', LogInView.as_view(), name='log_in'),
+    path('logout', LogOutView.as_view(), name='log_out'),
     # path('cs_hosts/', CSHostList.as_view(), name='cs_host_list'),
     # path('cs_hosts/<cs_host_nk>/', CSHostDetail.as_view(),
     #    name='host_cs_detail'),

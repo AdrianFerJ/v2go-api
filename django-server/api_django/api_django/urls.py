@@ -16,15 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-# from volt_finder.apis import SignUpView, LogInView, LogOutView
-from main.views import SignUpView, LogInView, LogOutView
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/sign_up/', SignUpView.as_view(), name='sign_up'),
-    path('api/log_in/', LogInView.as_view(), name='log_in'), 
-    path('api/log_out/', LogOutView.as_view(), name='log_out'),
-    path('api/volt_finder/', include('volt_finder.urls', 'cStation',)),
-    path('api/volt_reservation/', include('volt_reservation.urls')),
-    path('api/', include('main.urls')), #TODO Do we need to add 'cStation' inside include() ?
+    path('api/v1.0/', include('main.urls', namespace='main_v1.0')),
+    path('api/v1.0/volt_finder/', include('volt_finder.urls', namespace='volt_finder_v1.0')),
+    path('api/v1.0/volt_reservation/', include('volt_reservation.urls', namespace='volt_reservation_v1.0')),
+    # path('api/', include('main.urls')), #TODO Do we need to add 'cStation' inside include() ?
 ]
