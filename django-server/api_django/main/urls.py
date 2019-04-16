@@ -7,8 +7,8 @@ from main.views import ChargingStationList, ChargingStationDetail, EVList, EVDet
 app_name = 'main'
 
 urlpatterns = [
-    path('cs', ChargingStationList.as_view(), name='cs_list'),
-    path('cs/<cs_nk>', ChargingStationDetail.as_view(),
+    path('stations', ChargingStationList.as_view(), name='cs_list'),
+    path('stations/<nk>', ChargingStationDetail.as_view(),
         name='cs_detail'),
     path('sign-up', SignUpView.as_view(), name='sign_up'),
     path('login', LogInView.as_view(), name='log_in'),
@@ -19,7 +19,7 @@ urlpatterns = [
     # path('ev_owners/', EVOwnerList.as_view(), name='ev_owner_list'),
     # path('ev_owners/<ev_owner_nk>', EVOwnerDetail.as_view(),
     #    name='ev_owner_detail'),
-    path('ev/', EVList.as_view(), name='ev_list'),
-    path('ev/<ev_nk>', EVDetail.as_view(), name='ev_detail')
+    path('vehicles/', EVList.as_view(), name='ev_list'),
+    path('vehicle/<nk>', EVDetail.as_view(), name='ev_detail')
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
