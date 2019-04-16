@@ -21,15 +21,18 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 	queryset = EventCS.objects.all()
 	serializer_class = EventCSSerializer
 
-	def get_available_charging_station(self, request):
-		start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
-		end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
+	def list(self, request):
+		if request.data == None:
+			return super().list(request)
+		else:
+			start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
+			end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
 
-		queryset = ReservationService.get_available_event_cs(start_datetime, end_datetime)
+			queryset = ReservationService.get_available_event_cs(start_datetime, end_datetime)
 
-		serializer = EventCSSerializer(queryset, many=True)
+			serializer = EventCSSerializer(queryset, many=True)
 
-		return Response(serializer.data)
+			return Response(serializer.data)
 
 
 class EventEVView(viewsets.ReadOnlyModelViewSet):
