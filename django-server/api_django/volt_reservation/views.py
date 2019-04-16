@@ -59,9 +59,9 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		except:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
-	def get_completed_event_evs(self, request, ev_nk):
+	def get_completed_event_evs(self, request, vehicle_nk):
 		user = request.user
-		ev = EV.objects.get(nk=ev_nk)
+		ev = EV.objects.get(nk=vehicle_nk)
 
 		if ev.ev_owner != user:
 			return Response(None, status=status.HTTP_403_FORBIDDEN)
@@ -72,9 +72,9 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 
 		return Response(serializer.data)
 
-	def get_completed_event_detail(self, request, event_ev_nk):
+	def get_completed_event_detail(self, request, completed_nk):
 		user = request.user
-		event_ev = EventEV.objects.get(nk=event_ev_nk)
+		event_ev = EventEV.objects.get(nk=completed_nk)
 
 		if event_ev.ev.ev_owner == user:
 			serializer = self.serializer_class(event_ev, many=False)
@@ -83,9 +83,9 @@ class EventEVView(viewsets.ReadOnlyModelViewSet):
 		else:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
-	def cancel_event_ev(self, request, nk):
+	def cancel_event_ev(self, request, canceled_nk):
 		user = request.user
-		event_ev = EventEV.objects.get(nk=nk)
+		event_ev = EventEV.objects.get(nk=canceled_nk)
 		event_ev.status = constants.CANCELED
 		event_ev.save()
 

@@ -179,7 +179,7 @@ class TestEventEV(APITestCase):
 
     def test_driver_can_view_completed_events_list(self):
         response = self.client.get(reverse('volt_reservation:completed_list',
-                                   kwargs={'ev_nk': self.ev.nk}))
+                                   kwargs={'vehicle_nk': self.ev.nk}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
@@ -187,7 +187,7 @@ class TestEventEV(APITestCase):
 
     def test_driver_can_view_completed_event_detail(self):
         response = self.client.get(reverse('volt_reservation:completed_event_detail',
-                                   kwargs={'event_ev_nk': self.completed_event_1.nk}))
+                                   kwargs={'completed_nk': self.completed_event_1.nk}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
@@ -203,7 +203,8 @@ class TestEventEV(APITestCase):
         self.assertEqual(reserved.data['ev'], self.ev.nk)
         self.assertTrue(self.cs_event_1.nk != -1)
 
-        response = self.client.put(reverse('volt_reservation:cancel_reservation', kwargs={'nk': reserved.data['nk']}))
+        response = self.client.put(reverse('volt_reservation:cancel_reservation',
+                                          kwargs={'canceled_nk': reserved.data['nk']}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(self.cs_event_1.status, 'AVAILABLE')
