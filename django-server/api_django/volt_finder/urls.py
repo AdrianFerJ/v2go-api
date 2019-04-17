@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 app_name = 'volt_finder'
 
 router = DefaultRouter()
-router.register(r'near-poi', ChargingStationTopNearListView, 'near-poi')
+router.register('near-poi', ChargingStationTopNearListView, base_name='near-poi')
 
 
 urlpatterns = [
