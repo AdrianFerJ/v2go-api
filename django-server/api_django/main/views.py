@@ -51,4 +51,12 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
 
     permission_classes = (permissions.IsAuthenticated,)
     queryset = EV.objects.all()
+
     serializer_class = ElectricVehicleSerializer
+
+    def list(self, request, *args, **kwargs):
+        data = request.GET
+        if 'user_id' in data:
+            vehicles = self.queryset.filter(ev_owner__id=data.get('user_id'))
+            serializer = self.serializer_class(vehicles, many=True)
+            return Response(serializer.data)
