@@ -1,6 +1,7 @@
 from .models import EventCS, EventEV
 from main.models import ElectricVehicle as EV
 from main.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -47,8 +48,8 @@ class EventEVView(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data
-		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
-		ev = EV.objects.get(nk=data.get('ev_nk'))
+		event_cs = get_object_or_404(EventCS, nk=data.get('event_cs_nk'))
+		ev = get_object_or_404(EV, nk=data.get('ev_nk'))
 
 		# TODO: This should be handled by the permission
 		# if request.user != ev.ev_owner:
@@ -66,7 +67,7 @@ class EventEVView(viewsets.ModelViewSet):
 	@action(detail=False)
 	def completed_reservations(self, request):
 		user = request.user
-		ev = EV.objects.get(nk=request.GET.get('vehicle_nk'))
+		ev = get_object_or_404(EV, nk=data.GET.get('vehicle_nk'))
 
 		if ev.ev_owner != user:
 			return Response(None, status=status.HTTP_403_FORBIDDEN)
