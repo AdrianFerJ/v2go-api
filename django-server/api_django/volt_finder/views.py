@@ -7,8 +7,8 @@ from volt_finder import helpers_finder as hf
 from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
 from volt_finder import mygooglemaps as gg
+from volt_reservation.services import ReservationService
 
-from django.utils import timezone 
 import datetime as dt  
 from volt_reservation.models import EventCS
 
@@ -21,36 +21,33 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     #TODO: apply some filtering to query (or ger_queryset()) to limit number of CS passed to google
     queryset = ChargingStation.objects.all()
-    
-    def get_top_cs_near_poi_no_date(self, request, poi_location):
-        # Get All charging stations and pass their locations to getNearest       
 
-        all_cs = self.queryset
+    def list(self, request, *args, **kwargs):
+        data = request.GET
 
-        cs_addresses = [cs_inst.address for cs_inst in all_cs]
-        
-        gg_top_cs = gg.getNearestCS(poi_location, cs_addresses)        
-        hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
+        if 'poi_location' in data:
+            if 'start_datetime' in data and 'end_datetime' in data:
+                start_datetime = data.get('start_datetime')
+                end_datetime = data.get('end_datetime')
 
-        serializer = GeoCStationSerializer(gg_top_cs, many=True)
+                events_cs = ReservationService.get_available_event_cs(start_datetime, end_datetime)
 
-        return Response(serializer.data)
+                all_cs = [event.cs for event in events_cs]
 
-    def get_top_cs_near_poi_available_date(self, request, poi_location, date_x):    
-        today = timezone.now().date()        
+                cs_addresses = [cs_inst.address for cs_inst in all_cs]
+                
+                gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
+                hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
 
-        events_cs = EventCS.objects.filter(
-                    status='AVAILABLE',
-                    startDateTime__range=(today, today + dt.timedelta(days=1)))
+                serializer = GeoCStationSerializer(gg_top_cs, many=True)
+            else:
+                all_cs = self.queryset
 
-        all_cs = [event.cs for event in events_cs]
+                cs_addresses = [cs_inst.address for cs_inst in all_cs]
+                
+                gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
+                hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
 
-        cs_addresses = [cs_inst.address for cs_inst in all_cs]
-        
-        gg_top_cs = gg.getNearestCS(poi_location, cs_addresses)        
-        hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
+                serializer = GeoCStationSerializer(gg_top_cs, many=True)
 
-        serializer = GeoCStationSerializer(gg_top_cs, many=True)
-
-        return Response(serializer.data)
-
+            return Response(serializer.data)

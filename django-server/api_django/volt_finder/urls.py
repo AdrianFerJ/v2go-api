@@ -1,16 +1,14 @@
-from django.urls import re_path, path
+from django.urls import path, include
 
 from .views import ChargingStationTopNearListView
+from rest_framework.routers import DefaultRouter
 
 app_name = 'volt_finder'
 
+router = DefaultRouter()
+router.register(r'near-poi', ChargingStationTopNearListView, 'near-poi')
+
+
 urlpatterns = [
-    path('near-poi/<poi_location>/', ChargingStationTopNearListView.as_view(
-        {'get': 'get_top_cs_near_poi_no_date'}), name='cs_near_poi_status_any'),
-    path('near-poi/<poi_location>/<date_x>/', ChargingStationTopNearListView.as_view(
-        {'get': 'get_top_cs_near_poi_available_date'}), name='cs_near_poi_status_avail_today'),
+    path('', include(router.urls))
 ]
-
-
-
-
