@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from main.models import ChargingStation
 from main.models import ElectricVehicle as EV
-from main.serializers import ChargingStationSerializer, UserSerializer, EVSerializer
+from main.serializers import ChargingStationSerializer, UserSerializer, ElectricVehicleSerializer
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -48,10 +48,10 @@ class ChargingStationViewSet(viewsets.ModelViewSet):
     serializer_class = ChargingStationSerializer
 
 
-class EVViewSet(viewsets.ModelViewSet):
+class ElectricVehicleViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'
     lookup_url_kwarg = 'ev_nk'
 
     permission_classes = (permissions.IsAuthenticated,)
     queryset = EV.objects.all()
-    serializer_class = EVSerializer
+    serializer_class = ElectricVehicleSerializer

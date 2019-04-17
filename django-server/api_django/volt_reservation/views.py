@@ -71,7 +71,7 @@ class EventEVView(viewsets.ModelViewSet):
 		if ev.ev_owner != user:
 			return Response(None, status=status.HTTP_403_FORBIDDEN)
 
-		completed = ReservationService.get_completed_event_ev(ev)
+		completed = ReservationService.get_completed_event_ev(ev, )
 
 		serializer = self.serializer_class(completed, many=True)
 

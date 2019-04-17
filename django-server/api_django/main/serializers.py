@@ -39,7 +39,7 @@ class ChargingStationSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'nk', 'geo_location')
 
 
-class EVSerializer(serializers.ModelSerializer):
+class ElectricVehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = EV
         fields = ('nk', 'model', 'manufacturer', 'year', 'charger_type', 'ev_owner', 'calendar')
