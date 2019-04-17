@@ -179,7 +179,7 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
     def test_driver_can_view_completed_events_list(self):
-        response = self.client.get(reverse('volt_reservation:reservations-completed-reservations'),
+        response = self.client.get(reverse('volt_reservation:reservations-filter'),
                                    data={'vehicle_nk': self.ev.nk})
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
@@ -187,7 +187,7 @@ class TestEventEV(APITestCase):
         self.assertEqual(response.data[0]['ev'], self.ev.nk)
 
     def test_driver_can_view_completed_event_detail(self):
-        response = self.client.get(reverse('volt_reservation:reservations-completed-reservation',
+        response = self.client.get(reverse('volt_reservation:reservations-detail',
                                    kwargs={'ev_event_nk': self.completed_event_1.nk}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)

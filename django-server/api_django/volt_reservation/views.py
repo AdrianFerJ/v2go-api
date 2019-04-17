@@ -65,9 +65,10 @@ class EventEVView(viewsets.ModelViewSet):
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
 	@action(detail=False)
-	def completed_reservations(self, request):
+	def filter(self, request):
 		user = request.user
-		ev = get_object_or_404(EV, nk=data.GET.get('vehicle_nk'))
+		data = request.GET
+		ev = get_object_or_404(EV, nk=data.get('vehicle_nk'))
 
 		if ev.ev_owner != user:
 			return Response(None, status=status.HTTP_403_FORBIDDEN)
@@ -78,8 +79,7 @@ class EventEVView(viewsets.ModelViewSet):
 
 		return Response(serializer.data)
 
-	@action(detail=True)
-	def completed_reservation(self, request, ev_event_nk=None):
+	def retrieve(self, request, ev_event_nk=None):
 		user = request.user
 		event_ev = self.get_object()
 
