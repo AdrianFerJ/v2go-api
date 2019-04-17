@@ -8,11 +8,12 @@ set -e
 # thanks to it we can just enter `./scripts/run-tests.bash`
 cd "${0%/*}/.."
 cd "django-server"
-pipenv shell
+# pipenv shell
 
 cd api_django
 
 ./manage.py test main.tests volt_finder.tests volt_reservation.tests
+
 if [ $? -eq 0 ]; then
     echo "Passed!" && exit 0
 else
