@@ -51,3 +51,5 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
                 serializer = GeoCStationSerializer(gg_top_cs, many=True)
 
             return Response(serializer.data)
+        else:
+            return Response(None, status.HTTP_422_UNPROCESSABLE_ENTITY)

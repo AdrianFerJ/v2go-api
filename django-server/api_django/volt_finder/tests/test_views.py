@@ -174,3 +174,10 @@ class VoltFinderViewTest(APITestCase):
         print('### act_cs_nks: ', act_cs_nks)
 
         self.assertAlmostEqual(act_cs_nks, exp_cs_nks)
+
+    def test_get_top_cs_near_poi_status_available_today(self):
+        start_datetime = timezone.now().date()
+        end_datetime = start_datetime + dt.timedelta(days=1)
+        response = self.client.get(reverse('volt_finder:near-poi-list'))
+
+        self.assertEqual(status.HTTP_422_UNPROCESSABLE_ENTITY, response.status_code)
