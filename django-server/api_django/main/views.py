@@ -3,13 +3,10 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from main.models import ChargingStation
 from main.models import ElectricVehicle as EV
-from main.serializers import ChargingStationSerializer, UserSerializer, EVSerializer
-                             #CSHostSerializer, EVOwnerSerializer, EVSerializer#, GeoCStationSerializer
+from main.serializers import ChargingStationSerializer, UserSerializer, ElectricVehicleSerializer
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import generics
 
 """ 
     Views
@@ -38,54 +35,20 @@ class LogOutView(views.APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ChargingStationList(generics.ListCreateAPIView):
-    #TODO rename to ChargingStationCSCreateList
+class ChargingStationViewSet(viewsets.ModelViewSet):
     #TODO host can only see her own CS, but no CSs owned by another host
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = ChargingStation.objects.all()
-    serializer_class = ChargingStationSerializer
-
-
-class ChargingStationDetail(generics.RetrieveUpdateDestroyAPIView):
-    #TODO host can only see her own CS, but no CSs owned by another host
-    permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'nk'
-    lookup_url_kwarg = 'cs_nk'
+    lookup_url_kwarg = 'station_nk'
+
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = ChargingStation.objects.all()
     serializer_class = ChargingStationSerializer
 
 
-# class CSHostList(generics.ListCreateAPIView):
-#     queryset = CSHost.objects.all()
-#     serializer_class = CSHostSerializer
-
-
-# class CSHostDetail(generics.RetrieveUpdateDestroyAPIView):
-#     lookup_field = 'nk'
-#     lookup_url_kwarg = 'cs_host_nk'
-#     queryset = CSHost.objects.all()
-#     serializer_class = CSHostSerializer
-
-
-# class EVOwnerList(generics.ListCreateAPIView):
-#     queryset = Driver.objects.all()
-#     serializer_class = EVOwnerSerializer
- 
-
-# class EVOwnerDetail(generics.RetrieveUpdateDestroyAPIView):
-#     lookup_field = 'nk'
-#     lookup_url_kwarg = 'ev_owner_nk'
-#     queryset = Driver.objects.all()
-#     serializer_class = EVOwnerSerializer
-
-
-class EVList(generics.ListCreateAPIView):
-    queryset = EV.objects.all()
-    serializer_class = EVSerializer
-
-
-class EVDetail(generics.ListCreateAPIView):
+class ElectricVehicleViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'
     lookup_url_kwarg = 'ev_nk'
+
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = EV.objects.all()
-    serializer_class = EVSerializer
+    serializer_class = ElectricVehicleSerializer

@@ -40,8 +40,8 @@ class AuthenticationTest(APITestCase):
 
     def test_annon_user_can_not_access_finder_cs_near_poi_endpoint(self):
         """ Attempt to access endpoints that require login as annon user (no-login) """
-        response = self.client.get(reverse(
-                        'volt_finder:cs_near_poi_status_any', kwargs={'poi_location': poi_location}))#, 'date_x':today}))
+        response = self.client.get(reverse('volt_finder:near-poi-list'),
+                                   data={'poi_location': poi_location})#, 'date_x':today}))
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
 
 
@@ -135,8 +135,8 @@ class VoltFinderViewTest(APITestCase):
 
     
     def test_get_top_5_cs_near_poi_status_any(self):
-        response = self.client.get(reverse(
-                    'volt_finder:cs_near_poi_status_any', kwargs={'poi_location': poi_location}))
+        response = self.client.get(reverse('volt_finder:near-poi-list'),
+                                   data={'poi_location': poi_location})
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         serializer = GeoCStationSerializer(data=response.data,  many=True)  
@@ -154,9 +154,12 @@ class VoltFinderViewTest(APITestCase):
         self.assertGreater(serialized_data[1]['duration_val'], serialized_data[0]['duration_val'])
 
     def test_get_top_cs_near_poi_status_available_today(self):
-        response = self.client.get(reverse(
-                    'volt_finder:cs_near_poi_status_avail_today',
-                    kwargs={'poi_location': poi_location, 'date_x':today}))
+        start_datetime = timezone.now().date()
+        end_datetime = start_datetime + dt.timedelta(days=1)
+        response = self.client.get(reverse('volt_finder:near-poi-list'),
+                                   data={'poi_location': poi_location,
+                                         'start_datetime': start_datetime,
+                                         'end_datetime': end_datetime})
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         serializer = GeoCStationSerializer(data=response.data,  many=True)  
@@ -171,3 +174,10 @@ class VoltFinderViewTest(APITestCase):
         print('### act_cs_nks: ', act_cs_nks)
 
         self.assertAlmostEqual(act_cs_nks, exp_cs_nks)
+
+    def test_get_top_cs_near_poi_status_available_today(self):
+        start_datetime = timezone.now().date()
+        end_datetime = start_datetime + dt.timedelta(days=1)
+        response = self.client.get(reverse('volt_finder:near-poi-list'))
+
+        self.assertEqual(status.HTTP_422_UNPROCESSABLE_ENTITY, response.status_code)

@@ -79,7 +79,7 @@ class TestEventCS(APITestCase):
         self.client.login(username=self.cs_host.username, password=PASSWORD)
 
     def test_host_can_filter_available_between_certain_time(self):
-        response = self.client.get(reverse('volt_reservation:available'), data={
+        response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
             'start_datetime': '2019-09-25 12:00:00',
             'end_datetime': '2019-09-28 15:30:00'
         })
@@ -159,18 +159,19 @@ class TestEventEV(APITestCase):
         self.client.login(username=self.ev_driver.username, password=PASSWORD) 
 
     def test_driver_can_reserve_available_charging_station(self):
-        response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+        response = self.client.post(reverse('volt_reservation:reservations-list'), data={
             'event_cs_nk': self.cs_event_1.nk,
             'ev_nk': self.ev.nk
         })
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
-        self.assertEqual('RESERVED', EventCS.objects.get(nk=self.cs_event_1.nk).status)
+        self.cs_event_1.refresh_from_db()
+        self.assertEqual(constants.RESERVED, self.cs_event_1.status)
         self.assertEqual(response.data['event_cs'], self.cs_event_1.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
 
     def test_driver_cannot_reserve_reserved_charging_station(self):
-        response = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+        response = self.client.post(reverse('volt_reservation:reservations-list'), data={
             'event_cs_nk': self.cs_event_2.nk,
             'ev_nk': self.ev.nk
         })
@@ -178,35 +179,41 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
     def test_driver_can_view_completed_events_list(self):
-        response = self.client.get(reverse('volt_reservation:completed_list',
-                                   kwargs={'ev_nk': self.ev.nk}))
+        response = self.client.get(reverse('volt_reservation:reservations-filter'),
+                                   data={'vehicle_nk': self.ev.nk})
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
         self.assertEqual(response.data[0]['ev'], self.ev.nk)
 
     def test_driver_can_view_completed_event_detail(self):
-        response = self.client.get(reverse('volt_reservation:completed_event_detail',
-                                   kwargs={'event_ev_nk': self.completed_event_1.nk}))
+        response = self.client.get(reverse('volt_reservation:reservations-detail',
+                                   kwargs={'ev_event_nk': self.completed_event_1.nk}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
 
     def test_driver_can_cancel_reservation(self):
-        reserved = self.client.post(reverse('volt_reservation:reserve_cs'), data={
+        reserved = self.client.post(reverse('volt_reservation:reservations-list'), data={
             'event_cs_nk': self.cs_event_1.nk,
             'ev_nk': self.ev.nk
         })
 
+        self.cs_event_1.refresh_from_db()
+
         self.assertEqual(reserved.data['event_cs'], self.cs_event_1.nk)
         self.assertEqual(reserved.data['ev'], self.ev.nk)
-        self.assertTrue(self.cs_event_1.nk != -1)
+        self.assertEqual(self.cs_event_1.status, constants.RESERVED)
+        self.assertTrue(self.cs_event_1.ev_event_id != -1)
 
-        response = self.client.put(reverse('volt_reservation:cancel_reservation', kwargs={'nk': reserved.data['nk']}))
+        response = self.client.put(reverse('volt_reservation:reservations-detail',
+                                          kwargs={'ev_event_nk': reserved.data['nk']}))
+
+        self.cs_event_1.refresh_from_db()
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(self.cs_event_1.status, 'AVAILABLE')
+        self.assertEqual(self.cs_event_1.status, constants.AVAILABLE)
         self.assertTrue(self.cs_event_1.ev_event_id == -1)
 
 

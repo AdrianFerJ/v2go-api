@@ -30,13 +30,12 @@ class EventCS(models.Model):
 		if self.nk is None:
 			self.nk = create_hash(self)
 
-		if self.ev_event_id != -1 and self.status == 'AVAILABLE': # about to be reserved
-			self.status = 'RESERVED'
-		elif self.ev_event_id == -1 and self.status == 'RESERVED': # event getting canceled
-			self.status = 'AVAILABLE'
+		if self.ev_event_id != -1 and self.status == constants.AVAILABLE: # about to be reserved
+			self.status = constants.RESERVED
+		elif self.ev_event_id == -1 and self.status == constants.RESERVED: # event getting canceled
+			self.status = constants.AVAILABLE
 
-		if self.ev_event_id == -1 and self.status == 'AVAILABLE': # not reserved yet
-
+		if self.ev_event_id == -1 and self.status == constants.AVAILABLE: # not reserved yet
 			cs_cal = Calendar.objects.get(id=self.cs.calendar.id)
 
 			data = {
