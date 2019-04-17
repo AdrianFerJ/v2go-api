@@ -4,7 +4,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from main.models import ChargingStation
 from main.models import ElectricVehicle as EV
 from main.serializers import ChargingStationSerializer, UserSerializer, EVSerializer
-                             #CSHostSerializer, EVOwnerSerializer, EVSerializer#, GeoCStationSerializer
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response

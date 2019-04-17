@@ -82,7 +82,6 @@ class AuthenticationTest(APITestCase):
 class HostChargingStationTest(APITestCase):
     """ Test all Model-backed API views for CS (only available for cs Owner
         #TODO setUp() should create user with group=U_OWNER)
-        #TODO host can create cs 
         #TODO Add 2 tests for host can't retrive cs owned by another host (cs_list AND cs_detail)
         #TODO host can update cs
         #TODO host can delete cs
@@ -125,22 +124,17 @@ class HostChargingStationTest(APITestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(self.cs_t1.nk, response.data.get('nk'))
 
-    # def test_host_can_create_cs(self):
-    #     #TODO reverse call is not working
-    #     response = self.client.get(reverse('main:host_cs_list'), data={
-    #         'name'    : 'Panthere_Host_Created',
-    #         'address' : '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
-    #         'lat'     : 45.5070394,
-    #         'lng'     : -70.5070394
-    #     })
-    #     # new_cs = ChargingStation.objects.filter(name='Panthere_Host_Created')
-    #     new_cs = ChargingStation.objects.last(id)
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     self.assertEqual(new_cs.name, 'Panthere_Host_Created')
+    def test_host_can_create_cs(self):
+        test_host = create_user(username='test_host')
+        response = self.client.post(reverse('main:stations-list'), data={
+            'name'    : 'Panthere_Host_Created',
+            'address' : '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+            'lat'     : 45.5070394,
+            'lng'     : -70.5070394,
+            'cs_host' : test_host.pk
+        })
 
+        new_cs = ChargingStation.objects.all().latest('id')
 
-        
-
-
-
-    
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+        self.assertEqual(new_cs.name, 'Panthere_Host_Created')
