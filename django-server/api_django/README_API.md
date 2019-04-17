@@ -5,7 +5,7 @@
 
 ### Python, venv, and libraries
 
-Install **pyenv** following [these](https://github.com/pyenv/pyenv-installer) instructions
+Install **pyenv** following [this instructions](https://medium.com/@Joachim8675309/installing-pythons-with-pyenv-54cca2196cd3) 
 
 ```bash
 # install pipenv

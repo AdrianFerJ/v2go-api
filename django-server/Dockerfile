@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.7.3
 
 # install environment dependencies
 RUN apt-get update -yqq \
