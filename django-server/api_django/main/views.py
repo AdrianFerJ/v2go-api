@@ -40,7 +40,6 @@ class LogOutView(views.APIView):
 
 
 class ChargingStationViewSet(viewsets.ModelViewSet):
-    #TODO rename to ChargingStationCSCreateList
     #TODO host can only see her own CS, but no CSs owned by another host
     lookup_field = 'nk'
     lookup_url_kwarg = 'station_nk'
@@ -50,13 +49,10 @@ class ChargingStationViewSet(viewsets.ModelViewSet):
     serializer_class = ChargingStationSerializer
 
 
-class EVList(generics.ListCreateAPIView):
-    queryset = EV.objects.all()
-    serializer_class = EVSerializer
-
-
-class EVDetail(generics.ListCreateAPIView):
+class EVViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'
     lookup_url_kwarg = 'ev_nk'
+
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = EV.objects.all()
     serializer_class = EVSerializer
