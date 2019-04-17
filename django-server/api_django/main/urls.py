@@ -1,15 +1,18 @@
-from django.urls import re_path, path
+from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from main.views import ChargingStationList, ChargingStationDetail, EVList, EVDetail, \
+from main.views import ChargingStationViewSet, EVList, EVDetail, \
                        SignUpView, LogInView, LogOutView
+from rest_framework.routers import DefaultRouter
 
 
 app_name = 'main'
 
+router = DefaultRouter()
+router.register(r'stations', ChargingStationViewSet, 'stations')
+
+
 urlpatterns = [
-    path('stations', ChargingStationList.as_view(), name='cs_list'),
-    path('stations/<station_nk>', ChargingStationDetail.as_view(),
-        name='cs_detail'),
+    path('', include(router.urls)),
     path('sign-up', SignUpView.as_view(), name='sign_up'),
     path('login', LogInView.as_view(), name='log_in'),
     path('logout', LogOutView.as_view(), name='log_out'),
@@ -22,4 +25,3 @@ urlpatterns = [
     path('vehicles/', EVList.as_view(), name='ev_list'),
     path('vehicles/<vehicle_nk>', EVDetail.as_view(), name='ev_detail')
 ]
-urlpatterns = format_suffix_patterns(urlpatterns)
