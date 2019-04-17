@@ -165,7 +165,8 @@ class TestEventEV(APITestCase):
         })
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
-        self.assertEqual('RESERVED', EventCS.objects.get(nk=self.cs_event_1.nk).status)
+        self.cs_event_1.refresh_from_db()
+        self.assertEqual(constants.RESERVED, self.cs_event_1.status)
         self.assertEqual(response.data['event_cs'], self.cs_event_1.nk)
         self.assertEqual(response.data['ev'], self.ev.nk)
 
@@ -199,15 +200,20 @@ class TestEventEV(APITestCase):
             'ev_nk': self.ev.nk
         })
 
+        self.cs_event_1.refresh_from_db()
+
         self.assertEqual(reserved.data['event_cs'], self.cs_event_1.nk)
         self.assertEqual(reserved.data['ev'], self.ev.nk)
-        self.assertTrue(self.cs_event_1.nk != -1)
+        self.assertEqual(self.cs_event_1.status, constants.RESERVED)
+        self.assertTrue(self.cs_event_1.ev_event_id != -1)
 
         response = self.client.put(reverse('volt_reservation:reservations-detail',
                                           kwargs={'ev_event_nk': reserved.data['nk']}))
 
+        self.cs_event_1.refresh_from_db()
+
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(self.cs_event_1.status, 'AVAILABLE')
+        self.assertEqual(self.cs_event_1.status, constants.AVAILABLE)
         self.assertTrue(self.cs_event_1.ev_event_id == -1)
 
 
