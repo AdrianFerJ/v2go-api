@@ -217,21 +217,69 @@ class TestEventEV(APITestCase):
         self.assertTrue(self.cs_event_1.ev_event_id == -1)
 
 
-# class AuthenticationTest(APITestCase):
+class AuthenticationTest(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
 
-#     def setUp(self):
-#         self.client = APIClient()
+    @classmethod
+    def setUpTestData(cls):
+        owner = create_user('host')
+        cls.cs = ChargingStation.objects.create(
+            address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada',
+            name='test_cs',
+            cs_host = owner
+        )
 
+        cls.cs_event = EventCS.objects.create(
+            startDateTime   = dt.strptime('2019-09-29 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            endDateTime     = dt.strptime('2019-09-29 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            cs              = cls.cs,
+            status          = constants.AVAILABLE
+        )
 
+        cls.ev_driver = create_user(username='test@v2go.io')
+        Group.objects.get_or_create(name=U_DRIVER)
 
-#             def test_annon_user_can_not_retrive_cs_detail(self):
-#         """ Attempt to access endpoints that require login as annon user (no-login) """
-#         cs = ChargingStation.objects.create(
-#             address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', name='test_cs')
-#         response = self.client.get(cs.get_absolute_url())
-#         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+        cls.ev = EV.objects.create(
+            model='Roadster',
+            manufacturer='Tesla',
+            year=2019,
+            charger_type='A',
+            ev_owner=cls.ev_driver
+        )
+
+        cls.ev_event = EventEV.objects.create(
+            status      = constants.AVAILABLE,
+            ev          = cls.ev,
+            event_cs    = cls.cs_event
+        )
+
+    def test_annon_user_cannot_retrieve_ev_events(self):
+        """
+        Attempt to access endpoints that require login as annon user (no-login)
+        """
+        response = self.client.get(reverse('volt_reservation:reservations-list'))
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+    def test_annon_user_can_not_retrive_ev_event_detail(self):
+        """
+        Attempt to access endpoints that require login as annon user (no-login)
+        """
+        response = self.client.get(reverse('volt_reservation:reservations-detail',
+                                   kwargs={'ev_event_nk': self.ev_event.nk}))
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
     
-#     def test_annon_user_can_not_retrive_cs_list(self):
-#         """ Attempt to access endpoints that require login as annon user (no-login) """
-#         response = self.client.get(reverse('main:cs_list'))
-#         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+    def test_annon_user_cannot_retrieve_cs_events(self):
+        """
+        Attempt to access endpoints that require login as annon user (no-login)
+        """
+        response = self.client.get(reverse('volt_reservation:station-availabilities-list'))
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+    def test_annon_user_can_not_retrive_cs_event_detail(self):
+        """
+        Attempt to access endpoints that require login as annon user (no-login)
+        """
+        response = self.client.get(reverse('volt_reservation:station-availabilities-detail',
+                                   kwargs={'cs_event_nk': self.ev_event.nk}))
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
