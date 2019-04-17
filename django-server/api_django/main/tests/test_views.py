@@ -137,4 +137,4 @@ class HostChargingStationTest(APITestCase):
         new_cs = ChargingStation.objects.all().latest('id')
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
-        self.assertEqual(new_cs.name, 'Panthere_Host_Created')
+        self.assertEqual(new_cs.name, response.data.get('name'))
