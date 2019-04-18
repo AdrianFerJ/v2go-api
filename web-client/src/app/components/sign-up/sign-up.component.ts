@@ -33,6 +33,7 @@ export class SignUpComponent {
       this.user.password,
       this.user.group,
     ).subscribe(() => {
+      debugger
       this.router.navigateByUrl('/log-in');
     }, (error) => {
       console.error(error);

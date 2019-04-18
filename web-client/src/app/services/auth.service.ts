@@ -47,7 +47,8 @@ export class AuthService {
     password: string,
     group: string,
   ): Observable<User> {
-    const url = 'http://localhost:8000/api/sign_up/';
+    // const url = 'http://localhost:8000/api/sign_up/';
+    const url = 'sign_up/';
     const formData = new FormData();
     formData.append('username', username);
     formData.append('first_name', firstName);
@@ -60,7 +61,8 @@ export class AuthService {
   // LogIn function collects a username and a password and sends the data to the API endpoint
   // .. logIn also returns an Observable that produces a User, and it saves that User object in localStorage
   logIn(username: string, password: string): Observable<User> {
-    const url = 'http://localhost:8000/api/log_in/';
+    // const url = 'http://localhost:8000/api/log_in/';
+    const url = '/log_in/';
     // post converts data dictionary into data payload
     return this.http.post<User>(url, {username, password}).pipe(
 
@@ -70,7 +72,8 @@ export class AuthService {
   // Simply subscribe to observable to send request to API (no data, nor component.ts required)
   // .. then removed logged user from localStorage
   logOut(): Observable<any> {
-    const url = 'http://localhost:8000/api/log_out/';
+    // const url = 'http://localhost:8000/api/log_out/';
+    const url = '/log_out/';
     return this.http.post(url, null).pipe(
       finalize(() => localStorage.removeItem('v2go.user'))
     );
