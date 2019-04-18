@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'volt_reservation',
     # 3rd Party Apps
     'rest_framework',
-    'channels',
+    #'channels',
     'django.contrib.gis',   # GeoDjango
     'schedule',             # Django Scheduler
 ]
