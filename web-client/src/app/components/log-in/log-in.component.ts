@@ -25,6 +25,7 @@ export class LogInComponent {
     this.authService.logIn(
       this.user.username, this.user.password
     ).subscribe(user => {
+      debugger
       this.router.navigateByUrl('');
     }, (error) => {
       console.error(error);

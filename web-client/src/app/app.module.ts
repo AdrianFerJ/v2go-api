@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';  
+// import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';  
 import { HttpClientModule } from '@angular/common/http';  
 
 import { AuthService } from './services/auth.service';  
@@ -20,8 +21,9 @@ import { LandingComponent } from './components/landing/landing.component';
     LandingComponent
   ],
   imports: [
-    HttpClientModule,
     BrowserModule,
+    HttpClientModule,
+    // HttpClientXsrfModule,
     FormsModule,
     RouterModule.forRoot([
       { path: 'sign-up', component: SignUpComponent },
@@ -29,7 +31,14 @@ import { LandingComponent } from './components/landing/landing.component';
       { path: '', component: LandingComponent }
     ], { useHash: true })
   ],
-  providers: [ AuthService ],
+  providers: [ 
+    AuthService,
+    // HttpXsrfInterceptor, 
+    // { provide: HTTP_INTERCEPTORS, useExisting: HttpXsrfInterceptor, multi: true },
+    // { provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor },
+    // { provide: XSRF_COOKIE_NAME, useValue: 'XSRF-TOKEN' },
+    // { provide: XSRF_HEADER_NAME, useValue: 'X-XSRF-TOKEN' }
+  ],
   bootstrap: [ AppComponent ]
 })
   
