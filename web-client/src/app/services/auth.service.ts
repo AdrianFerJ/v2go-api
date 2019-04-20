@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 
+/**
+ * User class 
+ */
 export class User {
   // Data model to store user info (a JSON-serialized string returned by API) in the UI
   constructor(
@@ -12,7 +15,6 @@ export class User {
     public last_name?: string,
     public group?: string,
   ) {}
-  
 
   // Convenience method to handle the conversion from JSON to data object 
   static create(data: any): User { 
@@ -32,7 +34,17 @@ export class User {
     }
     return null;
   }
+  // Determines whether the user belongs to the group (DRIVER)
+  static isDriver(): boolean {
+    const user = User.getUser();
+    if (user === null) {
+      return false;
+    }
+    return user.group === 'driver';
+  }
 }
+
+
 @Injectable({
   providedIn: 'root'
 })

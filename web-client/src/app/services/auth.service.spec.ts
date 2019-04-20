@@ -7,7 +7,7 @@ import { AuthService, User } from './auth.service';
 import { UserFactory } from '../testing/factories';
 
 
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
   let authService: AuthService;
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,7 +25,7 @@ fdescribe('AuthService', () => {
   });
 });
 
-fdescribe('Authentication using a service', () => {
+describe('Authentication using a service', () => {
   //TODO UPDATE all API END POINTS
   let authService: AuthService;
   let httpMock: HttpTestingController;
