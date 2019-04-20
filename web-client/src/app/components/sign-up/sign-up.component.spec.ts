@@ -43,14 +43,15 @@ fdescribe('SignUpComponent', () => {
       username: user.username,
       firstName: user.first_name,
       lastName: user.last_name,
-      password: 'letmein!',
-      group: user.group,      
+      password1: 'letmein!',
+      password2: 'letmein!'
+      // group: user.group,      
     };
     // Send data to server (or intercepted by httpMock if not running in docker)
     component.onSubmit();
-    // const request = httpMock.expectOne('/api/sign_up/');
-    // request.flush(user);
-    // expect(spy).toHaveBeenCalledWith('/log-in');
+    const request = httpMock.expectOne('http://localhost:8000/api/v1.0-pre-alpha/sign-up');
+    request.flush(user);
+    expect(spy).toHaveBeenCalledWith('/log-in');
   });
 
 });

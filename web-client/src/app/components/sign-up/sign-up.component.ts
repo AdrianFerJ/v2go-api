@@ -9,7 +9,7 @@ class UserData {
     public firstName?: string,
     public lastName?: string,
     public password1?: string,
-    public password2?: string,
+    public password2?: string
     // public group?: string,
   ) {}
 }
@@ -32,7 +32,7 @@ export class SignUpComponent {
       this.user.firstName,
       this.user.lastName,
       this.user.password1,
-      this.user.password2,
+      this.user.password2
       // this.user.group,
     ).subscribe(() => {
       debugger

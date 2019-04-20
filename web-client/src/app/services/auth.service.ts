@@ -44,8 +44,9 @@ export class AuthService {
     username: string,
     firstName: string,
     lastName: string,
-    password: string,
-    group: string,
+    password1: string,
+    password2: string,
+    // group: string,
   ): Observable<User> {
     const url = 'http://localhost:8000/api/v1.0-pre-alpha/sign-up';
     // const url = 'sign_up/'; #UPDATE endpoint after wiring angular with nxing to rerout API calls
@@ -53,9 +54,9 @@ export class AuthService {
     formData.append('username', username);
     formData.append('first_name', firstName);
     formData.append('last_name', lastName);
-    formData.append('password1', password);
-    formData.append('password2', password);
-    formData.append('group', group);
+    formData.append('password1', password1);
+    formData.append('password2', password2);
+    // formData.append('group', group);
     return this.http.request<User>('POST', url, {body: formData});
   }
   // LogIn function collects a username and a password and sends the data to the API endpoint

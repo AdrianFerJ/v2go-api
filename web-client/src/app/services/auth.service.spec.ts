@@ -7,8 +7,6 @@ import { AuthService, User } from './auth.service';
 import { UserFactory } from '../testing/factories';
 
 
-
-
 fdescribe('AuthService', () => {
   let authService: AuthService;
   beforeEach(() => {
@@ -55,11 +53,13 @@ fdescribe('Authentication using a service', () => {
       userData.first_name,
       userData.last_name,
       'letmein!',
-      userData.group,
+      'letmein!'
+      // userData.group,
     ).subscribe(user => {
+      debugger
       expect(user).toBe(userData);
     });
-    const request = httpMock.expectOne('http://localhost:8000/api/sign_up/');
+    const request = httpMock.expectOne('http://localhost:8000/api/v1.0-pre-alpha/sign-up');
     request.flush(userData);
   });
 
@@ -70,11 +70,11 @@ fdescribe('Authentication using a service', () => {
     // Create observable with logIn() and then subscribe to it 
     // *Subscribing to observable make the call to the API
     authService.logIn(
-      userData.username, 'pAssw0rd!'
+      userData.username, 'letmein!'
     ).subscribe(user => {
       expect(user).toBe(userData);
     });
-    const request = httpMock.expectOne('http://localhost:8000/api/log_in/');
+    const request = httpMock.expectOne('http://localhost:8000/api/v1.0-pre-alpha/login');
     request.flush(userData);
     // Confirm that the expected data was written to local storage.
     expect(localStorage.getItem('v2go.user')).toBe(JSON.stringify(userData));
@@ -89,7 +89,7 @@ fdescribe('Authentication using a service', () => {
     authService.logOut().subscribe(user => {
       expect(user).toEqual(userData);
     });
-    const request = httpMock.expectOne('http://localhost:8000/api/log_out/'); 
+    const request = httpMock.expectOne('http://localhost:8000/api/v1.0-pre-alpha/logout'); 
     request.flush(userData);
     // Confirm that the local storage data was deleted.
     expect(localStorage.getItem('v2go.user')).toBeNull();
