@@ -11,6 +11,7 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
+  // TODO Fix router-outlet Error when running this test
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;

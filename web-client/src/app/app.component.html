@@ -1,9 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome to {{ title }}!
+    This is ... {{ title }}!
   </h1>
+  <nav>
+    <a class="btn btn-primary" routerLink="/sign-up" routerLinkActive="active">NAV 1 - sign-up</a>
+    <a class="btn btn-primary" routerLink="/log-in" routerLinkActive="active">NAV 2 - Log-in</a>
+  </nav>
+  <h2> Router outlet here</h2>
   <router-outlet></router-outlet>
+  
 </div>
 
 
