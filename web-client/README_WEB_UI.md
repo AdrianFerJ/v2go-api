@@ -12,6 +12,9 @@ Requirements:
 $ curl -sL https://deb.nodesource.com/setup_10.15 | sudo bash -
 $ sudo apt install nodejs
 
+# Get the latest version of npm
+npm install -g npm@latest
+
 # Install Angular 
 $ npm install -g @angular/cli@7.3.2
 
