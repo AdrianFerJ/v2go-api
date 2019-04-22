@@ -6,6 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Requirements:
 - NPM 6.9.0
 - Node: 10.15.3
+- Angular: 7.3.2
 
 ```bash
 # Download and install npm
