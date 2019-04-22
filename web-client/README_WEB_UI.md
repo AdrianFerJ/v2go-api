@@ -1,6 +1,20 @@
-# WebClient
+# Web Client
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.2.
+
+## Set Up
+Requirements:
+- NPM 6.9.0
+- Node: 10.15.3
+
+```bash
+# Install Angular 
+$ npm install -g @angular/cli@7.3.2
+
+# Install libraries (run from web-client/)
+$ npm install 
+
+```
 
 ## Development server
 
