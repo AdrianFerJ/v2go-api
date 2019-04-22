@@ -13,12 +13,19 @@ import { SignUpComponent }        from './components/sign-up/sign-up.component';
 import { LogInComponent }         from './components/log-in/log-in.component';
 import { LandingComponent }       from './components/landing/landing.component';
 import { DriverComponent }        from './components/driver/driver.component';
+import { DriverHomeMapComponent } from './components/driver-home-map/driver-home-map.component';
 
 
 const appRoutes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'log-in', component: LogInComponent },
-  { path: 'driver', component: DriverComponent },
+  { 
+    path: 'driver',
+    component: DriverComponent,
+    children: [ 
+      { path: 'map', component: DriverHomeMapComponent }
+    ]
+  },
   { path: '', component: LandingComponent }
   // SAMPLE
   // { path: 'hero/:id',      component: HeroDetailComponent },
@@ -46,7 +53,8 @@ const appRoutes: Routes = [
     SignUpComponent,
     LogInComponent,
     LandingComponent,
-    DriverComponent
+    DriverComponent,
+    DriverHomeMapComponent
   ],
   providers: [ 
     AuthService,
