@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model, login, logout
-from rest_framework.decorators import api_view, permission_classes
 
 from main.models import ElectricVehicle as EV, ChargingStation as CS, User
 from main.serializers import ChargingStationSerializer, UserSerializer, ElectricVehicleSerializer
