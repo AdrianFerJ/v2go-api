@@ -4,7 +4,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
 from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
-from main.models import ChargingStation
+from main.models import ChargingStation, ElectricVehicle
 
 
 """ HELPER FUNC """
@@ -77,6 +77,25 @@ class AuthenticationTest(APITestCase):
         response = self.client.get(reverse('main:stations-list'))
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
 
+
+class DriverVehicleTest(APITestCase):
+    def setUp(self):
+        self.user = create_user()
+        self.client = APIClient()
+        self.client.login(username=self.user.username, password=PASSWORD)
+
+    def test_driver_can_create_vehicle(self):
+        response = self.client.post(reverse('main:vehicles-list'), data={
+            'model'         : 'Roadster',
+            'manufacturer'  : 'Tesla',
+            'year'          : 2019,
+            'ev_owner'      : self.user.pk,
+        })
+
+        new_ev = ElectricVehicle.objects.all().latest('id')
+
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+        self.assertEqual(new_ev.model, response.data.get('model'))
 
 
 class HostChargingStationTest(APITestCase):
