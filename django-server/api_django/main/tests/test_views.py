@@ -5,6 +5,7 @@ from rest_framework.test import APIClient, APITestCase
 
 from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
 from main.models import ChargingStation, ElectricVehicle
+from schedule.models import Calendar
 
 
 """ HELPER FUNC """
@@ -93,9 +94,11 @@ class DriverVehicleTest(APITestCase):
         })
 
         new_ev = ElectricVehicle.objects.all().latest('id')
+        calendar = Calendar.objects.all().latest('id')
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.assertEqual(new_ev.model, response.data.get('model'))
+        self.assertEqual(calendar.id, response.data.get('calendar'))
 
 
 class HostChargingStationTest(APITestCase):
