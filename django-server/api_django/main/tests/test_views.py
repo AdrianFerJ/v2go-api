@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
+from django.contrib.auth.models import Group
 
 from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
 from main.models import ChargingStation, ElectricVehicle, User
@@ -13,11 +14,23 @@ PASSWORD = 'pAssw0rd?XD'
 USERNAME = 'user@example.com'
 U_DRIVER = 'DRIVER'
 U_OWNER  = 'OWNER'
+FIRST_NAME = 'Test_name'
+LAST_NAME = 'Test_last'
 
-def create_user(username=USERNAME, password=PASSWORD, group=U_DRIVER):
-    return get_user_model().objects.create_user(
-        username=username, password=password)
-        #TODO add group=group
+
+def create_user(username=USERNAME, password=PASSWORD,
+                group=U_DRIVER, first_name=FIRST_NAME,
+                last_name=LAST_NAME):
+    user = get_user_model().objects.create_user(
+        username    = username,
+        first_name  = first_name,
+        last_name   = last_name,
+        password    = password
+    )
+
+    Group.objects.get_or_create(name=username)
+
+    return user
 
 
 """ TESTS """
@@ -30,11 +43,11 @@ class AuthenticationTest(APITestCase):
         # photo_file = create_photo_file() #TODO: enable user photo
         response = self.client.post(reverse('main:sign_up'), data={
             'username': USERNAME,
-            'first_name': 'Test_name',
-            'last_name': 'Test_last',
+            'first_name': FIRST_NAME,
+            'last_name': LAST_NAME,
             'password1': PASSWORD,
             'password2': PASSWORD,
-            'group': 'driver',
+            'group': U_DRIVER,
             # 'photo': photo_file,
         })
         user = get_user_model().objects.last()
@@ -81,22 +94,13 @@ class AuthenticationTest(APITestCase):
     
 class UserTest(APITestCase):
     def setUp(self):
+        self.user = create_user()
         self.client = APIClient()
-        self.client.post(reverse('main:sign_up'), data={
-            'username': USERNAME,
-            'first_name': 'Test_name',
-            'last_name': 'Test_last',
-            'password1': PASSWORD,
-            'password2': PASSWORD,
-            'group': 'driver',
-        })
 
-        self.user = get_user_model().objects.last()
-
-    def test_user_sign_up_and_profile_info(self):
+    def test_user_view_profile_info(self):
         """User attempts to view their profile info"""
-        self.client.login(username=USERNAME, password=PASSWORD)
-
+        self.client.login(username=self.user.username, password=PASSWORD)
+        
         response = self.client.get(reverse('main:profile_info',
                                    kwargs={'user_id': self.user.id}))
 
