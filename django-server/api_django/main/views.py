@@ -53,9 +53,7 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
     serializer_class = ElectricVehicleSerializer
 
 
-@api_view()
-@permission_classes((permissions.IsAuthenticated, ))
-def my_account(request, user_id):
-    user = User.objects.get(id=user_id)
-    serializer = UserSerializer(user)
-    return Response(serializer.data)
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

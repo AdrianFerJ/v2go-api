@@ -101,8 +101,7 @@ class UserTest(APITestCase):
         """User attempts to view their account info"""
         self.client.login(username=self.user.username, password=PASSWORD)
 
-        response = self.client.get(reverse('main:my_account',
-                                   kwargs={'user_id': self.user.id}))
+        response = self.client.get(reverse('main:users-detail', kwargs={'pk': self.user.id}))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data.get('id'), self.user.id)
@@ -113,8 +112,7 @@ class UserTest(APITestCase):
         """
         An annonymous user should not be able to see an account
         """
-        response = self.client.get(reverse('main:my_account',
-                                   kwargs={'user_id': self.user.id}))
+        response = self.client.get(reverse('main:users-detail', kwargs={'pk': self.user.id}))
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
