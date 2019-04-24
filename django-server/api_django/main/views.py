@@ -18,14 +18,12 @@ class SignUpView(generics.CreateAPIView):
 
 
 class LogInView(views.APIView):
+    serializer_class = UserSerializer
+
     def post(self, request):
-        form = AuthenticationForm(data=request.data)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user=form.get_user())
-            return Response(UserSerializer(user).data)
-        else:
-            return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = User.objects.get(username=request.data.get('username'))
+        login(request, user=user)
+        return Response(self.serializer_class(user).data)
 
 
 class LogOutView(views.APIView):
