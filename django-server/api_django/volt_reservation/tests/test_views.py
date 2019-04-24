@@ -5,8 +5,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
 from main.serializers import ChargingStationSerializer
-from main.models import ChargingStation
-from main.models import ElectricVehicle as EV
+from main.models import ElectricVehicle as EV, ChargingStation as CS
 
 from main import constants
 
@@ -36,7 +35,7 @@ class TestEventCS(APITestCase):
         cls.cs_host = create_user()
         Group.objects.get_or_create(name=U_OWNER)
 
-        cls.cs_t1 = ChargingStation.objects.create( 
+        cls.cs_t1 = CS.objects.create( 
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
@@ -100,7 +99,7 @@ class TestEventEV(APITestCase):
         Group.objects.get_or_create(name=U_OWNER)
         # cls.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
         
-        cls.cs_t1 = ChargingStation.objects.create( 
+        cls.cs_t1 = CS.objects.create( 
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,

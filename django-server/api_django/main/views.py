@@ -1,9 +1,7 @@
 from django.contrib.auth import get_user_model, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from rest_framework.decorators import api_view, permission_classes
 
-from main.models import ChargingStation
-from main.models import ElectricVehicle as EV, User
+from main.models import ElectricVehicle as EV, ChargingStation as CS, User
 from main.serializers import ChargingStationSerializer, UserSerializer, ElectricVehicleSerializer
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.views import APIView
@@ -40,9 +38,8 @@ class ChargingStationViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'station_nk'
 
     # permission_classes = (permissions.IsAuthenticated,)
-    queryset = ChargingStation.objects.all()
+    queryset = CS.objects.all()
     serializer_class = ChargingStationSerializer
-
 
 class ElectricVehicleViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'

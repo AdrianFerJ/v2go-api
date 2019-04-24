@@ -5,7 +5,7 @@ from rest_framework.test import APIClient, APITestCase
 from django.contrib.auth.models import Group
 
 from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
-from main.models import ChargingStation, ElectricVehicle, User
+from main.models import ChargingStation as CS, ElectricVehicle as EV, User
 from schedule.models import Calendar
 
 
@@ -77,7 +77,7 @@ class AuthenticationTest(APITestCase):
     def test_annon_user_can_not_retrive_cs_detail(self):
         """ Attempt to access endpoints that require login as annon user (no-login) """
         host = create_user()
-        cs = ChargingStation.objects.create(
+        cs = CS.objects.create(
             address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada', 
             name='test_cs',
             cs_host  = host,
@@ -130,7 +130,7 @@ class DriverVehicleTest(APITestCase):
             'ev_owner'      : self.user.pk,
         })
 
-        new_ev = ElectricVehicle.objects.all().latest('id')
+        new_ev = EV.objects.all().latest('id')
         calendar = Calendar.objects.all().latest('id')
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
@@ -153,14 +153,14 @@ class HostChargingStationTest(APITestCase):
     @classmethod
     def setUpTestData(cls):
         host = create_user(username='host')
-        cls.cs_t1 = ChargingStation.objects.create( 
+        cls.cs_t1 = CS.objects.create( 
             name     = 'Panthere 1',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
             lng      = -73.5651293,
             cs_host  = host
         )
-        cls.cs_t2 = ChargingStation.objects.create( 
+        cls.cs_t2 = CS.objects.create( 
             name     = 'Panthere 2',
             address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
             lat      = 45.5070394,
@@ -193,7 +193,7 @@ class HostChargingStationTest(APITestCase):
             'cs_host' : test_host.pk
         })
 
-        new_cs = ChargingStation.objects.all().latest('id')
+        new_cs = CS.objects.all().latest('id')
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.assertEqual(new_cs.name, response.data.get('name'))
