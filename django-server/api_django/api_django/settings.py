@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'volt_reservation',
     # 3rd Party Apps
     'rest_framework',
+    'corsheaders',          # Enables CORS (for Angular calls)
     #'channels',
     'django.contrib.gis',   # GeoDjango
     'schedule',             # Django Scheduler
@@ -55,12 +56,19 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Enable CORS communication for Angular calls from these domains 
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200',
+    #TODO add Prod server domain
+)
 
 ROOT_URLCONF = 'api_django.urls'
 

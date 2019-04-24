@@ -19,6 +19,7 @@ requests = "*"
 googlemaps = "*"
 django-scheduler = "*"
 python-slugify = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 pylint = "*"
