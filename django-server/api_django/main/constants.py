@@ -1,7 +1,11 @@
+CHARGER_A = 'a'
+CHARGER_B = 'b'
+CHARGER_C = 'c'
+
 CHARGER_CHOICES = [
-                   ('a', 'Charger Type A'), 
-                   ('b', 'Charger Type B'), 
-                   ('c', 'Charger Type C')
+                   (CHARGER_A, 'Charger Type A'), 
+                   (CHARGER_B, 'Charger Type B'), 
+                   (CHARGER_C, 'Charger Type C')
                   ]
 
 AVAILABLE = 'AVAILABLE'

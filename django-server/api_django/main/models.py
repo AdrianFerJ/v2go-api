@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 from schedule.models import Event, EventRelation, Calendar
 
-from .constants import CHARGER_CHOICES, STATUS_CHOICES
+from .constants import CHARGER_CHOICES, STATUS_CHOICES, CHARGER_A
 from .helpers import create_hash
 
 import datetime
@@ -114,7 +114,7 @@ class ElectricVehicle(models.Model):
     model           = models.CharField(max_length=40)
     manufacturer    = models.CharField(max_length=40)
     year            = models.IntegerField()
-    charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
+    charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default=CHARGER_A)
     ev_owner        = models.ForeignKey(User, on_delete=models.CASCADE)
     calendar        = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
