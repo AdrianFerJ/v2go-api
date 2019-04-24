@@ -111,6 +111,7 @@ class ElectricVehicle(models.Model):
     nk              = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
     created         = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)
+    nickname        = models.CharField(max_length=20, blank=True, null=True)
     model           = models.CharField(max_length=40)
     manufacturer    = models.CharField(max_length=40)
     year            = models.IntegerField()
@@ -128,4 +129,4 @@ class ElectricVehicle(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.model
+        return self.model if not self.nickname else self.nickname
