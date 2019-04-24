@@ -57,7 +57,7 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
 
 @api_view()
 @permission_classes((permissions.IsAuthenticated, ))
-def profile_info(request, user_id):
+def my_account(request, user_id):
     user = User.objects.get(id=user_id)
     serializer = UserSerializer(user)
     return Response(serializer.data)

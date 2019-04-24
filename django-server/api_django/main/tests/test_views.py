@@ -97,11 +97,11 @@ class UserTest(APITestCase):
         self.user = create_user()
         self.client = APIClient()
 
-    def test_user_view_profile_info(self):
-        """User attempts to view their profile info"""
+    def test_user_view_my_account(self):
+        """User attempts to view their account info"""
         self.client.login(username=self.user.username, password=PASSWORD)
-        
-        response = self.client.get(reverse('main:profile_info',
+
+        response = self.client.get(reverse('main:my_account',
                                    kwargs={'user_id': self.user.id}))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -109,8 +109,11 @@ class UserTest(APITestCase):
         self.assertEqual(response.data.get('first_name'), self.user.first_name)
         self.assertEqual(response.data.get('last_name'), self.user.last_name)
 
-    def test_anon_user_profile_info(self):
-        response = self.client.get(reverse('main:profile_info',
+    def test_anon_user_my_account(self):
+        """
+        An annonymous user should not be able to see an account
+        """
+        response = self.client.get(reverse('main:my_account',
                                    kwargs={'user_id': self.user.id}))
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
