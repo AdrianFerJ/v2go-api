@@ -22,6 +22,8 @@ const appRoutes: Routes = [
   { 
     path: 'driver',
     component: DriverComponent,
+    //TODO ADD group based restriction IsDriver
+    // canActivate: [ IsDriver ], 
     children: [ 
       { path: 'map', component: DriverHomeMapComponent }
     ]
