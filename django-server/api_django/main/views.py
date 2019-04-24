@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model, login, logout
-from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth.forms import AuthenticationForm
+from rest_framework.decorators import api_view, permission_classes
 
 from main.models import ChargingStation
-from main.models import ElectricVehicle as EV
+from main.models import ElectricVehicle as EV, User
 from main.serializers import ChargingStationSerializer, UserSerializer, ElectricVehicleSerializer
 from rest_framework import generics, permissions, status, views, viewsets
 from rest_framework.views import APIView
@@ -52,3 +53,11 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = EV.objects.all()
     serializer_class = ElectricVehicleSerializer
+
+
+@api_view()
+@permission_classes((permissions.IsAuthenticated, ))
+def profile_info(request, user_id):
+    user = User.objects.get(id=user_id)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)

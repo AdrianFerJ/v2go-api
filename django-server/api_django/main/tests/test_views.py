@@ -4,7 +4,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
 from main.serializers import ChargingStationSerializer #, UserSerializer, GeoCStationSerializer
-from main.models import ChargingStation, ElectricVehicle
+from main.models import ChargingStation, ElectricVehicle, User
 from schedule.models import Calendar
 
 
@@ -78,6 +78,38 @@ class AuthenticationTest(APITestCase):
         response = self.client.get(reverse('main:stations-list'))
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
 
+    
+class UserTest(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.client.post(reverse('main:sign_up'), data={
+            'username': USERNAME,
+            'first_name': 'Test_name',
+            'last_name': 'Test_last',
+            'password1': PASSWORD,
+            'password2': PASSWORD,
+            'group': 'driver',
+        })
+
+        self.user = get_user_model().objects.last()
+
+    def test_user_sign_up_and_profile_info(self):
+        """User attempts to view their profile info"""
+        self.client.login(username=USERNAME, password=PASSWORD)
+
+        response = self.client.get(reverse('main:profile_info',
+                                   kwargs={'user_id': self.user.id}))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get('id'), self.user.id)
+        self.assertEqual(response.data.get('first_name'), self.user.first_name)
+        self.assertEqual(response.data.get('last_name'), self.user.last_name)
+
+    def test_anon_user_profile_info(self):
+        response = self.client.get(reverse('main:profile_info',
+                                   kwargs={'user_id': self.user.id}))
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 class DriverVehicleTest(APITestCase):
     def setUp(self):
