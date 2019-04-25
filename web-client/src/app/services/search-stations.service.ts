@@ -1,36 +1,30 @@
-import { Injectable }   from '@angular/core';
+import { HttpClient }      from '@angular/common/http';
+import { Injectable }      from '@angular/core';
 
-import { User }         from './auth.service';
+import { Observable }      from 'rxjs';
+import { map }             from 'rxjs/operators';
 
-export class ChargingStation {
-  constructor(
-    public id?: number,
-    public nk?: string,
-    public name?: string,
-    public external_id?: string,
-    public charge_level?: string,
-    public tarif_text?: string,
-    public address?: string,
-    public city?: string,
-    public province?: string,
-    public country?: string,
-    public postal_code?: string,
-    public lat?: number,
-    public lng?: number,
-    public geo_location?: any,
-    public created?: string,
-    public updated?: string,
-    public cs_host?: number,
-    public calendar?: number,
-  ) {}
+import { User }            from './auth.service';
 
-    
-}
+import { ChargingStation } from '../data_classes/chargingStation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchStationsService {
-
-  constructor() { }
+  API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/';
+  constructor(
+    private http: HttpClient
+  ) { }
+  // findStations(){
+  //   console.log('#'.repeat(50), "Inside findStations()....")
+  //   let resp = this.http.get(`${this.API_URL}/near-poi`);
+  //   console.log('# RESP: ', resp)
+  //   return resp
+  findStations(): Observable<ChargingStation[]> {
+    console.log('#'.repeat(50), "Inside findStations()....")
+    return this.http.get<ChargingStation[]>(`${this.API_URL}/near-poi`).pipe(
+      map(stations => stations.map(station => ChargingStation.create(station)))
+  );
+  }
 }
