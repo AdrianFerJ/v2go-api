@@ -7,6 +7,7 @@ import { HttpClientModule }       from '@angular/common/http';
 // import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';  
 
 import { AuthService }            from './services/auth.service';  
+import { SearchStationsService }  from './services/search-stations.service';
 
 import { AppComponent }           from './app.component';
 import { SignUpComponent }        from './components/sign-up/sign-up.component';
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
   ],
   providers: [ 
     AuthService,
+    SearchStationsService
     // HttpXsrfInterceptor, 
     // { provide: HTTP_INTERCEPTORS, useExisting: HttpXsrfInterceptor, multi: true },
     // { provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor },

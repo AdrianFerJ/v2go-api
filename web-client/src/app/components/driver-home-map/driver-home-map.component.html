@@ -6,9 +6,13 @@
       </ol>
     </nav>
     <div class="card mb-6">
-      <h4 class="card-header">CS-info List comes here</h4>
+      <h4 class="card-header">FAAAAKE CS-info List comes here</h4>
       <div class="card-body">
-        
+        <ul class="cs-list">
+          <li *ngFor="let station of stationsList">
+            <span class="badge">{{station.id}}</span> {{station.name}}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
