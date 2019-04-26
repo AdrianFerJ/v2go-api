@@ -1,7 +1,6 @@
 import * as faker               from 'faker';
 
-import { User }                       from '../services/auth.service';
-// import { SearchStationsService }      from '../services/search-stations.service'
+import { User }                 from '../services/auth.service';
 import { ChargingStation }      from '../data_classes/chargingStation';
 
 
@@ -21,9 +20,10 @@ export class UserFactory {
 export class CStationFactory {
   static create(data?: object): ChargingStation {
     return ChargingStation.create(Object.assign({
-      id    : faker.random.uuid(),
-      nk    : faker.random.alphaNumeric(32),
-      name  : faker.name.firstName()
+      id      : faker.random.uuid(),
+      nk      : faker.random.alphaNumeric(32),
+      name    : faker.name.firstName(),
+      address : faker.address.streetAddress()
 
       // pick_up_address: faker.address.streetAddress(),
       // drop_off_address: faker.address.streetAddress(),

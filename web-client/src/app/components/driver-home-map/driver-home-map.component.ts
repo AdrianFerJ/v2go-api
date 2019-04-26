@@ -10,12 +10,23 @@ import { ChargingStation }      from '../../data_classes/chargingStation';
 })
 export class DriverHomeMapComponent implements OnInit {
 
-  stationsList = STATIONS;
+  stationsList: ChargingStation[];
 
-  constructor() { }
+  constructor(private searchCSservice: SearchStationsService) { }
 
   ngOnInit() {
-    // SearchStationsService
+    this.findStations();
+  }
+
+  // findStations(): void {
+  //   this.stationsList = this.searchCSservice.findStations();
+  // }
+
+  // Method uses searchService to call api/find-station
+  // .. the Service returns an observable, subscribing to it emit the array of CSs
+  findStations(): void {
+    this.searchCSservice.findStations()
+        .subscribe(stationsList => this.stationsList = stationsList);
   }
 
 }

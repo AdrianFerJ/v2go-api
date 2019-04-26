@@ -6,7 +6,7 @@ export class ChargingStation {
     //   public external_id?: string,
     //   public charge_level?: string,
     //   public tarif_text?: string,
-    //   public address?: string,
+      public address?: string,
     //   public city?: string,
     //   public province?: string,
     //   public country?: string,
@@ -25,6 +25,7 @@ export class ChargingStation {
           data.id,
           data.nk,
           data.name,
+          data.address,
         
         //   data.driver ? User.create(data.driver) : null,
         //   User.create(data.rider)
