@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders }  from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams }  from '@angular/common/http';
 import { Injectable }               from '@angular/core';
 
 import { Observable, of }           from 'rxjs';
@@ -13,7 +13,8 @@ import { STATIONS}                  from '../data_classes/mock_cs'
   providedIn: 'root'
 })
 export class SearchStationsService {
-  private API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha';
+  // private API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/stations';
+  private API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/volt_finder/near-poi'
   constructor(
     private http: HttpClient, 
   ) { }
@@ -33,7 +34,10 @@ export class SearchStationsService {
     // return of(STATIONS);
 
     // Call API and return a CS array
-    return this.http.get<ChargingStation[]>(`${this.API_URL}/stations`)
+    let testAddress = '1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada';
+    let params = new HttpParams().set("poi_location", testAddress);
+
+    return this.http.get<ChargingStation[]>(this.API_URL, {params: params})
       .pipe(
         catchError(this.handleError<ChargingStation[]>('findStationss', []))
     );

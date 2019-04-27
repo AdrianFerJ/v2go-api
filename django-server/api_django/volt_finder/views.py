@@ -18,7 +18,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
     :param poi_location: the point of interestan address
     :type destinations: a single location, as a string
     """
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     #TODO: apply some filtering to query (or ger_queryset()) to limit number of CS passed to google
     queryset = ChargingStation.objects.all()
 
