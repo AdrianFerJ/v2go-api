@@ -1,19 +1,32 @@
 <div class="row">
   <div class="col-lg-12">
-    <nav>
+    <!-- TOP Nav-Bar + Breadcrumbs -->
+    <!-- <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">Home Map</li>
       </ol>
-    </nav>
-    <div class="card mb-6">
-      <h4 class="card-header">FAAAAKE CS-info List comes here</h4>
-      <div class="card-body">
-        <ul class="cs-list">
-          <li *ngFor="let station of stationsList">
-            <span class="badge">{{station.id}} / {{station.nk}} </span> {{station.name}} - {{station.address}}
-          </li>
-        </ul>
-      </div>
+    </nav> -->
+
+    <!-- Side bar -->
+    <div class="row">
+      <div class="card col-md-4">
+            <h4 class="card-header">CS-info List</h4>
+            <div class="card-body">
+              <ul class="cs-list">
+                <li *ngFor="let station of stationsList">
+                  <span class="badge"> {{station.nk}} </span> {{station.destination_addresses}}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Map Display -->
+          <div class="card col-md-8">
+              <h4 class="card-header">Map</h4>
+              <div class="card-body">
+                  
+              </div>
+          </div>
     </div>
+   
   </div>
 </div>
