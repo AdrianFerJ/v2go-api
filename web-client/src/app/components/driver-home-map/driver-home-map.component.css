@@ -1,38 +1,41 @@
 /* driver-home-map Component's private CSS styles */
+agm-map {
+    height: 720px;
+}
 .selected {
     background-color: #CFD8DC !important;
     color: white;
-  }
-  .cs-list {
+}
+.cs-list {
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
     /* width: 15em; */
-  }
-  .cs-list li {
+}
+.cs-list li {
     cursor: pointer;
     position: relative;
-    left: 0;
-    background-color: #EEE;
-    margin: .5em;
-    padding: .3em 0;
-    height: 1.6em;
-    border-radius: 4px;
-  }
-  .cs-list li.selected:hover {
+    /* left: 0; */
+    /* background-color: #EEE; */
+    /* margin: .5em; */
+    /* padding: .3em 0; */
+    /* height: 1.6em;   */
+    border-radius: 5px;
+}
+.cs-list li.selected:hover {
     background-color: #BBD8DC !important;
     color: white;
-  }
-  .cs-list li:hover {
+}
+.cs-list li:hover {
     color: #607D8B;
     background-color: #DDD;
     left: .1em;
-  }
-  .cs-list .text {
+}
+.cs-list .text {
     position: relative;
     top: -3px;
-  }
-  .cs-list .badge {
+}
+.cs-list .badge {
     /* display: inline-block; */
     font-size: small;
     color: white;
@@ -44,5 +47,6 @@
     top: -4px;
     height: 1.8em;
     margin-right: .8em;
-    border-radius: 4px 0 0 4px;
-  }
+    border-radius: 5px 0 0 5px;
+}
+ 
