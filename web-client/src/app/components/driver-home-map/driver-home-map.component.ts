@@ -1,4 +1,5 @@
 import { Component, OnInit }    from '@angular/core';
+import { ActivatedRoute }       from '@angular/router';
 import { SearchStationsService} from '../../services/search-stations.service'
 import { STATIONS}              from '../../data_classes/mock_cs'
 import { ChargingStation }      from '../../data_classes/chargingStation';
@@ -28,8 +29,11 @@ export class DriverHomeMapComponent implements OnInit {
   markers: Marker[];
 
   constructor(
+    private searchService: SearchStationsService,
+    // Use ActivateRout (from StationsListResolver)
+    private route: ActivatedRoute,
+    //TODO add googleMapsService
     // private googleMapsService: GoogleMapsService,
-    private searchCSservice: SearchStationsService
   ) { }
 
   ngOnInit() {
@@ -46,13 +50,15 @@ export class DriverHomeMapComponent implements OnInit {
     }
 
     // Get CS near me (Should pass my location)
-    this.findStations();
+    // this.findStations();
+    this.route.data
+      .subscribe((data: {stationsList: ChargingStation[]}) => this.stationsList = data.stationsList);
 
     // Display CS in map
     console.log('*'.repeat(200), this.stationsList)
     if (this.stationsList) {
       for (let station of this.stationsList) {
-        console.log(station.nk); // 1, "string", false
+        console.log(station.nk); 
         // this.markers = [
         //   new Marker(station.lat, station.lng, 'STATION X')
         // ];
@@ -62,15 +68,11 @@ export class DriverHomeMapComponent implements OnInit {
     //TODO Get user this.driver (OR this.User) = User.getUser();
   }
 
-  // findStations(): void {
-  //   this.stationsList = this.searchCSservice.findStations();
-  // }
-
-  // Method uses searchService to call api/find-station
+  // findStations() method uses searchService to call api/find-station
   // .. the Service returns an observable, subscribing to it emit the array of CSs
   findStations(): void {
-    this.searchCSservice.findStations()
-        .subscribe(stationsList => this.stationsList = stationsList);
+    this.searchService.findStations()
+        .subscribe(stationsList => this.stationsList = stationsList); 
   }
 
 }

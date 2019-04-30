@@ -26,30 +26,25 @@ export class SearchStationsService {
   * @param advance param ...
   */
   findStations(): Observable<ChargingStation[]> {
-    // console.log('#'.repeat(50), "Inside findStations()....")
-    // console.log("Stations: ", STATIONS)
-    // Fake Data
-    // of(Stations) returns an Observable<CS[]> that 
-    // .. emits a single value (array of CSs objects)
-    // return of(STATIONS);
+    console.log('#findStations'.repeat(5), "Inside findStations()....")
 
-    // Call API and return a CS array
+    // Create fake parameters
     let testAddress = '1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada';
     let params = new HttpParams().set("poi_location", testAddress);
 
-    return this.http.get<ChargingStation[]>(this.API_URL, {params: params})
-      .pipe(
-        catchError(this.handleError<ChargingStation[]>('findStationss', []))
+    // Call API and return a Observable<CS[]> (aka. CS array)
+    return this.http.get<ChargingStation[]>(this.API_URL, {params: params}).pipe(
+      map(stationsList => stationsList.map(station => ChargingStation.create(station)))
+        // catchError(this.handleError<ChargingStation[]>('findStationss', []))
     );
   }
+  // OLD APPROACH
   // findStations(){
-  //   console.log('#'.repeat(50), "Inside findStations()....")
   //   let resp = this.http.get(`${this.API_URL}/near-poi`);
   //   console.log('# RESP: ', resp)
   //   return resp
 
   // findStations(): Observable<ChargingStation[]> {
-  //   console.log('#'.repeat(50), "Inside findStations()....")
   //   return this.http.get<ChargingStation[]>(`${this.API_URL}/near-poi`).pipe(
   //     map(stations => stations.map(station => ChargingStation.create(station)))
   //   );

@@ -2,47 +2,50 @@ import {
   HttpClientTestingModule, HttpTestingController, TestRequest
 }                                from '@angular/common/http/testing';
 import { TestBed }               from '@angular/core/testing';
+
 import { CStationFactory }       from '../testing/factories';
 import { SearchStationsService } from './search-stations.service';
 
 
 describe('SearchStationsService', () => {
-  let csService: SearchStationsService;
+  let searchService: SearchStationsService;
   let httpMock: HttpTestingController;
-  let API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/';
+  let API_URL:  'http://localhost:8000/api/v1.0-pre-alpha/near-poi';
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule
       ],
-      providers: [ csService ]
+      providers: [ SearchStationsService ]
     });
-    csService = TestBed.get(SearchStationsService);
+    searchService = TestBed.get(SearchStationsService);
     httpMock = TestBed.get(HttpTestingController);
   });
+
+  // afterEach(() => {
+    // httpMock.verify();
+  // });
 
   it('should allow a driver to search CS near a point of interest (POI) location', () => {
     const cs1 = CStationFactory.create();
     const cs2 = CStationFactory.create();
-    // console.log('*'.repeat(100), "CS TEST....")
-    // console.log(cs1, cs2)
-    console.log('_'.repeat(200), "CStationService....")
-    console.log(csService)
+    // console.log('_'.repeat(100), "searchService... ", searchService)
+    // console.log('*'.repeat(100), "API URL ...", API_URL)
 
-    csService.findStations().subscribe(stations => {
-      expect(stations).toEqual([cs1, cs2]);
+    searchService.findStations().subscribe(stationsList => {
+      expect(stationsList).toEqual([cs1, cs2]);
     });
+    
+    // console.log("OUTPUT: ", this.stationList)
+    // console.log("FAKE: ", cs1, cs2)
   
-    const request: TestRequest = httpMock.expectOne(`${this.API_URL}/near-poi`);
+    const request: TestRequest = httpMock.expectOne(API_URL);
     request.flush([
       cs1,
       cs2
     ]);
-    console.log('*'.repeat(100), "TEST request....")
+    console.log('*'.repeat(100))
     console.log(request)
-  });
-
-  afterEach(() => {
-    httpMock.verify();
   });
 });

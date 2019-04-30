@@ -10,6 +10,7 @@ import { AgmCoreModule } from '@agm/core';
 
 import { AuthService }            from './services/auth.service';  
 import { SearchStationsService }  from './services/search-stations.service';
+import { StationsListResolver }   from './services/stations-list.resolver';
 
 import { AppComponent }           from './app.component';
 import { SignUpComponent }        from './components/sign-up/sign-up.component';
@@ -28,18 +29,17 @@ const appRoutes: Routes = [
     component: DriverComponent,
     //TODO ADD group based restriction IsDriver
     // canActivate: [ IsDriver ], 
+
     children: [ 
-      { path: 'map', component: DriverHomeMapComponent }
+      { path: '',
+        component: DriverHomeMapComponent,
+        resolve: { stationsList: StationsListResolver }
+       
+      }
     ]
   },
   { path: '', component: LandingComponent }
-  // SAMPLE
-  // { path: 'hero/:id',      component: HeroDetailComponent },
-  // {
-  //   path: 'heroes',
-  //   component: HeroListComponent,
-  //   data: { title: 'Heroes List' }
-  // },
+  //TODO add a pageNotFound Component
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -67,7 +67,9 @@ const appRoutes: Routes = [
   ],
   providers: [ 
     AuthService,
-    SearchStationsService
+    SearchStationsService,
+    StationsListResolver
+    //TODO check whether XSRF protection still necesary?, if not, remove all commented bellow
     // HttpXsrfInterceptor, 
     // { provide: HTTP_INTERCEPTORS, useExisting: HttpXsrfInterceptor, multi: true },
     // { provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor },
