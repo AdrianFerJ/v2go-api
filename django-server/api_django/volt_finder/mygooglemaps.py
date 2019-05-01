@@ -90,14 +90,6 @@ def format_output_cs(addr, elem):
     return formated_cs
     
 
-def sortDistanceResultByDuration(distanceResult):
-    # Sort CS by duration (lower first)
-    distanceResult.sort(key=lambda x: x.duration_val, reverse=False)
-    # Retrun top 5 results
-    if len(distanceResult) > 5:
-        return distanceResult[:5]
-    else:
-        return distanceResult  
     
 """ Main func """
 
@@ -112,32 +104,28 @@ def getDirections(departure, destination):
         departure, destination, mode = mymode, departure_time = now)
     return directions_result
 
-def getNearestCS(poi, cs_list):
+def getNearestCS(poi, charginStations):
     """ Gets the top X nearest CS from user provided location.
     :param poi: the point of interestes, a single location provided by the user 
-    :param cs_list: array of CS objects
+    :param charginStations: array of CS locations 
     """
-    # Exctract addresses from CS objects to pass to gmaps.distance_matrix
-    cs_addresses = [cs.address for cs in cs_list]
+    resp = gmaps.distance_matrix(poi, charginStations)
     
-    resp = gmaps.distance_matrix(poi, cs_addresses)
-    result = []
-
     #TODO: replace this if /else for try/except
     if resp['status']!='OK':
         return "Error"
     else:
+        result = []
         for addr, elem in zip(resp['destination_addresses'], resp["rows"][0]['elements']):
             temp_CStation = format_output_cs(addr, elem)
             result.append(temp_CStation)
 
-        return sortDistanceResultByDuration(result)
-        # # Sort CS by duration (lower first)
-        # result.sort(key=lambda x: x.duration_val, reverse=False)
+        # Sort CS by duration (lower first)
+        result.sort(key=lambda x: x.duration_val, reverse=False)
 
-        # # Retrun top 5 results
-        # if len(result) > 5:
-        #     return result[:5]
-        # else:
-        #     return result  
+        # Retrun top 5 results
+        if len(result) > 5:
+            return result[:5]
+        else:
+            return result  
 

@@ -31,17 +31,23 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
                 end_datetime = data.get('end_datetime')
 
                 events_cs = ReservationService.get_available_event_cs(start_datetime, end_datetime)
-                cs_list = [event.cs for event in events_cs]   
 
-                gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_list)        
-                hf.match_cs_nk_based_on_address(gg_top_cs, cs_list)
-                serializer = GeoCStationSerializer(gg_top_cs, many=True)
+                all_cs = [event.cs for event in events_cs]
 
-            else:
-                cs_list = self.queryset
+                cs_addresses = [cs_inst.address for cs_inst in all_cs]
                 
-                gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_list)        
-                hf.match_cs_nk_based_on_address(gg_top_cs, cs_list)
+                gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
+                hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
+
+                serializer = GeoCStationSerializer(gg_top_cs, many=True)
+            else:
+                all_cs = self.queryset
+
+                cs_addresses = [cs_inst.address for cs_inst in all_cs]
+                
+                gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
+                hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
+
                 serializer = GeoCStationSerializer(gg_top_cs, many=True)
 
             return Response(serializer.data)
