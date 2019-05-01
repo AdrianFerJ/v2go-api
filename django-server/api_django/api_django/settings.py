@@ -108,7 +108,7 @@ DATABASES = {
         'NAME': 'pg_gis_db',
         'USER': 'dev_user',
         'PASSWORD': 'SirGeorgeWilliams1515',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432'
     }
 }

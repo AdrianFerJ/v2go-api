@@ -1,24 +1,14 @@
 FROM python:3.7
 
-# install environment dependencies
-RUN apt-get update -yqq \
-  && apt-get install -yqq --no-install-recommends \
-    netcat \
-  && apt-get -q clean
+ENV PYTHONUNBUFFERED 1
 
-# set working directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN apt-get update && apt-get install -y \
+    binutils \
+    libproj-dev \
+    gdal-bin
 
-# add requirements
-COPY ./requirements.txt /usr/src/app/requirements.txt
-
-# install requirements
+RUN mkdir /code
+WORKDIR /code
+COPY . /code/
+EXPOSE 8000
 RUN pip install -r requirements.txt
-
-# add files
-RUN mkdir -p /usr/src/app/example_taxi
-COPY ./api_django /usr/src/app/api_django
-
-# run server
-CMD python api_django/manage.py runserver 0.0.0.0:8000
