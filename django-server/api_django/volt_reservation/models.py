@@ -1,7 +1,6 @@
 from django.db import models
 from rest_framework.serializers import ValidationError
-from main.models import ChargingStation
-from main.models import ElectricVehicle as EV
+from main.models import ChargingStation as CS, User, ElectricVehicle as EV
 from main import constants
 from main.helpers import create_hash
 from schedule.models import Calendar, Event
@@ -15,9 +14,10 @@ class EventCS(models.Model):
 	updated 		= models.DateTimeField(auto_now=True)
 	startDateTime	= models.DateTimeField()
 	endDateTime		= models.DateTimeField()
-	cs	 			= models.ForeignKey(ChargingStation, on_delete=models.CASCADE)
+	cs	 			= models.ForeignKey(CS, on_delete=models.CASCADE)
 	status			= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.AVAILABLE)
 	ev_event_id		= models.IntegerField(default=-1)
+	cs_owner 		= models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 	def save(self, *args, **kwargs):
 		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime,
@@ -62,6 +62,7 @@ class EventEV(models.Model):
 	status		= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.RESERVED)
 	event_cs 	= models.ForeignKey(EventCS, on_delete=models.CASCADE)
 	ev 			= models.ForeignKey(EV, on_delete=models.CASCADE)
+	ev_owner	= models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 	def save(self, *args, **kwargs):
 
