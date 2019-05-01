@@ -10,11 +10,12 @@ from volt_reservation.models import EventEV, EventCS
 from django.utils import timezone 
 import datetime as dt  
 
-
+""" STATIC VARIABLES """
 
 PASSWORD = 'pAssw0rd!'
 poi_location = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
 today = timezone.now().date()
+
 """ HELPER FUNC """
 def create_user(username='user@example.com', password=PASSWORD):
     return get_user_model().objects.create_user(
@@ -46,8 +47,7 @@ class AuthenticationTest(APITestCase):
 
 
 class VoltFinderViewTest(APITestCase):
-    """ Tests the ability to get the (single) nearest CS to user provided POI""" 
-
+    
     def setUp(self):
         user = create_user()
         self.client = APIClient()
@@ -109,8 +109,7 @@ class VoltFinderViewTest(APITestCase):
                 cs_host  = host),    
             ]
         
-        print('***** Created CS')
-        print(cls.test_top_cs[0], cls.test_top_cs[1])
+        # Create Event CS (available charging slots)
         cs_t1, cs_t2 = cls.test_top_cs[0], cls.test_top_cs[1]
         cs_o1, cs_o2 = cls.test_other_cs[0], cls.test_other_cs[1]
 
@@ -127,12 +126,6 @@ class VoltFinderViewTest(APITestCase):
                     endDateTime   = t_end,
                     cs            = cs_o1
                 )
-
-        print('*********************************')
-        print('### cs_t1, cs_t2: ', cs_t1, cs_t2)
-        print('### cs_o1, cs_o2: ', cs_o1, cs_o2)
-        print('### events: ', event_1, event_2)
-
     
     def test_get_top_5_cs_near_poi_status_any(self):
         response = self.client.get(reverse('volt_finder:near-poi-list'),
@@ -169,15 +162,13 @@ class VoltFinderViewTest(APITestCase):
         exp_cs_nks = [self.test_top_cs[0].nk, self.test_other_cs[0].nk]
         act_cs_nks = [cs['nk'] for cs in serialized_data]
 
-        print('*********************************')
-        print('### exp_cs_nks: ', exp_cs_nks)
-        print('### act_cs_nks: ', act_cs_nks)
 
         self.assertAlmostEqual(act_cs_nks, exp_cs_nks)
 
-    def test_get_top_cs_near_poi_status_available_today(self):
-        start_datetime = timezone.now().date()
-        end_datetime = start_datetime + dt.timedelta(days=1)
+    def test_return_422_to_invalid_request(self):
+        " Request near-poi without query parameters"
         response = self.client.get(reverse('volt_finder:near-poi-list'))
 
         self.assertEqual(status.HTTP_422_UNPROCESSABLE_ENTITY, response.status_code)
+
+        
