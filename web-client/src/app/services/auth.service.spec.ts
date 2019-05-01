@@ -7,23 +7,24 @@ import { AuthService, User } from './auth.service';
 import { UserFactory } from '../testing/factories';
 
 
-describe('AuthService', () => {
-  let authService: AuthService;
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+// describe('AuthService', () => {
+//   let authService: AuthService;
+
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
       
-      imports: [ HttpClientTestingModule ],
+//       imports: [ HttpClientTestingModule ],
       
-      declarations: [],
+//       declarations: [],
       
-      providers: [ AuthService ]
-    });
-    authService = TestBed.get(AuthService);
-  });
-  it('should be created', () => {
-    expect(authService).toBeTruthy();
-  });
-});
+//       providers: [ AuthService ]
+//     });
+//     authService = TestBed.get(AuthService);
+//   });
+//   it('should be created', () => {
+//     expect(authService).toBeTruthy();
+//   });
+// });
 
 describe('Authentication using a service', () => {
   //TODO UPDATE all API END POINTS
@@ -56,7 +57,6 @@ describe('Authentication using a service', () => {
       'letmein!'
       // userData.group,
     ).subscribe(user => {
-      debugger
       expect(user).toBe(userData);
     });
     const request = httpMock.expectOne('http://localhost:8000/api/v1.0-pre-alpha/sign-up');
