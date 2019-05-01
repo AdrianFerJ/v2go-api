@@ -13,7 +13,6 @@ import { STATIONS}                  from '../data_classes/mock_cs'
   providedIn: 'root'
 })
 export class SearchStationsService {
-  // private API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/stations';
   private API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/volt_finder/near-poi'
   constructor(
     private http: HttpClient, 
@@ -43,13 +42,6 @@ export class SearchStationsService {
   //   let resp = this.http.get(`${this.API_URL}/near-poi`);
   //   console.log('# RESP: ', resp)
   //   return resp
-
-  // findStations(): Observable<ChargingStation[]> {
-  //   return this.http.get<ChargingStation[]>(`${this.API_URL}/near-poi`).pipe(
-  //     map(stations => stations.map(station => ChargingStation.create(station)))
-  //   );
-  // }
-
 
 
   /**

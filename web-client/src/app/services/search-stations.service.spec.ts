@@ -39,13 +39,9 @@ describe('SearchStationsService', () => {
     });
     
     // console.log("OUTPUT: ", this.stationList)
-    // console.log("FAKE: ", cs1, cs2)
+    // console.log("MOCK(testCS): ", testCS)
     
     // const request: TestRequest = httpMock.expectOne(API_URL);
-
-    // console.log('*'.repeat(100))
-    // console.log(request)
-
     // request.flush(testCS);
     
   });
