@@ -5,8 +5,12 @@ from rest_framework.test import APIClient, APITestCase
 from django.contrib.auth.models import Group
 
 from main.serializers import ChargingStationSerializer
-from main.models import ChargingStation, ElectricVehicle
+from main.models import ChargingStation as CS, ElectricVehicle as EV
+from volt_reservation.models import EventEV, EventCS
 from schedule.models import Calendar
+from main import constants
+from datetime import datetime as dt
+from collections import OrderedDict
 
 
 USERNAME = 'user@example.com'
@@ -78,7 +82,7 @@ class AuthenticationTest(APITestCase):
     # def test_annon_user_can_not_retrive_cs_detail(self):
     #     """ Attempt to access endpoints that require login as annon user (no-login) """
     #     host = create_user()
-    #     cs = ChargingStation.objects.create(
+    #     cs = CS.objects.create(
     #         address='1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada',
     #         name='test_cs',
     #         cs_host  = host,
@@ -94,8 +98,59 @@ class AuthenticationTest(APITestCase):
 
 
 class UserTest(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.cs_host = create_user()
+        cls.user = create_user(username='driver')
+        Group.objects.get_or_create(name=U_DRIVER)
+        Group.objects.get_or_create(name=U_OWNER)
+
+        cls.cs_t1 = CS.objects.create(
+            name     = 'Panthere 1',
+            address  = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada',
+            lat      = 45.5070394,
+            lng      = -73.5651293,
+            cs_host  = cls.cs_host,
+        )
+
+        cls.cs_event_1 = EventCS.objects.create(
+            startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            cs              = cls.cs_t1,
+            status          = constants.AVAILABLE
+        )
+
+        cls.cs_event_2 = EventCS.objects.create(
+            startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            cs              = cls.cs_t1,
+            ev_event_id     = 1,
+            status          = constants.COMPLETED
+        )
+
+        cls.ev = EV.objects.create(
+            model='Roadster',
+            manufacturer='Tesla',
+            year=2019,
+            charger_type='A',
+            ev_owner=cls.user
+        )
+
+        cls.reserved_event = EventEV.objects.create(
+            status      = constants.RESERVED,
+            ev          = cls.ev,
+            event_cs    = cls.cs_event_1,
+            ev_owner    = cls.user
+        )
+
+        cls.completed_event = EventEV.objects.create(
+            status      = constants.COMPLETED,
+            ev          = cls.ev,
+            event_cs    = cls.cs_event_2,
+            ev_owner    = cls.user
+        )
+
     def setUp(self):
-        self.user = create_user()
         self.client = APIClient()
 
     def test_user_view_my_account(self):
@@ -113,8 +168,30 @@ class UserTest(APITestCase):
             'last_name' : self.user.last_name,
         })
 
-        self.assertEqual(response.data.get('evs'), [])
-        self.assertEqual(response.data.get('reservations'), [])
+        self.assertEqual(response.data.get('evs'), [OrderedDict([
+                ('nk', self.ev.nk),
+                ('model', self.ev.model),
+                ('manufacturer', self.ev.manufacturer),
+                ('year', self.ev.year),
+                ('charger_type', self.ev.charger_type),
+                ('ev_owner', self.ev.ev_owner.pk),
+                ('calendar', self.ev.calendar.pk)
+            ])]
+        )
+
+        self.assertEqual(response.data.get('reservations'), [OrderedDict([
+                ('nk', self.reserved_event.nk),
+                ('event_cs', self.reserved_event.event_cs.nk),
+                ('ev', self.reserved_event.ev.nk),
+                ('ev_owner', self.reserved_event.ev_owner.pk)
+            ]),
+            OrderedDict([
+                ('nk', self.completed_event.nk),
+                ('event_cs', self.completed_event.event_cs.nk),
+                ('ev', self.completed_event.ev.nk),
+                ('ev_owner', self.completed_event.ev_owner.pk)
+            ])]
+        )
 
 
 class DriverVehicleTest(APITestCase):
@@ -131,7 +208,7 @@ class DriverVehicleTest(APITestCase):
             'ev_owner'      : self.user.pk,
         })
 
-        new_ev = ElectricVehicle.objects.all().latest('id')
+        new_ev = EV.objects.all().latest('id')
         calendar = Calendar.objects.all().latest('id')
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
@@ -155,14 +232,14 @@ class HostChargingStationTest(APITestCase):
     @classmethod
     def setUpTestData(cls):
         host = create_user(username='host')
-        cls.cs_t1 = ChargingStation.objects.create(
+        cls.cs_t1 = CS.objects.create(
             name    = 'Panthere 1',
             address = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada',
             lat     = 45.5070394,
             lng     = -73.5651293,
             cs_host = host
         )
-        cls.cs_t2 = ChargingStation.objects.create(
+        cls.cs_t2 = CS.objects.create(
             name    = 'Panthere 2',
             address = '1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada',
             lat     = 45.5070394,
@@ -195,7 +272,7 @@ class HostChargingStationTest(APITestCase):
             'cs_host'   : test_host.pk
         })
 
-        new_cs = ChargingStation.objects.all().latest('id')
+        new_cs = CS.objects.all().latest('id')
 
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.assertEqual(new_cs.name, response.data.get('name'))
