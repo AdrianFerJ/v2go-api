@@ -2,6 +2,7 @@ from django.db import models
 from rest_framework.serializers import ValidationError
 from main.models import ChargingStation
 from main.models import ElectricVehicle as EV
+from main.models import User
 from main import constants
 from main.helpers import create_hash
 from schedule.models import Calendar, Event
@@ -62,6 +63,7 @@ class EventEV(models.Model):
 	status		= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.RESERVED)
 	event_cs 	= models.ForeignKey(EventCS, on_delete=models.CASCADE)
 	ev 			= models.ForeignKey(EV, on_delete=models.CASCADE)
+	ev_owner	= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
 	def save(self, *args, **kwargs):
 
