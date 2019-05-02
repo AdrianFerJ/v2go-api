@@ -57,7 +57,7 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
     serializer_class = ElectricVehicleSerializer
 
 
-class ProfileView(views.APIView):
+class DriverProfileView(views.APIView):
     def get(self, request, format=None):
         user = request.user
         user_serializer = UserSerializer(user)

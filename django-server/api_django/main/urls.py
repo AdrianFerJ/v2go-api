@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from main.views import ChargingStationViewSet, ElectricVehicleViewSet, \
-                       SignUpView, LogInView, LogOutView, ProfileView
+                       SignUpView, LogInView, LogOutView, DriverProfileView
 from rest_framework.routers import DefaultRouter
 
 
@@ -17,5 +17,5 @@ urlpatterns = [
     path('sign-up', SignUpView.as_view(), name='sign_up'),
     path('login', LogInView.as_view(), name='log_in'),
     path('logout', LogOutView.as_view(), name='log_out'),
-    path('my-account', ProfileView.as_view(), name='my_account'),
+    path('my-account', DriverProfileView.as_view(), name='my_account'),
 ]
