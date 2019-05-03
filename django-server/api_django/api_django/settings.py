@@ -67,6 +67,7 @@ MIDDLEWARE = [
 # Enable CORS communication for Angular calls from these domains 
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
+    'localhost:8080'
     #TODO add Prod server domain
 )
 
