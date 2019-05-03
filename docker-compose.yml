@@ -8,23 +8,20 @@ services:
       - POSTGRES_USER=dev_user
       - POSTGRES_PASSWORD=SirGeorgeWilliams1515
       - POSTGRES_DB=pg_gis_db
-    ports:
-      - "5433:5432"
+  dj:
+    container_name: dj
+    build: django-server
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - data:/var/lib/postgresql/data
-  web:
-    container_name: web
-    build:
-      context: ./django-server
-    command: bash -c "python django-server/api_django/manage.py makemigrations && python django-server/api_django/manage.py migrate && python django-server/api_django/manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/code
+      - ./django-server/api_django:/code
     environment:
       - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
     ports:
       - "8888:8000"
     depends_on:
       - db
-
-volumes:
-  data:
+  ng:
+    container_name: ng
+    build: angular
+    ports: 
+      - "8080:80"
