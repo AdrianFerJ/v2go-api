@@ -157,7 +157,7 @@ class UserTest(APITestCase):
         """User attempts to view their account info"""
         self.client.login(username=self.user.username, password=PASSWORD)
 
-        response = self.client.get(reverse('main:my_account'))
+        response = self.client.get(reverse('main:my_account', kwargs={'user_id': self.user.id}))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
