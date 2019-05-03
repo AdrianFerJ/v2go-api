@@ -38,11 +38,11 @@ class AuthenticationTest(APITestCase):
             cs_host  = host
         )
 
-    def test_annon_user_can_not_access_finder_cs_near_poi_endpoint(self):
-        """ Attempt to access endpoints that require login as annon user (no-login) """
-        response = self.client.get(reverse('volt_finder:near-poi-list'),
-                                   data={'poi_location': poi_location})#, 'date_x':today}))
-        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+    # def test_annon_user_can_not_access_finder_cs_near_poi_endpoint(self):
+    #     """ Attempt to access endpoints that require login as annon user (no-login) """
+    #     response = self.client.get(reverse('volt_finder:near-poi-list'),
+    #                                data={'poi_location': poi_location})#, 'date_x':today}))
+    #     self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
 
 
 class VoltFinderViewTest(APITestCase):
@@ -151,6 +151,7 @@ class VoltFinderViewTest(APITestCase):
         self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
         self.assertAlmostEqual(act_cStation_nks, exp_cStation_nks)
         self.assertNotIn(other_cStation_nks[0], exp_cStation_nks)
+        print(f'### serialized_data: {serialized_data}')
         self.assertGreater(serialized_data[1]['duration_val'], serialized_data[0]['duration_val'])
 
     def test_get_top_cs_near_poi_status_available_today(self):
