@@ -1,7 +1,8 @@
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.response import Response
 from django.contrib.gis.geos import GEOSGeometry, fromstr
-from django.contrib.gis.measure import Distance 
+from django.contrib.gis.measure import D 
+from django.contrib.gis.db.models.functions import Distance 
 
 from volt_finder.serializers import GeoCStationSerializer
 from volt_finder import helpers_finder as hf
@@ -15,6 +16,7 @@ from volt_reservation.services import ReservationService
 
 import datetime as dt  
 from decimal import Decimal
+
 
 
 class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
@@ -35,9 +37,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
                 end_datetime = data.get('end_datetime')
 
                 events_cs = ReservationService.get_available_event_cs(start_datetime, end_datetime)
-
                 all_cs = [event.cs for event in events_cs]
-
                 cs_addresses = [cs_inst.address for cs_inst in all_cs]
                 
                 gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
@@ -45,19 +45,31 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
 
                 serializer = GeoCStationSerializer(gg_top_cs, many=True)
             else:
+                # OLD APPROACH
                 # all_cs = self.queryset
                 # cs_addresses = [cs_inst.address for cs_inst in all_cs]
                 # gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
                 # hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
 
+                #TODO Get coordinates from user provided address (using google.api)
+                #TODO Replace static lat,lng with actual user coordinates 
                 lat, lng = Decimal(45.5260525), Decimal(-73.5596788) 
-                dest = fromstr(f'POINT({lng} {lat})', srid=4326)
-                max_dist = 3000
-                # Get all CS within max_dist (in meters) of POI
-                cs_near = ChargingStation.objects.filter(geo_location__distance_lte = (
-                    dest, Distance(m= max_dist)))
+                poi_coords = fromstr(f'POINT({lng} {lat})', srid=4326)
 
-                serializer = ChargingStationSerializer(cs_near, many=True)
+                #TODO figure how to define max_dist in metters as opposed to degrees
+                max_dist = 0.05 
+                #max_dist = D(m=3000)
+                
+                # Get all CS within max_dist (in meters) of POI
+                # cs_near = ChargingStation.objects.filter(geo_location__distance_lte = (
+                #     dest, Distance(m= max_dist)))
+                
+                cs_near_poi = ChargingStation.objects.filter(
+                    geo_location__dwithin=(poi_coords, max_dist)).annotate(
+                        distance_to_poi = Distance("geo_location", poi_coords)
+                        ).order_by("distance_to_poi") 
+
+                serializer = ChargingStationSerializer(cs_near_poi, many=True)
                 # serializer = GeoCStationSerializer(gg_top_cs, many=True)
                 print("$$$ v_finder.serializer.data: ", serializer.data)
             return Response(serializer.data)
