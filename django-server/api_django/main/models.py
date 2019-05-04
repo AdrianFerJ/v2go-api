@@ -48,7 +48,7 @@ class ChargingStation(models.Model):
     external_id  = models.CharField(max_length=100, blank=True)
 
     cs_host      = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    calendar     = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
+    calendar     = models.OneToOneField(Calendar, null=True, on_delete=models.CASCADE)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
     tarif_text   = models.CharField(max_length=100, blank=True)

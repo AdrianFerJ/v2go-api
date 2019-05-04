@@ -25,8 +25,6 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
     :type destinations: a single location, as a string
     """
     # permission_classes = (permissions.IsAuthenticated,)
-    #TODO: apply some filtering to query (or ger_queryset()) to limit number of CS passed to google
-    queryset = ChargingStation.objects.all()
 
     def list(self, request, *args, **kwargs):
         data = request.GET
@@ -45,33 +43,28 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
 
                 serializer = GeoCStationSerializer(gg_top_cs, many=True)
             else:
-                # OLD APPROACH
-                # all_cs = self.queryset
-                # cs_addresses = [cs_inst.address for cs_inst in all_cs]
-                # gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
-                # hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
-
                 #TODO Get coordinates from user provided address (using google.api)
                 #TODO Replace static lat,lng with actual user coordinates 
                 lat, lng = Decimal(45.5260525), Decimal(-73.5596788) 
                 poi_coords = fromstr(f'POINT({lng} {lat})', srid=4326)
 
                 #TODO figure how to define max_dist in metters as opposed to degrees
-                max_dist = 0.05 
+                max_dist = 0.05  # about 3km
                 #max_dist = D(m=3000)
                 
-                # Get all CS within max_dist (in meters) of POI
-                # cs_near = ChargingStation.objects.filter(geo_location__distance_lte = (
-                #     dest, Distance(m= max_dist)))
-                
+                # Get all CS within max_dist (in meters) of POI, and annotate distance to poi               
                 cs_near_poi = ChargingStation.objects.filter(
                     geo_location__dwithin=(poi_coords, max_dist)).annotate(
                         distance_to_poi = Distance("geo_location", poi_coords)
-                        ).order_by("distance_to_poi") 
+                        ).order_by("distance_to_poi")
 
-                serializer = ChargingStationSerializer(cs_near_poi, many=True)
-                # serializer = GeoCStationSerializer(gg_top_cs, many=True)
-                print("$$$ v_finder.serializer.data: ", serializer.data)
+                if len(cs_near_poi) > 10:
+                    serializer = ChargingStationSerializer(cs_near_poi[0:10], many=True)
+                    return Response(serializer.data)
+                else:
+                    serializer = ChargingStationSerializer(cs_near_poi, many=True)
+                    return Response(serializer.data)
+                
             return Response(serializer.data)
         else:
             return Response(None, status.HTTP_422_UNPROCESSABLE_ENTITY)
