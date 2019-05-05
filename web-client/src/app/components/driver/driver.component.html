@@ -1,6 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand logo" [routerLink]="['/']">Driver</a>
-</nav>
-<div class="container-fluid">
-  <router-outlet></router-outlet>
+<h2>My Tasks</h2>
+
+<div>
+  <li *ngIf="driver$ | async as driver; else loading">
+    <ul>
+      <li>User
+        <ul>
+          <li>
+            {{ driver.user.username }}
+            {{ driver.user.first_name }}
+            {{ driver.user.last_name }}
+          </li>
+        </ul>
+      </li>
+      <li>EV
+        <ul *ngFor="let ev of driver.evs">
+          <li>Model: {{ ev.model }}</li>
+          <li>Manufacturer: {{ ev.manufacturer }}</li>
+          <li>Year: {{ ev.year }}</li>
+          <li>Charger Type: {{ ev.charger_type }}</li>
+        </ul>
+      </li>
+      <li>Reservations:
+        <ul *ngFor="let reservation of driver.reservations">
+          <li>Status: {{ reservation.event_cs.status }}</li>
+          <li>Charging Station: {{ reservation.event_cs.cs }}</li>
+          <li>Start Time: {{ reservation.event_cs.startDateTime }}</li>
+          <li>End Time: {{ reservation.event_cs.endDateTime }}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </div>
+
+<ng-template #loading>
+  Loading stuff...
+</ng-template>
