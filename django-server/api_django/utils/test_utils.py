@@ -26,7 +26,7 @@ def filter_by_cs_event_nk(cs_event, query):
 def cs_event_to_ordered_dict(cs_event):
     return OrderedDict([
         ('id', cs_event.id),
-        ('cs', cs_event.cs.nk),
+        ('cs', cs_event.cs.name),
         ('created', cs_event.created.strftime('%Y-%m-%d %H:%M')),
         ('updated', cs_event.updated.strftime('%Y-%m-%d %H:%M')),
         ('startDateTime', cs_event.startDateTime.strftime('%Y-%m-%d %H:%M')),
@@ -44,7 +44,7 @@ def ev_event_to_ordered_dict(ev_events):
         ev_events_serialized.append(OrderedDict([
             ('nk', ev_event.nk),
             ('event_cs', cs_event_to_ordered_dict(ev_event.event_cs)),
-            ('ev', ev_event.ev.nk),
+            ('ev', ev_event.ev.model),
             ('ev_owner', ev_event.ev_owner.pk)
         ]))
 

@@ -134,8 +134,6 @@ class UserTest(APITestCase):
 
         response = self.client.get(reverse('main:my_account', kwargs={'user_id': self.user.id}))
 
-        print(reverse('main:my_account', kwargs={'user_id': self.user.id}))
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         self.assertEqual(response.data.get('user'), {

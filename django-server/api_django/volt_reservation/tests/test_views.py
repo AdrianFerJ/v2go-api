@@ -156,7 +156,7 @@ class TestEventEV(APITestCase):
         self.cs_event_1.refresh_from_db()
         self.assertEqual(constants.RESERVED, self.cs_event_1.status)
         self.assertEqual(response.data['event_cs'], cs_event_to_ordered_dict(self.cs_event_1))
-        self.assertEqual(response.data['ev'], self.ev.nk)
+        self.assertEqual(response.data['ev'], self.ev.model)
 
     def test_driver_cannot_reserve_reserved_charging_station(self):
         response = self.client.post(reverse('volt_reservation:reservations-list'), data={
@@ -172,7 +172,7 @@ class TestEventEV(APITestCase):
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data[0]['event_cs'], cs_event_to_ordered_dict(self.cs_event_3))
-        self.assertEqual(response.data[0]['ev'], self.ev.nk)
+        self.assertEqual(response.data[0]['ev'], self.ev.model)
 
     def test_driver_can_view_completed_event_detail(self):
         response = self.client.get(reverse('volt_reservation:reservations-detail',
@@ -180,7 +180,7 @@ class TestEventEV(APITestCase):
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['event_cs'], cs_event_to_ordered_dict(self.cs_event_3))
-        self.assertEqual(response.data['ev'], self.ev.nk)
+        self.assertEqual(response.data['ev'], self.ev.model)
 
     def test_driver_can_cancel_reservation(self):
         reserved = self.client.post(reverse('volt_reservation:reservations-list'), data={
@@ -191,7 +191,7 @@ class TestEventEV(APITestCase):
         self.cs_event_1.refresh_from_db()
 
         self.assertEqual(reserved.data['event_cs'], cs_event_to_ordered_dict(self.cs_event_1))
-        self.assertEqual(reserved.data['ev'], self.ev.nk)
+        self.assertEqual(reserved.data['ev'], self.ev.model)
         self.assertEqual(self.cs_event_1.status, constants.RESERVED)
         self.assertTrue(self.cs_event_1.ev_event_id != -1)
 
