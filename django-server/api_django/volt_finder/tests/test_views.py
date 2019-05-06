@@ -6,6 +6,7 @@ from rest_framework.test import APIClient, APITestCase
 from volt_finder.serializers import GeoCStationSerializer
 from main.models import ChargingStation
 from main.serializers import ChargingStationSerializer
+from main import constants
 from volt_reservation.models import EventEV, EventCS
 
 from django.utils import timezone 
@@ -15,7 +16,7 @@ import datetime as dt
 
 PASSWORD = 'pAssw0rd!'
 # POI_LOCATION = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
-POI_LOCATION = {"lat": 45.5260525, "lng": -73.5596788}
+# POI_LOCATION = {"lat": 45.5260525, "lng": -73.5596788}
 POI_LAT, POI_LNG = 45.5260525, -73.5596788
 
 today = timezone.now().date()
@@ -145,105 +146,78 @@ class VoltFinderViewTest(APITestCase):
             
             ]
         
-        # cs_t1, cs_t2 = cls.test_top_cs[0], cls.test_top_cs[1]
-        # cs_o1, cs_o2 = cls.test_other_cs[0], cls.test_other_cs[1]
+        cls.cs_t1, cls.cs_t2 = cls.test_top_cs[0], cls.test_top_cs[1]
+        cls.cs_o1, cls.cs_o2 = cls.test_other_cs[0], cls.test_other_cs[1]
 
-        # t_start = timezone.now()
-        # t_end   = t_start + dt.timedelta(minutes=30) 
+        t_start = timezone.now()
+        t_end   = t_start + dt.timedelta(minutes=30) 
+
+        t_other_start = t_start + dt.timedelta(days=3)
+        t_other_end   = t_end + dt.timedelta(days=3)
+        print("%%%%%%%%")
+        print(f"# t_start-{t_start}, t_end{t_end} ")
+        print(f"# t_other_start-{t_other_start}, t_other_end-{t_other_end} ")
         
-        # event_1 = EventCS.objects.create( 
-        #             startDateTime = t_start,
-        #             endDateTime   = t_end,
-        #             cs            = cs_t1
-        #         )
-        # event_2 = EventCS.objects.create( 
-        #             startDateTime = t_start,
-        #             endDateTime   = t_end,
-        #             cs            = cs_o1
-        #         )
+        # Available events withing dateTime
+        event_1 = EventCS.objects.create( 
+                    startDateTime = t_start,
+                    endDateTime   = t_end,
+                    cs            = cls.cs_t1)
+        event_2 = EventCS.objects.create( 
+                    startDateTime = t_start,
+                    endDateTime   = t_end,
+                    cs            = cls.cs_t2)
+        # Available events OUSTIDE dateTime
+        event_3 = EventCS.objects.create( 
+                    startDateTime = t_other_start,
+                    endDateTime   = t_other_end,
+                    cs            = cls.cs_o1)
+        # Not AVAILABLE event within dateTime
+        event_4 = EventCS.objects.create( 
+                    startDateTime = t_start,
+                    endDateTime   = t_end,
+                    status        = constants.RESERVED,
+                    cs            = cls.cs_o2)
 
     def test_get_top_10_cs_near_poi_status_any(self):
         response = self.client.get(reverse('volt_finder:near-poi-list'),
-                                   data={'poi_location': POI_LOCATION,
-                                         'poi_lat': POI_LAT,
+                                   data={'poi_lat': POI_LAT,
                                          'poi_lng': POI_LNG})
 
-        self.assertEqual(status.HTTP_200_OK, response.status_code)
-        
-        #TODO Use serializer to validate response.data (and use validate_data instead)
-        # serializer = ChargingStationSerializer(data=response.data,  many=True) 
-        # self.assertTrue(serializer.is_valid())
-        # serialized_data = serializer.validated_data 
-        # print("# serializer data: ", serializer )
-        # print("# serializer is valid: ", serializer.is_valid())
-        # print("# validation error: ", serializer.errors)
-        # print("# VALIDATED serializer data: ", serializer.validated_data )
-        # print("# 1st ITEM: ", serializer.validated_data[0].items())
-        # print("# 1st ITEM stuff: ", serializer.validated_data[0].items())
-        
+        self.assertEqual(status.HTTP_200_OK, response.status_code)                
         
         rdata = response.data
-        # print("# Response data: ", rdata )
         exp_cs_nks   = [cs.nk for cs in self.test_top_cs]
         other_cs_nks = [cs.nk for cs in self.test_other_cs]
-        
-        all_cs = ChargingStation.objects.all()
-        print("# ALL CS: ", len(all_cs))
-        print("# OThER CS: ", len(self.test_other_cs))
-        print("# TOP CS: ", len(self.test_top_cs))
-
-        for cs in other_cs_nks: print(cs)
-            #f"{cs.id} / {cs.distance_to_poi} / {cs.address}")
-
         act_cs_nks   = [cs.get('nk') for cs in rdata]
-        print("# ID + Distance: ")
-        for cs in rdata: print(f"{cs.get('id')} / {cs.get('distance_to_poi')} / {cs.get('address')}")
-        # self.assertCountEqual(expected_cs_nk, response_cs_nks)
-        # self.assertAlmostEqual(response_cs_nks, expected_cs_nk)
+    
         self.assertNotIn(other_cs_nks[0], act_cs_nks)
-
-        self.assertEqual(10, len(rdata))
+        self.assertEqual(len(exp_cs_nks), len(act_cs_nks))
         self.assertGreaterEqual(rdata[1].get('distance_to_poi'), rdata[0]['distance_to_poi'])
         self.assertGreaterEqual(rdata[2].get('distance_to_poi'), rdata[1]['distance_to_poi'])
         self.assertGreater(rdata[3].get('distance_to_poi'), rdata[0]['distance_to_poi'])
 
 
-
-    # def test_get_top_10_cs_near_poi_status_any(self):
-    #     response = self.client.get(reverse('volt_finder:near-poi-list'),
-    #                                data={'poi_location': POI_LOCATION})
-
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     serializer = GeoCStationSerializer(data=response.data,  many=True)  
-
-    #     self.assertTrue(serializer.is_valid())
-    #     serialized_data = serializer.validated_data
+    def test_get_top_cs_near_poi_status_available_today(self):
+        start_datetime = timezone.now().date()
+        end_datetime = start_datetime + dt.timedelta(days=1)
+        response = self.client.get(reverse('volt_finder:near-poi-list'),
+                                   data={'poi_lat': POI_LAT,
+                                         'poi_lng': POI_LNG,
+                                         'start_datetime': start_datetime,
+                                         'end_datetime': end_datetime})
         
-    #     exp_cStation_nks   = [cs.nk for cs in self.test_top_cs]
-    #     other_cStation_nks = [cs.nk for cs in self.test_other_cs]
-    #     act_cStation_nks   = [cs['nk'] for cs in serialized_data]
-
-    #     self.assertCountEqual(exp_cStation_nks, act_cStation_nks)
-    #     self.assertAlmostEqual(act_cStation_nks, exp_cStation_nks)
-    #     self.assertNotIn(other_cStation_nks[0], exp_cStation_nks)
-    #     self.assertGreater(serialized_data[1]['duration_val'], serialized_data[0]['duration_val'])
-
-
-    # def test_get_top_cs_near_poi_status_available_today(self):
-    #     start_datetime = timezone.now().date()
-    #     end_datetime = start_datetime + dt.timedelta(days=1)
-    #     response = self.client.get(reverse('volt_finder:near-poi-list'),
-    #                                data={'poi_location': POI_LOCATION,
-    #                                      'start_datetime': start_datetime,
-    #                                      'end_datetime': end_datetime})
-
-    #     self.assertEqual(status.HTTP_200_OK, response.status_code)
-    #     serializer = GeoCStationSerializer(data=response.data,  many=True)  
-
-    #     self.assertTrue(serializer.is_valid())
-    #     serialized_data = serializer.validated_data
-    #     exp_cs_nks = [self.test_top_cs[0].nk, self.test_other_cs[0].nk]
-    #     act_cs_nks = [cs['nk'] for cs in serialized_data]
+        self.assertEqual(status.HTTP_200_OK, response.status_code)                
+        
+        rdata = response.data
+        exp_cs_nks = [self.cs_t1.nk, self.cs_t2.nk]
+        other_cs_nks = [self.cs_o1.nk, self.cs_o2.nk]
+        act_cs_nks = [cs.get('nk') for cs in rdata]
+        
+        self.assertAlmostEqual(act_cs_nks, exp_cs_nks)
+        self.assertIn(exp_cs_nks[1], act_cs_nks)
+        self.assertNotIn(other_cs_nks[0], act_cs_nks)
+        self.assertEqual(len(exp_cs_nks), len(act_cs_nks))    
 
 
     def test_resp_422_to_incomplete_request(self):
