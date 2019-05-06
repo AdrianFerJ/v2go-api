@@ -11,6 +11,7 @@ from volt_finder import mygooglemaps as gg
 
 from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
+from main import constants
 
 from volt_reservation.services import ReservationService
 
@@ -28,30 +29,41 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
         data = request.GET
+        #TODO figure how to define max_dist in metters as opposed to degrees
+        #max_dist = D(m=3000)
+        max_dist = 0.05  # about 3km
+        
+        if 'poi_lat' in data and 'poi_lng' in data:
+            poi_lat = Decimal(data.get('poi_lat'))
+            poi_lng = Decimal(data.get('poi_lng'))
+            poi_coords = fromstr(f'POINT({poi_lng} {poi_lat})', srid=4326)
 
-        if 'poi_location' in data:
             if 'start_datetime' in data and 'end_datetime' in data:
+                # Get all CS with available slots between start and end time
                 start_datetime = data.get('start_datetime')
                 end_datetime = data.get('end_datetime')
 
-                events_cs = ReservationService.get_available_event_cs(start_datetime, end_datetime)
-                all_cs = [event.cs for event in events_cs]
-                cs_addresses = [cs_inst.address for cs_inst in all_cs]
-                
-                gg_top_cs = gg.getNearestCS(data.get('poi_location'), cs_addresses)        
-                hf.match_cs_nk_based_on_address(gg_top_cs, all_cs)
+                #TODO merge these two queries bellow into 1? although, 
+                # .. I think it's only 1 db query. the second one is by python (on ram)
+                # Get CS available                
+                cs_avail = ChargingStation.objects.filter(
+                    eventcs__status=constants.AVAILABLE,
+                    eventcs__startDateTime__range=(start_datetime, end_datetime)
+                    )
 
-                serializer = GeoCStationSerializer(gg_top_cs, many=True)
-            else:
-                #TODO Get coordinates from user provided address (using google.api)
-                poi_lat = Decimal(data.get('poi_lat'))
-                poi_lng = Decimal(data.get('poi_lng'))
-                poi_coords = fromstr(f'POINT({poi_lng} {poi_lat})', srid=4326)
+                # Filter CS within max_dist to POI
+                cs_near_poi = cs_avail.filter(
+                    geo_location__dwithin=(poi_coords, max_dist)).annotate(
+                        distance_to_poi = Distance("geo_location", poi_coords)
+                        ).order_by("distance_to_poi")
 
-                #TODO figure how to define max_dist in metters as opposed to degrees
-                max_dist = 0.05  # about 3km
-                #max_dist = D(m=3000)
-                
+                if len(cs_near_poi) > 10:
+                    serializer = ChargingStationSerializer(cs_near_poi[0:10], many=True)
+                    return Response(serializer.data)
+                else:
+                    serializer = ChargingStationSerializer(cs_near_poi, many=True)
+                    return Response(serializer.data)
+            else:               
                 # Get all CS within max_dist (in meters) of POI, and annotate distance to poi               
                 cs_near_poi = ChargingStation.objects.filter(
                     geo_location__dwithin=(poi_coords, max_dist)).annotate(
