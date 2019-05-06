@@ -44,9 +44,9 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
                 serializer = GeoCStationSerializer(gg_top_cs, many=True)
             else:
                 #TODO Get coordinates from user provided address (using google.api)
-                #TODO Replace static lat,lng with actual user coordinates 
-                lat, lng = Decimal(45.5260525), Decimal(-73.5596788) 
-                poi_coords = fromstr(f'POINT({lng} {lat})', srid=4326)
+                poi_lat = Decimal(data.get('poi_lat'))
+                poi_lng = Decimal(data.get('poi_lng'))
+                poi_coords = fromstr(f'POINT({poi_lng} {poi_lat})', srid=4326)
 
                 #TODO figure how to define max_dist in metters as opposed to degrees
                 max_dist = 0.05  # about 3km

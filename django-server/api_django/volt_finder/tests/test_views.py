@@ -14,7 +14,10 @@ import datetime as dt
 
 
 PASSWORD = 'pAssw0rd!'
-POI_LOCATION = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
+# POI_LOCATION = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
+POI_LOCATION = {"lat": 45.5260525, "lng": -73.5596788}
+POI_LAT, POI_LNG = 45.5260525, -73.5596788
+
 today = timezone.now().date()
 """ HELPER FUNC """
 def create_user(username='user@example.com', password=PASSWORD):
@@ -161,7 +164,9 @@ class VoltFinderViewTest(APITestCase):
 
     def test_get_top_10_cs_near_poi_status_any(self):
         response = self.client.get(reverse('volt_finder:near-poi-list'),
-                                   data={'poi_location': POI_LOCATION})
+                                   data={'poi_location': POI_LOCATION,
+                                         'poi_lat': POI_LAT,
+                                         'poi_lng': POI_LNG})
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         
