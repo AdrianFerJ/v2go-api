@@ -72,7 +72,7 @@ class ChargingStation(models.Model):
     updated      = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s %s' % (self.nk, self.address)
+        return f"#{self.id}, {self.address}"
 
     def get_absolute_url(self):
         return reverse('main:stations-detail', kwargs={'station_nk': self.nk})
