@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
-from volt_finder.serializers import GeoCStationSerializer
+from volt_finder.serializers import CSwithDistanceSerializer
 from main.models import ChargingStation
 from main.serializers import ChargingStationSerializer
 from main import constants
@@ -154,9 +154,6 @@ class VoltFinderViewTest(APITestCase):
 
         t_other_start = t_start + dt.timedelta(days=3)
         t_other_end   = t_end + dt.timedelta(days=3)
-        print("%%%%%%%%")
-        print(f"# t_start-{t_start}, t_end{t_end} ")
-        print(f"# t_other_start-{t_other_start}, t_other_end-{t_other_end} ")
         
         # Available events withing dateTime
         event_1 = EventCS.objects.create( 
@@ -192,11 +189,11 @@ class VoltFinderViewTest(APITestCase):
         act_cs_nks   = [cs.get('nk') for cs in rdata]
     
         self.assertNotIn(other_cs_nks[0], act_cs_nks)
-        self.assertEqual(len(exp_cs_nks), len(act_cs_nks))
+        self.assertEqual(len(exp_cs_nks), len(act_cs_nks))      
+
         self.assertGreaterEqual(rdata[1].get('distance_to_poi'), rdata[0]['distance_to_poi'])
         self.assertGreaterEqual(rdata[2].get('distance_to_poi'), rdata[1]['distance_to_poi'])
         self.assertGreater(rdata[3].get('distance_to_poi'), rdata[0]['distance_to_poi'])
-
 
     def test_get_top_cs_near_poi_status_available_today(self):
         start_datetime = timezone.now().date()

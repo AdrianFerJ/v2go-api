@@ -33,11 +33,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ChargingStationSerializer(serializers.ModelSerializer):
-    distance_to_poi = serializers.SerializerMethodField()  #.FloatField()
-
-    def get_distance_to_poi(self, obj):
-        return obj.distance_to_poi.m
-
     class Meta:
         model = ChargingStation
         fields = '__all__'

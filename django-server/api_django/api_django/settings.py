@@ -173,4 +173,4 @@ REST_FRAMEWORK = {
 
 # There is a secrete API key used in development and staging. 
 # Each developer should get it's own key (sr: https://developers.google.com/maps/documentation/javascript/get-api-key)
-GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')
+# GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')

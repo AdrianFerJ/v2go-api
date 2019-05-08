@@ -4,10 +4,11 @@ from django.contrib.gis.geos import GEOSGeometry, fromstr
 from django.contrib.gis.measure import D 
 from django.contrib.gis.db.models.functions import Distance 
 
-from volt_finder.serializers import GeoCStationSerializer
+from volt_finder.serializers import CSwithDistanceSerializer
 from volt_finder import helpers_finder as hf
 from volt_reservation.models import EventCS
 from volt_finder import mygooglemaps as gg
+
 
 from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
@@ -58,7 +59,9 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
                         ).order_by("distance_to_poi")
 
                 if len(cs_near_poi) > 10:
-                    serializer = ChargingStationSerializer(cs_near_poi[0:10], many=True)
+                    # serializer = ChargingStationSerializer(cs_near_poi[0:10], many=True)
+                    serializer = CSwithDistanceSerializer(cs_near_poi[0:10], many=True)
+                    
                     return Response(serializer.data)
                 else:
                     serializer = ChargingStationSerializer(cs_near_poi, many=True)
@@ -71,10 +74,10 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
                         ).order_by("distance_to_poi")
 
                 if len(cs_near_poi) > 10:
-                    serializer = ChargingStationSerializer(cs_near_poi[0:10], many=True)
+                    serializer = CSwithDistanceSerializer(cs_near_poi[0:10], many=True)
                     return Response(serializer.data)
                 else:
-                    serializer = ChargingStationSerializer(cs_near_poi, many=True)
+                    serializer = CSwithDistanceSerializer(cs_near_poi, many=True)
                     return Response(serializer.data)
                 
             return Response(serializer.data)
