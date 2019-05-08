@@ -1,6 +1,6 @@
 import { Component, OnInit }    from '@angular/core';
 import { ActivatedRoute }       from '@angular/router';
-import { SearchStationsService} from '../../services/search-stations.service'
+import { SearchStationsService} from '../../services/api.service'
 import { STATIONS}              from '../../data_classes/mock_cs'
 import { ChargingStation }      from '../../data_classes/chargingStation';
 
