@@ -25,7 +25,6 @@ export class SearchStationsService {
   * @param advance param ...
   */
   findStations(): Observable<ChargingStation[]> {
-
     // Create fake parameters
     let testAddress = '1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada';
     let params = new HttpParams().set("poi_location", testAddress);
@@ -36,11 +35,6 @@ export class SearchStationsService {
         // catchError(this.handleError<ChargingStation[]>('findStationss', []))
     );
   }
-  // OLD APPROACH
-  // findStations(){
-  //   let resp = this.http.get(`${this.API_URL}/near-poi`);
-  //   console.log('# RESP: ', resp)
-  //   return resp
 
 
   /**
@@ -51,11 +45,8 @@ export class SearchStationsService {
   */
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
-      console.error(`Error: ${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
+      console.error(`Error: ${operation} failed: ${error.message}`); 
       return of(result as T);
     };
   }
