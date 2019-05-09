@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DriverInfo } from '../data_classes/driver_profile';
-import { User } from './auth.service';
+import { User } from '../data_classes/user';
 
 @Injectable({
   providedIn: 'root'

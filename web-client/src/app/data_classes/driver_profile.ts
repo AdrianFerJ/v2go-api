@@ -1,4 +1,4 @@
-import { User } from '../services/auth.service';
+import { User } from '../data_classes/user';
 import { Vehicle } from './vehicle';
 import { Reservation } from './reservation';
 
