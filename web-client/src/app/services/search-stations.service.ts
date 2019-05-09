@@ -25,7 +25,6 @@ export class SearchStationsService {
   * @param advance param ...
   */
   findStations(): Observable<ChargingStation[]> {
-    console.log('#findStations'.repeat(5), "Inside findStations()....")
 
     // Create fake parameters
     let testAddress = '1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada';
