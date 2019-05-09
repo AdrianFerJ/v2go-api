@@ -4,7 +4,7 @@ import { Injectable }               from '@angular/core';
 import { Observable, of }           from 'rxjs';
 import { catchError, map, tap }     from 'rxjs/operators';
 
-import { User }                     from './auth.service';
+import { User }                     from '../data_classes/user';
 import { ChargingStation }          from '../data_classes/chargingStation';
 import { STATIONS}                  from '../data_classes/mock_cs'
 
@@ -15,7 +15,7 @@ import { STATIONS}                  from '../data_classes/mock_cs'
 export class SearchStationsService {
   private API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/volt_finder/near-poi'
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
   ) { }
 
   /**
@@ -54,7 +54,7 @@ export class SearchStationsService {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
-      console.error(`Error: ${operation} failed: ${error.message}`); 
+      console.error(`Error: ${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

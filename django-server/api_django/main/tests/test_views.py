@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
-from django.contrib.auth.models import Group
 
 from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation as CS, ElectricVehicle as EV
@@ -10,35 +9,11 @@ from volt_reservation.models import EventEV, EventCS
 from schedule.models import Calendar
 from main import constants
 from datetime import datetime as dt
-from collections import OrderedDict
-
-
-USERNAME = 'user@example.com'
-PASSWORD = 'letmein!'
-U_DRIVER = 'DRIVER'
-U_OWNER = 'OWNER'
-FIRST_NAME = 'Test_name'
-LAST_NAME = 'Test_last'
-
-
-def create_user(username=USERNAME, password=PASSWORD,
-                group=U_DRIVER, first_name=FIRST_NAME,
-                last_name=LAST_NAME):
-    user = get_user_model().objects.create_user(
-        username    = username,
-        first_name  = first_name,
-        last_name   = last_name,
-        password    = password
-    )
-
-    Group.objects.get_or_create(name=username)
-
-    return user
+from utils.test_utils import filter_by_cs_event_nk, cs_event_to_ordered_dict, create_user, evs_to_ordered_dict, ev_event_to_ordered_dict
+from django.contrib.auth.models import Group
 
 
 """ TESTS """
-
-
 class AuthenticationTest(APITestCase):
 
     def setUp(self):
@@ -47,11 +22,11 @@ class AuthenticationTest(APITestCase):
     def test_user_can_sign_up(self):
         # photo_file = create_photo_file() #TODO: enable user photo
         response = self.client.post(reverse('main:sign_up'), data={
-            'username'  : USERNAME,
+            'username'  : constants.USERNAME,
             'first_name': 'Test_name',
             'last_name' : 'Test_last',
-            'password1' : PASSWORD,
-            'password2' : PASSWORD,
+            'password1' : constants.PASSWORD,
+            'password2' : constants.PASSWORD,
             'group'     : 'driver',
             # 'photo': photo_file,
         })
@@ -68,14 +43,14 @@ class AuthenticationTest(APITestCase):
         user = create_user()
         response = self.client.post(reverse('main:log_in'), data={
             'username': user.username,
-            'password': PASSWORD,
+            'password': constants.PASSWORD,
         })
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data['username'], user.username)
 
     def test_user_can_log_out(self):
         user = create_user()
-        self.client.login(username=user.username, password=PASSWORD)
+        self.client.login(username=user.username, password=constants.PASSWORD)
         response = self.client.post(reverse('main:log_out'))
         self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
 
@@ -102,8 +77,8 @@ class UserTest(APITestCase):
     def setUpTestData(cls):
         cls.cs_host = create_user()
         cls.user = create_user(username='driver')
-        Group.objects.get_or_create(name=U_DRIVER)
-        Group.objects.get_or_create(name=U_OWNER)
+        Group.objects.get_or_create(name=constants.U_DRIVER)
+        Group.objects.get_or_create(name=constants.U_OWNER)
 
         cls.cs_t1 = CS.objects.create(
             name     = 'Panthere 1',
@@ -155,9 +130,9 @@ class UserTest(APITestCase):
 
     def test_user_view_my_account(self):
         """User attempts to view their account info"""
-        self.client.login(username=self.user.username, password=PASSWORD)
+        self.client.login(username=self.user.username, password=constants.PASSWORD)
 
-        response = self.client.get(reverse('main:my_account'))
+        response = self.client.get(reverse('main:my_account', kwargs={'user_id': self.user.id}))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -168,37 +143,15 @@ class UserTest(APITestCase):
             'last_name' : self.user.last_name,
         })
 
-        self.assertEqual(response.data.get('evs'), [OrderedDict([
-                ('nk', self.ev.nk),
-                ('model', self.ev.model),
-                ('manufacturer', self.ev.manufacturer),
-                ('year', self.ev.year),
-                ('charger_type', self.ev.charger_type),
-                ('ev_owner', self.ev.ev_owner.pk),
-                ('calendar', self.ev.calendar.pk)
-            ])]
-        )
-
-        self.assertEqual(response.data.get('reservations'), [OrderedDict([
-                ('nk', self.reserved_event.nk),
-                ('event_cs', self.reserved_event.event_cs.nk),
-                ('ev', self.reserved_event.ev.nk),
-                ('ev_owner', self.reserved_event.ev_owner.pk)
-            ]),
-            OrderedDict([
-                ('nk', self.completed_event.nk),
-                ('event_cs', self.completed_event.event_cs.nk),
-                ('ev', self.completed_event.ev.nk),
-                ('ev_owner', self.completed_event.ev_owner.pk)
-            ])]
-        )
+        self.assertEqual(response.data.get('evs'), evs_to_ordered_dict([self.ev]))
+        self.assertEqual(response.data.get('reservations'), ev_event_to_ordered_dict([self.reserved_event, self.completed_event]))
 
 
 class DriverVehicleTest(APITestCase):
     def setUp(self):
         self.user = create_user()
         self.client = APIClient()
-        self.client.login(username=self.user.username, password=PASSWORD)
+        self.client.login(username=self.user.username, password=constants.PASSWORD)
 
     def test_driver_can_create_vehicle(self):
         response = self.client.post(reverse('main:vehicles-list'), data={
@@ -227,7 +180,7 @@ class HostChargingStationTest(APITestCase):
     def setUp(self):
         user = create_user()  # group=U_OWNER)
         self.client = APIClient()
-        self.client.login(username=user.username, password=PASSWORD)
+        self.client.login(username=user.username, password=constants.PASSWORD)
 
     @classmethod
     def setUpTestData(cls):

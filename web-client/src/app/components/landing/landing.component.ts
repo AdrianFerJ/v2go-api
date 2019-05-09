@@ -1,5 +1,6 @@
 import { Component, OnInit }    from '@angular/core';
-import { AuthService, User }    from '../../services/auth.service';
+import { AuthService }    from '../../services/auth.service';
+import { User } from '../../data_classes/user';
 
 @Component({
   selector: 'app-landing',

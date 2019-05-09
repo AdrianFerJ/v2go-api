@@ -16,9 +16,9 @@ services:
     container_name: web
     build:
       context: ./django-server
-    command: bash -c "python django-server/api_django/manage.py makemigrations && python django-server/api_django/manage.py migrate && python django-server/api_django/manage.py runserver 0.0.0.0:8000"
+    command: python api_django/manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - ./django-server:/code
     environment:
       - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
     ports:

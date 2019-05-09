@@ -17,5 +17,5 @@ urlpatterns = [
     path('sign-up', SignUpView.as_view(), name='sign_up'),
     path('login', LogInView.as_view(), name='log_in'),
     path('logout', LogOutView.as_view(), name='log_out'),
-    path('my-account', DriverProfileView.as_view(), name='my_account'),
+    path('my-account/<user_id>', DriverProfileView.as_view(), name='my_account'),
 ]

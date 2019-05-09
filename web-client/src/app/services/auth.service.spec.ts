@@ -3,8 +3,9 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService, User } from './auth.service';
+import { AuthService } from './auth.service';
 import { UserFactory } from '../testing/factories';
+import { User } from '../data_classes/user';
 
 
 // describe('AuthService', () => {
@@ -12,11 +13,11 @@ import { UserFactory } from '../testing/factories';
 
 //   beforeEach(() => {
 //     TestBed.configureTestingModule({
-      
+
 //       imports: [ HttpClientTestingModule ],
-      
+
 //       declarations: [],
-      
+
 //       providers: [ AuthService ]
 //     });
 //     authService = TestBed.get(AuthService);
@@ -47,7 +48,7 @@ describe('Authentication using a service', () => {
   it('should allow a user to sign up for a new account', () => {
     // Create test user
     const userData = UserFactory.create();
-    
+
     // Test sign-up
     authService.signUp(
       userData.username,
@@ -67,7 +68,7 @@ describe('Authentication using a service', () => {
     const userData = UserFactory.create();
     // A successful login should write data to local storage.
     localStorage.clear();
-    // Create observable with logIn() and then subscribe to it 
+    // Create observable with logIn() and then subscribe to it
     // *Subscribing to observable make the call to the API
     authService.logIn(
       userData.username, 'letmein!'
@@ -89,7 +90,7 @@ describe('Authentication using a service', () => {
     authService.logOut().subscribe(user => {
       expect(user).toEqual(userData);
     });
-    const request = httpMock.expectOne('http://localhost:8000/api/v1.0-pre-alpha/logout'); 
+    const request = httpMock.expectOne('http://localhost:8000/api/v1.0-pre-alpha/logout');
     request.flush(userData);
     // Confirm that the local storage data was deleted.
     expect(localStorage.getItem('v2go.user')).toBeNull();

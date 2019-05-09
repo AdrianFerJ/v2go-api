@@ -23,3 +23,10 @@ STATUS_CHOICES  = (
                    (CANCELED, 'Canceled'),
                    (COMPLETED, 'Completed')
                   )
+
+USERNAME = 'user@example.com'
+PASSWORD = 'letmein!'
+U_DRIVER = 'DRIVER'
+U_OWNER = 'OWNER'
+FIRST_NAME = 'Test_name'
+LAST_NAME = 'Test_last'

@@ -1,6 +1,6 @@
 import * as faker               from 'faker';
 
-import { User }                 from '../services/auth.service';
+import { User }                 from '../data_classes/user';
 import { ChargingStation }      from '../data_classes/chargingStation';
 
 

@@ -15,26 +15,14 @@ from datetime import datetime as dt
 from main import constants
 from volt_reservation.services import ReservationService
 import json
+from utils.test_utils import create_user, cs_event_to_ordered_dict, filter_by_cs_event_nk
 
-
-""" HELPER FUNC """
-PASSWORD = 'pAssw0rd?XD'
-USERNAME = 'user@example.com'
-U_DRIVER = 'EV_DRIVER'
-U_OWNER  = 'CS_HOST'
-
-def create_user(username=USERNAME, password=PASSWORD):
-    return get_user_model().objects.create_user(
-        username=username, password=password)
-
-def filter_by_cs_event_nk(cs_event, query):
-    return list(filter(lambda event_cs: event_cs['nk'] == cs_event.nk, query))
 
 class TestEventCS(APITestCase):
     @classmethod
     def setUpTestData(cls):
         cls.cs_host = create_user()
-        Group.objects.get_or_create(name=U_OWNER)
+        Group.objects.get_or_create(name=constants.U_OWNER)
 
         cls.cs_t1 = ChargingStation.objects.create( 
             name     = 'Panthere 1',
@@ -76,7 +64,7 @@ class TestEventCS(APITestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.client.login(username=self.cs_host.username, password=PASSWORD)
+        self.client.login(username=self.cs_host.username, password=constants.PASSWORD)
 
     def test_host_can_filter_available_between_certain_time(self):
         response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
@@ -97,7 +85,7 @@ class TestEventEV(APITestCase):
     @classmethod
     def setUpTestData(cls):
         cls.cs_host = create_user()
-        Group.objects.get_or_create(name=U_OWNER)
+        Group.objects.get_or_create(name=constants.U_OWNER)
         # cls.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
         
         cls.cs_t1 = ChargingStation.objects.create( 
@@ -138,7 +126,7 @@ class TestEventEV(APITestCase):
         )
 
         cls.ev_driver = create_user(username='test@v2go.io')
-        Group.objects.get_or_create(name=U_DRIVER)
+        Group.objects.get_or_create(name=constants.U_DRIVER)
 
         cls.ev = EV.objects.create(
             model='Roadster',
@@ -156,7 +144,7 @@ class TestEventEV(APITestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.client.login(username=self.ev_driver.username, password=PASSWORD) 
+        self.client.login(username=self.ev_driver.username, password=constants.PASSWORD) 
 
     def test_driver_can_reserve_available_charging_station(self):
         response = self.client.post(reverse('volt_reservation:reservations-list'), data={
@@ -167,8 +155,8 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.cs_event_1.refresh_from_db()
         self.assertEqual(constants.RESERVED, self.cs_event_1.status)
-        self.assertEqual(response.data['event_cs'], self.cs_event_1.nk)
-        self.assertEqual(response.data['ev'], self.ev.nk)
+        self.assertEqual(response.data['event_cs'], cs_event_to_ordered_dict(self.cs_event_1))
+        self.assertEqual(response.data['ev'], self.ev.model)
 
     def test_driver_cannot_reserve_reserved_charging_station(self):
         response = self.client.post(reverse('volt_reservation:reservations-list'), data={
@@ -183,16 +171,16 @@ class TestEventEV(APITestCase):
                                    data={'vehicle_nk': self.ev.nk})
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(response.data[0]['event_cs'], self.cs_event_3.nk)
-        self.assertEqual(response.data[0]['ev'], self.ev.nk)
+        self.assertEqual(response.data[0]['event_cs'], cs_event_to_ordered_dict(self.cs_event_3))
+        self.assertEqual(response.data[0]['ev'], self.ev.model)
 
     def test_driver_can_view_completed_event_detail(self):
         response = self.client.get(reverse('volt_reservation:reservations-detail',
                                    kwargs={'ev_event_nk': self.completed_event_1.nk}))
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(response.data['event_cs'], self.cs_event_3.nk)
-        self.assertEqual(response.data['ev'], self.ev.nk)
+        self.assertEqual(response.data['event_cs'], cs_event_to_ordered_dict(self.cs_event_3))
+        self.assertEqual(response.data['ev'], self.ev.model)
 
     def test_driver_can_cancel_reservation(self):
         reserved = self.client.post(reverse('volt_reservation:reservations-list'), data={
@@ -202,8 +190,8 @@ class TestEventEV(APITestCase):
 
         self.cs_event_1.refresh_from_db()
 
-        self.assertEqual(reserved.data['event_cs'], self.cs_event_1.nk)
-        self.assertEqual(reserved.data['ev'], self.ev.nk)
+        self.assertEqual(reserved.data['event_cs'], cs_event_to_ordered_dict(self.cs_event_1))
+        self.assertEqual(reserved.data['ev'], self.ev.model)
         self.assertEqual(self.cs_event_1.status, constants.RESERVED)
         self.assertTrue(self.cs_event_1.ev_event_id != -1)
 

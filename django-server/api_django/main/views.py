@@ -58,14 +58,14 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
 
 
 class DriverProfileView(views.APIView):
-    def get(self, request, format=None):
-        user = request.user
+    def get(self, request, user_id=None, format=None):
+        user = User.objects.get(id=user_id)
         user_serializer = UserSerializer(user)
 
-        cars = EV.objects.filter(ev_owner=user.id)
+        cars = EV.objects.filter(ev_owner=user_id)
         ev_serializer = ElectricVehicleSerializer(cars, many=True)
 
-        reservations = EventEV.objects.filter(ev_owner=user.id)
+        reservations = EventEV.objects.filter(ev_owner=user_id)
         reservation_serializer = EventEVSerializer(reservations, many=True)
 
         return Response({
