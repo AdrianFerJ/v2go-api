@@ -7,20 +7,20 @@ import { catchError, map, tap }     from 'rxjs/operators';
 import { User }                     from '../data_classes/user';
 import { ChargingStation }          from '../data_classes/chargingStation';
 import { STATIONS}                  from '../data_classes/mock_cs'
-
+import { environment }              from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchStationsService {
-  private API_URL  =  'http://localhost:8000/api/v1.0-pre-alpha/volt_finder/near-poi'
+  private API_URL = environment.baseUrl + 'volt_finder/near-poi';
   constructor(
     private http: HttpClient,
   ) { }
 
   /**
   * Performs CS search by calling the 'API/near-poi' endpoint.
-  * Let the app continue.
+  * 
   * @param POI - Point of interest locaiton
   * @param advance param ...
   */
@@ -28,6 +28,7 @@ export class SearchStationsService {
     // Create fake parameters
     let testAddress = '1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada';
     let params = new HttpParams().set("poi_location", testAddress);
+    
 
     // Call API and return a Observable<CS[]> (aka. CS array)
     return this.http.get<ChargingStation[]>(this.API_URL, {params: params}).pipe(
@@ -35,11 +36,9 @@ export class SearchStationsService {
         // catchError(this.handleError<ChargingStation[]>('findStationss', []))
     );
   }
-
-
   /**
-  * Handle Http operation that failed.
-  * Let the app continue.
+  * Handle Http operation that failed, and Let the app continue.
+  * 
   * @param operation - name of the operation that failed
   * @param result - optional value to return as the observable result
   */
@@ -50,5 +49,6 @@ export class SearchStationsService {
       return of(result as T);
     };
   }
-
 }
+
+
