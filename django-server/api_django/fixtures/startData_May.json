@@ -1,0 +1,967 @@
+[
+    {
+        "model": "main.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$DT4rzxoWwbXm$5lGzi+alfogL3VqJ2JARM/J+jgMqcNuWvE9As8PYMVM=",
+            "last_login": "2019-05-10T13:07:41.596",
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2019-04-11T14:07:00.502",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "main.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$98DKF0TUtbN7$e/wdzCaKlwEO0AFp7WPQvwy/oCtNg6hviaseW9i6Y24=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "t_host",
+            "first_name": "toast",
+            "last_name": "host",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2019-04-11T14:09:09",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "main.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$gO6q1ULkpNWD$1NcXGNrSDOF7wOK6djuXZ23KBODNJuKwO56IoU8uiIs=",
+            "last_login": "2019-05-10T10:10:02.091",
+            "is_superuser": false,
+            "username": "t_driver",
+            "first_name": "Triver_name",
+            "last_name": "Triver_lastname",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2019-04-18T17:28:56.527",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "main.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$9fgPpFf6sDa4$9pvWK03Z5zM6FO3cJMTbGdpK3zbz5zQdbyzLUnh3gBU=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "host_10cs",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2019-05-03T11:37:06.464",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "main.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$B7XcAaAz6SeI$4WmUgtNNKe1tOFDy8uDjUyCp3P7ZLaYzMoxXKiuO9do=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "host_50cs",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2019-05-04T13:05:02.648",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "main.user",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$yLa0uxxFpMkl$LSDa5pZ+KAcxkQqLDZiFRROJr8BGJ5k/A8VKVtpRn0o=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "t_driver_2",
+            "first_name": "Driver 2",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2019-05-10T13:11:23",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 2,
+        "fields": {
+            "nk": "d46ae834bc9f88c38c7e44bad9678001",
+            "name": "DGI - Complexe Desjardins",
+            "external_id": "",
+            "cs_host": 2,
+            "calendar": 1,
+            "charge_level": "LEVEL_1",
+            "tarif_text": "",
+            "address": "1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.5260525,
+            "lng": -73.5596788,
+            "geo_location": "SRID=4326;POINT (-73.5596788 45.5260525)",
+            "created": "2019-04-11T14:17:17.672",
+            "updated": "2019-05-03T11:01:00.105"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 3,
+        "fields": {
+            "nk": "79738a4864904ebc5cb28e4919c09cec",
+            "name": "CEA-10306",
+            "external_id": "CEA-10306",
+            "cs_host": 2,
+            "calendar": 2,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "6511 Rue Saint-André, Montréal, QC H2S 2K7, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.536734,
+            "lng": -73.564993,
+            "geo_location": "SRID=4326;POINT (-73.564993 45.536734)",
+            "created": "2019-04-12T16:54:36.937",
+            "updated": "2019-04-12T16:54:36.937"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 4,
+        "fields": {
+            "nk": "31c191a673f05ba0a35379c5dde2ad1e",
+            "name": "Panthere 1",
+            "external_id": "",
+            "cs_host": 2,
+            "calendar": 3,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.5070394,
+            "lng": -73.5651293,
+            "geo_location": "SRID=4326;POINT (-73.5651293 45.5070394)",
+            "created": "2019-05-01T18:10:16.957",
+            "updated": "2019-05-01T18:10:16.957"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 5,
+        "fields": {
+            "nk": "9b7455f1ee003705effc1f5c92462aaf",
+            "name": "DGI - Complexe Desjardins",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 4,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.5070394,
+            "lng": -73.5651293,
+            "geo_location": "SRID=4326;POINT (-73.5651293 45.5070394)",
+            "created": "2019-05-03T11:39:26.378",
+            "updated": "2019-05-03T11:39:26.378"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 6,
+        "fields": {
+            "nk": "fd435a75474e469fd1152fc03aea7eb8",
+            "name": "301 | BSR | RPP | 6511 St-André",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 5,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "6511 Rue Saint-André, Montréal, QC H2S 2K7, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.536734,
+            "lng": -73.6030444,
+            "geo_location": "SRID=4326;POINT (-73.6030444 45.536734)",
+            "created": "2019-05-03T11:40:09.273",
+            "updated": "2019-05-03T11:40:09.273"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 7,
+        "fields": {
+            "nk": "423fab1e602dcdfa3166db258a878a63",
+            "name": "105 | BSR | AC | 1530 Fleury",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 6,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "1530 Rue Fleury E, Montréal, QC H2C 2Y6, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.5629748,
+            "lng": -73.6561512,
+            "geo_location": "SRID=4326;POINT (-73.6561512 45.5629748)",
+            "created": "2019-05-03T11:40:09.279",
+            "updated": "2019-05-03T11:40:09.279"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 8,
+        "fields": {
+            "nk": "175291b968a51a4d32d0314cc3d79215",
+            "name": "109 | BSR | AC | 205 Chabanel",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 7,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "205 Rue Chabanel O, Montréal, QC H2N 1G3, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.540977,
+            "lng": -73.6536969,
+            "geo_location": "SRID=4326;POINT (-73.6536969 45.540977)",
+            "created": "2019-05-03T11:40:09.284",
+            "updated": "2019-05-03T11:40:09.284"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 9,
+        "fields": {
+            "nk": "2231ec83a62d2f95010ec4e0acca22df",
+            "name": "625 | BSR | VM | 1956 Frontenac",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 8,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "1956 Rue Frontenac, Montréal, QC H2K 2Z1, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.5325695,
+            "lng": -73.5521119,
+            "geo_location": "SRID=4326;POINT (-73.5521119 45.5325695)",
+            "created": "2019-05-03T11:40:09.289",
+            "updated": "2019-05-03T11:40:09.289"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 10,
+        "fields": {
+            "nk": "5e89985180da81f7a785404d5902417a",
+            "name": "331 | BSR | RPP | 6679 Rue Garnier",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 9,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "6679 Rue Garnier, Montréal, QC H2G 3A2, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.542892,
+            "lng": -73.60115,
+            "geo_location": "SRID=4326;POINT (-73.60115 45.542892)",
+            "created": "2019-05-03T11:40:09.295",
+            "updated": "2019-05-03T11:40:09.295"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 11,
+        "fields": {
+            "nk": "c0e5f0bad336272f32adb9a400ddba9b",
+            "name": "DGI - Complexe Desjardins",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 10,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "1251 Rue Jeanne-Mance, Montréal, QC H2X, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.5070394,
+            "lng": -73.5651293,
+            "geo_location": "SRID=4326;POINT (-73.5651293 45.5070394)",
+            "created": "2019-05-03T11:40:09.299",
+            "updated": "2019-05-03T11:40:09.300"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 12,
+        "fields": {
+            "nk": "d924ce9bb0580d7d93f8c025fb9e5839",
+            "name": "580 | BHR | PMR | 4365 Cartier : Aréna Mont-Royal",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 11,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "4365 Rue Cartier, Montréal, QC H2H 2N9, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.533234,
+            "lng": -73.571813,
+            "geo_location": "SRID=4326;POINT (-73.57181300000001 45.533234)",
+            "created": "2019-05-03T11:40:09.305",
+            "updated": "2019-05-03T11:40:09.305"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 13,
+        "fields": {
+            "nk": "6d92fc12e600bc8f090e0a3aa2c80d48",
+            "name": "116 | BSR | AC | 10625 Francis",
+            "external_id": "",
+            "cs_host": 6,
+            "calendar": 12,
+            "charge_level": "LEVEL_2",
+            "tarif_text": "",
+            "address": "10625 Rue Francis, Montréal, QC H2C 3A5, Canada",
+            "city": "",
+            "province": "",
+            "country": "",
+            "postal_code": "",
+            "lat": 45.5653481,
+            "lng": -73.6603467,
+            "geo_location": "SRID=4326;POINT (-73.66034670000001 45.5653481)",
+            "created": "2019-05-03T11:40:09.312",
+            "updated": "2019-05-03T11:40:09.312"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 14,
+        "fields": {
+            "nk": "1d9e5b85ad71f9e8639e1c39dd085ab5",
+            "name": "581 | BHR | PMR | 5633 Saint-Dominique : Aréna St-Louis",
+            "external_id": "CEA-111",
+            "cs_host": 7,
+            "calendar": 13,
+            "charge_level": "Level2",
+            "tarif_text": "2,50 $ (CAD)  par session",
+            "address": "5633 Rue Saint-Dominique, Montréal, QC H2T 1V7, Canada",
+            "city": "Montréal",
+            "province": "QC",
+            "country": "Canada",
+            "postal_code": "H2T 1V7",
+            "lat": 45.5273112,
+            "lng": -73.5994845,
+            "geo_location": "SRID=4326;POINT (-73.5994845 45.5273112)",
+            "created": "2019-05-04T13:09:26.272",
+            "updated": "2019-05-04T13:09:26.272"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 15,
+        "fields": {
+            "nk": "0baa56e09e33cd6787f1d090f54207e0",
+            "name": "220 | BSR | VSMPE | 7151 St-Dominique",
+            "external_id": "CEA-10599",
+            "cs_host": 7,
+            "calendar": 14,
+            "charge_level": "Level2",
+            "tarif_text": "1,00 $ (CAD)  par heure",
+            "address": "7151 Rue Saint-Dominique, Montréal, QC H2R 1X3, Canada",
+            "city": "Montréal",
+            "province": "QCCanada",
+            "country": "",
+            "postal_code": "H2R 1X3",
+            "lat": 45.535179,
+            "lng": -73.6173677,
+            "geo_location": "SRID=4326;POINT (-73.6173677 45.535179)",
+            "created": "2019-05-04T13:09:26.279",
+            "updated": "2019-05-04T13:09:26.280"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 16,
+        "fields": {
+            "nk": "a6755bacc6b0a74a61a690ff9be30a70",
+            "name": "214 | BSR | VSMPE | 6961 des Écores",
+            "external_id": "CEA-10693",
+            "cs_host": 7,
+            "calendar": 15,
+            "charge_level": "Level2",
+            "tarif_text": "1,00 $ (CAD)  par heure",
+            "address": "6961 Rue des Écores, Montréal, QC H2E 2V7, Canada",
+            "city": "Montréal",
+            "province": "QCCanada",
+            "country": "",
+            "postal_code": "H2E 2V7",
+            "lat": 45.5511632,
+            "lng": -73.5999005,
+            "geo_location": "SRID=4326;POINT (-73.5999005 45.5511632)",
+            "created": "2019-05-04T13:09:26.288",
+            "updated": "2019-05-04T13:09:26.288"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 17,
+        "fields": {
+            "nk": "edd5133674a3c8fefa7b27c036f5723f",
+            "name": "208 | BSR | VSMPE | 10 Villeray",
+            "external_id": "CEA-10365",
+            "cs_host": 7,
+            "calendar": 16,
+            "charge_level": "Level2",
+            "tarif_text": "1,00 $ (CAD)  par heure",
+            "address": "10 Rue Villeray, Montréal, QC H2R 1E8, Canada",
+            "city": "Montréal",
+            "province": "QCCanada",
+            "country": "",
+            "postal_code": "H2R 1E8",
+            "lat": 45.537246,
+            "lng": -73.624707,
+            "geo_location": "SRID=4326;POINT (-73.624707 45.537246)",
+            "created": "2019-05-04T13:09:26.297",
+            "updated": "2019-05-04T13:09:26.297"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 18,
+        "fields": {
+            "nk": "b272deb7b3230991da0db5d43d8faed5",
+            "name": "219 | BSR | VSMPE | 1210 Villeray",
+            "external_id": "CEA-10703",
+            "cs_host": 7,
+            "calendar": 17,
+            "charge_level": "Level2",
+            "tarif_text": "1,00 $ (CAD)  par heure",
+            "address": "1210 Rue Villeray, Montréal, QC H2R 1J7, Canada",
+            "city": "Montréal",
+            "province": "QCCanada",
+            "country": "",
+            "postal_code": "H2R 1J7",
+            "lat": 45.5468335,
+            "lng": -73.6184014,
+            "geo_location": "SRID=4326;POINT (-73.6184014 45.5468335)",
+            "created": "2019-05-04T13:11:38.812",
+            "updated": "2019-05-04T13:11:38.812"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 19,
+        "fields": {
+            "nk": "ae3bc98e467b017da8c335175cfb247d",
+            "name": "512 | BSR | PMR | 1 Mont-Royal Est",
+            "external_id": "CEA-10561",
+            "cs_host": 7,
+            "calendar": 18,
+            "charge_level": "Level2",
+            "tarif_text": "1,00 $ (CAD)  par heure",
+            "address": "1 Avenue du Mont-Royal E, Montréal, QC H2T 1N4, Canada",
+            "city": "Montréal",
+            "province": "QCCanada",
+            "country": "",
+            "postal_code": "H2T 1N4",
+            "lat": 45.520303,
+            "lng": -73.586452,
+            "geo_location": "SRID=4326;POINT (-73.58645199999999 45.520303)",
+            "created": "2019-05-04T13:11:38.818",
+            "updated": "2019-05-04T13:11:38.818"
+        }
+    },
+    {
+        "model": "main.chargingstation",
+        "pk": 20,
+        "fields": {
+            "nk": "a8d32771b31de9ca83cc207511ba5153",
+            "name": "636 | BSR | VM | 2005 Ste-Catherine E",
+            "external_id": "CEA-11298",
+            "cs_host": 7,
+            "calendar": 19,
+            "charge_level": "Level2",
+            "tarif_text": "1,00 $ (CAD)  par heure",
+            "address": "2005 Rue Sainte-Catherine E, Montréal, QC H2K 2H6, Canada",
+            "city": "Montréal",
+            "province": "QCCanada",
+            "country": "",
+            "postal_code": "H2K 2H6",
+            "lat": 45.5244401,
+            "lng": -73.5510127,
+            "geo_location": "SRID=4326;POINT (-73.5510127 45.5244401)",
+            "created": "2019-05-04T13:11:38.823",
+            "updated": "2019-05-04T13:11:38.823"
+        }
+    },
+    {
+        "model": "main.electricvehicle",
+        "pk": 1,
+        "fields": {
+            "nk": "1835d0b0961709b65dc957665303fd48",
+            "created": "2019-05-10T13:10:23.282",
+            "updated": "2019-05-10T13:10:23.282",
+            "nickname": "My Tesla",
+            "model": "Roadster",
+            "manufacturer": "Tesla",
+            "year": 2019,
+            "charger_type": "a",
+            "ev_owner": 3,
+            "calendar": 20
+        }
+    },
+    {
+        "model": "main.electricvehicle",
+        "pk": 2,
+        "fields": {
+            "nk": "33cbe9cc6df0ca68d951a85e0257d232",
+            "created": "2019-05-10T13:12:01.701",
+            "updated": "2019-05-10T13:12:01.701",
+            "nickname": "Dad's Leaf",
+            "model": "Leaf",
+            "manufacturer": "Nissan",
+            "year": 2018,
+            "charger_type": "b",
+            "ev_owner": 8,
+            "calendar": 21
+        }
+    },
+    {
+        "model": "volt_reservation.eventcs",
+        "pk": 1,
+        "fields": {
+            "nk": "280614ab88743c28a918f0ab5209039a",
+            "created": "2019-05-06T11:59:57.086",
+            "updated": "2019-05-06T11:59:57.086",
+            "startDateTime": "2019-05-06T11:59:49",
+            "endDateTime": "2019-05-06T11:59:50",
+            "cs": 4,
+            "status": "AVAILABLE",
+            "ev_event_id": -1
+        }
+    },
+    {
+        "model": "volt_reservation.eventcs",
+        "pk": 2,
+        "fields": {
+            "nk": "c6164b7ec261d4175d2cf035395bfff6",
+            "created": "2019-05-06T12:04:06.989",
+            "updated": "2019-05-06T12:04:32.323",
+            "startDateTime": "2019-05-06T12:20:41",
+            "endDateTime": "2019-05-06T13:03:58",
+            "cs": 3,
+            "status": "AVAILABLE",
+            "ev_event_id": -1
+        }
+    },
+    {
+        "model": "volt_reservation.eventcs",
+        "pk": 3,
+        "fields": {
+            "nk": "ae08a2a8d8a91e1842c64242977d90c6",
+            "created": "2019-05-06T12:04:21.723",
+            "updated": "2019-05-06T12:04:21.723",
+            "startDateTime": "2019-05-06T13:04:12",
+            "endDateTime": "2019-05-06T14:04:16",
+            "cs": 10,
+            "status": "AVAILABLE",
+            "ev_event_id": -1
+        }
+    },
+    {
+        "model": "volt_reservation.eventcs",
+        "pk": 4,
+        "fields": {
+            "nk": "ff7d8273a22249a7f598367fedaf1c2f",
+            "created": "2019-05-06T12:36:57.622",
+            "updated": "2019-05-06T12:38:45.218",
+            "startDateTime": "2019-05-09T12:36:45",
+            "endDateTime": "2019-05-15T12:36:51",
+            "cs": 6,
+            "status": "AVAILABLE",
+            "ev_event_id": -1
+        }
+    },
+    {
+        "model": "volt_reservation.eventcs",
+        "pk": 5,
+        "fields": {
+            "nk": "318018dc4681f05f859334b5bc3c9ce2",
+            "created": "2019-05-06T12:41:43.873",
+            "updated": "2019-05-06T12:41:43.873",
+            "startDateTime": "2019-05-06T12:41:37",
+            "endDateTime": "2019-05-06T12:41:40",
+            "cs": 13,
+            "status": "AVAILABLE",
+            "ev_event_id": -1
+        }
+    },
+    {
+        "model": "volt_reservation.eventcs",
+        "pk": 6,
+        "fields": {
+            "nk": "5a7ab84db19d2d4e1284185b17ce1843",
+            "created": "2019-05-06T12:41:52.186",
+            "updated": "2019-05-06T12:41:52.186",
+            "startDateTime": "2019-05-06T12:41:47",
+            "endDateTime": "2019-05-06T12:41:48",
+            "cs": 16,
+            "status": "AVAILABLE",
+            "ev_event_id": -1
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 1,
+        "fields": {
+            "name": "DGI - Complexe Desjardins",
+            "slug": "1c92357c2cbbf39fc7b45008c044e9da"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 2,
+        "fields": {
+            "name": "CEA-10306",
+            "slug": "79738a4864904ebc5cb28e4919c09cec"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 3,
+        "fields": {
+            "name": "Panthere 1",
+            "slug": "31c191a673f05ba0a35379c5dde2ad1e"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 4,
+        "fields": {
+            "name": "DGI - Complexe Desjardins",
+            "slug": "9b7455f1ee003705effc1f5c92462aaf"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 5,
+        "fields": {
+            "name": "301 | BSR | RPP | 6511 St-André",
+            "slug": "fd435a75474e469fd1152fc03aea7eb8"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 6,
+        "fields": {
+            "name": "105 | BSR | AC | 1530 Fleury",
+            "slug": "423fab1e602dcdfa3166db258a878a63"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 7,
+        "fields": {
+            "name": "109 | BSR | AC | 205 Chabanel",
+            "slug": "175291b968a51a4d32d0314cc3d79215"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 8,
+        "fields": {
+            "name": "625 | BSR | VM | 1956 Frontenac",
+            "slug": "2231ec83a62d2f95010ec4e0acca22df"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 9,
+        "fields": {
+            "name": "331 | BSR | RPP | 6679 Rue Garnier",
+            "slug": "5e89985180da81f7a785404d5902417a"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 10,
+        "fields": {
+            "name": "DGI - Complexe Desjardins",
+            "slug": "c0e5f0bad336272f32adb9a400ddba9b"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 11,
+        "fields": {
+            "name": "580 | BHR | PMR | 4365 Cartier : Aréna Mont-Royal",
+            "slug": "d924ce9bb0580d7d93f8c025fb9e5839"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 12,
+        "fields": {
+            "name": "116 | BSR | AC | 10625 Francis",
+            "slug": "6d92fc12e600bc8f090e0a3aa2c80d48"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 13,
+        "fields": {
+            "name": "581 | BHR | PMR | 5633 Saint-Dominique : Aréna St-Louis",
+            "slug": "1d9e5b85ad71f9e8639e1c39dd085ab5"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 14,
+        "fields": {
+            "name": "220 | BSR | VSMPE | 7151 St-Dominique",
+            "slug": "0baa56e09e33cd6787f1d090f54207e0"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 15,
+        "fields": {
+            "name": "214 | BSR | VSMPE | 6961 des Écores",
+            "slug": "a6755bacc6b0a74a61a690ff9be30a70"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 16,
+        "fields": {
+            "name": "208 | BSR | VSMPE | 10 Villeray",
+            "slug": "edd5133674a3c8fefa7b27c036f5723f"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 17,
+        "fields": {
+            "name": "219 | BSR | VSMPE | 1210 Villeray",
+            "slug": "b272deb7b3230991da0db5d43d8faed5"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 18,
+        "fields": {
+            "name": "512 | BSR | PMR | 1 Mont-Royal Est",
+            "slug": "ae3bc98e467b017da8c335175cfb247d"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 19,
+        "fields": {
+            "name": "636 | BSR | VM | 2005 Ste-Catherine E",
+            "slug": "a8d32771b31de9ca83cc207511ba5153"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 20,
+        "fields": {
+            "name": "Roadster",
+            "slug": "1835d0b0961709b65dc957665303fd48"
+        }
+    },
+    {
+        "model": "schedule.calendar",
+        "pk": 21,
+        "fields": {
+            "name": "Leaf",
+            "slug": "33cbe9cc6df0ca68d951a85e0257d232"
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 1,
+        "fields": {
+            "start": "2019-05-06T11:59:49",
+            "end": "2019-05-06T11:59:50",
+            "title": "Charging Slot for Panthere 1",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T11:59:57.081",
+            "updated_on": "2019-05-06T11:59:57.081",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 3,
+            "color_event": ""
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 2,
+        "fields": {
+            "start": "2019-05-06T12:20:41",
+            "end": "2019-05-06T13:03:58",
+            "title": "Charging Slot for Panthere 1",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T12:04:06.987",
+            "updated_on": "2019-05-06T12:04:06.987",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 3,
+            "color_event": ""
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 3,
+        "fields": {
+            "start": "2019-05-06T13:04:12",
+            "end": "2019-05-06T14:04:16",
+            "title": "Charging Slot for 331 | BSR | RPP | 6679 Rue Garnier",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T12:04:21.721",
+            "updated_on": "2019-05-06T12:04:21.721",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 9,
+            "color_event": ""
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 4,
+        "fields": {
+            "start": "2019-05-06T12:20:41",
+            "end": "2019-05-06T13:03:58",
+            "title": "Charging Slot for CEA-10306",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T12:04:32.321",
+            "updated_on": "2019-05-06T12:04:32.321",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 2,
+            "color_event": ""
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 5,
+        "fields": {
+            "start": "2019-05-06T12:36:45",
+            "end": "2019-05-15T12:36:51",
+            "title": "Charging Slot for 301 | BSR | RPP | 6511 St-André",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T12:36:57.620",
+            "updated_on": "2019-05-06T12:36:57.620",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 5,
+            "color_event": ""
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 6,
+        "fields": {
+            "start": "2019-05-09T12:36:45",
+            "end": "2019-05-15T12:36:51",
+            "title": "Charging Slot for 301 | BSR | RPP | 6511 St-André",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T12:38:45.215",
+            "updated_on": "2019-05-06T12:38:45.215",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 5,
+            "color_event": ""
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 7,
+        "fields": {
+            "start": "2019-05-06T12:41:37",
+            "end": "2019-05-06T12:41:40",
+            "title": "Charging Slot for 116 | BSR | AC | 10625 Francis",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T12:41:43.870",
+            "updated_on": "2019-05-06T12:41:43.870",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 12,
+            "color_event": ""
+        }
+    },
+    {
+        "model": "schedule.event",
+        "pk": 8,
+        "fields": {
+            "start": "2019-05-06T12:41:47",
+            "end": "2019-05-06T12:41:48",
+            "title": "Charging Slot for 214 | BSR | VSMPE | 6961 des Écores",
+            "description": "",
+            "creator": null,
+            "created_on": "2019-05-06T12:41:52.184",
+            "updated_on": "2019-05-06T12:41:52.184",
+            "rule": null,
+            "end_recurring_period": null,
+            "calendar": 15,
+            "color_event": ""
+        }
+    }
+]
