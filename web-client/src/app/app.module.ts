@@ -29,16 +29,23 @@ const appRoutes: Routes = [
     component: DriverComponent,
     //TODO ADD group based restriction IsDriver
     // canActivate: [ IsDriver ],
+    // children: [
+    //   { path: 'map',
+    //     component: DriverHomeMapComponent,
+    //     resolve: { stationsList: StationsListResolver }
 
-    children: [
-      { path: '',
+    //   },
+    //   // { 
+    //   //   path: 'my-account',
+    //   //   component: DriverComponent
+    //   // },
+    // ]
+  },
+  { path: 'map',
         component: DriverHomeMapComponent,
         resolve: { stationsList: StationsListResolver }
 
-      }
-    ]
   },
-  { path: 'my-account', component: DriverComponent},
   { path: '', component: LandingComponent }
   //TODO add a pageNotFound Component
   // { path: '**', component: PageNotFoundComponent }
