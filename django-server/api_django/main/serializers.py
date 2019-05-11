@@ -36,7 +36,6 @@ class ChargingStationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChargingStation
         fields = '__all__'
-        # fields = ('id', 'nk', 'distance_to_poi' )
         read_only_fields = ('id', 'nk', 'geo_location')
 
 

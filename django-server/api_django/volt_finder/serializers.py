@@ -3,7 +3,7 @@ from rest_framework import serializers
 from main.models import ChargingStation
 
 
-class CSwithDistanceSerializer(serializers.Serializer):
+class CSwithDistanceSerializer(serializers.ModelSerializer):
     """Serialized CS with GEO information """
     distance_to_poi = serializers.SerializerMethodField()  #.FloatField()
 
@@ -12,6 +12,6 @@ class CSwithDistanceSerializer(serializers.Serializer):
 
     class Meta:
         model = ChargingStation
-        # fields = '__all__'
-        fields = ('id', 'nk', 'distance_to_poi' )
+        fields = '__all__'
+        # fields = ('id', 'nk', 'distance_to_poi' )
         read_only_fields = ('id', 'nk', 'geo_location')
