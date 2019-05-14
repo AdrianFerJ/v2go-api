@@ -16,6 +16,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { DriverComponent } from './components/driver/driver.component';
 import { DriverHomeMapComponent } from './components/driver-home-map/driver-home-map.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 // TODO move appRoutes to a separate Module
 //  .. https://angular.io/tutorial/toh-pt5#add-the-approutingmodule
@@ -37,9 +38,11 @@ const appRoutes: Routes = [
     path: 'driver',
     component: DriverComponent,
   },
-  { path: 'map',
-        component: DriverHomeMapComponent,
+  {
+    path: 'map',
+    component: DriverHomeMapComponent,
   },
+  { path: 'reservation', component: ReservationComponent },
   { path: '', component: LandingComponent }
   // TODO add a pageNotFound Component
   // { path: '**', component: PageNotFoundComponent }
@@ -64,13 +67,14 @@ const appRoutes: Routes = [
     LogInComponent,
     LandingComponent,
     DriverComponent,
-    DriverHomeMapComponent
+    DriverHomeMapComponent,
+    ReservationComponent
   ],
   providers: [
     AuthService,
     SearchStationsService,
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }

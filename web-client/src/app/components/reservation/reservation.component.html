@@ -1,0 +1,14 @@
+<form>
+  <div *ngIf="reservation$ | async as reservation; else loading">
+    <h5>RESERVATION MADE</h5>
+  </div>
+  <ng-template #loading>
+    <div class="card">
+      <div class="card-body">
+        <h3>Charging Station: {{chargingStation.name}}</h3>
+        <h4>From 11:30 am to 12:00 pm</h4>
+        <button type="button" class="btn btn-success" (click)="makeReservation()">Make Reservation</button>
+      </div>
+    </div>
+  </ng-template>
+</form>

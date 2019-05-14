@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private API_URL = environment.devUrl;
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
 
   }
   // SignUp returns an Observable that will produce User data. Subscribing
