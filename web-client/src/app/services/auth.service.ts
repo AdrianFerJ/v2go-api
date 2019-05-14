@@ -20,7 +20,7 @@ export class AuthService {
     password2: string,
     // group: string,
   ): Observable<User> {
-    const url = 'http://localhost:8000/api/v1.0-pre-alpha/sign-up';
+    const url = 'http://localhost:8888/api/v1.0-pre-alpha/sign-up';
     // const url = 'sign_up/'; #UPDATE endpoint after wiring angular with nxing to rerout API calls
     const formData = new FormData();
     formData.append('username', username);
@@ -34,7 +34,7 @@ export class AuthService {
   // LogIn function collects a username and a password and sends the data to the API endpoint
   // .. logIn also returns an Observable that produces a User, and it saves that User object in localStorage
   logIn(username: string, password: string): Observable<User> {
-    const url = 'http://localhost:8000/api/v1.0-pre-alpha/login';
+    const url = 'http://localhost:8888/api/v1.0-pre-alpha/login';
     // const url = '/log_in/';
     // post converts data dictionary into data payload
     return this.http.post<User>(url, { username, password }).pipe(
@@ -45,7 +45,7 @@ export class AuthService {
   // Simply subscribe to observable to send request to API (no data, nor component.ts required)
   // .. then removed logged user from localStorage
   logOut(): Observable<any> {
-    const url = 'http://localhost:8000/api/v1.0-pre-alpha/logout';
+    const url = 'http://localhost:8888/api/v1.0-pre-alpha/logout';
     // const url = '/log_out/';
     return this.http.post(url, null).pipe(
       finalize(() => localStorage.removeItem('v2go.user'))

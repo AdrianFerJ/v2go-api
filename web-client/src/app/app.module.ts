@@ -1,8 +1,8 @@
-import { BrowserModule }          from '@angular/platform-browser';
-import { NgModule }               from '@angular/core';
-import { RouterModule, Routes }   from '@angular/router';
-import { FormsModule }            from '@angular/forms';
-import { HttpClientModule }       from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 // import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
@@ -12,12 +12,13 @@ import { AuthService }            from './services/auth.service';
 import { SearchStationsService }  from './services/search-stations.service';
 import { StationsListResolver }   from './services/stations-list.resolver';
 
-import { AppComponent }           from './app.component';
-import { SignUpComponent }        from './components/sign-up/sign-up.component';
-import { LogInComponent }         from './components/log-in/log-in.component';
-import { LandingComponent }       from './components/landing/landing.component';
-import { DriverComponent }        from './components/driver/driver.component';
+import { AppComponent } from './app.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LogInComponent } from './components/log-in/log-in.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { DriverComponent } from './components/driver/driver.component';
 import { DriverHomeMapComponent } from './components/driver-home-map/driver-home-map.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 //TODO move appRoutes to a separate Module
 //  .. https://angular.io/tutorial/toh-pt5#add-the-approutingmodule
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: 'my-account', component: DriverComponent},
+  { path: 'my-account', component: DriverComponent },
+  { path: 'reservation', component: ReservationComponent },
   { path: '', component: LandingComponent }
   //TODO add a pageNotFound Component
   // { path: '**', component: PageNotFoundComponent }
@@ -64,7 +66,8 @@ const appRoutes: Routes = [
     LogInComponent,
     LandingComponent,
     DriverComponent,
-    DriverHomeMapComponent
+    DriverHomeMapComponent,
+    ReservationComponent
   ],
   providers: [
     AuthService,
@@ -77,7 +80,7 @@ const appRoutes: Routes = [
     // { provide: XSRF_COOKIE_NAME, useValue: 'XSRF-TOKEN' },
     // { provide: XSRF_HEADER_NAME, useValue: 'X-XSRF-TOKEN' }
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }
