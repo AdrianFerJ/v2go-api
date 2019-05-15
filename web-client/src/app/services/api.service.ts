@@ -22,8 +22,8 @@ export class SearchStationsService {
   /**
   * Performs CS search by calling the 'API/near-poi' endpoint.
   * 
-  * @param POI - Point of interest locaiton
-  * @param advance param ...
+  * @param poi_lat - Point of interest latitude, either from user's location or default lat (MTL)
+  * @param poi_lng - Point of interest longitude or default lng (MTL)
   */
 // findStations(): Observable<ChargingStation[]> {
   findStations(poi_lat: number, poi_lng: number,): Observable<ChargingStation[]> {
@@ -37,23 +37,9 @@ export class SearchStationsService {
         // Call API and return a Observable<CS[]> (aka. CS array)
         return this.http.get<ChargingStation[]>(this.API_URL, {params: params}).pipe(
           map(stationsList => stationsList.map(station => ChargingStation.create(station)))
-            // catchError(this.handleError<ChargingStation[]>('findStationss', []))
         );
     }
   }
-  /**
-  * Handle Http operation that failed, and Let the app continue.
-  * 
-  * @param operation - name of the operation that failed
-  * @param result - optional value to return as the observable result
-  */
-  // private handleError<T> (operation = 'operation', result?: T) {
-  //   return (error: any): Observable<T> => {
-  //     // TODO: send the error to remote logging infrastructure
-  //     console.error(`Error: ${operation} failed: ${error.message}`); 
-  //     return of(result as T);
-  //   };
-  // }
 }
 
 

@@ -23,8 +23,10 @@ export class DriverHomeMapComponent implements OnInit {
   stationsList: ChargingStation[];
   // Default values for Point of Interest (poi) coordinates is MTL,
   // in case user.coords from navigator is not available 
-  poiLat = 45.508048;
-  poiLng = -73.568025;
+  MTL_LAT = 45.508048;
+  MTL_LNG = -73.568025;
+  poiLat: number;
+  poiLng: number;
   zoom = 13;
   markers: Marker[];
   driver: Marker;
@@ -70,7 +72,7 @@ export class DriverHomeMapComponent implements OnInit {
       //TODO this should be a notification
       console.log("# ERROR at searchStationsNearMe(). Message: ", error);
       // Get stations near default MTL coords
-      this.findStations(this.poiLat, this.poiLng);
+      this.findStations(this.MTL_LAT, this.MTL_LNG);
     });
   }
 
