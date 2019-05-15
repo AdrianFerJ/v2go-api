@@ -43,18 +43,6 @@ export class DriverHomeMapComponent implements OnInit {
     // this.route.data
     //   .subscribe((data: {stationsList: ChargingStation[]}) => this.stationsList = data.stationsList);
 
-    // Display CS in map
-    // if (this.stationsList) {
-    //   console.log('*'.repeat(200), this.stationsList)
-    //   for (let station of this.stationsList) {
-    //     // this.markers = [
-    //     //   new Marker(station.lat, station.lng, 'STATION X')
-    //     // ];
-    //   } 
-    // } else {
-    //   console.log('?'.repeat(10), "NO stationsList!!")
-    // }
-
     //TODO Get user this.driver (OR this.User) = User.getUser();
   }
 
