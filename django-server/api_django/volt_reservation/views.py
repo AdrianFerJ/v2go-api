@@ -49,16 +49,13 @@ class EventEVView(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data
-		print(data.get('event_cs_nk'))
 
 		# TODO: This should be handled by the permission
 		# if request.user != ev.ev_owner:
 			# return Response(None, status=status.HTTP_403_FORBIDDEN)
 
 		try:
-			print('hiwheidnn')
 			event_cs = get_object_or_404(EventCS, nk=data.get('event_cs_nk'))
-			print('hi')
 			ev = get_object_or_404(EV, nk=data.get('ev_nk'))
 
 			event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
