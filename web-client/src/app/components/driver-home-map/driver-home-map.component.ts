@@ -21,9 +21,10 @@ class Marker {
 export class DriverHomeMapComponent implements OnInit {
 
   stationsList: ChargingStation[];
-  //45.582745599999996 -71.57268479999999
-  xlat = 45.508048;
-  xlng = -73.568025;
+  // Default values for Point of Interest (poi) coordinates is MTL,
+  // in case user.coords from navigator is not available 
+  poiLat = 45.508048;
+  poiLng = -73.568025;
   zoom = 13;
   markers: Marker[];
   driver: Marker;
@@ -61,15 +62,15 @@ export class DriverHomeMapComponent implements OnInit {
    */
   searchStationsNearMe(): void {
     getCurrentPosition.subscribe( position => {   
-      this.xlat = position.coords.latitude;
-      this.xlng = position.coords.longitude;
+      this.poiLat = position.coords.latitude;
+      this.poiLng = position.coords.longitude;
       // Get stations near User's location
-      this.findStations(this.xlat, this.xlng);
+      this.findStations(this.poiLat, this.poiLng);
     }, error => { 
       //TODO this should be a notification
       console.log("# ERROR at searchStationsNearMe(). Message: ", error);
       // Get stations near default MTL coords
-      this.findStations(this.xlat, this.xlng);
+      this.findStations(this.poiLat, this.poiLng);
     });
   }
 
@@ -77,13 +78,13 @@ export class DriverHomeMapComponent implements OnInit {
    *  Method to create a marker and display user locaiton on map
    */
   displayUser(position) {
-    this.xlat = position.coords.latitude;
-    this.xlng = position.coords.longitude;
+    this.poiLat = position.coords.latitude;
+    this.poiLng = position.coords.longitude;
     
     // Display Driver
     // this.driver = new Marker(this.lat, this.lng, 'D')
     this.markers = [
-      new Marker(this.xlat, this.xlng, 'D')
+      new Marker(this.poiLat, this.poiLng, 'D')
     ];
     
     // let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -118,7 +119,6 @@ const getCurrentPosition = new Observable(observer => {
   } else {
     observer.error('Geolocation not available');
   }
-  // observer.complete();
 });
 
 
@@ -132,11 +132,9 @@ const streamUserPosition = new Observable((observer) => {
   // the consumer subscribes.
   const {next, error} = observer;
   let watchId;
-  
   // Simple geolocation API check provides values to publish
   if ('geolocation' in navigator) {
     watchId = navigator.geolocation.watchPosition(next, error);
-    debugger;
   } else {
     error('Geolocation not available');
   }

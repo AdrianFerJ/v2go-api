@@ -8,7 +8,7 @@ import { HttpClientModule }       from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 
-import { AuthService }            from './services/auth.service';  
+import { AuthService }            from './services/auth.service';
 import { SearchStationsService }  from './services/api.service';
 import { StationsListResolver }   from './services/stations-list.resolver';
 

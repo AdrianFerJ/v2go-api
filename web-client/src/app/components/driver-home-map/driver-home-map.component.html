@@ -36,7 +36,7 @@
           <div class="card col-md-8">
               <h4 class="card-header">Map</h4>
               <div class="card-body">
-                  <agm-map [latitude]="xlat" [longitude]="xlng" [zoom]="zoom">
+                  <agm-map [latitude]="poiLat" [longitude]="poiLng" [zoom]="zoom">
                       <agm-marker
                           *ngFor="let marker of markers"
                           [latitude]="marker.lat"

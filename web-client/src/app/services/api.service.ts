@@ -14,7 +14,7 @@ import { error }                    from '@angular/compiler/src/util';
   providedIn: 'root'
 })
 export class SearchStationsService {
-  private API_URL = environment.baseUrl + 'volt_finder/near-poi';
+  private API_URL = environment.devUrl + 'volt_finder/near-poi';
   constructor(
     private http: HttpClient,
   ) { }
