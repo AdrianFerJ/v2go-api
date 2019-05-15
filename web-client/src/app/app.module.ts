@@ -43,7 +43,6 @@ const appRoutes: Routes = [
   { path: 'map',
         component: DriverHomeMapComponent,
         resolve: { stationsList: StationsListResolver }
-
   },
   { path: '', component: LandingComponent }
   //TODO add a pageNotFound Component

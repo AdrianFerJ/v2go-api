@@ -8,6 +8,7 @@ import { User }                     from '../data_classes/user';
 import { ChargingStation }          from '../data_classes/chargingStation';
 import { STATIONS}                  from '../data_classes/mock_cs'
 import { environment }              from '../../environments/environment';
+import { error }                    from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -25,21 +26,20 @@ export class SearchStationsService {
   * @param advance param ...
   */
 // findStations(): Observable<ChargingStation[]> {
- findStations(poi_lat: number, poi_lng: number,): Observable<ChargingStation[]> {
-  // Create fake parameters
-  let POI_LAT = String(45.5260525)
-  let POI_LNG = String(-73.5596788)
-  let params = new HttpParams()
-    .set("poi_lat", POI_LAT)
-    .set("poi_lng", POI_LNG)
-    // .set("poi_lat", String(poi_lat))
-    // .set("poi_lng", String(poi_lng));
-    
-    // Call API and return a Observable<CS[]> (aka. CS array)
-    return this.http.get<ChargingStation[]>(this.API_URL, {params: params}).pipe(
-      map(stationsList => stationsList.map(station => ChargingStation.create(station)))
-        // catchError(this.handleError<ChargingStation[]>('findStationss', []))
-    );
+  findStations(poi_lat: number, poi_lng: number,): Observable<ChargingStation[]> {
+    if (typeof poi_lat == 'undefined' ||  typeof poi_lng == 'undefined') {
+      console.log("Error at findStations(). Invalid coordinates.");
+    } else {
+      let params = new HttpParams()
+        .set("poi_lat", String(poi_lat))
+        .set("poi_lng", String(poi_lng));
+        
+        // Call API and return a Observable<CS[]> (aka. CS array)
+        return this.http.get<ChargingStation[]>(this.API_URL, {params: params}).pipe(
+          map(stationsList => stationsList.map(station => ChargingStation.create(station)))
+            // catchError(this.handleError<ChargingStation[]>('findStationss', []))
+        );
+    }
   }
   /**
   * Handle Http operation that failed, and Let the app continue.
@@ -47,13 +47,13 @@ export class SearchStationsService {
   * @param operation - name of the operation that failed
   * @param result - optional value to return as the observable result
   */
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(`Error: ${operation} failed: ${error.message}`); 
-      return of(result as T);
-    };
-  }
+  // private handleError<T> (operation = 'operation', result?: T) {
+  //   return (error: any): Observable<T> => {
+  //     // TODO: send the error to remote logging infrastructure
+  //     console.error(`Error: ${operation} failed: ${error.message}`); 
+  //     return of(result as T);
+  //   };
+  // }
 }
 
 

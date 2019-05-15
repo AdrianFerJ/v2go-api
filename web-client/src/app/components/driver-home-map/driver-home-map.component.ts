@@ -31,7 +31,7 @@ export class DriverHomeMapComponent implements OnInit {
   constructor(
     private searchService: SearchStationsService,
     // Use ActivateRout (from StationsListResolver)
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -67,7 +67,7 @@ export class DriverHomeMapComponent implements OnInit {
       this.findStations(this.xlat, this.xlng);
     }, error => { 
       //TODO this should be a notification
-      console.log(error);
+      console.log("# ERROR at searchStationsNearMe(). Message: ", error);
       // Get stations near default MTL coords
       this.findStations(this.xlat, this.xlng);
     });
