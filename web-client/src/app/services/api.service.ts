@@ -24,15 +24,16 @@ export class SearchStationsService {
   * @param POI - Point of interest locaiton
   * @param advance param ...
   */
-  findStations(): Observable<ChargingStation[]> {
-    // Create fake parameters
-    // let testAddress = '1735 Rue Saint-Denis, Montréal, QC H2X 3K4, Canada';
-    // let params = new HttpParams().set("poi_location", testAddress);
-    let POI_LAT = String(45.5260525)
-    let POI_LNG = String(-73.5596788)
-    let params = new HttpParams()
-      .set("poi_lat", POI_LAT)
-      .set("poi_lng", POI_LNG);
+// findStations(): Observable<ChargingStation[]> {
+ findStations(poi_lat: number, poi_lng: number,): Observable<ChargingStation[]> {
+  // Create fake parameters
+  let POI_LAT = String(45.5260525)
+  let POI_LNG = String(-73.5596788)
+  let params = new HttpParams()
+    .set("poi_lat", POI_LAT)
+    .set("poi_lng", POI_LNG)
+    // .set("poi_lat", String(poi_lat))
+    // .set("poi_lng", String(poi_lng));
     
     // Call API and return a Observable<CS[]> (aka. CS array)
     return this.http.get<ChargingStation[]>(this.API_URL, {params: params}).pipe(
