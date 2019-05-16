@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 
 import { AuthService }            from './services/auth.service';
-import { SearchStationsService }  from './services/search-stations.service';
+import { SearchStationsService }  from './services/api.service';
 import { StationsListResolver }   from './services/stations-list.resolver';
 
 import { AppComponent }           from './app.component';
@@ -25,20 +25,25 @@ const appRoutes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'log-in', component: LogInComponent },
   {
-    path: 'driver',
-    component: DriverComponent,
     //TODO ADD group based restriction IsDriver
     // canActivate: [ IsDriver ],
-
-    children: [
-      { path: '',
+    // children: [
+    //   { path: 'map',
+    //     component: DriverHomeMapComponent,
+    //     resolve: { stationsList: StationsListResolver }
+    //   },
+    //   // { 
+    //   //   path: 'my-account',
+    //   //   component: DriverComponent
+    //   // },
+    // ]
+    path: 'driver',
+    component: DriverComponent,
+  },
+  { path: 'map',
         component: DriverHomeMapComponent,
         resolve: { stationsList: StationsListResolver }
-
-      }
-    ]
   },
-  { path: 'my-account', component: DriverComponent},
   { path: '', component: LandingComponent }
   //TODO add a pageNotFound Component
   // { path: '**', component: PageNotFoundComponent }
@@ -70,12 +75,6 @@ const appRoutes: Routes = [
     AuthService,
     SearchStationsService,
     StationsListResolver
-    //TODO check whether XSRF protection still necesary?, if not, remove all commented bellow
-    // HttpXsrfInterceptor,
-    // { provide: HTTP_INTERCEPTORS, useExisting: HttpXsrfInterceptor, multi: true },
-    // { provide: HttpXsrfTokenExtractor, useClass: HttpXsrfCookieExtractor },
-    // { provide: XSRF_COOKIE_NAME, useValue: 'XSRF-TOKEN' },
-    // { provide: XSRF_HEADER_NAME, useValue: 'X-XSRF-TOKEN' }
   ],
   bootstrap: [ AppComponent ]
 })

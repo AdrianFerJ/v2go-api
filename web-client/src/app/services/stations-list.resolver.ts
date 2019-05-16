@@ -5,7 +5,7 @@ import {
   ActivatedRouteSnapshot, Resolve, RouterStateSnapshot
 } from '@angular/router';
 
-import { SearchStationsService } from '../services/search-stations.service';
+import { SearchStationsService } from './api.service';
 import { ChargingStation }       from '../data_classes/chargingStation';
 
 @Injectable()

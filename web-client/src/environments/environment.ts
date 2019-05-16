@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  GOOGLE_API_KEY: 'AIzaSyBd8MecCOrabvEIDILrd5KLIyIKuJzhE3M'
+  GOOGLE_API_KEY: 'AIzaSyBd8MecCOrabvEIDILrd5KLIyIKuJzhE3M',
+  // DJ API base URL
+  devUrl: 'http://localhost:8888/api/v1.0-pre-alpha/'
 };
 
 /*
