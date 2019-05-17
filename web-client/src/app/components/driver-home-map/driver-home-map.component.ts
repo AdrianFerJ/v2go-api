@@ -1,9 +1,7 @@
-import { Component, OnInit }      from '@angular/core';
-import { ActivatedRoute }         from '@angular/router';
-import { SearchStationsService }  from '../../services/api.service'
-import { STATIONS}                from '../../data_classes/mock_cs'
-import { ChargingStation }        from '../../data_classes/chargingStation';
-import { Observable }             from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SearchStationsService } from '../../services/api.service';
+import { ChargingStation } from '../../data_classes/chargingStation';
+import { Observable } from 'rxjs';
 
 class Marker {
   constructor(
@@ -21,58 +19,45 @@ class Marker {
 export class DriverHomeMapComponent implements OnInit {
 
   stationsList: ChargingStation[];
-  // Default values for Point of Interest (poi) coordinates is MTL,
-  // in case user.coords from navigator is not available 
-  MTL_LAT = 45.508048;
-  MTL_LNG = -73.568025;
-  poiLat: number;
-  poiLng: number;
+  // Default values for Point of Interest (poi) coordinates is MTL
+  poiLat: number = 45.508048;
+  poiLng: number = -73.568025;
   zoom = 13;
   markers: Marker[];
   driver: Marker;
 
   constructor(
     private searchService: SearchStationsService,
-    // Use ActivateRout (from StationsListResolver)
-    // private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-
     this.searchStationsNearMe();
-
-    // Get CS near me USING RESOLVER. 
-    // TODO UPDATE router to pass user location (currently using hardcoded value)
-    // this.route.data
-    //   .subscribe((data: {stationsList: ChargingStation[]}) => this.stationsList = data.stationsList);
-
-    //TODO Get user this.driver (OR this.User) = User.getUser();
   }
 
-  /** 
+  /**
    * Method uses searchService (observer) to call api/find-station. Returns an array of CSs
    */
   findStations(lat, lng): void {
     this.searchService.findStations(lat, lng)
       .subscribe(stationsList => {
         this.stationsList = stationsList;
-      }); 
+      });
   }
   /**
    * Method get stations near User's location (navigator, if not avail, use MTL coords)
    * then, displays user ans CS on map.
    */
   searchStationsNearMe(): void {
-    getCurrentPosition.subscribe( position => {   
+    getCurrentPosition.subscribe( position => {
+      console.log('## POSITION (52): ', position);
       this.poiLat = position.coords.latitude;
       this.poiLng = position.coords.longitude;
       // Get stations near User's location
       this.findStations(this.poiLat, this.poiLng);
-    }, error => { 
-      //TODO this should be a notification
-      console.log("# ERROR at searchStationsNearMe(). Message: ", error);
+    }, error => {
+      console.log('# ERROR at searchStationsNearMe(). Message: ', error);
       // Get stations near default MTL coords
-      this.findStations(this.MTL_LAT, this.MTL_LNG);
+      this.findStations(this.poiLat, this.poiLng);
     });
   }
 
@@ -82,13 +67,11 @@ export class DriverHomeMapComponent implements OnInit {
   displayUser(position) {
     this.poiLat = position.coords.latitude;
     this.poiLng = position.coords.longitude;
-    
     // Display Driver
     // this.driver = new Marker(this.lat, this.lng, 'D')
     this.markers = [
       new Marker(this.poiLat, this.poiLng, 'D')
     ];
-    
     // let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     // this.map.panTo(location);
 
@@ -103,29 +86,27 @@ export class DriverHomeMapComponent implements OnInit {
     //   this.marker.setPosition(location);
     // }
   }
-  
 }
 
-/** 
+/**
  *  Observable gets current user geolocation from navigator.
  */
-const getCurrentPosition = new Observable(observer => {
+const getCurrentPosition = new Observable<Position>(observer => {
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(
-      position => { 
-        observer.next(position); 
-      }, 
-      navigatorError => { observer.error(navigatorError) },
-      {maximumAge:600000, timeout:5000, enableHighAccuracy: true} 
+      position => {
+        console.log('## POSITION (98): ', position);
+        observer.next(position);
+      },
+      navigatorError => { observer.error(navigatorError); },
+      {maximumAge: 600000, timeout: 5000, enableHighAccuracy: true}
     );
   } else {
     observer.error('Geolocation not available');
   }
 });
 
-
-
-/** 
+/**
  * Observable streams user geolocation from navigator.
  * Check: https://angular.io/guide/observables#basic-usage-and-terms
  */
