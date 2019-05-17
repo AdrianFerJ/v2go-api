@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DriverInfo } from '../../data_classes/driver_profile';
-import { DriverProfileService } from '../../services/driver-profile.service';
+import { DriverProfileService } from '../../../app/services/api.service';
 
 @Component({
   selector: 'app-driver',

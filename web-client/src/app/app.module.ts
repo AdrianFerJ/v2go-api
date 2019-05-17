@@ -23,21 +23,22 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 const appRoutes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'log-in', component: LogInComponent },
-  {
-    //TODO ADD group based restriction IsDriver
-    // canActivate: [ IsDriver ],
-    // children: [
-    //   { path: 'map',
-    //     component: DriverHomeMapComponent,
-    //   },
-    //   // {
-    //   //   path: 'my-account',
-    //   //   component: DriverComponent
-    //   // },
-    // ]
-    path: 'driver',
-    component: DriverComponent,
-  },
+  // {
+  //   //TODO ADD group based restriction IsDriver
+  //   // canActivate: [ IsDriver ],
+  //   // children: [
+  //   //   { path: 'map',
+  //   //     component: DriverHomeMapComponent,
+  //   //   },
+  //   //   // {
+  //   //   //   path: 'my-account',
+  //   //   //   component: DriverComponent
+  //   //   // },
+  //   // ]
+  //   path: 'driver',
+  //   component: DriverComponent,
+  // },
+  { path: 'driver', component: DriverComponent },
   {
     path: 'map',
     component: DriverHomeMapComponent,

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ReservationService } from '../../services/reservation.service';
 import { Observable } from 'rxjs';
 import { Reservation } from '../../data_classes/reservation';
 import { ChargingStation } from '../../data_classes/chargingStation';
 import { EventCS } from '../../data_classes/event_cs';
+import { ReservationService } from '../../../app/services/api.service';
 
 @Component({
   selector: 'app-reservation',
