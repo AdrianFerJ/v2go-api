@@ -4,7 +4,7 @@ import {
 import { TestBed }               from '@angular/core/testing';
 
 import { CStationFactory }       from '../testing/factories';
-import { SearchStationsService } from './api.service';
+import { SearchStationsService } from './search-stations.service';
 
 
 describe('SearchStationsService', () => {

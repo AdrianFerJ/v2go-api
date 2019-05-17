@@ -8,13 +8,17 @@ from volt_finder.serializers import CSwithDistanceSerializer
 from volt_finder import helpers_finder as hf
 from volt_reservation.models import EventCS
 from volt_finder import mygooglemaps as gg
+
+
 from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
 from main import constants
+
 from volt_reservation.services import ReservationService
 
 import datetime as dt  
 from decimal import Decimal
+
 
 
 class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
@@ -60,7 +64,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
                     
                     return Response(serializer.data)
                 else:
-                    serializer = CSwithDistanceSerializer(cs_near_poi, many=True)
+                    serializer = ChargingStationSerializer(cs_near_poi, many=True)
                     return Response(serializer.data)
             else:               
                 # Get all CS within max_dist (in meters) of POI, and annotate distance to poi               

@@ -27,7 +27,7 @@
                 </form>
               <ul class="cs-list">
                 <li *ngFor="let station of stationsList">
-                  <span class="badge"> CS {{station.name}}</span> <p>{{station.address}}</p>
+                  <span class="badge"> CS </span> <p>{{station.destination_addresses}}</p>
                 </li>
               </ul>
             </div>
@@ -36,7 +36,7 @@
           <div class="card col-md-8">
               <h4 class="card-header">Map</h4>
               <div class="card-body">
-                  <agm-map [latitude]="poiLat" [longitude]="poiLng" [zoom]="zoom">
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                       <agm-marker
                           *ngFor="let marker of markers"
                           [latitude]="marker.lat"
@@ -45,8 +45,10 @@
                       >
                       </agm-marker>
                     </agm-map>
+                  
               </div>
           </div>
     </div>
+   
   </div>
 </div>
