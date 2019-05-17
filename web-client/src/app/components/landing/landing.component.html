@@ -2,9 +2,10 @@
     <h1 class="landing logo">V2go Web App</h1>
     <div *ngIf="getUser(); then thenBlock; else elseBlock;"></div>
     <ng-template #thenBlock>
-        <a class="btn btn-primary" [routerLink]="isDriver() ? '/driver' : '/driver'">Dashboard</a>
+        <!-- <a class="btn btn-primary" [routerLink]="isDriver() ? '/driver' : '/driver'">Dashboard</a> -->
+        <button class="btn btn-primary" [routerLink]="['/map']">Map</button>
         <button class="btn btn-primary" (click)="logOut()">Log out</button>
-        <button class="btn btn-primary" [routerLink]="['/my-account']">My Account</button>
+        <button class="btn btn-primary" [routerLink]="['/driver']">My Account</button>
     </ng-template>
     <ng-template #elseBlock>
         <a class="btn btn-primary" [routerLink]="['/log-in']">Log in</a>

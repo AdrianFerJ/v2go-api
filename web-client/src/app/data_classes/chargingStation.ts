@@ -31,6 +31,5 @@ export class ChargingStation {
         //   User.create(data.rider)
         );
       }
-  
-      
   }
+

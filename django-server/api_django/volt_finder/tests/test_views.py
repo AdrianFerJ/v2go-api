@@ -13,7 +13,6 @@ from django.utils import timezone
 import datetime as dt  
 
 
-
 PASSWORD = 'pAssw0rd!'
 # POI_LOCATION = '1101 Rue Rachel E Montreal, QC H2J 2J7' 
 # POI_LOCATION = {"lat": 45.5260525, "lng": -73.5596788}
