@@ -1,4 +1,4 @@
-export interface Availability {
+export interface EventCS {
   nk: string;
   created: string;
   updated: string;

@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../data_classes/user';
 import { Observable } from 'rxjs';
 import { Reservation } from '../data_classes/reservation';
-import { Availability } from '../data_classes/availability';
 
 @Injectable({
   providedIn: 'root'
