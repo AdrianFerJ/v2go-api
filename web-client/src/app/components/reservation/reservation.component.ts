@@ -3,7 +3,7 @@ import { ReservationService } from '../../services/reservation.service';
 import { Observable } from 'rxjs';
 import { Reservation } from '../../data_classes/reservation';
 import { ChargingStation } from '../../data_classes/chargingStation';
-import { Availability } from '../../data_classes/availability';
+import { EventCS } from '../../data_classes/event_cs';
 
 @Component({
   selector: 'app-reservation',
@@ -12,7 +12,7 @@ import { Availability } from '../../data_classes/availability';
 })
 export class ReservationComponent implements OnInit {
 
-  @Input() availability: Availability;
+  @Input() eventCs: EventCS;
   @Input() evNk: string;
   @Input() chargingStation: ChargingStation;
 
@@ -24,6 +24,6 @@ export class ReservationComponent implements OnInit {
   ngOnInit() {}
 
   public makeReservation() {
-    this.reservation$ = this.reservationService.makeReservation(this.evNk, this.availability.nk);
+    this.reservation$ = this.reservationService.makeReservation(this.evNk, this.eventCs.nk);
   }
 }
