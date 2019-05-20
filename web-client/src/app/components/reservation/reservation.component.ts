@@ -16,14 +16,18 @@ export class ReservationComponent implements OnInit {
   @Input() evNk: string;
   @Input() chargingStation: ChargingStation;
 
-  reservation$: Observable<Reservation>;
-  reservation: Reservation;
+  isReserved = false;
 
   constructor(private reservationService: ReservationService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public makeReservation() {
-    this.reservation$ = this.reservationService.makeReservation(this.evNk, this.eventCs.nk);
+    this.reservationService.makeReservation(this.evNk, this.eventCs.nk)
+      .subscribe(() => {
+        this.isReserved = true;
+      }, (error) => {
+        console.error(error);
+      });
   }
 }
