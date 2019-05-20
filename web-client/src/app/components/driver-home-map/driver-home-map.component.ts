@@ -8,7 +8,7 @@ class Marker {
     public lat: number,
     public lng: number,
     public label?: string,
-    public icon?: string
+    public icon?: any
   ) {}
 }
 
@@ -28,13 +28,20 @@ export class DriverHomeMapComponent implements OnInit {
   driver: Marker;
   // is True when user selects a location on the map
   locationChosen = false;
-  // assets = '../../../assets';
   driverIconImage = require('assets/mapStuff/currenLocation.svg');
   driverIcon = {
       url: this.driverIconImage,
       scaledSize: {
           width: 40,
           height: 60
+      }
+  };
+  poiIconImage = require('assets/mapStuff/iconPoi.png');
+  poiIcon = {
+      url: this.poiIconImage,
+      scaledSize: {
+          width: 30,
+          height: 40
       }
   };
 
