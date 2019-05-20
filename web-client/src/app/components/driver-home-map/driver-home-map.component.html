@@ -47,7 +47,8 @@
                     <!-- POI marker -->
                     <agm-marker
                       [latitude]="poiLat"
-                      [longitude]="poiLng"
+                      [longitude]="poiLng"  
+                      [iconUrl]="poiIcon"
                       *ngIf="locationChosen"
                     ></agm-marker>                      
                   </agm-map>
