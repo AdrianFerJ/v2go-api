@@ -14,6 +14,7 @@
         </div>
         <div class="col-sm">
           My Cars <span class="badge badge-pill badge-primary">{{ driver.evs.length }}</span>
+          <a class="badge badge-success" [routerLink]="['/add-vehicle']">Add Vehicle</a>
         </div>
         <div class="col-sm">
           My Reservations <span class="badge badge-pill badge-primary">{{ driver.reservations.length }}</span>
@@ -34,18 +35,18 @@
           </div>
 
           <div class="form-group">
-              <label for="exampleInputEmail1">Last Name</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="{{ driver.user.last_name }}" readonly>
-            </div>
+            <label for="exampleInputEmail1">Last Name</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="{{ driver.user.last_name }}" readonly>
+          </div>
 
-            <div class="form-group">
+          <div class="form-group">
 
-              <label for="exampleInputEmail1">Username</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="{{ driver.user.username }}" readonly>
-            </div>
-          </form>
+            <label for="exampleInputEmail1">Username</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="{{ driver.user.username }}" readonly>
+          </div>
+        </form>
       </div>
       <div class="col-sm">
         <div *ngFor="let ev of driver.evs" class="card" style="width: 18rem;">
@@ -69,7 +70,6 @@
             <li>Start Time: {{ reservation.event_cs.startDateTime }}</li>
             <li>End Time: {{ reservation.event_cs.endDateTime }}</li>
             <li>Car: {{ reservation.ev }}</li>
-            <a href="#" class="btn btn-primary">More information</a>
           </div>
         </div>
       </div>
