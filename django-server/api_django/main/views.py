@@ -52,7 +52,7 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'
     lookup_url_kwarg = 'ev_nk'
 
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     queryset = EV.objects.all()
     serializer_class = ElectricVehicleSerializer
 
