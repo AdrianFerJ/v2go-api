@@ -28,7 +28,7 @@ export class DriverHomeMapComponent implements OnInit {
   driver: Marker;
   // is True when user selects a location on the map
   locationChosen = false;
-  driverIconImage = require('assets/mapStuff/currenLocation.svg');
+  driverIconImage: string = 'assets/mapStuff/currenLocation.svg';
   driverIcon = {
       url: this.driverIconImage,
       scaledSize: {
@@ -36,7 +36,7 @@ export class DriverHomeMapComponent implements OnInit {
           height: 60
       }
   };
-  poiIconImage = require('assets/mapStuff/iconPoi.png');
+  poiIconImage: string = 'assets/mapStuff/iconPoi.png';
   poiIcon = {
       url: this.poiIconImage,
       scaledSize: {
