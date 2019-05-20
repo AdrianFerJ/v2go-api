@@ -6,18 +6,18 @@
             <h4 class="card-header">CS-info List</h4>
             <div class="card-body">
               <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
-                  <div class="form-group">
-                    <label for="poiAddress">Find a station</label>
-                    <input
-                      id="poiAddress"
-                      class="form-control"
-                      type="text"
-                      name="poiAddress"
-                      placeholder="1735 Rue Saint-Denis, Montréal"
-                      required
-                    >
-                  </div>
-                </form>
+                <div class="form-group">
+                  <label for="poiAddress">Find a station</label>
+                  <input
+                    id="poiAddress"
+                    class="form-control"
+                    type="text"
+                    name="poiAddress"
+                    placeholder="1735 Rue Saint-Denis, Montréal"
+                    required
+                  >
+                </div>
+              </form>
               <ul class="cs-list">
                 <li *ngFor="let station of stationsList">
                   <span class="badge"> CS {{station.name}}</span> <p>{{station.address}}</p>
@@ -30,18 +30,27 @@
               <h4 class="card-header">Map</h4>
               <div class="card-body">
                   <agm-map [latitude]="poiLat" [longitude]="poiLng" (mapClick)="onChoseLocation($event)" [zoom]="zoom">
-                      <agm-marker
-                          *ngFor="let marker of markers"
-                          [latitude]="marker.lat"
-                          [longitude]="marker.lng"
-                          [label]="marker.label"
-                      ></agm-marker> 
-                      <agm-marker
-                          [latitude]="poiLat"
-                          [longitude]="poiLng"
-                          *ngIf="locationChosen"
-                      ></agm-marker>
-                    </agm-map>
+                    <!-- Driver marker-->
+                    <agm-marker
+                      [latitude]="driver.lat"
+                      [longitude]="driver.lng"
+                      [iconUrl]="driver.icon"
+                      *ngIf="driver"
+                    ></agm-marker>
+                    <!-- Stations marker -->
+                    <agm-marker
+                      *ngFor="let station of stationsList"
+                      [latitude]="station.lat"
+                      [longitude]="station.lng"
+                      [label]="station.id"
+                    ></agm-marker> 
+                    <!-- POI marker -->
+                    <agm-marker
+                      [latitude]="poiLat"
+                      [longitude]="poiLng"
+                      *ngIf="locationChosen"
+                    ></agm-marker>                      
+                  </agm-map>
               </div>
           </div>
     </div>

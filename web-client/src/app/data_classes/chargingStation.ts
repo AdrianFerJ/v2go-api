@@ -11,8 +11,8 @@ export class ChargingStation {
     //   public province?: string,
     //   public country?: string,
     //   public postal_code?: string,
-    //   public lat?: number,
-    //   public lng?: number,
+      public lat?: number,
+      public lng?: number,
     //   public geo_location?: any,
     //   public created?: string,
     //   public updated?: string,
@@ -26,7 +26,8 @@ export class ChargingStation {
           data.nk,
           data.name,
           data.address,
-        
+          data.lat,
+          data.lng,
         //   data.driver ? User.create(data.driver) : null,
         //   User.create(data.rider)
         );
