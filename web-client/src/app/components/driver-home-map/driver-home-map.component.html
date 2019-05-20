@@ -1,12 +1,5 @@
 <div class="row">
   <div class="col-lg-12">
-    <!-- TOP Nav-Bar + Breadcrumbs -->
-    <!-- <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Home Map</li>
-      </ol>
-    </nav> -->
-
     <!-- Side bar -->
     <div class="row">
       <div class="card col-md-4">
@@ -36,14 +29,18 @@
           <div class="card col-md-8">
               <h4 class="card-header">Map</h4>
               <div class="card-body">
-                  <agm-map [latitude]="poiLat" [longitude]="poiLng" [zoom]="zoom">
+                  <agm-map [latitude]="poiLat" [longitude]="poiLng" (mapClick)="onChoseLocation($event)" [zoom]="zoom">
                       <agm-marker
                           *ngFor="let marker of markers"
                           [latitude]="marker.lat"
                           [longitude]="marker.lng"
                           [label]="marker.label"
-                      >
-                      </agm-marker>
+                      ></agm-marker> 
+                      <agm-marker
+                          [latitude]="poiLat"
+                          [longitude]="poiLng"
+                          *ngIf="locationChosen"
+                      ></agm-marker>
                     </agm-map>
               </div>
           </div>

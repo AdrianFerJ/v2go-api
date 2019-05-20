@@ -25,6 +25,8 @@ export class DriverHomeMapComponent implements OnInit {
   zoom = 13;
   markers: Marker[];
   driver: Marker;
+  // is True when user selects a location on the map
+  locationChosen = false;
 
   constructor(
     private searchService: SearchStationsService,
@@ -42,6 +44,15 @@ export class DriverHomeMapComponent implements OnInit {
       .subscribe(stationsList => {
         this.stationsList = stationsList;
       });
+  }
+  /**
+   * Event handler displays a marker on the map where click-ed
+   */
+  onChoseLocation(event) {
+    console.log('### event coords: ', event.coords);
+    this.poiLat = event.coords.lat;
+    this.poiLng = event.coords.lng;
+    this.locationChosen = true;
   }
   /**
    * Method get stations near User's location (navigator, if not avail, use MTL coords)
