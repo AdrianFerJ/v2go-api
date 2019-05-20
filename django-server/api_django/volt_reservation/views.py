@@ -11,6 +11,7 @@ from .serializers import EventCSSerializer, EventEVSerializer
 from django.utils import timezone
 from datetime import datetime as dt
 from main import constants
+from django.http import Http404
 import json
 
 
@@ -48,19 +49,22 @@ class EventEVView(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data
-		event_cs = get_object_or_404(EventCS, nk=data.get('event_cs_nk'))
-		ev = get_object_or_404(EV, nk=data.get('ev_nk'))
 
 		# TODO: This should be handled by the permission
 		# if request.user != ev.ev_owner:
 			# return Response(None, status=status.HTTP_403_FORBIDDEN)
 
 		try:
+			event_cs = get_object_or_404(EventCS, nk=data.get('event_cs_nk'))
+			ev = get_object_or_404(EV, nk=data.get('ev_nk'))
+
 			event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
 
 			serializer = self.serializer_class(event_ev, many=False)
 
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		except Http404:
+			return Response(None, status=status.HTTP_404_NOT_FOUND)
 		except:
 			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
