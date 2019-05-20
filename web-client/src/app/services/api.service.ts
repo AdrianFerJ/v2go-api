@@ -45,7 +45,7 @@ export class SearchStationsService {
   providedIn: 'root'
 })
 export class ReservationService {
-  API_URL = 'http://localhost:8888/api/v1.0-pre-alpha/volt_reservation/reservations/';
+  API_URL = this.API_URL + 'volt_reservation/reservations/';
   user: User;
 
   constructor(private http: HttpClient) {
