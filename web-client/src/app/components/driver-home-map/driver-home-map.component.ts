@@ -7,7 +7,8 @@ class Marker {
   constructor(
     public lat: number,
     public lng: number,
-    public label?: string
+    public label?: string,
+    public icon?: any
   ) {}
 }
 
@@ -25,6 +26,24 @@ export class DriverHomeMapComponent implements OnInit {
   zoom = 13;
   markers: Marker[];
   driver: Marker;
+  // is True when user selects a location on the map
+  locationChosen = false;
+  driverIconImage: string = 'assets/map/currenLocation.svg';
+  driverIcon = {
+      url: this.driverIconImage,
+      scaledSize: {
+          width: 40,
+          height: 60
+      }
+  };
+  poiIconImage: string = 'assets/map/iconPoi.png';
+  poiIcon = {
+      url: this.poiIconImage,
+      scaledSize: {
+          width: 30,
+          height: 40
+      }
+  };
 
   constructor(
     private searchService: SearchStationsService,
@@ -44,16 +63,24 @@ export class DriverHomeMapComponent implements OnInit {
       });
   }
   /**
+   * Event handler displays a marker on the map where click-ed
+   */
+  onChoseLocation(event) {
+    this.poiLat = event.coords.lat;
+    this.poiLng = event.coords.lng;
+    this.locationChosen = true;
+  }
+  /**
    * Method get stations near User's location (navigator, if not avail, use MTL coords)
    * then, displays user ans CS on map.
    */
   searchStationsNearMe(): void {
     getCurrentPosition.subscribe( position => {
-      console.log('## POSITION (52): ', position);
       this.poiLat = position.coords.latitude;
       this.poiLng = position.coords.longitude;
       // Get stations near User's location
       this.findStations(this.poiLat, this.poiLng);
+      this.displayUser(position);
     }, error => {
       console.log('# ERROR at searchStationsNearMe(). Message: ', error);
       // Get stations near default MTL coords
@@ -65,26 +92,12 @@ export class DriverHomeMapComponent implements OnInit {
    *  Method to create a marker and display user locaiton on map
    */
   displayUser(position) {
-    this.poiLat = position.coords.latitude;
-    this.poiLng = position.coords.longitude;
-    // Display Driver
-    // this.driver = new Marker(this.lat, this.lng, 'D')
-    this.markers = [
-      new Marker(this.poiLat, this.poiLng, 'D')
-    ];
-    // let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    // this.map.panTo(location);
-
-    // if (!this.marker) {
-    //   this.marker = new google.maps.Marker({
-    //     position: location,
-    //     map: this.map,
-    //     title: 'Got you!'
-    //   });
-    // }
-    // else {
-    //   this.marker.setPosition(location);
-    // }
+    this.driver = new Marker(
+      position.coords.latitude,
+      position.coords.longitude,
+      'D',
+      this.driverIcon
+    );
   }
 }
 
@@ -95,7 +108,6 @@ const getCurrentPosition = new Observable<Position>(observer => {
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(
       position => {
-        console.log('## POSITION (98): ', position);
         observer.next(position);
       },
       navigatorError => { observer.error(navigatorError); },
@@ -111,8 +123,7 @@ const getCurrentPosition = new Observable<Position>(observer => {
  * Check: https://angular.io/guide/observables#basic-usage-and-terms
  */
 const streamUserPosition = new Observable((observer) => {
-  // Get the next and error callbacks. These will be passed in when
-  // the consumer subscribes.
+  // Get the next and error callbacks when the consumer subscribes.
   const {next, error} = observer;
   let watchId;
   // Simple geolocation API check provides values to publish
