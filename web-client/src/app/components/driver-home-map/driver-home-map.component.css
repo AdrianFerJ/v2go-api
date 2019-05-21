@@ -49,4 +49,11 @@ agm-map {
     margin-right: .8em;
     border-radius: 5px 0 0 5px;
 }
- 
+/* Form fields */
+#block_coords {
+    text-align: left;
+}
+#block_coords > div {
+    display: inline-block;
+    vertical-align: middle;
+}
