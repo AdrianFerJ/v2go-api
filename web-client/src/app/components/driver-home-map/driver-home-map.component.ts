@@ -60,7 +60,6 @@ export class DriverHomeMapComponent implements OnInit {
     this.searchService.findStations(lat, lng)
       .subscribe(stationsList => {
         this.stationsList = stationsList;
-        console.log('# stationsList: ', stationsList);
       });
   }
   /**
@@ -99,7 +98,6 @@ export class DriverHomeMapComponent implements OnInit {
       'D',
       this.driverIcon
     );
-    console.log('### DRIVER :', this.driver);
   }
 }
 
