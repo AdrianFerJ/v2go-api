@@ -6,10 +6,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '../data_classes/user';
 import { ChargingStation } from '../data_classes/chargingStation';
-import { STATIONS } from '../data_classes/mock_cs'
+import { STATIONS } from '../data_classes/mock_cs';
 import { environment } from '../../environments/environment';
 import { Reservation } from '../../app/data_classes/reservation';
 import { DriverInfo } from '../../app/data_classes/driver_profile';
+import { Vehicle } from '../../app/data_classes/vehicle';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +57,8 @@ export class ReservationService {
   public makeReservation(eventCsNk, evNk): Observable<Reservation> {
     return this.http.post<Reservation>(this.API_URL,
       {
-        'event_cs_nk': eventCsNk,
-        'ev_nk': evNk
+        event_cs_nk: eventCsNk,
+        ev_nk: evNk
       });
   }
 }
@@ -66,7 +67,7 @@ export class ReservationService {
   providedIn: 'root'
 })
 export class DriverProfileService {
-  API_URL  =  environment.devUrl;
+  API_URL = environment.devUrl;
   user: User;
 
   constructor(private http: HttpClient) {
@@ -76,5 +77,30 @@ export class DriverProfileService {
 
   public getProfileInfo(): Observable<DriverInfo> {
     return this.http.get<DriverInfo>(`${this.API_URL}my-account/${this.user.id}`);
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class VehicleService {
+  API_URL = environment.devUrl + 'vehicles/';
+  user: User;
+
+  constructor(private http: HttpClient) {
+    const userData = localStorage.getItem('v2go.user');
+    this.user = User.create(JSON.parse(userData));
+  }
+
+  public createVehicle(nickname, model, manufacturer, year, chargerType): Observable<Vehicle> {
+    return this.http.post<Vehicle>(this.API_URL,
+      {
+        nickname,
+        model,
+        manufacturer,
+        year,
+        charger_type: chargerType,
+        ev_owner: this.user.id
+      });
   }
 }
