@@ -8,14 +8,6 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./vehicle.component.css']
 })
 export class VehicleComponent implements OnInit {
-  form = new FormGroup({
-    nickname: new FormControl('Tessy', Validators.minLength(2)),
-    model: new FormControl('Roadster'),
-    manufacturer: new FormControl('Tesla'),
-    year: new FormControl(2018),
-    chargerType: new FormControl('a')
-  });
-
   onSubmit(value: any): void {
     const nickname = value.nickname;
     const model = value.model;

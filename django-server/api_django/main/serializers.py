@@ -42,5 +42,5 @@ class ChargingStationSerializer(serializers.ModelSerializer):
 class ElectricVehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = EV
-        fields = ('nk', 'model', 'manufacturer', 'year', 'charger_type', 'ev_owner', 'calendar')
+        fields = ('nk', 'model', 'nickname', 'manufacturer', 'year', 'charger_type', 'ev_owner', 'calendar')
 
