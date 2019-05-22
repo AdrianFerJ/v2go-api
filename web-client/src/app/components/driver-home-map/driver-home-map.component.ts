@@ -20,14 +20,14 @@ class Marker {
 export class DriverHomeMapComponent implements OnInit {
 
   stationsList: ChargingStation[];
+  driver: Marker;
   // Default values for Point of Interest (poi) coordinates is MTL
   poiLat: number = 45.508048;
   poiLng: number = -73.568025;
-  zoom = 13;
-  markers: Marker[];
-  driver: Marker;
   // is True when user selects a location on the map
+  zoom = 13;
   locationChosen = false;
+  // Map marker's icons
   driverIconImage: string = 'assets/map/currenLocation.svg';
   driverIcon = {
       url: this.driverIconImage,
