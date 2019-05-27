@@ -1,0 +1,34 @@
+<div class="container">
+  <h1>Vehicle Form</h1>
+  <form #vehicleForm="ngForm" (ngSubmit)="onSubmit(form.value)">
+    <div class="form-group">
+      <label for="nickname">Nickname</label>
+      <input type="text" id="nickname" class="form-control" name="nickname" placeholder="Enter your vehicle's nickname"
+        ngModel>
+    </div>
+
+    <div class="form-group">
+      <label for="model">Model</label>
+      <input type="text" id="model" class="form-control" name="model" placeholder="Enter your vehicle's model" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label for="manufacturer">Manufacturer</label>
+      <input type="text" id="manufacturer" class="form-control" name="manufacturer"
+        placeholder="Enter your vehicle's manufacturer" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label>Year</label>
+      <input type="number" name="year" class="form-control" placeholder="Enter your vehicle's year" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label for="chargerType">Charger Type</label>
+      <select id="chargerType" class="form-control" ngModel required>
+        <option *ngFor="let chargerType of chargerTypes" [value]="chargerType">Charger Type {{chargerType}}</option>
+      </select>
+    </div>
+    <button class="btn btn-success">Submit</button>
+  </form>
+</div>

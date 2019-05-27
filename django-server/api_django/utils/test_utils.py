@@ -57,6 +57,7 @@ def evs_to_ordered_dict(evs):
         evs_serialized.append(OrderedDict([
             ('nk', ev.nk),
             ('model', ev.model),
+            ('nickname', ev.nickname),
             ('manufacturer', ev.manufacturer),
             ('year', ev.year),
             ('charger_type', ev.charger_type),
