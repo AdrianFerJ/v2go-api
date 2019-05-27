@@ -8,6 +8,8 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./vehicle.component.css']
 })
 export class VehicleComponent implements OnInit {
+  private chargerTypes = ['a', 'b', 'c'];
+
   onSubmit(value: any): void {
     const nickname = value.nickname;
     const model = value.model;
