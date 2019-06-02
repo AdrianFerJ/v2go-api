@@ -52,6 +52,21 @@ class EventCS(models.Model):
 
 		super().save(*args, **kwargs)
 
+	def change_end_datetime(self, custom_end_datetime):
+		if custom_end_datetime < self.endDateTime:
+			new_start_datetime = custom_end_datetime
+			new_end_datetime = self.endDateTime
+			new_event = EventCS.objects.create(
+				startDateTime	= new_start_datetime,
+				endDateTime		= new_end_datetime,
+				cs				= self.cs,
+				status 			= constants.AVAILABLE
+			)
+			new_event.save()
+
+			self.endDateTime = custom_end_datetime
+			self.save()
+
 	def __str__(self):
 		return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
 

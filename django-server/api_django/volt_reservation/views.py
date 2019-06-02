@@ -13,6 +13,7 @@ from datetime import datetime as dt
 from main import constants
 from django.http import Http404
 import json
+from datetime import datetime as dt
 
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
@@ -82,6 +83,23 @@ class EventEVView(viewsets.ModelViewSet):
 		serializer = self.serializer_class(completed, many=True)
 
 		return Response(serializer.data)
+
+	@action(detail=False)
+	def custom(self, request):
+		user = request.user
+		data = request.GET
+		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
+		ev = EV.objects.get(nk=data.get('ev_nk'))
+
+		custom_end_time = dt.strptime(data.get('custom_end_datetime'), '%Y-%m-%d %H:%M:%S')
+		event_cs.change_end_datetime(custom_end_time)
+
+		event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
+
+		serializer = self.serializer_class(event_ev, many=False)
+
+		return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 	def retrieve(self, request, ev_event_nk=None):
 		user = request.user
