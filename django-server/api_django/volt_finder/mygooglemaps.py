@@ -16,36 +16,40 @@ from dataclasses import dataclass
 # Settings to run script manually
 import os
 GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')
-gmaps = googlemaps.Client(key= GOOGLE_API_KEY)
+gmaps = googlemaps.Client(key=GOOGLE_API_KEY)
 
 # Transportation mode
-mymode =  "driving" #"transit" # "walking"
+mymode = "driving"  # "transit" # "walking"
 jsonDumpDir = 'volt_finder/x_scrap_stuff/jsonDump.json'
 sampleCS = ["160 Rue Saint Viateur E, Montréal, QC H2T 1A8",
-           "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
-           "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
-           "2153 Mackay St, Montreal, QC H3G 2J2",
-           "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
-           "5265 Queen Mary Rd, Montreal, QC H3W 1Y3",
-           "191 Place du Marché-du-Nord, Montréal, QC H2S 1A2",
-           "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
-           "545 Milton St, Montreal, QC H2X 1W5",
-           "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
-           "432 Rue Rachel E, Montréal, QC H2J 2G7"
-]
+            "145 Mont-Royal Ave E, Montreal, QC H2T 1N9",
+            "1735 Rue Saint-Denis, Montréal, QC H2X 3K4",
+            "2153 Mackay St, Montreal, QC H3G 2J2",
+            "3515 Avenue Lacombe, Montréal, QC H3T 1M2",
+            "5265 Queen Mary Rd, Montreal, QC H3W 1Y3",
+            "191 Place du Marché-du-Nord, Montréal, QC H2S 1A2",
+            "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
+            "545 Milton St, Montreal, QC H2X 1W5",
+            "1999 Mont-Royal Ave E, Montreal, QC H2H 1J4",
+            "432 Rue Rachel E, Montréal, QC H2J 2G7"
+            ]
 
 """ Helpers """
+
+
 def printParams():
     print("--- Params ---")
     print("Transport mode: ", mymode)
     print("Json dump directory: ", jsonDumpDir)
     print("Sample CS: ", sampleCS)
 
+
 def dumpJsonFile(jdata):
     """ Takes a json or array and ourputs into a Json File """
     with open(jsonDumpDir, 'w') as json_file:
         json.dump(jdata, json_file)
     return "File saved"
+
 
 def printTripSummary(direc):
     """ Takes direction service outpu as input, prints summary info"""
@@ -54,6 +58,7 @@ def printTripSummary(direc):
     print("To: ", direc[0]["legs"][0]["end_address"])
     print("Distance: ", direc[0]["legs"][0]["distance"]["text"])
     print("Duration: ", direc[0]["legs"][0]["duration"]["text"])
+
 
 @dataclass
 class CStation:
@@ -75,48 +80,51 @@ def format_output_cs(addr, elem):
     #     'duration_val': elem['duration']['value'],
     #     'distance_txt': elem['distance']['text'],
     #     'distance_val': elem['distance']['value'],
-    #     'status': elem['status']                   
+    #     'status': elem['status']
     # }
-    # Use CStation data class object (requires serialization before the view Responds to client)
+    # Use CStation data class object (requires serialization before the view
+    # Responds to client)
     formated_cs = CStation(
         'no_nk',
-        addr, 
-        elem['duration']['text'], 
+        addr,
+        elem['duration']['text'],
         elem['duration']['value'],
-        elem['distance']['text'], 
+        elem['distance']['text'],
         elem['distance']['value'],
         elem['status']
     )
     return formated_cs
-    
 
-    
+
 """ Main func """
 
+
 def getDirections(departure, destination):
-    """  
+    """
     Returns the directions to get from departure (A) to departure (B)
-    Input: 2 locations (address or coordinates) as string 
+    Input: 2 locations (address or coordinates) as string
     Output: Json formated Directions, but as an array.
     """
     now = datetime.now()
-    directions_result =  gmaps.directions(
-        departure, destination, mode = mymode, departure_time = now)
+    directions_result = gmaps.directions(
+        departure, destination, mode=mymode, departure_time=now)
     return directions_result
+
 
 def getNearestCS(poi, charginStations):
     """ Gets the top X nearest CS from user provided location.
-    :param poi: the point of interestes, a single location provided by the user 
-    :param charginStations: array of CS locations 
+    :param poi: the point of interestes, a single location provided by the user
+    :param charginStations: array of CS locations
     """
     resp = gmaps.distance_matrix(poi, charginStations)
-    
-    #TODO: replace this if /else for try/except
-    if resp['status']!='OK':
+
+    # TODO: replace this if /else for try/except
+    if resp['status'] != 'OK':
         return "Error"
     else:
         result = []
-        for addr, elem in zip(resp['destination_addresses'], resp["rows"][0]['elements']):
+        for addr, elem in zip(
+                resp['destination_addresses'], resp["rows"][0]['elements']):
             temp_CStation = format_output_cs(addr, elem)
             result.append(temp_CStation)
 
@@ -127,5 +135,4 @@ def getNearestCS(poi, charginStations):
         if len(result) > 5:
             return result[:5]
         else:
-            return result  
-
+            return result

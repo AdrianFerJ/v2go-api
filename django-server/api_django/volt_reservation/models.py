@@ -19,7 +19,9 @@ class EventCS(models.Model):
     endDateTime = models.DateTimeField()
     cs = models.ForeignKey(ChargingStation, on_delete=models.CASCADE)
     status = models.CharField(
-        max_length=20, choices=constants.STATUS_CHOICES, default=constants.AVAILABLE)
+        max_length=20,
+        choices=constants.STATUS_CHOICES,
+        default=constants.AVAILABLE)
     ev_event_id = models.IntegerField(default=-1)
 
     def save(self, *args, **kwargs):
@@ -71,7 +73,8 @@ class EventCS(models.Model):
             self.save()
 
     def __str__(self):
-        return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
+        return str(self.cs.name) + ' ' + str(self.status) + ' ' + \
+            str(self.startDateTime) + '/' + str(self.endDateTime)
 
 
 class EventEV(models.Model):
@@ -80,7 +83,9 @@ class EventEV(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(
-        max_length=20, choices=constants.STATUS_CHOICES, default=constants.RESERVED)
+        max_length=20,
+        choices=constants.STATUS_CHOICES,
+        default=constants.RESERVED)
     event_cs = models.ForeignKey(EventCS, on_delete=models.CASCADE)
     ev = models.ForeignKey(EV, on_delete=models.CASCADE)
     ev_owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -114,4 +119,5 @@ class EventEV(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.ev) + ' and ' + str(self.event_cs.cs.name) + ' at ' + str(self.event_cs.startDateTime) + '/' + str(self.event_cs.endDateTime)
+        return str(self.ev) + ' and ' + str(self.event_cs.cs.name) + ' at ' + \
+            str(self.event_cs.startDateTime) + '/' + str(self.event_cs.endDateTime)

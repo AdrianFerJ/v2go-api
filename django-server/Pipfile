@@ -20,6 +20,7 @@ googlemaps = "*"
 django-scheduler = "*"
 python-slugify = "*"
 django-cors-headers = "*"
+autopep8 = "*"
 
 [dev-packages]
 pylint = "*"

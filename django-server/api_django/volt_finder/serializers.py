@@ -5,7 +5,7 @@ from main.models import ChargingStation
 
 class CSwithDistanceSerializer(serializers.ModelSerializer):
     """Serialized CS with GEO information """
-    distance_to_poi = serializers.SerializerMethodField()  #.FloatField()
+    distance_to_poi = serializers.SerializerMethodField()  # .FloatField()
 
     def get_distance_to_poi(self, obj):
         return obj.distance_to_poi.m

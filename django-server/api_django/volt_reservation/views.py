@@ -26,7 +26,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
     serializer_class = EventCSSerializer
 
     def list(self, request, *args, **kwargs):
-        if request.data == None:
+        if request.data is None:
             return super().list(request)
         else:
             start_datetime = dt.strptime(request.GET.get(
@@ -69,7 +69,7 @@ class EventEVView(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Http404:
             return Response(None, status=status.HTTP_404_NOT_FOUND)
-        except:
+        except BaseException:
             return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False)

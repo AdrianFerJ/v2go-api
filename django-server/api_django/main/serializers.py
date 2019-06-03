@@ -1,11 +1,13 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import ChargingStation
-from .models import ElectricVehicle as EV  
+from .models import ElectricVehicle as EV
 
-""" 
+"""
     Serializers
 """
+
+
 class UserSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
@@ -42,5 +44,12 @@ class ChargingStationSerializer(serializers.ModelSerializer):
 class ElectricVehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = EV
-        fields = ('nk', 'model', 'nickname', 'manufacturer', 'year', 'charger_type', 'ev_owner', 'calendar')
-
+        fields = (
+            'nk',
+            'model',
+            'nickname',
+            'manufacturer',
+            'year',
+            'charger_type',
+            'ev_owner',
+            'calendar')
