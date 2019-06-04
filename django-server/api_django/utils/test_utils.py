@@ -2,16 +2,17 @@ from collections import OrderedDict
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from main.constants import USERNAME, PASSWORD, U_DRIVER, U_OWNER, FIRST_NAME, LAST_NAME
+from datetime import datetime as dt
 
 
 def create_user(username=USERNAME, password=PASSWORD,
                 group=U_DRIVER, first_name=FIRST_NAME,
                 last_name=LAST_NAME):
     user = get_user_model().objects.create_user(
-        username    = username,
-        first_name  = first_name,
-        last_name   = last_name,
-        password    = password
+        username=username,
+        first_name=first_name,
+        last_name=last_name,
+        password=password
     )
 
     Group.objects.get_or_create(name=username)
@@ -50,6 +51,7 @@ def ev_event_to_ordered_dict(ev_events):
 
     return ev_events_serialized
 
+
 def evs_to_ordered_dict(evs):
     evs_serialized = []
 
@@ -66,3 +68,7 @@ def evs_to_ordered_dict(evs):
         ]))
 
     return evs_serialized
+
+
+def string_to_datettime(datetime_str):
+    return dt.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')

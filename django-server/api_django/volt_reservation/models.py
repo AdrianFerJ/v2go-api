@@ -55,19 +55,52 @@ class EventCS(models.Model):
 
         super().save(*args, **kwargs)
 
-    def split_event_cs(self, custom_end_datetime):
-        if custom_end_datetime < self.endDateTime:
-            new_start_datetime = custom_end_datetime
-            new_end_datetime = self.endDateTime
+    def split_event_cs(self, custom_start_datetime, custom_end_datetime):
+        # Split into three different event cs
+        if self.startDateTime < custom_start_datetime and self.endDateTime > custom_end_datetime:
+            event_cs_1 = EventCS.objects.create(
+                startDateTime=self.startDateTime,
+                endDateTime=custom_start_datetime,
+                cs=self.cs,
+                status=constants.AVAILABLE
+            )
+
+            event_cs_2 = EventCS.objects.create(
+                startDateTime=custom_end_datetime,
+                endDateTime=self.endDateTime,
+                cs=self.cs,
+                status=constants.AVAILABLE
+            )
+
+            self.startDateTime = custom_start_datetime
+            self.endDateTime = custom_end_datetime
+
+            event_cs_1.save()
+            event_cs_2.save()
+            self.save()
+
+        elif self.startDateTime == custom_start_datetime and custom_end_datetime < self.endDateTime:
             new_event = EventCS.objects.create(
-                startDateTime=new_start_datetime,
-                endDateTime=new_end_datetime,
+                startDateTime=custom_end_datetime,
+                endDateTime=self.endDateTime,
                 cs=self.cs,
                 status=constants.AVAILABLE
             )
             new_event.save()
 
             self.endDateTime = custom_end_datetime
+            self.save()
+
+        elif self.startDateTime < custom_start_datetime and custom_end_datetime == self.endDateTime:
+            new_event = EventCS.objects.create(
+                startDateTime=self.startDateTime,
+                endDateTime=custom_start_datetime,
+                cs=self.cs,
+                status=constants.AVAILABLE
+            )
+            new_event.save()
+
+            self.startDateTime = custom_start_datetime
             self.save()
 
     def __str__(self):
@@ -86,7 +119,6 @@ class EventEV(models.Model):
     ev_owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
-
         if self.status == constants.CANCELED:
             event = Event.objects.get(id=self.event_cs.ev_event_id)
 
