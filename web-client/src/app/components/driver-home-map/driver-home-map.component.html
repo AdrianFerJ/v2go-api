@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-lg-12">
+    <!-- Side bar -->
+    <div class="row">
+      <div class="card col-md-4">
+            <h4 class="card-header">CS-info List</h4>
+            <div class="card-body">
+              <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+                <div class="form-group" id="block_coords">
+                  <h2> Find a station by address </h2>
+                  <div class="col-sm-8">
+                    <input
+                      id="poiAddress"
+                      class="form-control"
+                      type="text"
+                      name="poiAddress"
+                      placeholder="1735 Rue Saint-Denis, Montréal"
+                      required
+                    >
+                  </div>
+                  <div class="col-sm-4"> 
+                    <input type="submit" value="Submit" disabled class="btn btn-primary">
+                  </div>
+                
+                </div>
+              </form>
+              <form #requestForm="ngForm" novalidate (ngSubmit)="findStations(poiLat, poiLng)">
+                  <div class="form-group" id="block_coords">
+                    <h2> Find a station by Coordinates </h2>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" [(ngModel)]="poiLat" name="poiLat">
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" [(ngModel)]="poiLng" name="poiLng">
+                    </div>
+                    <div class="col-sm-4">
+                      <button
+                        class="btn btn-primary"
+                        (click)="Submit">Search</button>
+                    </div>
+                  </div>
+              </form>
+              <hr>  
+              <ul class="cs-list">
+                <li *ngFor="let station of stationsList">
+                  <span class="badge"> CS {{station.name}}</span> <p>{{station.address}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Map Display -->
+          <div class="card col-md-8">
+              <h4 class="card-header">Map</h4>
+              <div class="card-body">
+                  <agm-map [latitude]="poiLat" [longitude]="poiLng" (mapClick)="onChoseLocation($event)" [zoom]="zoom">
+                    <!-- Driver marker-->
+                    <agm-marker
+                      [latitude]="driver.lat"
+                      [longitude]="driver.lng"
+                      [iconUrl]="driver.icon"
+                      *ngIf="driver"
+                    ></agm-marker>
+                    <!-- Stations marker -->
+                    <agm-marker
+                      *ngFor="let station of stationsList"
+                      [latitude]="station.lat"
+                      [longitude]="station.lng"
+                      [label]="station.id"
+                    ></agm-marker> 
+                    <!-- POI marker -->
+                    <agm-marker
+                      [latitude]="poiLat"
+                      [longitude]="poiLng"  
+                      [iconUrl]="poiIcon"
+                      *ngIf="locationChosen"
+                    ></agm-marker>                      
+                  </agm-map>
+              </div>
+          </div>
+    </div>
+  </div>
+</div>

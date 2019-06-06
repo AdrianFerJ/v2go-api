@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 from schedule.models import Event, EventRelation, Calendar
 
-from .constants import CHARGER_CHOICES, STATUS_CHOICES
+from .constants import CHARGER_CHOICES, STATUS_CHOICES, CHARGER_A
 from .helpers import create_hash
 
 import datetime
@@ -17,40 +17,6 @@ import hashlib
 class User(AbstractUser): 
     pass
     # groups = (RIDER , OWNER  , VOLT_MANAGER (?) )
-
-
-# class CSHost(models.Model):
-#     nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
-#     created     = models.DateTimeField(auto_now_add=True)
-#     updated     = models.DateTimeField(auto_now=True)
-#     name        = models.CharField(max_length=40)
-
-#     def __str__(self):
-#         return self.name
-
-#     def save(self, *args, **kwargs):
-#         if not self.nk:
-#             self.nk = create_hash(self)
-
-#         super().save(*args, **kwargs)
-
-
-# class Driver(models.Model):
-#     nk          = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
-#     created     = models.DateTimeField(auto_now_add=True)
-#     updated     = models.DateTimeField(auto_now=True)
-#     name        = models.CharField(max_length=255, default='')
-#     latitude    = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
-#     longitude   = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=6)
-
-#     def save(self, *args, **kwargs):
-#         if not self.nk:
-#             self.nk = create_hash(self)
-
-#         super().save(*args, **kwargs)
-
-#     def __str__(self):
-#         return self.name
 
 
 class ChargingStation(models.Model):
@@ -81,8 +47,8 @@ class ChargingStation(models.Model):
     name         = models.CharField(max_length=255, blank=True)
     external_id  = models.CharField(max_length=100, blank=True)
 
-    # cs_host      = models.ForeignKey(CSHost, on_delete=models.CASCADE,    default=None)
-    calendar     = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
+    cs_host      = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    calendar     = models.OneToOneField(Calendar, null=True, on_delete=models.CASCADE)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
     tarif_text   = models.CharField(max_length=100, blank=True)
@@ -106,10 +72,10 @@ class ChargingStation(models.Model):
     updated      = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s %s' % (self.nk, self.address)
+        return f"#{self.id}, {self.address}"
 
     def get_absolute_url(self):
-        return reverse('main:cs_detail', kwargs={'cs_nk': self.nk})
+        return reverse('main:stations-detail', kwargs={'station_nk': self.nk})
     
     def create_geo_location(self):
         self.geo_location = fromstr(f'POINT({self.lng} {self.lat})', srid=4326)
@@ -133,19 +99,24 @@ class ChargingStation(models.Model):
 
         super().save(**kwargs)
 
+    def delete(self, *args, **kwargs):
+        self.calendar.delete()
+        return super().delete(*args, **kwargs)
+
     # def __str__(self):
     #     return self.name
 
 
-class EV(models.Model):
+class ElectricVehicle(models.Model):
     nk              = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
     created         = models.DateTimeField(auto_now_add=True)
     updated         = models.DateTimeField(auto_now=True)
+    nickname        = models.CharField(max_length=20, blank=True, default='')
     model           = models.CharField(max_length=40)
     manufacturer    = models.CharField(max_length=40)
     year            = models.IntegerField()
-    charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default='a')
-    # ev_owner        = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    charger_type    = models.CharField(max_length=20, choices=CHARGER_CHOICES, default=CHARGER_A)
+    ev_owner        = models.ForeignKey(User, on_delete=models.CASCADE)
     calendar        = models.OneToOneField(Calendar, blank=True, null=True, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
@@ -158,4 +129,4 @@ class EV(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.model
+        return "%s, %s, %s, %s" % (self.manufacturer, self.model, self.nickname, self.updated)

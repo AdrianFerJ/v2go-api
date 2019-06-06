@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'volt_reservation',
     # 3rd Party Apps
     'rest_framework',
-    'channels',
+    'corsheaders',          # Enables CORS (for Angular calls)
+    #'channels',
     'django.contrib.gis',   # GeoDjango
     'schedule',             # Django Scheduler
 ]
@@ -55,12 +56,19 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Enable CORS communication for Angular calls from these domains 
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200',
+    #TODO add Prod server domain
+)
 
 ROOT_URLCONF = 'api_django.urls'
 
@@ -100,7 +108,7 @@ DATABASES = {
         'NAME': 'pg_gis_db',
         'USER': 'dev_user',
         'PASSWORD': 'SirGeorgeWilliams1515',
-        'HOST': 'localhost',
+        'HOST': 'db', #'localhost',
         'PORT': '5432'
     }
 }
@@ -156,6 +164,8 @@ CHANNEL_LAYERS = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     )
@@ -163,4 +173,4 @@ REST_FRAMEWORK = {
 
 # There is a secrete API key used in development and staging. 
 # Each developer should get it's own key (sr: https://developers.google.com/maps/documentation/javascript/get-api-key)
-GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')
+# GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')

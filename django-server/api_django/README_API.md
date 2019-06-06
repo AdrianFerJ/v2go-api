@@ -37,6 +37,11 @@ $ sudo aptitude install binutils libproj-dev
 # $ sudo make install
 ```
 
+### Load start data (Fixture)
+Need to be running docker containers
+```bash
+$ docker-compose exec web api_django/manage.py loaddata api_django/fixtures/startData_May.json
+```
 
 ## Run API locally
 1. **Activate venv** and navigate to api_django/ 

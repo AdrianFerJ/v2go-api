@@ -1,0 +1,21 @@
+# .semaphore/semaphore.yml
+version: v1.0
+name: Install docker-compose
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: Continuous Integration
+    task:
+      jobs:
+      - name: Building and testing
+        commands:
+          - checkout
+          - docker-compose rm -f
+          - docker-compose pull
+          - docker-compose up -d --build db
+          - docker-compose up -d --build web
+          - docker-compose run web python api_django/manage.py test main.tests.test_models volt_reservation.tests.test_models
+          - docker-compose run web python api_django/manage.py test main.tests.test_views volt_reservation.tests.test_views

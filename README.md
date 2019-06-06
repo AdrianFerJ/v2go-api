@@ -92,3 +92,21 @@ $ npm install
 #        bootswatch --save
 ```
 
+### 3. Setup pre-commit
+With pre-commit setup, before each commit tests would be run and only when it passes is when 
+you can commit.
+
+Click [here](https://rock-it.pl/automatic-code-quality-checks-with-git-hooks/) to get more information about pre-commit
+
+Run the following command to set it up
+```bash
+./scripts/install-hooks.bash
+```
+
+If you would really have to skip tests, you can use the flag `--no-verify`
+
+For example
+```bash
+# pre-commit hook is skipped
+git commit --no-verify -m "test"
+```

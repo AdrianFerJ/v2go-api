@@ -1,11 +1,32 @@
+CHARGER_A = 'a'
+CHARGER_B = 'b'
+CHARGER_C = 'c'
+
 CHARGER_CHOICES = [
-                   ('a', 'Charger Type A'), 
-                   ('b', 'Charger Type B'), 
-                   ('c', 'Charger Type C')
+                   (CHARGER_A, 'Charger Type A'), 
+                   (CHARGER_B, 'Charger Type B'), 
+                   (CHARGER_C, 'Charger Type C')
                   ]
-STATUS_CHOICES  = [
-                   ('AVAILABLE', 'Available'), 
-                   ('RESERVED', 'Reserved'), 
-                   ('UNAVAILABLE', 'Unavailable'), 
-                   ('OUT OF SERVICE', 'Out of Service')
-                  ]
+
+AVAILABLE = 'AVAILABLE'
+RESERVED = 'RESERVED'
+UNAVAILABLE = 'UNAVAILABLE'
+OUT_OF_SERVICE = 'OUT_OF_SERVICE'
+CANCELED = 'CANCELED'
+COMPLETED = 'COMPLETED'
+
+STATUS_CHOICES  = (
+                   (AVAILABLE, 'Available'),
+                   (RESERVED, 'Reserved'),
+                   (UNAVAILABLE, 'Unavailable'),
+                   (OUT_OF_SERVICE, 'Out of Service'),
+                   (CANCELED, 'Canceled'),
+                   (COMPLETED, 'Completed')
+                  )
+
+USERNAME = 'user@example.com'
+PASSWORD = 'letmein!'
+U_DRIVER = 'DRIVER'
+U_OWNER = 'OWNER'
+FIRST_NAME = 'Test_name'
+LAST_NAME = 'Test_last'

@@ -1,55 +1,30 @@
 version: '3.7'
 
 services:
-
-  django-server:
-    container_name: django-server
+  db:
+    image: mdillon/postgis:9.6
+    container_name: db
+    environment:
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=SirGeorgeWilliams1515
+      - POSTGRES_DB=pg_gis_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+  web:
+    container_name: web
     build:
       context: ./django-server
-      dockerfile: Dockerfile
+    command: python api_django/manage.py runserver 0.0.0.0:8000
     volumes:
-      - './django-server:/usr/src/app'
-    ports:
-      - 8000:8000
+      - ./django-server:/code
     environment:
-      - REDIS_URL=redis://redis:6379/0
-    depends_on:
-      - redis
-    links:
-      - redis
-
-  ev-finder-client:
-    container_name: ev-finder-client
-    build:
-      context: ./angular-ui
-      dockerfile: Dockerfile
-    volumes:
-      - './taxi-ui:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
     ports:
-      - 4200:4200
+      - "8888:8000"
     depends_on:
-      - django-server
-    links:
-      - django-server
-
-  redis:
-    container_name: redis
-    image: redis:4.0.11
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: nginx
-    restart: always
-    ports:
-      - 8080:80
-    depends_on:
-      - ev-finder-client
-      - django-server
-    volumes:
-      - media:/usr/src/app/django-server/media
+      - db
 
 volumes:
-  media:
+  data:

@@ -1,0 +1,15 @@
+.container-bg {
+  background: lightblue;
+}
+
+.col-sm {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;       /*the same as your div height*/
+}
+
+.card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
