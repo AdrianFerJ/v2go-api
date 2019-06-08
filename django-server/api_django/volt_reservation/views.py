@@ -28,10 +28,15 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 		if request.data == None:
 			return super().list(request)
 		else:
-			start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
-			end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
+			filters = {}
+			data = dict(request.GET)
+			filters['status'] = request.GET.get('status')
+			if request.GET.get('cs__nk') is not None:
+				filters['cs__nk'] = request.GET.get('cs__nk')
+			data['startDateTime__range'] = [dt.strptime(data['startDateTime__range'][0], '%Y-%m-%d %H:%M:%S'),
+											   dt.strptime(data['startDateTime__range'][1], '%Y-%m-%d %H:%M:%S')]
 
-			queryset = ReservationService.get_available_event_cs(start_datetime, end_datetime)
+			queryset = EventCS.objects.filter(**filters)
 
 			serializer = EventCSSerializer(queryset, many=True)
 

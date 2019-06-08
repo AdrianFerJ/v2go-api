@@ -32,6 +32,15 @@ class TestEventCS(APITestCase):
             cs_host  = cls.cs_host,
         )
 
+        cls.cs_t2 = ChargingStation.objects.create( 
+            name     = 'Panthere 2',
+            address  = '1253 Rue Jeanne-Mance, Montréal, QC H2X, Canada', 
+            lat      = 45.5210394,
+            lng      = -73.543293,
+            cs_host  = cls.cs_host,
+        )
+
+
         cls.cs_event_1 = EventCS.objects.create(
         	startDateTime	= dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
 			endDateTime		= dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
@@ -62,24 +71,47 @@ class TestEventCS(APITestCase):
             status          = constants.RESERVED,
         )
 
+        cls.cs_event_5 = EventCS.objects.create(
+            startDateTime   = dt.strptime('2019-09-25 15:00:00', '%Y-%m-%d %H:%M:%S'),
+            endDateTime     = dt.strptime('2019-09-25 17:30:00', '%Y-%m-%d %H:%M:%S'),
+            cs              = cls.cs_t2,
+            status          = constants.AVAILABLE
+        )
+
     def setUp(self):
         self.client = APIClient()
         self.client.login(username=self.cs_host.username, password=constants.PASSWORD)
 
     def test_host_can_filter_available_between_certain_time(self):
         response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
-            'start_datetime': '2019-09-25 12:00:00',
-            'end_datetime': '2019-09-28 15:30:00'
+            'startDateTime__range': ['2019-09-25 12:00:00', '2019-09-28 15:30:00'],
+            'status': constants.AVAILABLE
         })
         
         result = response.data
 
-        self.assertEqual(len(result), 2)
+        self.assertEqual(len(result), 3)
         self.assertFalse(filter_by_cs_event_nk(self.cs_event_1, result))
         self.assertTrue(filter_by_cs_event_nk(self.cs_event_2, result))
         self.assertTrue(filter_by_cs_event_nk(self.cs_event_3, result))
         self.assertFalse(filter_by_cs_event_nk(self.cs_event_4, result))
+        self.assertTrue(filter_by_cs_event_nk(self.cs_event_5, result))
 
+    def test_driver_can_get_weekly_availabilities(self):
+        response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
+            'cs__nk': self.cs_t2.nk,
+            'startDateTime__range': ['2019-09-25 12:00:00', '2019-09-28 15:30:00'],
+            'status': constants.AVAILABLE
+        })
+
+        result = response.data
+
+        self.assertEqual(len(result), 1)
+        self.assertFalse(filter_by_cs_event_nk(self.cs_event_1, result))
+        self.assertFalse(filter_by_cs_event_nk(self.cs_event_2, result))
+        self.assertFalse(filter_by_cs_event_nk(self.cs_event_3, result))
+        self.assertFalse(filter_by_cs_event_nk(self.cs_event_4, result))
+        self.assertTrue(filter_by_cs_event_nk(self.cs_event_5, result))
 
 class TestEventEV(APITestCase):
     @classmethod
