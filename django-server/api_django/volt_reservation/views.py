@@ -30,10 +30,11 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 		else:
 			filters = {}
 			data = dict(request.GET)
-			filters['status'] = request.GET.get('status')
+			if request.GET.get('status') is not None:				
+				filters['status'] = request.GET.get('status')
 			if request.GET.get('cs__nk') is not None:
 				filters['cs__nk'] = request.GET.get('cs__nk')
-			data['startDateTime__range'] = [dt.strptime(data['startDateTime__range'][0], '%Y-%m-%d %H:%M:%S'),
+			filters['startDateTime__range'] = [dt.strptime(data['startDateTime__range'][0], '%Y-%m-%d %H:%M:%S'),
 											   dt.strptime(data['startDateTime__range'][1], '%Y-%m-%d %H:%M:%S')]
 
 			queryset = EventCS.objects.filter(**filters)
