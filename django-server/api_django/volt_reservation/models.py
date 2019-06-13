@@ -75,30 +75,27 @@ class EventCS(models.Model):
 			event_cs_1.save()
 			event_cs_2.save()
 			self.save()
+		else:
+			start_date_time = self.startDateTime
+			end_date_time = self.endDateTime
 
-		elif self.startDateTime == custom_start_datetime and custom_end_datetime < self.endDateTime:
+			if self.startDateTime == custom_start_datetime and custom_end_datetime < self.endDateTime:
+				start_date_time = custom_end_datetime
+				self.endDateTime = custom_end_datetime
+
+			elif self.startDateTime < custom_start_datetime and custom_end_datetime == self.endDateTime:
+				end_date_time = custom_start_datetime
+				self.startDateTime = custom_start_datetime
+
+			self.save()
+			
 			new_event = EventCS.objects.create(
-				startDateTime=custom_end_datetime,
-				endDateTime=self.endDateTime,
+				startDateTime=start_date_time,
+				endDateTime=end_date_time,
 				cs=self.cs,
 				status=constants.AVAILABLE
 			)
 			new_event.save()
-
-			self.endDateTime = custom_end_datetime
-			self.save()
-
-		elif self.startDateTime < custom_start_datetime and custom_end_datetime == self.endDateTime:
-			new_event = EventCS.objects.create(
-				startDateTime=self.startDateTime,
-				endDateTime=custom_start_datetime,
-				cs=self.cs,
-				status=constants.AVAILABLE
-			)
-			new_event.save()
-
-			self.startDateTime = custom_start_datetime
-			self.save()
 
 	def __str__(self):
 		return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
