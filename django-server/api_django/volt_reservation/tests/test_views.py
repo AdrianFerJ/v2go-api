@@ -84,8 +84,8 @@ class TestEventCS(APITestCase):
 
     def test_host_can_filter_available_between_certain_time(self):
         response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
-            'startDateTime__range': ['2019-09-25 12:00:00', '2019-09-28 15:30:00'],
-            'status': constants.AVAILABLE
+            'startDateTime': '2019-09-25 12:00:00',
+            'endDateTime': '2019-09-28 15:30:00',
         })
         
         result = response.data
@@ -99,8 +99,9 @@ class TestEventCS(APITestCase):
 
     def test_driver_can_get_weekly_availabilities(self):
         response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
-            'cs__nk': self.cs_t2.nk,
-            'startDateTime__range': ['2019-09-25 12:00:00', '2019-09-28 15:30:00'],
+            'csNk': self.cs_t2.nk,
+            'startDateTime': '2019-09-25 12:00:00',
+            'endDateTime': '2019-09-28 15:30:00',
             'status': constants.AVAILABLE
         })
 
