@@ -41,6 +41,7 @@ $ sudo aptitude install binutils libproj-dev
 Need to be running docker containers
 ```bash
 $ docker-compose exec web api_django/manage.py loaddata api_django/fixtures/startData_May.json
+$ docker-compose exec web api_django/manage.py loaddata api_django/fixtures/startData_CS_1660QC.json
 ```
 
 ## Run API locally
