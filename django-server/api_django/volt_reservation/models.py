@@ -56,40 +56,35 @@ class EventCS(models.Model):
 		# Split into three different event cs
 		new_events = []
 
-		if self.startDateTime < custom_start_datetime and self.endDateTime > custom_end_datetime:
-			new_events.append(EventCS.objects.create(
-				startDateTime=self.startDateTime,
-                endDateTime=custom_start_datetime,
-                cs=self.cs,
-                status=constants.AVAILABLE
-            ))
-
-			new_events.append(EventCS.objects.create(
-                startDateTime=custom_end_datetime,
-            	endDateTime=self.endDateTime,
-                cs=self.cs,
-                status=constants.AVAILABLE
-            ))
-
+		if self.is_range_within_event_cs_excluding_start_and_end(custom_start_datetime, custom_end_datetime):
+			new_events.append(create_custom_event_cs(custom_start_datetime, self.startDateTime))
+			new_events.append(create_custom_event_cs(custom_end_datetime, self.endDateTime))
 			self.startDateTime, self.endDateTime = custom_start_datetime, custom_end_datetime
 		else:
+			start_datetime, end_datetime = self.startDateTime, self.endDateTime
 			if self.startDateTime == custom_start_datetime and custom_end_datetime < self.endDateTime:
-				start_date_time, self.endDateTime = (custom_end_datetime,)*2
+				start_datetime, self.endDateTime = (custom_end_datetime,)*2
 
 			elif self.startDateTime < custom_start_datetime and custom_end_datetime == self.endDateTime:
-				self.startDateTime, end_date_time = (custom_start_datetime,)*2
+				self.startDateTime, end_datetime = (custom_start_datetime,)*2
 			
-			new_events.append(EventCS.objects.create(
-				startDateTime=start_date_time,
-				endDateTime=end_date_time,
-				cs=self.cs,
-				status=constants.AVAILABLE
-			))
+			new_events.append(self.create_custom_event_cs(start_datetime, end_datetime))
 		
 		for new_event in new_events:
 			new_event.save()
 
 		self.save()
+
+	def is_range_within_event_cs_excluding_start_and_end(self, start_datetime, end_datetime):
+		return self.startDateTime < start_datetime and self.endDateTime > end_datetime
+	
+	def create_custom_event_cs(self, start_datetime, end_datetime):
+		return EventCS.objects.create(
+				startDateTime=start_datetime,
+				endDateTime=end_datetime,
+				cs=self.cs,
+				status=constants.AVAILABLE
+		)
 
 	def __str__(self):
 		return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
