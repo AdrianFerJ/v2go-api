@@ -54,48 +54,42 @@ class EventCS(models.Model):
 
 	def split_event_cs(self, custom_start_datetime, custom_end_datetime):
 		# Split into three different event cs
+		new_events = []
+
 		if self.startDateTime < custom_start_datetime and self.endDateTime > custom_end_datetime:
-			event_cs_1 = EventCS.objects.create(
+			new_events.append(EventCS.objects.create(
 				startDateTime=self.startDateTime,
                 endDateTime=custom_start_datetime,
                 cs=self.cs,
                 status=constants.AVAILABLE
-            )
+            ))
 
-			event_cs_2 = EventCS.objects.create(
+			new_events.append(EventCS.objects.create(
                 startDateTime=custom_end_datetime,
             	endDateTime=self.endDateTime,
                 cs=self.cs,
                 status=constants.AVAILABLE
-            )
+            ))
 
-			self.startDateTime = custom_start_datetime
-			self.endDateTime = custom_end_datetime
-
-			event_cs_1.save()
-			event_cs_2.save()
-			self.save()
+			self.startDateTime, self.endDateTime = custom_start_datetime, custom_end_datetime
 		else:
-			start_date_time = self.startDateTime
-			end_date_time = self.endDateTime
-
 			if self.startDateTime == custom_start_datetime and custom_end_datetime < self.endDateTime:
-				start_date_time = custom_end_datetime
-				self.endDateTime = custom_end_datetime
+				start_date_time, self.endDateTime = (custom_end_datetime,)*2
 
 			elif self.startDateTime < custom_start_datetime and custom_end_datetime == self.endDateTime:
-				end_date_time = custom_start_datetime
-				self.startDateTime = custom_start_datetime
-
-			self.save()
+				self.startDateTime, end_date_time = (custom_start_datetime,)*2
 			
-			new_event = EventCS.objects.create(
+			new_events.append(EventCS.objects.create(
 				startDateTime=start_date_time,
 				endDateTime=end_date_time,
 				cs=self.cs,
 				status=constants.AVAILABLE
-			)
+			))
+		
+		for new_event in new_events:
 			new_event.save()
+
+		self.save()
 
 	def __str__(self):
 		return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
