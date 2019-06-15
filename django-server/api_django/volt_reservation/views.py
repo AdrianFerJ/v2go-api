@@ -13,7 +13,7 @@ from datetime import datetime as dt
 from main import constants
 from django.http import Http404
 import json
-from utils.test_utils import string_to_datettime
+from utils.test_utils import string_to_datetime
 
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):
@@ -91,9 +91,9 @@ class EventEVView(viewsets.ModelViewSet):
 		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
 		ev = EV.objects.get(nk=data.get('ev_nk'))
 
-		custom_start_datetime = string_to_datettime(
+		custom_start_datetime = string_to_datetime(
 			data.get('custom_start_datetime'))
-		custom_end_datetime = string_to_datettime(
+		custom_end_datetime = string_to_datetime(
 			data.get('custom_end_datetime'))
 
 		event_cs.split_event_cs(custom_start_datetime, custom_end_datetime)

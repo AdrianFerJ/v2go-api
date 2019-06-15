@@ -70,5 +70,5 @@ def evs_to_ordered_dict(evs):
     return evs_serialized
 
 
-def string_to_datettime(datetime_str):
+def string_to_datetime(datetime_str):
     return dt.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
