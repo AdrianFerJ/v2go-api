@@ -84,10 +84,10 @@ class EventEVView(viewsets.ModelViewSet):
 
 		return Response(serializer.data)
 
-	@action(detail=False)
+	@action(detail=False, methods=['post'])
 	def custom(self, request):
 		user = request.user
-		data = request.GET
+		data = request.data
 		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
 		ev = EV.objects.get(nk=data.get('ev_nk'))
 

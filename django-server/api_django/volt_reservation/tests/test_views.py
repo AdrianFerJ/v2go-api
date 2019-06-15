@@ -194,7 +194,7 @@ class TestEventEV(APITestCase):
 
         custom_start_datetime = '2019-09-30 12:00:00'
         custom_end_datetime = '2019-09-30 12:30:00'
-        response=self.client.get(reverse('volt_reservation:reservations-custom'),
+        response=self.client.post(reverse('volt_reservation:reservations-custom'),
                                    data={
                                        'event_cs_nk': self.cs_event_5.nk,
                                        'ev_nk': self.ev.nk,
@@ -219,7 +219,7 @@ class TestEventEV(APITestCase):
 
         custom_start_datetime = '2019-09-30 12:30:00'
         custom_end_datetime = '2019-09-30 13:00:00'
-        response=self.client.get(reverse('volt_reservation:reservations-custom'),
+        response=self.client.post(reverse('volt_reservation:reservations-custom'),
                                    data={
                                        'event_cs_nk': self.cs_event_5.nk,
                                        'ev_nk': self.ev.nk,
@@ -244,7 +244,7 @@ class TestEventEV(APITestCase):
 
         custom_start_datetime = '2019-10-31 12:15:00'
         custom_end_datetime = '2019-10-31 12:45:00'
-        response=self.client.get(reverse('volt_reservation:reservations-custom'),
+        response=self.client.post(reverse('volt_reservation:reservations-custom'),
                                    data={
                                        'event_cs_nk': self.cs_event_6.nk,
                                        'ev_nk': self.ev.nk,
