@@ -62,10 +62,10 @@ class EventCS(models.Model):
 			self.startDateTime, self.endDateTime = custom_start_datetime, custom_end_datetime
 		else:
 			start_datetime, end_datetime = self.startDateTime, self.endDateTime
-			if self.startDateTime == custom_start_datetime and custom_end_datetime < self.endDateTime:
+			if self.is_range_within_event_cs_and_starts_at_start_datetime(custom_start_datetime, custom_end_datetime):
 				start_datetime, self.endDateTime = (custom_end_datetime,)*2
 
-			elif self.startDateTime < custom_start_datetime and custom_end_datetime == self.endDateTime:
+			elif self.is_range_within_event_cs_and_ends_at_end_datetime(custom_start_datetime, custom_end_datetime):
 				self.startDateTime, end_datetime = (custom_start_datetime,)*2
 			
 			new_events.append(self.create_custom_event_cs(start_datetime, end_datetime))
@@ -77,7 +77,13 @@ class EventCS(models.Model):
 
 	def is_range_within_event_cs_excluding_start_and_end(self, start_datetime, end_datetime):
 		return self.startDateTime < start_datetime and self.endDateTime > end_datetime
-	
+
+	def is_range_within_event_cs_and_starts_at_start_datetime(self, start_datetime, end_datetime):
+		return self.startDateTime == start_datetime and end_datetime < self.endDateTime
+
+	def is_range_within_event_cs_and_ends_at_end_datetime(self, start_datetime, end_datetime):
+		return self.startDateTime < custom_start_datetime and custom_end_datetime == self.endDateTime
+
 	def create_custom_event_cs(self, start_datetime, end_datetime):
 		return EventCS.objects.create(
 				startDateTime=start_datetime,
