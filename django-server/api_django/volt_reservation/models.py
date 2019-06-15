@@ -53,7 +53,7 @@ class EventCS(models.Model):
 		super().save(*args, **kwargs)
 
 	def split_event_cs(self, custom_start_datetime, custom_end_datetime):
-		# Split into three different event cs
+		"""Split into three different event cs"""
 		new_events = []
 
 		if self.is_range_within_event_cs_excluding_start_and_end(custom_start_datetime, custom_end_datetime):
