@@ -132,6 +132,13 @@ class TestEventEV(APITestCase):
             status          = constants.AVAILABLE
         )
 
+        cls.cs_event_6 = EventCS.objects.create(
+            startDateTime   = dt.strptime('2019-10-31 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            endDateTime     = dt.strptime('2019-10-31 13:00:00', '%Y-%m-%d %H:%M:%S'),
+            cs              = cls.cs_t1,
+            status          = constants.AVAILABLE
+        )
+
         cls.ev_driver = create_user(username='test@v2go.io')
         Group.objects.get_or_create(name=constants.U_DRIVER)
 
@@ -181,7 +188,7 @@ class TestEventEV(APITestCase):
         self.assertEqual(response.data[0]['event_cs'], cs_event_to_ordered_dict(self.cs_event_3))
         self.assertEqual(response.data[0]['ev'], self.ev.model)
 
-    def test_driver_can_create_custom_reservation(self):
+    def test_driver_can_create_custom_reservation_starting_at_start_datetime(self):
         initial_start_datetime = self.cs_event_5.startDateTime
         initial_end_datetime = self.cs_event_5.endDateTime
 
@@ -205,6 +212,60 @@ class TestEventEV(APITestCase):
         
         self.assertEqual(splitted_event[0].startDateTime, string_to_datetime(custom_end_datetime))
         self.assertEqual(splitted_event[0].endDateTime, initial_end_datetime)
+
+    def test_driver_can_create_custom_reservation_ending_at_end_datetime(self):
+        initial_start_datetime = self.cs_event_5.startDateTime
+        initial_end_datetime = self.cs_event_5.endDateTime
+
+        custom_start_datetime = '2019-09-30 12:30:00'
+        custom_end_datetime = '2019-09-30 13:00:00'
+        response=self.client.get(reverse('volt_reservation:reservations-custom'),
+                                   data={
+                                       'event_cs_nk': self.cs_event_5.nk,
+                                       'ev_nk': self.ev.nk,
+                                       'custom_start_datetime': custom_start_datetime,
+                                       'custom_end_datetime': custom_end_datetime
+        })
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+        self.cs_event_5.refresh_from_db()
+
+        splitted_event = EventCS.objects.filter(startDateTime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
+        self.assertEqual(response.data.get('event_cs')[
+                         'endDateTime'] + ':00', str(self.cs_event_5.endDateTime))
+        self.assertEqual(response.data.get('event_cs')[
+                         'status'], constants.RESERVED)
+        
+        self.assertEqual(splitted_event[0].startDateTime, initial_start_datetime)
+        self.assertEqual(splitted_event[0].endDateTime, string_to_datetime(custom_start_datetime))
+
+    def test_driver_can_create_custom_reservation_in_between_start_datetime_and_end_datetime(self):
+        initial_start_datetime = self.cs_event_6.startDateTime
+        initial_end_datetime = self.cs_event_6.endDateTime
+
+        custom_start_datetime = '2019-10-31 12:15:00'
+        custom_end_datetime = '2019-10-31 12:45:00'
+        response=self.client.get(reverse('volt_reservation:reservations-custom'),
+                                   data={
+                                       'event_cs_nk': self.cs_event_6.nk,
+                                       'ev_nk': self.ev.nk,
+                                       'custom_start_datetime': custom_start_datetime,
+                                       'custom_end_datetime': custom_end_datetime
+        })
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+        self.cs_event_6.refresh_from_db()
+
+        splitted_events = EventCS.objects.filter(startDateTime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
+        self.assertEqual(response.data.get('event_cs')[
+                         'endDateTime'] + ':00', str(self.cs_event_6.endDateTime))
+        self.assertEqual(response.data.get('event_cs')[
+                         'status'], constants.RESERVED)
+        
+        self.assertEqual(len(splitted_events), 2)
+        self.assertEqual(splitted_events[0].startDateTime, initial_start_datetime)
+        self.assertEqual(splitted_events[0].endDateTime, string_to_datetime(custom_start_datetime))
+
+        self.assertEqual(splitted_events[1].startDateTime, string_to_datetime(custom_end_datetime))
+        self.assertEqual(splitted_events[1].endDateTime, initial_end_datetime)
 
     def test_driver_can_view_completed_event_detail(self):
         response = self.client.get(reverse('volt_reservation:reservations-detail',
