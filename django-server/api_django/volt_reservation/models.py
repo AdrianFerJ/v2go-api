@@ -61,14 +61,14 @@ class EventCS(models.Model):
 			new_events.append(create_custom_event_cs(custom_end_datetime, self.endDateTime))
 			self.startDateTime, self.endDateTime = custom_start_datetime, custom_end_datetime
 		else:
-			start_datetime, end_datetime = self.startDateTime, self.endDateTime
+			new_start_datetime, new_end_datetime = self.startDateTime, self.endDateTime
 			if self.is_range_within_event_cs_and_starts_at_start_datetime(custom_start_datetime, custom_end_datetime):
-				start_datetime, self.endDateTime = (custom_end_datetime,)*2
+				new_start_datetime, self.endDateTime = (custom_end_datetime,)*2
 
 			elif self.is_range_within_event_cs_and_ends_at_end_datetime(custom_start_datetime, custom_end_datetime):
-				self.startDateTime, end_datetime = (custom_start_datetime,)*2
+				self.startDateTime, new_end_datetime = (custom_start_datetime,)*2
 			
-			new_events.append(self.create_custom_event_cs(start_datetime, end_datetime))
+			new_events.append(self.create_custom_event_cs(new_start_datetime, new_end_datetime))
 		
 		for new_event in new_events:
 			new_event.save()
