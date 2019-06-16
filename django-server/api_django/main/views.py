@@ -58,6 +58,8 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
 
 
 class DriverProfileView(views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
     def get(self, request, user_id=None, format=None):
         user = User.objects.get(id=user_id)
         user_serializer = UserSerializer(user)
