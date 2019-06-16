@@ -1,22 +1,24 @@
+from django.shortcuts import get_object_or_404
+from rest_framework import status, permissions, viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from django.utils import timezone
+from datetime import datetime as dt
+from django.http import Http404
+import json
+
 from .models import EventCS, EventEV
 from main.models import ElectricVehicle as EV
 from main.models import User
-from django.shortcuts import get_object_or_404
-from rest_framework import status
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.decorators import action
 from .services import ReservationService
 from .serializers import EventCSSerializer, EventEVSerializer
-from django.utils import timezone
-from datetime import datetime as dt
 from main import constants
-from django.http import Http404
-import json
 
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):  
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
+	permission_classes = (permissions.IsAuthenticated,)
+
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'cs_event_nk'
 	today = timezone.now()
@@ -40,6 +42,8 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 
 class EventEVView(viewsets.ModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
+	permission_classes = (permissions.IsAuthenticated,)
+
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'ev_event_nk'
 	today = timezone.now()
@@ -53,7 +57,6 @@ class EventEVView(viewsets.ModelViewSet):
 		# TODO: This should be handled by the permission
 		# if request.user != ev.ev_owner:
 			# return Response(None, status=status.HTTP_403_FORBIDDEN)
-
 		try:
 			event_cs = get_object_or_404(EventCS, nk=data.get('event_cs_nk'))
 			ev = get_object_or_404(EV, nk=data.get('ev_nk'))
