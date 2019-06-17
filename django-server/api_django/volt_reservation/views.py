@@ -13,9 +13,10 @@ from datetime import datetime as dt
 from main import constants
 from django.http import Http404
 import json
+from utils.test_utils import string_to_datetime
 
 
-class EventCSView(viewsets.ReadOnlyModelViewSet):  
+class EventCSView(viewsets.ReadOnlyModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'cs_event_nk'
@@ -82,6 +83,26 @@ class EventEVView(viewsets.ModelViewSet):
 		serializer = self.serializer_class(completed, many=True)
 
 		return Response(serializer.data)
+
+	@action(detail=False, methods=['post'])
+	def custom(self, request):
+		user = request.user
+		data = request.data
+		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
+		ev = EV.objects.get(nk=data.get('ev_nk'))
+
+		custom_start_datetime = string_to_datetime(
+			data.get('custom_start_datetime'))
+		custom_end_datetime = string_to_datetime(
+			data.get('custom_end_datetime'))
+
+		event_cs.split_event_cs(custom_start_datetime, custom_end_datetime)
+
+		event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
+
+		serializer = self.serializer_class(event_ev, many=False)
+
+		return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 	def retrieve(self, request, ev_event_nk=None):
 		user = request.user

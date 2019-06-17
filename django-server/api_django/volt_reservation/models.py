@@ -12,18 +12,18 @@ import datetime
 
 class EventCS(models.Model):
 	nk				= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
-	created 		= models.DateTimeField(auto_now_add=True)
-	updated 		= models.DateTimeField(auto_now=True)
+	created			= models.DateTimeField(auto_now_add=True)
+	updated			= models.DateTimeField(auto_now=True)
 	startDateTime	= models.DateTimeField()
 	endDateTime		= models.DateTimeField()
-	cs	 			= models.ForeignKey(ChargingStation, on_delete=models.CASCADE)
+	cs				= models.ForeignKey(ChargingStation, on_delete=models.CASCADE)
 	status			= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.AVAILABLE)
 	ev_event_id		= models.IntegerField(default=-1)
 
 	def save(self, *args, **kwargs):
 		event_cs = EventCS.objects.filter(startDateTime=self.startDateTime,
-								  		  endDateTime=self.endDateTime,
-								  		  cs=self.cs)
+										  endDateTime=self.endDateTime,
+										  cs=self.cs)
 
 		if self.nk is None and event_cs.exists():
 			raise ValidationError(_(f'CS Event at {self.startDateTime}-{self.endDateTime} already exists'))
@@ -52,17 +52,57 @@ class EventCS(models.Model):
 
 		super().save(*args, **kwargs)
 
+	def split_event_cs(self, custom_start_datetime, custom_end_datetime):
+		"""Split into three different event cs"""
+		new_events = []
+
+		if self.is_range_within_event_cs_excluding_start_and_end(custom_start_datetime, custom_end_datetime):
+			new_events.append(self.create_custom_event_cs(self.startDateTime, custom_start_datetime))
+			new_events.append(self.create_custom_event_cs(custom_end_datetime, self.endDateTime))
+			self.startDateTime, self.endDateTime = custom_start_datetime, custom_end_datetime
+		else:
+			new_start_datetime, new_end_datetime = self.startDateTime, self.endDateTime
+			if self.is_range_within_event_cs_and_starts_at_start_datetime(custom_start_datetime, custom_end_datetime):
+				new_start_datetime, self.endDateTime = (custom_end_datetime,)*2
+
+			elif self.is_range_within_event_cs_and_ends_at_end_datetime(custom_start_datetime, custom_end_datetime):
+				self.startDateTime, new_end_datetime = (custom_start_datetime,)*2
+			
+			new_events.append(self.create_custom_event_cs(new_start_datetime, new_end_datetime))
+		
+		for new_event in new_events:
+			new_event.save()
+
+		self.save()
+
+	def is_range_within_event_cs_excluding_start_and_end(self, start_datetime, end_datetime):
+		return self.startDateTime < start_datetime and self.endDateTime > end_datetime
+
+	def is_range_within_event_cs_and_starts_at_start_datetime(self, start_datetime, end_datetime):
+		return self.startDateTime == start_datetime and end_datetime < self.endDateTime
+
+	def is_range_within_event_cs_and_ends_at_end_datetime(self, start_datetime, end_datetime):
+		return self.startDateTime < start_datetime and end_datetime == self.endDateTime
+
+	def create_custom_event_cs(self, start_datetime, end_datetime):
+		return EventCS.objects.create(
+			startDateTime=start_datetime,
+			endDateTime=end_datetime,
+			cs=self.cs,
+			status=constants.AVAILABLE
+		)
+
 	def __str__(self):
 		return str(self.cs.name) + ' ' + str(self.status) + ' ' + str(self.startDateTime) + '/' + str(self.endDateTime)
 
 
 class EventEV(models.Model):
-	nk 			= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
-	created 	= models.DateTimeField(auto_now_add=True)
-	updated 	= models.DateTimeField(auto_now=True)
+	nk			= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
+	created		= models.DateTimeField(auto_now_add=True)
+	updated		= models.DateTimeField(auto_now=True)
 	status		= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.RESERVED)
-	event_cs 	= models.ForeignKey(EventCS, on_delete=models.CASCADE)
-	ev 			= models.ForeignKey(EV, on_delete=models.CASCADE)
+	event_cs	= models.ForeignKey(EventCS, on_delete=models.CASCADE)
+	ev			= models.ForeignKey(EV, on_delete=models.CASCADE)
 	ev_owner	= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
 	def save(self, *args, **kwargs):
