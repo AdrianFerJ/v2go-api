@@ -32,11 +32,12 @@ class CustomAuthToken(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         return Response({
             'id': user.pk,
+            'token': token.key,
             'username': user.username,
             'first_name': user.first_name,
             'last_name': user.last_name,
             # 'group': user.group,
-            'token': token.key,
+            
         })
 
 
