@@ -42,10 +42,12 @@ class AuthenticationTest(APITestCase):
     def test_user_can_log_in(self):
         user = create_user()
 
-        response = self.client.post(reverse('main:api_token_auth'), data={
-            'username': user.username,
-            'password': constants.PASSWORD,
-        })
+        credentials = {'username': user.username,
+                       'password': constants.PASSWORD
+        }
+        response = self.client.post(reverse('main:api_token_auth'), credentials)
+
+        print(response.data)
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertTrue(response.data['token'])
