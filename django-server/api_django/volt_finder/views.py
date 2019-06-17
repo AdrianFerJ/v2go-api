@@ -22,7 +22,7 @@ class ChargingStationTopNearListView(viewsets.ReadOnlyModelViewSet):
     :param poi_location: the point of interestan address
     :type destinations: a single location, as a string
     """
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def list(self, request, *args, **kwargs):
         data = request.GET

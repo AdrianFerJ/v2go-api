@@ -43,7 +43,7 @@ class ChargingStationViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'
     lookup_url_kwarg = 'station_nk'
 
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = CS.objects.all()
     serializer_class = ChargingStationSerializer
 
@@ -52,12 +52,14 @@ class ElectricVehicleViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'
     lookup_url_kwarg = 'ev_nk'
 
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = EV.objects.all()
     serializer_class = ElectricVehicleSerializer
 
 
 class DriverProfileView(views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
     def get(self, request, user_id=None, format=None):
         user = User.objects.get(id=user_id)
         user_serializer = UserSerializer(user)

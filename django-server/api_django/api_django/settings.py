@@ -40,16 +40,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # MyApps
     'main',
     'volt_finder',
     'volt_reservation',
+
     # 3rd Party Apps
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',          # Enables CORS (for Angular calls)
-    #'channels',
     'django.contrib.gis',   # GeoDjango
     'schedule',             # Django Scheduler
+    #'channels',
 ]
 
 
@@ -167,6 +170,7 @@ REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     )
 }

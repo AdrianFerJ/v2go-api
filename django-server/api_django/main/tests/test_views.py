@@ -41,12 +41,14 @@ class AuthenticationTest(APITestCase):
 
     def test_user_can_log_in(self):
         user = create_user()
-        response = self.client.post(reverse('main:log_in'), data={
+
+        response = self.client.post(reverse('main:api_token_auth'), data={
             'username': user.username,
             'password': constants.PASSWORD,
         })
+
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(response.data['username'], user.username)
+        self.assertTrue(response.data['token'])
 
     def test_user_can_log_out(self):
         user = create_user()
