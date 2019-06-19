@@ -37,10 +37,10 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 			queryset = None
 
 			if request.GET.get('cs_nk'):
-				queryset = ReservationService.get_event_cs_for_cs(request.GET.get('cs_nk'),
-																  [start_datetime, end_datetime])
+				queryset = ReservationService.get_events_cs_for_cs(request.GET.get('cs_nk'),
+																  start_datetime, end_datetime)
 			else:
-				queryset = ReservationService.get_available_event_cs([start_datetime, end_datetime])
+				queryset = ReservationService.get_available_events_cs(start_datetime, end_datetime)
 			
 			serializer = EventCSSerializer(queryset, many=True)
 
@@ -87,7 +87,7 @@ class EventEVView(viewsets.ModelViewSet):
 		if ev.ev_owner != user:
 			return Response(None, status=status.HTTP_403_FORBIDDEN)
 
-		completed = ReservationService.get_completed_event_ev(ev, )
+		completed = ReservationService.get_completed_events_ev(ev, )
 
 		serializer = self.serializer_class(completed, many=True)
 

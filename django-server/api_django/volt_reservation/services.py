@@ -5,21 +5,21 @@ from main import constants
 
 class ReservationService(object):
 	@staticmethod
-	def get_event_cs_for_cs(cs_nk, start_date_time_range):
+	def get_events_cs_for_cs(cs_nk, start_datetime, end_datetime):
 		return EventCS.objects.filter(
 			cs__nk=cs_nk,
-			startDateTime__range=start_date_time_range
+			startDateTime__range=[start_datetime, end_datetime]
 		)
 
 	@staticmethod
-	def get_available_event_cs(start_date_time_range):
+	def get_available_events_cs(start_datetime, end_datetime):
 		return EventCS.objects.filter(
-			startDateTime__range=start_date_time_range,
+			startDateTime__range=[start_datetime, end_datetime],
 			status=constants.AVAILABLE
 		)
 
 	@staticmethod
-	def get_completed_event_ev(ev):
+	def get_completed_events_ev(ev):
 		return EventEV.objects.filter(
 			status=constants.COMPLETED,
 			ev=ev
