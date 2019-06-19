@@ -22,7 +22,7 @@ class SignUpView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
 
-class CustomAuthToken(ObtainAuthToken):
+class AuthTokenLoginView(ObtainAuthToken):
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
@@ -39,17 +39,6 @@ class CustomAuthToken(ObtainAuthToken):
             # 'group': user.group,
             
         })
-
-
-# class LogInView(views.APIView):
-#     def post(self, request):
-#         form = AuthenticationForm(data=request.data)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request, user=form.get_user())
-#             return Response(UserSerializer(user).data)
-#         else:
-#             return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogOutView(views.APIView):
