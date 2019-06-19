@@ -14,8 +14,8 @@ router.register('vehicles', main_views.ElectricVehicleViewSet, base_name='vehicl
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
-    path('sign-up', main_views.SignUpView.as_view(), name='sign_up'),
+    path('auth', main_views.AuthTokenLoginView.as_view(), name='api_token_auth'),
+    path('signup', main_views.SignUpView.as_view(), name='sign_up'),
     # path('login', main_views.LogInView.as_view(), name='log_in'),
     path('logout', main_views.LogOutView.as_view(), name='log_out'),
     path('my-account/<user_id>', main_views.DriverProfileView.as_view(), name='my_account'),
