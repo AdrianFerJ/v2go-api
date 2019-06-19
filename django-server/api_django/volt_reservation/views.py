@@ -18,7 +18,7 @@ from main import constants
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
-	permission_classes = (permissions.IsAuthenticated,)
+	# permission_classes = (permissions.IsAuthenticated,)
 
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'cs_event_nk'
@@ -31,13 +31,13 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 		if request.data == None:
 			return super().list(request)
 		else:
-			start_datetime = dt.strptime(request.GET.get('startDateTime'), '%Y-%m-%d %H:%M:%S')
-			end_datetime = dt.strptime(request.GET.get('endDateTime'), '%Y-%m-%d %H:%M:%S')
+			start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
+			end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
 
 			queryset = None
 
-			if request.GET.get('csNk'):
-				queryset = ReservationService.get_event_cs_for_cs(request.GET.get('csNk'),
+			if request.GET.get('cs_nk'):
+				queryset = ReservationService.get_event_cs_for_cs(request.GET.get('cs_nk'),
 																  [start_datetime, end_datetime])
 			else:
 				queryset = ReservationService.get_available_event_cs([start_datetime, end_datetime])
@@ -49,7 +49,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 
 class EventEVView(viewsets.ModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
-	permission_classes = (permissions.IsAuthenticated,)
+	# permission_classes = (permissions.IsAuthenticated,)
 
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'ev_event_nk'
@@ -100,10 +100,8 @@ class EventEVView(viewsets.ModelViewSet):
 		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
 		ev = EV.objects.get(nk=data.get('ev_nk'))
 
-		custom_start_datetime = string_to_datetime(
-			data.get('custom_start_datetime'))
-		custom_end_datetime = string_to_datetime(
-			data.get('custom_end_datetime'))
+		custom_start_datetime = string_to_datetime(data.get('custom_start_datetime'))
+		custom_end_datetime = string_to_datetime(data.get('custom_end_datetime'))
 
 		event_cs.split_event_cs(custom_start_datetime, custom_end_datetime)
 
