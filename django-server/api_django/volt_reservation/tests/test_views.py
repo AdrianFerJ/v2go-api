@@ -84,8 +84,8 @@ class TestEventCS(APITestCase):
 
     def test_host_can_filter_available_between_certain_time(self):
         response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
-            'startDateTime': '2019-09-25 12:00:00',
-            'endDateTime': '2019-09-28 15:30:00',
+            'start_datetime': '2019-09-25 12:00:00',
+            'end_datetime': '2019-09-28 15:30:00',
         })
 
         result = response.data
@@ -99,9 +99,9 @@ class TestEventCS(APITestCase):
 
     def test_driver_can_get_weekly_availabilities(self):
         response = self.client.get(reverse('volt_reservation:station-availabilities-list'), data={
-            'csNk': self.cs_t2.nk,
-            'startDateTime': '2019-09-25 12:00:00',
-            'endDateTime': '2019-09-28 15:30:00',
+            'cs_nk': self.cs_t2.nk,
+            'start_datetime': '2019-09-25 12:00:00',
+            'end_datetime': '2019-09-28 15:30:00',
             'status': constants.AVAILABLE
         })
 
@@ -119,7 +119,6 @@ class TestEventEV(APITestCase):
     def setUpTestData(cls):
         cls.cs_host = create_user()
         Group.objects.get_or_create(name=constants.U_OWNER)
-        # cls.cs_host.groups.add(Group.objects.get_or_create(name=U_OWNER))
 
         cls.cs_t1 = ChargingStation.objects.create(
             name     = 'Panthere 1',

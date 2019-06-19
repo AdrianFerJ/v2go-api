@@ -18,7 +18,7 @@ from main import constants
 
 class EventCSView(viewsets.ReadOnlyModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
-	# permission_classes = (permissions.IsAuthenticated,)
+	permission_classes = (permissions.IsAuthenticated,)
 
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'cs_event_nk'
@@ -49,7 +49,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 
 class EventEVView(viewsets.ModelViewSet):
 	""" Get's a32char nk and returns CS's detail info that matches the nk """
-	# permission_classes = (permissions.IsAuthenticated,)
+	permission_classes = (permissions.IsAuthenticated,)
 
 	lookup_field = 'nk'
 	lookup_url_kwarg = 'ev_event_nk'

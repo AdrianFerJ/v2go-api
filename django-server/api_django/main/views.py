@@ -54,7 +54,7 @@ class ChargingStationViewSet(viewsets.ModelViewSet):
     lookup_field = 'nk'
     lookup_url_kwarg = 'station_nk'
 
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = CS.objects.all()
     serializer_class = ChargingStationSerializer
 
