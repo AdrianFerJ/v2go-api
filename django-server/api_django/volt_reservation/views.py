@@ -30,7 +30,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 	def list(self, request, *args, **kwargs):
 		if request.data == None:
 			return super().list(request)
-		else:
+		elif request.GET.get('start_datetime') and request.GET.get('end_datetime'):
 			start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
 			end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
 
@@ -43,6 +43,8 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 			serializer = EventCSSerializer(queryset, many=True)
 
 			return Response(serializer.data)
+		else:
+			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
 
 class EventEVView(viewsets.ModelViewSet):
