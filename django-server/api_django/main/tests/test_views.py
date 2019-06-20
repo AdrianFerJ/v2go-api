@@ -91,15 +91,15 @@ class UserTest(APITestCase):
         )
 
         cls.cs_event_1 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
         cls.cs_event_2 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             ev_event_id     = 1,
             status          = constants.COMPLETED

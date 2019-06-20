@@ -30,8 +30,8 @@ def cs_event_to_ordered_dict(cs_event):
         ('cs', cs_event.cs.name),
         ('created', cs_event.created.strftime('%Y-%m-%d %H:%M')),
         ('updated', cs_event.updated.strftime('%Y-%m-%d %H:%M')),
-        ('startDateTime', cs_event.startDateTime.strftime('%Y-%m-%d %H:%M')),
-        ('endDateTime', cs_event.endDateTime.strftime('%Y-%m-%d %H:%M')),
+        ('start_datetime', cs_event.start_datetime.strftime('%Y-%m-%d %H:%M')),
+        ('end_datetime', cs_event.end_datetime.strftime('%Y-%m-%d %H:%M')),
         ('nk', cs_event.nk),
         ('status', cs_event.status),
         ('ev_event_id', cs_event.ev_event_id)

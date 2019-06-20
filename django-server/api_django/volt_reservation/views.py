@@ -30,15 +30,21 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 	def list(self, request, *args, **kwargs):
 		if request.data == None:
 			return super().list(request)
-		else:
+		elif request.GET.get('start_datetime') and request.GET.get('end_datetime'):
 			start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
 			end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
 
-			queryset = ReservationService.get_available_event_cs(start_datetime, end_datetime)
-
+			if request.GET.get('cs_nk'):
+				queryset = ReservationService.get_events_cs_for_cs(request.GET.get('cs_nk'),
+																  start_datetime, end_datetime)
+			else:
+				queryset = ReservationService.get_available_events_cs(start_datetime, end_datetime)
+			
 			serializer = EventCSSerializer(queryset, many=True)
 
 			return Response(serializer.data)
+		else:
+			return Response(None, status=status.HTTP_400_BAD_REQUEST)
 
 
 class EventEVView(viewsets.ModelViewSet):
@@ -81,7 +87,7 @@ class EventEVView(viewsets.ModelViewSet):
 		if ev.ev_owner != user:
 			return Response(None, status=status.HTTP_403_FORBIDDEN)
 
-		completed = ReservationService.get_completed_event_ev(ev, )
+		completed = ReservationService.get_completed_events_ev(ev, )
 
 		serializer = self.serializer_class(completed, many=True)
 
@@ -94,10 +100,8 @@ class EventEVView(viewsets.ModelViewSet):
 		event_cs = EventCS.objects.get(nk=data.get('event_cs_nk'))
 		ev = EV.objects.get(nk=data.get('ev_nk'))
 
-		custom_start_datetime = string_to_datetime(
-			data.get('custom_start_datetime'))
-		custom_end_datetime = string_to_datetime(
-			data.get('custom_end_datetime'))
+		custom_start_datetime = string_to_datetime(data.get('custom_start_datetime'))
+		custom_end_datetime = string_to_datetime(data.get('custom_end_datetime'))
 
 		event_cs.split_event_cs(custom_start_datetime, custom_end_datetime)
 

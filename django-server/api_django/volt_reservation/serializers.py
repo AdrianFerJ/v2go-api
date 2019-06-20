@@ -3,11 +3,11 @@ from rest_framework import generics, serializers
 
 
 class EventCSSerializer(serializers.ModelSerializer):
-	cs = serializers.CharField(source='cs.name', read_only=True)
+	cs 				= serializers.CharField(source='cs.name', read_only=True)
 	created 		= serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 	updated 		= serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-	startDateTime	= serializers.DateTimeField(format="%Y-%m-%d %H:%M")
-	endDateTime		= serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+	start_datetime	= serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+	end_datetime	= serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 	
 	class Meta:
 		model = EventCS
