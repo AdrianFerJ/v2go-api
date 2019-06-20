@@ -42,38 +42,38 @@ class TestEventCS(APITestCase):
 
 
         cls.cs_event_1 = EventCS.objects.create(
-        	startDateTime	= dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
-			endDateTime		= dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
+        	start_datetime	= dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
+			end_datetime	= dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
 			cs 				= cls.cs_t1,
 			status 			= constants.RESERVED,
             ev_event_id     = 1,
         )
 
         cls.cs_event_2 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-25 15:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-25 15:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-25 15:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-25 15:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
         cls.cs_event_3 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
         cls.cs_event_4 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             ev_event_id     = 1,
             status          = constants.RESERVED,
         )
 
         cls.cs_event_5 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-25 15:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-25 17:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-25 15:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-25 17:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t2,
             status          = constants.AVAILABLE
         )
@@ -129,44 +129,44 @@ class TestEventEV(APITestCase):
         )
 
         cls.cs_event_1 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-25 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-25 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
         cls.cs_event_2 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-28 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-28 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             ev_event_id     = 1,
             status          = constants.RESERVED
         )
 
         cls.cs_event_3 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime   = dt.strptime('2019-09-27 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime     = dt.strptime('2019-09-27 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
         cls.cs_event_4 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-29 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-29 12:30:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-29 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-29 12:30:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
         cls.cs_event_5 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-09-30 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-09-30 13:00:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-09-30 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-09-30 13:00:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
 
         cls.cs_event_6 = EventCS.objects.create(
-            startDateTime   = dt.strptime('2019-10-31 12:00:00', '%Y-%m-%d %H:%M:%S'),
-            endDateTime     = dt.strptime('2019-10-31 13:00:00', '%Y-%m-%d %H:%M:%S'),
+            start_datetime  = dt.strptime('2019-10-31 12:00:00', '%Y-%m-%d %H:%M:%S'),
+            end_datetime    = dt.strptime('2019-10-31 13:00:00', '%Y-%m-%d %H:%M:%S'),
             cs              = cls.cs_t1,
             status          = constants.AVAILABLE
         )
@@ -221,8 +221,8 @@ class TestEventEV(APITestCase):
         self.assertEqual(response.data[0]['ev'], self.ev.model)
 
     def test_driver_can_create_custom_reservation_starting_at_start_datetime(self):
-        initial_start_datetime = self.cs_event_5.startDateTime
-        initial_end_datetime = self.cs_event_5.endDateTime
+        initial_start_datetime = self.cs_event_5.start_datetime
+        initial_end_datetime = self.cs_event_5.end_datetime
 
         custom_start_datetime = '2019-09-30 12:00:00'
         custom_end_datetime = '2019-09-30 12:30:00'
@@ -236,18 +236,18 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.cs_event_5.refresh_from_db()
 
-        splitted_event = EventCS.objects.filter(startDateTime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
+        splitted_event = EventCS.objects.filter(start_datetime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
         self.assertEqual(response.data.get('event_cs')[
-                         'endDateTime'] + ':00', str(self.cs_event_5.endDateTime))
+                         'end_datetime'] + ':00', str(self.cs_event_5.end_datetime))
         self.assertEqual(response.data.get('event_cs')[
                          'status'], constants.RESERVED)
         
-        self.assertEqual(splitted_event[0].startDateTime, string_to_datetime(custom_end_datetime))
-        self.assertEqual(splitted_event[0].endDateTime, initial_end_datetime)
+        self.assertEqual(splitted_event[0].start_datetime, string_to_datetime(custom_end_datetime))
+        self.assertEqual(splitted_event[0].end_datetime, initial_end_datetime)
 
     def test_driver_can_create_custom_reservation_ending_at_end_datetime(self):
-        initial_start_datetime = self.cs_event_5.startDateTime
-        initial_end_datetime = self.cs_event_5.endDateTime
+        initial_start_datetime = self.cs_event_5.start_datetime
+        initial_end_datetime = self.cs_event_5.end_datetime
 
         custom_start_datetime = '2019-09-30 12:30:00'
         custom_end_datetime = '2019-09-30 13:00:00'
@@ -261,18 +261,18 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.cs_event_5.refresh_from_db()
 
-        splitted_event = EventCS.objects.filter(startDateTime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
+        splitted_event = EventCS.objects.filter(start_datetime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
         self.assertEqual(response.data.get('event_cs')[
-                         'endDateTime'] + ':00', str(self.cs_event_5.endDateTime))
+                         'end_datetime'] + ':00', str(self.cs_event_5.end_datetime))
         self.assertEqual(response.data.get('event_cs')[
                          'status'], constants.RESERVED)
         
-        self.assertEqual(splitted_event[0].startDateTime, initial_start_datetime)
-        self.assertEqual(splitted_event[0].endDateTime, string_to_datetime(custom_start_datetime))
+        self.assertEqual(splitted_event[0].start_datetime, initial_start_datetime)
+        self.assertEqual(splitted_event[0].end_datetime, string_to_datetime(custom_start_datetime))
 
     def test_driver_can_create_custom_reservation_in_between_start_datetime_and_end_datetime(self):
-        initial_start_datetime = self.cs_event_6.startDateTime
-        initial_end_datetime = self.cs_event_6.endDateTime
+        initial_start_datetime = self.cs_event_6.start_datetime
+        initial_end_datetime = self.cs_event_6.end_datetime
 
         custom_start_datetime = '2019-10-31 12:15:00'
         custom_end_datetime = '2019-10-31 12:45:00'
@@ -286,18 +286,18 @@ class TestEventEV(APITestCase):
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         self.cs_event_6.refresh_from_db()
 
-        splitted_events = EventCS.objects.filter(startDateTime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
+        splitted_events = EventCS.objects.filter(start_datetime__range=[initial_start_datetime, initial_end_datetime], status=constants.AVAILABLE)
         self.assertEqual(response.data.get('event_cs')[
-                         'endDateTime'] + ':00', str(self.cs_event_6.endDateTime))
+                         'end_datetime'] + ':00', str(self.cs_event_6.end_datetime))
         self.assertEqual(response.data.get('event_cs')[
                          'status'], constants.RESERVED)
         
         self.assertEqual(len(splitted_events), 2)
-        self.assertEqual(splitted_events[0].startDateTime, initial_start_datetime)
-        self.assertEqual(splitted_events[0].endDateTime, string_to_datetime(custom_start_datetime))
+        self.assertEqual(splitted_events[0].start_datetime, initial_start_datetime)
+        self.assertEqual(splitted_events[0].end_datetime, string_to_datetime(custom_start_datetime))
 
-        self.assertEqual(splitted_events[1].startDateTime, string_to_datetime(custom_end_datetime))
-        self.assertEqual(splitted_events[1].endDateTime, initial_end_datetime)
+        self.assertEqual(splitted_events[1].start_datetime, string_to_datetime(custom_end_datetime))
+        self.assertEqual(splitted_events[1].end_datetime, initial_end_datetime)
 
     def test_driver_can_view_completed_event_detail(self):
         response = self.client.get(reverse('volt_reservation:reservations-detail',

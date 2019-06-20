@@ -8,13 +8,13 @@ class ReservationService(object):
 	def get_events_cs_for_cs(cs_nk, start_datetime, end_datetime):
 		return EventCS.objects.filter(
 			cs__nk=cs_nk,
-			startDateTime__range=[start_datetime, end_datetime]
+			start_datetime__range=[start_datetime, end_datetime]
 		)
 
 	@staticmethod
 	def get_available_events_cs(start_datetime, end_datetime):
 		return EventCS.objects.filter(
-			startDateTime__range=[start_datetime, end_datetime],
+			start_datetime__range=[start_datetime, end_datetime],
 			status=constants.AVAILABLE
 		)
 

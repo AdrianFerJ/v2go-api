@@ -33,14 +33,14 @@ class EventCSTest(APITestCase):
         cls.start_time = dt.datetime.now()
         cls.end_time = cls.start_time + dt.timedelta(minutes=30)
         cls.event_cs = EventCS.objects.create(
-            startDateTime	= cls.start_time,
-            endDateTime	    = cls.end_time,
+            start_datetime	= cls.start_time,
+            end_datetime	= cls.end_time,
             cs 			    = cls.cs
         )
 
     def test_same_date_cs(self):
         self.assertRaises(ValidationError,  EventCS.objects.create, 
-            startDateTime=self.start_time,
-            endDateTime=self.end_time,
+            start_datetime=self.start_time,
+            end_datetime=self.end_time,
             cs=self.cs
         )
