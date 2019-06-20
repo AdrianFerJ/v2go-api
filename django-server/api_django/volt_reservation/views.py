@@ -34,8 +34,6 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 			start_datetime = dt.strptime(request.GET.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
 			end_datetime = dt.strptime(request.GET.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
 
-			queryset = None
-
 			if request.GET.get('cs_nk'):
 				queryset = ReservationService.get_events_cs_for_cs(request.GET.get('cs_nk'),
 																  start_datetime, end_datetime)
