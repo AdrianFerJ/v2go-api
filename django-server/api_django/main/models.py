@@ -72,7 +72,7 @@ class ChargingStation(models.Model):
     updated      = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"#{self.id}, {self.address}"
+        return f"{self.name} (id:{self.pk}), {self.address}"
 
     def get_absolute_url(self):
         return reverse('main:stations-detail', kwargs={'station_nk': self.nk})
@@ -129,4 +129,4 @@ class ElectricVehicle(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "%s, %s, %s, %s" % (self.manufacturer, self.model, self.nickname, self.updated)
+        return f"{self.manufacturer}, {self.model,} {self.nickname}"
