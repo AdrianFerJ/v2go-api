@@ -12,10 +12,10 @@ class V2GoUserAdmin(UserAdmin):
 
 
 class ChargingStationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'pk', 'nk', 'address')
+    list_display = ('pk', 'name', 'nk', 'address')
     exclude = ('calendar', 'nk')
-    ordering = ['name']
-    search_fields = ['name', 'pk']
+    ordering = ['pk']
+    search_fields = ['name', 'pk','address']
     autocomplete_fields = ['cs_host']
 
 
