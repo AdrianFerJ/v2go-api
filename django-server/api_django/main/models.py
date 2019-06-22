@@ -22,13 +22,13 @@ class User(AbstractUser):
 class ChargingStation(models.Model):
     """ CS model is shared by all different apps / components of this system"""
     #TODO move const declaratios  (status, charge_level) to a dif file
-    AVAILABLE       = 'AVAILABLE'
-    RESERVED        = 'RESERVED'
-    UNAVAILABLE     = 'UNAVAILABLE'
-    OUTOFSERVICE    = 'OUT_OF_SERVICE'
-    LEVEL_1         = 'LEVEL_1'
-    LEVEL_2         = 'LEVEL_2'
-    FASTDC          = 'FAST_DC'
+    AVAILABLE = 'AVAILABLE'
+    RESERVED = 'RESERVED'
+    UNAVAILABLE = 'UNAVAILABLE'
+    OUTOFSERVICE= 'OUT_OF_SERVICE'
+    LEVEL_1 = 'LEVEL_1'
+    LEVEL_2 = 'LEVEL_2'
+    FASTDC = 'FAST_DC'
 
     STATUSES = (
         (AVAILABLE, AVAILABLE),
@@ -42,34 +42,34 @@ class ChargingStation(models.Model):
         (FASTDC, FASTDC),
     )
 
-    # nk           = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
-    nk           = models.CharField(max_length=32, unique=True, db_index=True)
-    name         = models.CharField(max_length=255, blank=True)
-    external_id  = models.CharField(max_length=100, blank=True)
+    # nk       = models.CharField(blank=True, max_length=32, unique=True, db_index=True)
+    nk = models.CharField(max_length=32, unique=True, db_index=True)
+    name = models.CharField(max_length=255, blank=True)
+    external_id = models.CharField(max_length=100, blank=True)
 
-    cs_host      = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    calendar     = models.OneToOneField(Calendar, null=True, on_delete=models.CASCADE)
+    cs_host = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    calendar = models.OneToOneField(Calendar, null=True, on_delete=models.CASCADE)
 
     charge_level = models.CharField(max_length=32, choices=CHARGE_LEVEL, default=LEVEL_2)
-    tarif_text   = models.CharField(max_length=100, blank=True)
+    tarif_text = models.CharField(max_length=100, blank=True)
 
     #TODO need a way (method?) to validate address format with google at instanciation
     #TODO host should not be able to edit after saving (read_only)
-    address      = models.CharField(max_length=150, blank=False)     
+    address = models.CharField(max_length=150, blank=False)
     
-    city         = models.CharField(max_length=50, blank=True)
-    province     = models.CharField(max_length=50, blank=True)
-    country      = models.CharField(max_length=50, blank=True)
-    postal_code  = models.CharField(max_length=10, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    province = models.CharField(max_length=50, blank=True)
+    country = models.CharField(max_length=50, blank=True)
+    postal_code = models.CharField(max_length=10, blank=True)
 
     #TODO: lat,lng, address should be mandatory (blank=False) before pushing to production
     #      and host should not be able to edit after saving (read_only)
-    lat          = models.FloatField(null=True, blank=True) 
-    lng          = models.FloatField(null=True, blank=True) 
+    lat = models.FloatField()
+    lng = models.FloatField()
     geo_location = models.PointField(null=True)
 
-    created      = models.DateTimeField(auto_now_add=True)
-    updated      = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.name} (id:{self.pk}), {self.address}"
