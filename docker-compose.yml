@@ -26,7 +26,7 @@ services:
     depends_on:
       - db
   frontend:
-    image: v2go-angular:latest
+    image: dukdocker/v2go-angular:alpha
     # Development ONLY: link volume to live update src/ in container 
     # volumes:  
     #   - ../v2go-frontend:/usr/src/app
