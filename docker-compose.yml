@@ -25,6 +25,19 @@ services:
       - "8888:8000"
     depends_on:
       - db
-
+  frontend:
+    image: dukdocker/v2go-angular:alpha
+    # Development ONLY: link volume to live update src/ in container 
+    # volumes:  
+    #   - ../v2go-frontend:/usr/src/app
+    command: ng serve --host 0.0.0.0
+    container_name: frontend
+    depends_on:
+      - web
+    environment:
+      - CHROME_BIN=chromium-browser
+    ports:
+      - 4201:4200
+  
 volumes:
   data:
