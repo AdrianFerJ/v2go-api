@@ -97,19 +97,18 @@ class EventCS(models.Model):
 
 
 class EventEV(models.Model):
-	nk			= models.CharField(blank=True, null=True, max_length=32, unique=True, db_index=True)
-	created		= models.DateTimeField(auto_now_add=True)
-	updated		= models.DateTimeField(auto_now=True)
-	status		= models.CharField(max_length=20, choices=constants.STATUS_CHOICES, default=constants.RESERVED)
-	event_cs	= models.ForeignKey(EventCS, on_delete=models.CASCADE)
-	ev			= models.ForeignKey(EV, on_delete=models.CASCADE)
-	ev_owner	= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+	nk = models.CharField(
+		blank=True, null=True, max_length=32, unique=True, db_index=True)
+	created	= models.DateTimeField(auto_now_add=True)
+	updated	= models.DateTimeField(auto_now=True)
+	status = models.CharField(
+		max_length=20, choices=constants.STATUS_CHOICES, default=constants.RESERVED)
+	event_cs = models.ForeignKey(EventCS, on_delete=models.CASCADE)
+	ev = models.ForeignKey(EV, on_delete=models.CASCADE)
 
 	def save(self, *args, **kwargs):
-
 		if self.status == constants.CANCELED:
 			event = Event.objects.get(id=self.event_cs.ev_event_id)
-
 			self.event_cs.ev_event_id = -1
 			self.event_cs.save()
 		elif self.event_cs.status != constants.RESERVED:

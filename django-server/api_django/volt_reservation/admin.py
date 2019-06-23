@@ -10,11 +10,11 @@ class EventCSAdmin(admin.ModelAdmin):
 
 
 class EventEVAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ev_owner', 'status' )
+    list_display = ('id', 'ev', 'status' )
     ordering = ['id']
     exclude = ('nk', )
     search_fields = ['id', 'status']
-    autocomplete_fields = ['ev_owner', 'event_cs', 'ev']
+    autocomplete_fields = ['ev', 'event_cs', 'ev']
 
 
 admin.site.register(EventEV, EventEVAdmin)
