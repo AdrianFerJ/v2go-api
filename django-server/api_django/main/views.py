@@ -75,10 +75,10 @@ class DriverProfileView(views.APIView):
         user = User.objects.get(id=user_id)
         user_serializer = UserSerializer(user)
 
-        cars = EV.objects.filter(ev_owner=user_id)
-        ev_serializer = ElectricVehicleSerializer(cars, many=True)
+        vehicles = EV.objects.filter(ev_owner=user_id)
+        ev_serializer = ElectricVehicleSerializer(vehicles, many=True)
 
-        reservations = EventEV.objects.filter(ev_owner=user_id)
+        reservations = EventEV.objects.filter(ev__in = vehicles)
         reservation_serializer = EventEVSerializer(reservations, many=True)
 
         return Response({
