@@ -12,3 +12,7 @@ WORKDIR /code
 COPY . /code/
 EXPOSE 8000
 RUN pip install -r requirements.txt
+
+# Change workdir to /api_django/
+# WORKDIR /code/api_django
+# RUN python manage.py collectstatic --noinput
