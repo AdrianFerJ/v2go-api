@@ -1,18 +1,31 @@
 FROM python:3.7
 
+# set work directory
+WORKDIR /usr/src/app
+
+# set environment varibles
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get install -y \
+# Install tools required for project
+RUN apt-get update \
+    && apt-get install -y \
     binutils \
     libproj-dev \
     gdal-bin
 
-RUN mkdir /code
-WORKDIR /code
-COPY . /code/
-EXPOSE 8000
+# Install dependencies
+RUN pip install --upgrade pip
+# RUN pip install pipenv
+# COPY ./Pipfile /usr/src/app/Pipfile
+# RUN pipenv install --skip-lock --system --dev
+COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
-# Change workdir to /api_django/
-# WORKDIR /code/api_django
-# RUN python manage.py collectstatic --noinput
+# Copy project
+COPY ./api_django /usr/src/app/api_django
+WORKDIR /usr/src/app/api_django
+# EXPOSE 8000
+
+# Run entrypoint.sh
+# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
