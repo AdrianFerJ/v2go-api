@@ -22,10 +22,12 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+
 # Copy project
 COPY ./api_django /usr/src/app/api_django
 WORKDIR /usr/src/app/api_django
 # EXPOSE 8000
 
 # Run entrypoint.sh
-# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
