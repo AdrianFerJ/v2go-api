@@ -15,6 +15,7 @@ blocks:
           - checkout
           - docker-compose rm -f
           - docker-compose pull
-          - docker-compose up -d --build
+          - docker-compose up -d --build db
+          - docker-compose up -d --build web
           - docker-compose run web python manage.py test main.tests.test_models volt_reservation.tests.test_models
           - docker-compose run web python manage.py test main.tests.test_views volt_reservation.tests.test_views
