@@ -25,19 +25,6 @@ services:
     depends_on:
       - db
 
-  # frontend:
-  #   image: dukdocker/v2go-angular:alpha
-  #   # Development ONLY: link volume to live update src/ in container 
-  #   # volumes:  
-  #   #   - ../v2go-frontend:/usr/src/app
-  #   command: ng serve --host 0.0.0.0
-  #   depends_on:
-  #     - web
-  #   environment:
-  #     - CHROME_BIN=chromium-browser
-  #   ports:
-  #     - 4200:4200
-
   db:
     image: mdillon/postgis:9.6
     environment:
@@ -49,19 +36,6 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
       # - postgres_data:/var/lib/postgresql/data/
-
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #   depends_on:
-  #     - web
-  #     - frontend
-  #   ports:
-  #     - 8080:80
-  #   restart: always
-  #   volumes:
-  #     - media:/usr/src/app/media
-  #     - static:/usr/src/app/static
   
 volumes:
   media:
