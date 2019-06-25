@@ -99,20 +99,14 @@ ASGI_APPLICATION = 'api_django.routing.application'
 # SPATIALITE_LIBRARY_PATH = 'mod_spatialite.so'   #'mod_spatialite'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', 'django.contrib.gis.db.backends.postgis'),
-        'NAME': os.environ.get('SQL_DATABASE', 'pg_gis_db'),
-        'USER': os.environ.get('SQL_USER', 'dev_user'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'SirGeorgeWilliams1515'),
-        'HOST': os.environ.get('SQL_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', '5432'),
+        'ENGINE': os.environ.get('SQL_ENGINE',),
+        'NAME': os.environ.get('SQL_DATABASE', ),
+        'USER': os.environ.get('SQL_USER', ),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', ),
+        'HOST': os.environ.get('SQL_HOST', ),
+        'PORT': os.environ.get('SQL_PORT', ),
     }
 }
 
