@@ -36,7 +36,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 
 			if request.GET.get('cs_nk'):
 				queryset = ReservationService.get_events_cs_for_cs(request.GET.get('cs_nk'),
-																  start_datetime, end_datetime)
+																start_datetime, end_datetime)
 			else:
 				queryset = ReservationService.get_available_events_cs(start_datetime, end_datetime)
 			
@@ -104,7 +104,7 @@ class EventEVView(viewsets.ModelViewSet):
 		custom_end_datetime = string_to_datetime(data.get('custom_end_datetime'))
 
 		event_cs.split_event_cs(custom_start_datetime, custom_end_datetime)
-		
+
 		event_ev = EventEV.objects.create(event_cs=event_cs, ev=ev)
 
 		serializer = self.serializer_class(event_ev, many=False)
