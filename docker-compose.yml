@@ -1,9 +1,45 @@
 version: '3.7'
 
 services:
+
+  web:
+    build: ./django-server
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django-server:/usr/src/app
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
+    environment:
+      - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
+      - DEBUG=1
+      - SECRET_KEY=@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^br7^5*0$p0wlbwr
+      - SQL_ENGINE=django.contrib.gis.db.backends.postgis
+      - SQL_DATABASE=pg_gis_db
+      - SQL_USER=dev_user
+      - SQL_PASSWORD=SirGeorgeWilliams1515
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
+    ports:
+      - "8888:8000"
+    depends_on:
+      - db
+
+  # frontend:
+  #   image: dukdocker/v2go-angular:alpha
+  #   # Development ONLY: link volume to live update src/ in container 
+  #   # volumes:  
+  #   #   - ../v2go-frontend:/usr/src/app
+  #   command: ng serve --host 0.0.0.0
+  #   depends_on:
+  #     - web
+  #   environment:
+  #     - CHROME_BIN=chromium-browser
+  #   ports:
+  #     - 4200:4200
+
   db:
     image: mdillon/postgis:9.6
-    container_name: db
     environment:
       - POSTGRES_USER=dev_user
       - POSTGRES_PASSWORD=SirGeorgeWilliams1515
@@ -12,32 +48,23 @@ services:
       - "5433:5432"
     volumes:
       - data:/var/lib/postgresql/data
-  web:
-    container_name: web
-    build:
-      context: ./django-server
-    command: python api_django/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./django-server:/code
-    environment:
-      - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
-    ports:
-      - "8888:8000"
-    depends_on:
-      - db
-  frontend:
-    image: dukdocker/v2go-angular:alpha
-    # Development ONLY: link volume to live update src/ in container 
-    # volumes:  
-    #   - ../v2go-frontend:/usr/src/app
-    command: ng serve --host 0.0.0.0
-    container_name: frontend
-    depends_on:
-      - web
-    environment:
-      - CHROME_BIN=chromium-browser
-    ports:
-      - 4201:4200
+      # - postgres_data:/var/lib/postgresql/data/
+
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #   depends_on:
+  #     - web
+  #     - frontend
+  #   ports:
+  #     - 8080:80
+  #   restart: always
+  #   volumes:
+  #     - media:/usr/src/app/media
+  #     - static:/usr/src/app/static
   
 volumes:
+  media:
+  static:
   data:
+  # postgres_data:
