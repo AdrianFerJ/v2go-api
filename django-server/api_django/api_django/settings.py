@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('v2go_SECRETE_KEY', '@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^br7^5*0$p0wlbwr')
+SECRET_KEY = os.getenv('v2go_SECRETE_KEY', 'SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -107,12 +107,12 @@ ASGI_APPLICATION = 'api_django.routing.application'
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'pg_gis_db',
-        'USER': 'dev_user',
-        'PASSWORD': 'SirGeorgeWilliams1515',
-        'HOST': 'db', #'localhost',
-        'PORT': '5432'
+        'ENGINE': os.environ.get('SQL_ENGINE', 'django.contrib.gis.db.backends.postgis'),
+        'NAME': os.environ.get('SQL_DATABASE', 'pg_gis_db'),
+        'USER': os.environ.get('SQL_USER', 'dev_user'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', 'SirGeorgeWilliams1515'),
+        'HOST': os.environ.get('SQL_HOST', 'localhost'),
+        'PORT': os.environ.get('SQL_PORT', '5432'),
     }
 }
 
@@ -156,9 +156,9 @@ STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Redis DB and Channel layer config 
-REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+# REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 
-# CHANNEL_LAYERS = {
+    # CHANNEL_LAYERS = {
 #     'default': {
 #         'BACKEND': 'channels_redis.core.RedisChannelLayer',
 #         'CONFIG': {

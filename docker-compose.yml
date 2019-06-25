@@ -3,7 +3,6 @@ version: '3.7'
 services:
 
   web:
-    container_name: web
     build: ./django-server
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -12,8 +11,17 @@ services:
       - static:/usr/src/app/static
     environment:
       - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
+      - DEBUG=1
+      - SECRET_KEY=@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^br7^5*0$p0wlbwr
+      - SQL_ENGINE=django.contrib.gis.db.backends.postgis
+      - SQL_DATABASE=pg_gis_db
+      - SQL_USER=dev_user
+      - SQL_PASSWORD=SirGeorgeWilliams1515
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
     ports:
-      - "8888:8000"      
+      - "8888:8000"
     depends_on:
       - db
 
@@ -23,7 +31,6 @@ services:
   #   # volumes:  
   #   #   - ../v2go-frontend:/usr/src/app
   #   command: ng serve --host 0.0.0.0
-  #   container_name: frontend
   #   depends_on:
   #     - web
   #   environment:
@@ -33,7 +40,6 @@ services:
 
   db:
     image: mdillon/postgis:9.6
-    container_name: db
     environment:
       - POSTGRES_USER=dev_user
       - POSTGRES_PASSWORD=SirGeorgeWilliams1515
