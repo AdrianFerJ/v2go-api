@@ -8,6 +8,7 @@ services:
       context: ./django-server
     command: python api_django/manage.py runserver 0.0.0.0:8000
     volumes:
+      - ./django-server:/code
       - media:/usr/src/app/media
       - static:/usr/src/app/static
     environment:
@@ -41,7 +42,8 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - data:/var/lib/postgresql/data
+      # - postgres_data:/var/lib/postgresql/data/
 
   # nginx:
   #   build:
@@ -59,4 +61,5 @@ services:
 volumes:
   media:
   static:
-  postgres_data:
+  data:
+  # postgres_data:
