@@ -1,6 +1,30 @@
 version: '3.7'
 
 services:
+  web:
+    build:
+      context: ./django-server
+      dockerfile: Dockerfile.prod
+    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
+    env_file: .env
+    ports:
+      - "8888:8000"
+    depends_on:
+      - db
+
+  frontend:
+    image: dukdocker/v2go-angular:alpha
+    command: ng serve --host 0.0.0.0
+    depends_on:
+      - web
+    environment:
+      - CHROME_BIN=chromium-browser
+    ports:
+      - 4200:4200
+
   db:
     image: mdillon/postgis:9.6
     container_name: db
@@ -12,29 +36,6 @@ services:
       - "5433:5432"
     volumes:
       - data:/var/lib/postgresql/data
-  web:
-    container_name: web
-    build:
-      context: ./django-server
-    command: python api_django/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./django-server:/code
-    environment:
-      - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
-    ports:
-      - "8888:8000"
-    depends_on:
-      - db
-  frontend:
-    image: dukdocker/v2go-angular:alpha
-    command: ng serve --host 0.0.0.0
-    container_name: frontend
-    depends_on:
-      - web
-    environment:
-      - CHROME_BIN=chromium-browser
-    ports:
-      - 4200:4200
   
 volumes:
   data:
