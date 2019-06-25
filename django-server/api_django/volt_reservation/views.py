@@ -36,7 +36,7 @@ class EventCSView(viewsets.ReadOnlyModelViewSet):
 
 			if request.GET.get('cs_nk'):
 				queryset = ReservationService.get_events_cs_for_cs(request.GET.get('cs_nk'),
-																  start_datetime, end_datetime)
+																start_datetime, end_datetime)
 			else:
 				queryset = ReservationService.get_available_events_cs(start_datetime, end_datetime)
 			
