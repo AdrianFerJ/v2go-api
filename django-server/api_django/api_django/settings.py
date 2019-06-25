@@ -101,12 +101,12 @@ ASGI_APPLICATION = 'api_django.routing.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE',),
-        'NAME': os.environ.get('SQL_DATABASE', ),
-        'USER': os.environ.get('SQL_USER', ),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', ),
-        'HOST': os.environ.get('SQL_HOST', ),
-        'PORT': os.environ.get('SQL_PORT', ),
+        'ENGINE': os.environ.get('SQL_ENGINE'),
+        'NAME': os.environ.get('SQL_DATABASE'),
+        'USER': os.environ.get('SQL_USER'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD'),
+        'HOST': os.environ.get('SQL_HOST'),
+        'PORT': os.environ.get('SQL_PORT'),
     }
 }
 
