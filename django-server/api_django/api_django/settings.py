@@ -149,6 +149,7 @@ USE_L10N = True
 STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
 # Redis DB and Channel layer config 
 # REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 
