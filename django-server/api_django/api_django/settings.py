@@ -26,7 +26,12 @@ SECRET_KEY = os.getenv('v2go_SECRETE_KEY', 'SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localHost',
+    '127.0.0.1',
+    'http://165.227.37.87/'
+    'https://165.227.37.87/'
+]
 
 # Custom user model
 # AUTH_USER_MODEL = 'volt_finder.User'
