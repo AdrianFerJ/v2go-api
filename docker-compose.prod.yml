@@ -29,6 +29,7 @@ services:
 
   db:
     image: mdillon/postgis:9.6
+    container_name: db
     # env_file: django-server/.env.db
     environment:
       - POSTGRES_USER=dev_user
@@ -37,14 +38,13 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      # - data:/var/lib/postgresql/data
       - postgres_data:/var/lib/postgresql/data/
   
   nginx:
     build: ./nginx
-    # volumes:
-    #   - static_volume:/usr/src/app/staticfiles
-    #   - media_volume:/usr/src/app/mediafiles
+    volumes:
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
     ports:
       - 1337:80
     depends_on:
@@ -53,5 +53,4 @@ services:
 volumes:
   media:
   static:
-  # data:
   postgres_data:
