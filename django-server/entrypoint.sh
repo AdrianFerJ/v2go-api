@@ -9,8 +9,11 @@ then
     echo "PostgreSQL started"
 fi
 
-# Migreate changes to db
+# Flush db and recreate it (migrate), load start data, 
+# and collect static
 python manage.py flush --no-input
 python manage.py migrate
+python manage.py loaddata fixtures/alpha_data.json
+python manage.py collectstatic --no-input --clear
 
 exec "$@"
