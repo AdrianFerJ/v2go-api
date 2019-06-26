@@ -7,7 +7,6 @@ services:
       context: ./django-server
       dockerfile: Dockerfile.prod
     command: gunicorn api_django.wsgi:application --bind 0.0.0.0:8000
-    # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - media:/usr/src/app/media
       - static:/usr/src/app/static
@@ -23,8 +22,8 @@ services:
       - SQL_HOST=db
       - SQL_PORT=5432
       - DATABASE=postgres
-    ports:
-      - "8888:8000"
+    expose:
+      - 8000
     depends_on:
       - db
 
@@ -40,6 +39,16 @@ services:
     volumes:
       # - data:/var/lib/postgresql/data
       - postgres_data:/var/lib/postgresql/data/
+  
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    ports:
+      - 1337:80
+    depends_on:
+      - web
   
 volumes:
   media:
