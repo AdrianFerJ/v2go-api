@@ -7,8 +7,6 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./django-server:/usr/src/app
-      - media:/usr/src/app/media
-      - static:/usr/src/app/static
     environment:
       - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
       - DEBUG=1
@@ -25,21 +23,9 @@ services:
     depends_on:
       - db
 
-  # frontend:
-  #   image: dukdocker/v2go-angular:alpha
-  #   # Development ONLY: link volume to live update src/ in container 
-  #   # volumes:  
-  #   #   - ../v2go-frontend:/usr/src/app
-  #   command: ng serve --host 0.0.0.0
-  #   depends_on:
-  #     - web
-  #   environment:
-  #     - CHROME_BIN=chromium-browser
-  #   ports:
-  #     - 4200:4200
-
   db:
     image: mdillon/postgis:9.6
+    container_name: db
     environment:
       - POSTGRES_USER=dev_user
       - POSTGRES_PASSWORD=SirGeorgeWilliams1515
@@ -47,24 +33,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - data:/var/lib/postgresql/data
-      # - postgres_data:/var/lib/postgresql/data/
-
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #   depends_on:
-  #     - web
-  #     - frontend
-  #   ports:
-  #     - 8080:80
-  #   restart: always
-  #   volumes:
-  #     - media:/usr/src/app/media
-  #     - static:/usr/src/app/static
+      - data_db:/var/lib/postgresql/data
   
 volumes:
-  media:
-  static:
-  data:
-  # postgres_data:
+  data_db:

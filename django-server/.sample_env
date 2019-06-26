@@ -1,0 +1,10 @@
+# Copy this file, rename to ".env", update info
+DEBUG=0
+SECRET_KEY=<REPLACE_HERE>
+SQL_ENGINE=django.contrib.gis.db.backends.postgis
+SQL_DATABASE=pg_gis_db
+SQL_USER=<REPLACE_HERE>
+SQL_PASSWORD=<REPLACE_HERE>
+SQL_HOST=db
+SQL_PORT=5432
+DATABASE=postgres

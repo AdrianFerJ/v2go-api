@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,3 +23,4 @@ urlpatterns = [
     path('api/v1.0-pre-alpha/volt_finder/', include('volt_finder.urls', namespace='volt_finder_v1.0-pre-alpha')),
     path('api/v1.0-pre-alpha/volt_reservation/', include('volt_reservation.urls', namespace='volt_reservation_v1.0-pre-alpha')),
 ]
+urlpatterns += staticfiles_urlpatterns()

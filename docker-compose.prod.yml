@@ -1,9 +1,36 @@
 version: '3.7'
 
 services:
+
+  web:
+    build: 
+      context: ./django-server
+      dockerfile: Dockerfile.prod
+    command: gunicorn api_django.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
+    # env_file: django-server/.env
+    environment:
+      - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
+      - DEBUG=1
+      - SECRET_KEY=@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^br7^5*0$p0wlbwr
+      - SQL_ENGINE=django.contrib.gis.db.backends.postgis
+      - SQL_DATABASE=pg_gis_db
+      - SQL_USER=dev_user
+      - SQL_PASSWORD=SirGeorgeWilliams1515
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
+    expose:
+      - 8000
+    depends_on:
+      - db
+
   db:
     image: mdillon/postgis:9.6
     container_name: db
+    # env_file: django-server/.env.db
     environment:
       - POSTGRES_USER=dev_user
       - POSTGRES_PASSWORD=SirGeorgeWilliams1515
@@ -11,30 +38,19 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - data:/var/lib/postgresql/data
-  web:
-    container_name: web
-    build:
-      context: ./django-server
-    command: python api_django/manage.py runserver 0.0.0.0:8000
+      - postgres_data:/var/lib/postgresql/data/
+  
+  nginx:
+    build: ./nginx
     volumes:
-      - ./django-server:/code
-    environment:
-      - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
     ports:
-      - "8888:8000"
-    depends_on:
-      - db
-  frontend:
-    image: dukdocker/v2go-angular:alpha
-    command: ng serve --host 0.0.0.0
-    container_name: frontend
+      - 1337:80
     depends_on:
       - web
-    environment:
-      - CHROME_BIN=chromium-browser
-    ports:
-      - 4200:4200
   
 volumes:
-  data:
+  media:
+  static:
+  postgres_data:

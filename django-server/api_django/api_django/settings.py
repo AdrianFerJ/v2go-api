@@ -26,7 +26,12 @@ SECRET_KEY = os.getenv('v2go_SECRETE_KEY', 'SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['testserver', 'localHost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localHost',
+    '127.0.0.1',
+    'http://165.227.37.87/'
+    'https://165.227.37.87/'
+]
 
 # Custom user model
 # AUTH_USER_MODEL = 'volt_finder.User'
@@ -145,9 +150,10 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-# STATIC_URL = '/static/'
-STATIC_URL = '/staticfiles/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, '../static')
+
 
 # Redis DB and Channel layer config 
 # REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
