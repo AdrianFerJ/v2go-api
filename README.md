@@ -82,7 +82,7 @@ $ ng serve --open
 If you were taken to the welcome page (http://localhost:4200), Kill server (ctr+c) and install packages
 ```bash
 # cd into /angular-ui/ and install packages
-$ npm install 
+$ npm install
 
 # If this doesn't work, do a manual install (DANGEROUS!... This is a quick fix, make the other work instead)
 #  $ npm install \
@@ -92,21 +92,13 @@ $ npm install
 #        bootswatch --save
 ```
 
-### 3. Setup pre-commit
-With pre-commit setup, before each commit tests would be run and only when it passes is when 
-you can commit.
+### Deployment
 
-Click [here](https://rock-it.pl/automatic-code-quality-checks-with-git-hooks/) to get more information about pre-commit
-
-Run the following command to set it up
 ```bash
-./scripts/install-hooks.bash
-```
-
-If you would really have to skip tests, you can use the flag `--no-verify`
-
-For example
-```bash
-# pre-commit hook is skipped
-git commit --no-verify -m "test"
+# Build containers for production
+$ docker-compose -f docker-compose.prod.yml up -d --build
+# Migrate changes to db
+$ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+# Collect static files
+$ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
 ```
