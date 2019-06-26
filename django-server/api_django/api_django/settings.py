@@ -29,8 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localHost',
     '127.0.0.1',
-    'http://165.227.37.87/'
-    'https://165.227.37.87/'
+    '165.227.37.87'
 ]
 
 # Custom user model
