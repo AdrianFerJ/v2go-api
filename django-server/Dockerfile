@@ -30,4 +30,4 @@ WORKDIR /usr/src/app/api_django
 # EXPOSE 8000
 
 # Run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
