@@ -5,11 +5,12 @@ services:
   web:
     build: 
       context: ./django-server
-      dockerfile: Dockerfile.prod
+      dockerfile: prod.Dockerfile
     command: gunicorn api_django.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - media:/usr/src/app/media
       - static:/usr/src/app/static
+    # TODO replace environment with env_file
     # env_file: django-server/.env
     environment:
       - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
