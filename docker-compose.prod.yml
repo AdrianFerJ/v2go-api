@@ -3,9 +3,11 @@ version: '3.7'
 services:
 
   web:
-    build: ./django-server
-    # command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
-    command: python manage.py runserver 0.0.0.0:8000
+    build: 
+      context: ./django-server
+      dockerfile: Dockerfile.prod
+    command: gunicorn api_django.wsgi:application --bind 0.0.0.0:8000
+    # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - media:/usr/src/app/media
       - static:/usr/src/app/static
