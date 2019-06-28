@@ -1,4 +1,0 @@
-# Copy this file, rename to ".env.db", update info
-POSTGRES_USER=<REPLACE_HERE>
-POSTGRES_PASSWORD=<REPLACE_HERE>
-POSTGRES_DB=v2g_alpha_db

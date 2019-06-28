@@ -1,0 +1,7 @@
+# Copy this file, rename file, and update info accordingly
+# DEVELOPMENT file name => ".db_dev.env"
+# PRODUCTION file name => ".db_prod.env"
+
+POSTGRES_USER=<REPLACE_HERE>
+POSTGRES_PASSWORD=<REPLACE_HERE>
+POSTGRES_DB=<REPLACE_HERE>

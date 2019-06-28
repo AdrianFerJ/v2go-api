@@ -20,16 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('v2go_SECRETE_KEY', 'SECRET_KEY')
-
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', default=False)
 
 ALLOWED_HOSTS = [
     'localHost',
     '127.0.0.1',
-    '165.227.37.87'
+    '165.227.37.87' # DigitalOcean
 ]
 
 # Custom user model
@@ -177,4 +176,4 @@ REST_FRAMEWORK = {
 
 # There is a secrete API key used in development and staging. 
 # Each developer should get it's own key (sr: https://developers.google.com/maps/documentation/javascript/get-api-key)
-# GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')
+# GOOGLE_API_KEY = os.getenv('V2GO_GOOGLE_API_KEY')

@@ -7,7 +7,7 @@ from django.contrib.gis.db.models.functions import Distance
 from volt_finder.serializers import CSwithDistanceSerializer
 from volt_finder import helpers_finder as hf
 from volt_reservation.models import EventCS
-from volt_finder import mygooglemaps as gg
+# from volt_finder import mygooglemaps as gg
 from main.serializers import ChargingStationSerializer
 from main.models import ChargingStation
 from main import constants
