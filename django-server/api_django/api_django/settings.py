@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localHost',
     '127.0.0.1',
-    '165.227.37.87'
+    '165.227.37.87' # DigitalOcean
 ]
 
 # Custom user model

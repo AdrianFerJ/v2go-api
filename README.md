@@ -92,8 +92,9 @@ $ npm install
 #        bootswatch --save
 ```
 
-### Deployment
+## Deployment
 
+### Docker stuff
 ```bash
 # Build containers for production
 $ docker-compose -f docker-compose.prod.yml up -d --build
@@ -103,4 +104,11 @@ $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --
 $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
 # Load start data
 $ docker-compose -f docker-compose.prod.yml exec web python manage.py loaddata fixtures/alpha_data.json
+```
+### Update Angular dist/ files in production
+```bash
+# Generate new binary files (dist/) from v2go-frontend/
+$ ng build --prod
+# Copy dist files to server (from v2go-frontend/)
+$ scp -r /dist root@165.227.37.87:/root/v2go-api/nginx/angular_dist/html
 ```
