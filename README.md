@@ -28,7 +28,7 @@ You simply have to run docker-compose from the root directory.
 $ docker-compose up -d --build
 
 # To check that services are running:
-$ docker-compose ps 
+$ docker-compose ps
 
 # Run django migrations
 $ docker-compose run django-server python django-server/manage.py makemigrations

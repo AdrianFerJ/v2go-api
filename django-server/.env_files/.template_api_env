@@ -1,0 +1,19 @@
+# Copy this file, rename file, and update info accordingly
+# DEVELOPMENT file name => ".api_dev.env"
+# PRODUCTION file name => ".api_prod.env"
+
+# Django Config
+DEBUG=False
+SECRET_KEY=<REPLACE_HERE>
+
+# DB
+SQL_ENGINE=django.contrib.gis.db.backends.postgis
+SQL_DATABASE=<REPLACE_HERE>
+SQL_USER=<REPLACE_HERE>
+SQL_PASSWORD=<REPLACE_HERE>
+SQL_HOST=db
+SQL_PORT=5432
+DATABASE=postgres
+
+# Google API key
+v2go_GOOGLE_API_KEY=<REPLACE_HERE>

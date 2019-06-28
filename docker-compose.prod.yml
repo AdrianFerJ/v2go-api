@@ -11,7 +11,7 @@ services:
       - media:/usr/src/app/media
       - static:/usr/src/app/static
     env_file: 
-      - django-server/env_files/.api_prod.env
+      - django-server/.env_files/.api_prod.env
     expose:
       - 8000
     depends_on:
@@ -21,7 +21,7 @@ services:
     image: mdillon/postgis:9.6
     container_name: db
     env_file: 
-      - django-server/env_files/.db_prod.env
+      - django-server/.env_files/.db_prod.env
     ports:
       - "5433:5432"
     volumes:
