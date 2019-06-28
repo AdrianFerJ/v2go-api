@@ -15,7 +15,7 @@ from dataclasses import dataclass
 
 # Settings to run script manually
 import os
-GOOGLE_API_KEY = os.getenv('v2go_GOOGLE_API_KEY')
+GOOGLE_API_KEY = os.getenv('V2GO_GOOGLE_API_KEY')
 gmaps = googlemaps.Client(key= GOOGLE_API_KEY)
 
 # Transportation mode
