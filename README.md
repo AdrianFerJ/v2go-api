@@ -105,6 +105,7 @@ $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectsta
 # Load start data
 $ docker-compose -f docker-compose.prod.yml exec web python manage.py loaddata fixtures/alpha_data.json
 ```
+
 ### Update Angular dist/ files in production
 ```bash
 # Generate new binary files (dist/) from v2go-frontend/

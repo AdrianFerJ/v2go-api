@@ -10,21 +10,8 @@ services:
     volumes:
       - media:/usr/src/app/media
       - static:/usr/src/app/static
-      
-    # TODO replace environment with env_file
     env_file: 
       - django-server/env_files/.api_prod.env
-    # environment:
-    #   - v2go_GOOGLE_API_KEY=AIzaSyDV6tzXNYpZNv0gRL1n778fltpBHUlA2fQ
-    #   - DEBUG=1
-    #   - SECRET_KEY=@=3v3urk9a=y1=(yjs%r2uabvv@i*3(!#*^br7^5*0$p0wlbwr
-    #   - SQL_ENGINE=django.contrib.gis.db.backends.postgis
-    #   - SQL_DATABASE=pg_gis_db
-    #   - SQL_USER=dev_user
-    #   - SQL_PASSWORD=SirGeorgeWilliams1515
-    #   - SQL_HOST=db
-    #   - SQL_PORT=5432
-    #   - DATABASE=postgres
     expose:
       - 8000
     depends_on:
@@ -33,13 +20,8 @@ services:
   db:
     image: mdillon/postgis:9.6
     container_name: db
-    # TODO replace env_file 
     env_file: 
       - django-server/env_files/.db_prod.env
-    # environment:
-    #   - POSTGRES_USER=dev_user
-    #   - POSTGRES_PASSWORD=SirGeorgeWilliams1515
-    #   - POSTGRES_DB=pg_gis_db
     ports:
       - "5433:5432"
     volumes:
