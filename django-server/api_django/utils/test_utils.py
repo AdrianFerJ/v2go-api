@@ -46,7 +46,8 @@ def ev_event_to_ordered_dict(ev_events):
             ('nk', ev_event.nk),
             ('event_cs', cs_event_to_ordered_dict(ev_event.event_cs)),
             ('ev', ev_event.ev.model),
-            ('ev_owner', ev_event.ev_owner.pk)
+            ('ev_owner', ev_event.ev_owner.pk),
+            ('status', ev_event.status)
         ]))
 
     return ev_events_serialized
