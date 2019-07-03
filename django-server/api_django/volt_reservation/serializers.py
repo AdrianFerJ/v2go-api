@@ -21,4 +21,4 @@ class EventEVSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = EventEV
-		fields = ('nk', 'event_cs', 'ev', 'ev_owner')
+		fields = ('nk', 'event_cs', 'ev', 'ev_owner', 'status')
